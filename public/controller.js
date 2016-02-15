@@ -7,8 +7,8 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
         /* 8MB buffer 8*1024*1024 bytes - */
         /* [1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays */
         var size = 8 * 1024 * 1024;
-        var buffer = new ArrayBuffer(size);
-        var lines = new DataView(buffer);
+        var primeBuffer = new ArrayBuffer(size);
+        var primeView = new DataView(buffer);
 
         var offset = 64;
 
@@ -21,7 +21,31 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
         /* Possible addresses 8MB/64B = 131072 / 131K */
         var addresses = size/offset;
 
-                /**
+        /* Access the buffer in offsets of 1 per every 64 bytes. */
+        /* Array of offsets */
+        var S = {};
+        /* |S| = addresses */
+        for(var i=0; i<addresses; i++) {
+            S[i] = false;
+        }
+
+        /* Access the buffer in offsets of 1 per every 64 bytes. */
+        function accessMembers(set) {
+            for(var key in set) {
+                probeView.getUint32(key * offset);
+            }
+        }
+
+        /* Helper function to measure the time it takes to retrieve a variable */
+        function getTime(x) {
+            var current;
+            var startTime = window.performance.now();
+            current = primeView.getUint32(x);
+            var endTime = window.performance.now();
+            return endTime - startTime;
+        }
+
+        /**
          * Algorithm 1 Profiling a Cache Set
          * Let S be the set of currently unmapped page-aligned addresses, and address x be an
          * arbitrary page-aligned address in memory.
@@ -37,7 +61,32 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
          *              is not part of the same set as x.
          *      2. If |S| = 12, return S. Otherwise report failure.
          */
-        var algorithm1 = function () {
+        function algorithm1 (x) {
+            // a
+            accessMembers(S);
+
+            // b
+
+            // var current;
+            // var startTime = window.performance.now();
+            // current = primeView.getUint32(x);
+            // var endTime = window.performance.now();
+            // var diffTimeBefore = endTime - startTime;
+
+            var diffTimeBefore = getTime(x);
+
+            // c
+
+            /* Invalidate the cache set */
+            var currentEntry = startAddress;
+            do {
+                currentEntry = probeView.getUint32(currentEntry);
+            } while(currentEntry != startAddress);
+
+            /* Measure access time */
+            var startTime = window.performance.now();
+            currentEntry = primeView.getUint32(variableToAccess);
+            var endTime = window.performance.now();
 
         };
 }]);
