@@ -4,92 +4,40 @@ angular.module('TheApp', []);
 
 angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
     function($scope, $http) {
-        // Set threshold to something
-        var threshold = 1;
-
-        // Create eviction set
-        /* Trying to create the eviction set */
-
-        var buffer = new ArrayBuffer(8192 * 1024); // 8 MB eviction buffer
+        /* 8MB buffer 8*1024*1024 bytes - */
+        /* [1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays */
+        var size = 8 * 1024 * 1024;
+        var buffer = new ArrayBuffer(size);
         var lines = new DataView(buffer);
+
         var offset = 64;
 
-        var order = [];
-        for (var i=0; i < 64*500; i+=64) {
-        	order.push(i);
-        }
-        order = shuffle(order);
+        /* We assume a victim system with 8192 cache sets, each which l=12-way associativity*/
+        var s = 8192;
 
-        // function resetCache() {
-        // 	for (var i = 8192 * 1024 - 64; i >= 0; i-=offset) {
-        // 		lines.getUint32(i);
-        // 	}
-        // }
+        /* 12-way associative */
+        var l = 12;
 
-        function probe(set, candidate) {
-        	lines.getUint32(candidate);
-        	set.forEach(function (l) {
-        		lines.getUint32(l);
-        	});
-        	var t1 = window.performance.now();
-        	lines.getUint32(candidate);
-        	var t2 = window.performance.now();
-        	threshold = 0.0015;
-        	return t2 - t1 > threshold;
-        }
+        /* Possible addresses 8MB/64B = 131072 / 131K */
+        var addresses = size/offset;
 
-        // console.log(probe([], 0));
-        // resetCache();
+                /**
+         * Algorithm 1 Profiling a Cache Set
+         * Let S be the set of currently unmapped page-aligned addresses, and address x be an
+         * arbitrary page-aligned address in memory.
+         *      1. Repeat k times:
+         *          (a) Iteratively access all members of S.
+         *          (b) Measure t_1, the time takes to access x.
+         *          (c) Select a random page s from S and remove it.
+         *          (d) Iteratively access all members of S/s.
+         *          (e) Measure t_2, the time it takes to access x.
+         *          (f) If removing s caused the memory to speed up considerably (i.e., t_1 - t_2 > thres),
+         *              then this address is part of the same set as x. Place it back into S.
+         *          (g) If removing s did not cause memory access to speed up considerably, then s
+         *              is not part of the same set as x.
+         *      2. If |S| = 12, return S. Otherwise report failure.
+         */
+        var algorithm1 = function () {
 
-        var conflict_set = [];
-        var i = 0;
-        order.forEach(function (candidate) {
-        	if (!probe(conflict_set, candidate)) {
-        		conflict_set.push(candidate);
-        	} else {
-        		console.log(i);
-        	}
-        	i++;
-        });
-
-        // console.log(conflict_set);
-        var int8View = new Int8Array(buffer);
-
-        int8View.diff(conflict_set).forEach(function (candidate) {
-        	if (probe(conflict_set, candidate)) {
-        		eviction_set = []
-        		conflict_set.forEach(function (l) {
-        			if (!probe(conflict_set.diff([l]), candidate)) {
-        				eviction_set.push(l);
-        			}
-        		});
-        		console.log(eviction_set);
-        		conflict_set = conflict_set.diff(eviction_set);
-        	}
-        });
-
-        // Helper functions
-        Array.prototype.diff = function(a) {
-            return this.filter(function(i) {return a.indexOf(i) < 0;});
         };
-
-        function shuffle(array) {
-            var counter = array.length, temp, index;
-
-            // While there are elements in the array
-            while (counter > 0) {
-                // Pick a random index
-                index = Math.floor(Math.random() * counter);
-
-                // Decrease counter by 1
-                counter--;
-
-                // And swap the last element with it
-                temp = array[counter];
-                array[counter] = array[index];
-                array[index] = temp;
-            }
-
-            return array;
-        }
 }]);
