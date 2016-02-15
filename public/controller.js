@@ -30,6 +30,7 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
         }
 
         /* Access the buffer in offsets of 1 per every 64 bytes. */
+        // TODO only access memebers that are in the set? if statement if S true/false
         function accessMembers(set) {
             for(var key in set) {
                 probeView.getUint32(key * offset);
@@ -44,6 +45,19 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
             var endTime = window.performance.now();
             return endTime - startTime;
         }
+
+        /* Select random page s from S and remove it. */
+        function removeRandomPage(set) {
+            var available = Object.keys(set).filter(function(member) {return !set[member];});
+            if (Object.keys(available).length == 0) {
+                s = -1;
+            } else {
+                s = Math.floor(Math.random() * Object.keys(available).length);
+            //   delete set[available[s]]
+
+            }
+        }
+
 
         /**
          * Algorithm 1 Profiling a Cache Set
@@ -76,6 +90,8 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
             var diffTimeBefore = getTime(x);
 
             // c
+            // Select random page s from S and remove it.
+            removeRandomPage(S);
 
             /* Invalidate the cache set */
             var currentEntry = startAddress;
