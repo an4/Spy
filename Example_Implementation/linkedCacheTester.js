@@ -7,12 +7,12 @@
 $(document).ready(function() {
 // probeView from paper - for invalidation
 var probeBuffer = new ArrayBuffer(8192 * 1024); // 8 MB eviction buffer
-var probeView = new DataView(probeBuffer); 
+var probeView = new DataView(probeBuffer);
 var startAddress = 0;
 
 // primeView from paper - testing data retrieval
 var primeBuffer = new ArrayBuffer(8192 * 1024);
-var primeView = new DataView(primeBuffer); 
+var primeView = new DataView(primeBuffer);
 
 // L3 cache line size
 var offset = 64;
@@ -82,20 +82,20 @@ for (var round = 0; round < numRounds; round++) {
   var endTime4 = window.performance.now();
   var diffTime4 = endTime4 - startTime4;
 
-  /**
+
   console.log("ROUND " + round);
   console.log(diffTime1 - diffTime2); // diffTime1 generally should be > diffTime2 : TRUE
   console.log(diffTime3 - diffTime2); // should be around 0 / alternate between positive and negative? : TRUE
   console.log(diffTime4 - diffTime1); // should be around 0 / alternate between positive and negative? : TRUE - round 0 is strangely always positive
-  **/
 
-  /**
+
+
   console.log("ROUND " + round);
   console.log(diffTime1);
   console.log(diffTime2);
   console.log(diffTime3);
   console.log(diffTime4);
-  **/
+  
 
   flushed1.push(Math.floor(diffTime1 * 100000));
   unflushed1.push(Math.floor(diffTime2 * 100000));

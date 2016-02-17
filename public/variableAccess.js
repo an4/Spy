@@ -3,7 +3,7 @@ var view = new DataView(buffer);
 
 var offset = 64;
 var S = {}
-for (var i=0; i<8192*1024/offset; i++) {
+for (var i=0; i<8 *1024 *1024/offset; i++) {
   S[i] = false;
 }
 
@@ -11,6 +11,8 @@ var index = [];
 for(var i=0; i<8192*1024/offset; i++) {
     index.push(i);
 }
+
+var current;
 
 Array.prototype.shuffle = function() {
     var input = this;
@@ -32,6 +34,13 @@ function accessMembers(set) {
   });
 };
 
+// initialize linked list
+for (var i = 0; i < ((8192 * 1024) / offset); i++) {
+  view.setFloat64(i * offset, (i+1) * offset);
+}
+view.setFloat64((((8192 * 1024) / offset) - 1 ) * offset, 0);
+
+
 // Access buffer in random order
 function accessBuffer(i) {
     index.shuffle();
@@ -46,74 +55,39 @@ function accessBuffer(i) {
     }
 };
 
-var flushed = []
-var unflushed = []
-
 function testAccessTime(i) {
-    var x = Math.random();
-    x = Math.random();
+    var startAddress = 0;
 
     var startTime1 = window.performance.now();
-    x = Math.random();
+    current = view.getFloat64(startAddress);
     var endTime1 = window.performance.now();
     var diffTime1 = endTime1 - startTime1;
-    // console.log("Unflushed: " + diffTime1);
-
-    unflushed.push(diffTime1);
-
-    // for(var i=0; i<8192*1024/offset; i++) {
-    //     view.getFloat64(i * offset);
-    // }
-
-    index.shuffle();
-    if(i % 2 == 0) {
-        for(var j=0; j<index.length; j++) {
-            view.getFloat64(index[j] * offset);
-        }
-    } else {
-        for(var j=index.length-1; j>=0; j--) {
-            view.getFloat64(index[j] * offset);
-        }
-    }
+    console.log("Time1: " + diffTime1);
 
     var startTime2 = window.performance.now();
-    x = Math.random();
+    current = view.getFloat64(startAddress);
     var endTime2 = window.performance.now();
     var diffTime2 = endTime2 - startTime2;
-    // console.log("Flushed: " + diffTime2);
+    console.log("Time2: " + diffTime2);
 
-    // return diffTime2 - diffTime1;
-    flushed.push(diffTime2);
+    // Access buffer as linked list, puting it in a function does not work.
+    current = 0;
+    do {
+      current = view.getFloat64(current);
+    } while (current != 0);
+
+    var startTime3 = window.performance.now();
+    current = view.getFloat64(startAddress);
+    var endTime3 = window.performance.now();
+    var diffTime3 = endTime3 - startTime3;
+    console.log("Time3: " + diffTime3);
 };
 
-var sum = 0;
-
 var itr = 5;
-var l = 0;
 for(var i=0; i<itr; i++) {
     testAccessTime();
-    accessMembers(S);
+    current = 0;
+    do {
+      current = view.getFloat64(current);
+    } while (current != 0);
 }
-
-console.log("UN " + unflushed);
-console.log(flushed);
-
-
-// Visualization
-
-// google.charts.load("current", {packages:["corechart"]});
-// google.charts.setOnLoadCallback(drawChart);
-// function drawChart() {
-//   var data = google.visualization.arrayToDataTable(flushed);
-//
-//   console.log(data);
-//
-//   var options = {
-//     title: 'WTF',
-//     legend: { position: 'none' },
-//   };
-//
-//   var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-//   chart.draw(data, options);
-//
-// }
