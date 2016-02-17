@@ -95,7 +95,7 @@ for (var round = 0; round < numRounds; round++) {
   console.log(diffTime2);
   console.log(diffTime3);
   console.log(diffTime4);
-  
+
 
   flushed1.push(Math.floor(diffTime1 * 100000));
   unflushed1.push(Math.floor(diffTime2 * 100000));
