@@ -82,3 +82,64 @@ for(var round = 0; round < rounds; round++) {
 
 console.log("Flushed avg: " + (flushed_sum/rounds));
 console.log("Unflushed avg: " + (unflushed_sum/rounds));
+
+function createDataSetToPlot(values) {
+    var dataset = [];
+    for(var i=0; i<values.length; i++) {
+        dataset.push([values[i], 1/values]);
+    }
+    return dataset;
+}
+
+function plot() {
+    // jqplot data visualization
+    plot1 = $.jqplot("chart1", [createDataSetToPlot(flushed), createDataSetToPlot(unflushed)], {
+      title: "Access Latencies : Flushed vs Unflushed",
+      cursor: {
+          show: false
+      },
+      highlighter: {
+          show: true,
+          showMarker: false,
+          useAxesFormatters: false,
+          formatString: '%d, %.1f'
+      },
+      axesDefaults: {
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+      },
+      seriesDefaults: {
+          showMarker: false
+      },
+      series:[
+        {label: 'flushed'},
+        {label: 'unflushed'},
+      ],
+      legend: {
+        show: true,
+        location: 'ne'
+      },
+      axes: {
+          xaxis: {
+              label: 'Access Latency (10^-5 seconds)',
+              pad:0,
+              ticks: [],
+              tickOptions: {
+                  formatString: "%d"
+              },
+              max: 50,
+              min: 0
+          },
+          yaxis: {
+              label: 'Probability Density (%)',
+              forceTickAt0: true,
+              pad: 0
+          }
+      },
+      grid: {
+          drawBorder: false,
+          shadow: false,
+          background: "white"
+      }
+    });
+
+}
