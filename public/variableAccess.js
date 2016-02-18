@@ -28,30 +28,42 @@
     var rounds = 1000;
 
     for(var round = 0; round < rounds; round++) {
-        current = 0;
+        var variable = Math.floor((Math.random() * (size/offset))) * offset;
+        // current = 0;
+        // do {
+        //   current = view.getFloat64(current);
+        // } while (current != 0);
+        var start = Math.floor((Math.random() * (size/offset)));
+        current = start*offset;
         do {
           current = view.getFloat64(current);
-        } while (current != 0);
+        } while (current != start*offset);
 
         var startTime1 = window.performance.now();
-        current = FLview.getFloat64(startAddress);
+        current = FLview.getFloat64(variable);
         var endTime1 = window.performance.now();
         var diffTime1 = endTime1 - startTime1;
         // console.log("Time1: " + diffTime1);
 
         var startTime2 = window.performance.now();
-        current = FLview.getFloat64(startAddress);
+        current = FLview.getFloat64(variable);
         var endTime2 = window.performance.now();
         var diffTime2 = endTime2 - startTime2;
         console.log("Time2: " + diffTime2);
 
-        current = 0;
+        // current = 0;
+        // do {
+        //   current = view.getFloat64(current);
+        // } while (current != 0);
+
+        var start = Math.floor((Math.random() * (size/offset)));
+        current = start*offset;
         do {
           current = view.getFloat64(current);
-        } while (current != 0);
+        } while (current != start*offset);
 
         var startTime3 = window.performance.now();
-        current = FLview.getFloat64(startAddress);
+        current = FLview.getFloat64(variable);
         var endTime3 = window.performance.now();
         var diffTime3 = endTime3 - startTime3;
         console.log("Time3: " + diffTime3);
@@ -61,5 +73,5 @@
         current = start*offset;
         do {
           current = view.getFloat64(current);
-      } while (current != start*offset);
+        } while (current != start*offset);
     }
