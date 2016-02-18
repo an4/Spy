@@ -25,9 +25,9 @@
     }
     FLview.setFloat64((((size) / offset) - 1 ) * offset, 0);
 
-    var itr = 5;
+    var rounds = 10;
 
-    for(var round = 0; round < itr; round++) {
+    for(var round = 0; round < rounds; round++) {
         current = 0;
         do {
           current = view.getFloat64(current);
@@ -37,7 +37,7 @@
         current = FLview.getFloat64(startAddress);
         var endTime1 = window.performance.now();
         var diffTime1 = endTime1 - startTime1;
-        console.log("Time1: " + diffTime1);
+        // console.log("Time1: " + diffTime1);
 
         var startTime2 = window.performance.now();
         current = FLview.getFloat64(startAddress);
@@ -56,7 +56,10 @@
         var diffTime3 = endTime3 - startTime3;
         console.log("Time3: " + diffTime3);
 
-        if(diffTime3 > diffTime2) {
-            console.log("True");
-        }
+
+        var start = Math.floor((Math.random() * (size/offset)));
+        current = start*offset;
+        do {
+          current = view.getFloat64(current);
+      } while (current != start*offset);
     }
