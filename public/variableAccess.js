@@ -25,7 +25,7 @@
     }
     FLview.setFloat64((((size) / offset) - 1 ) * offset, 0);
 
-    var rounds = 10;
+    var rounds = 1000;
 
     for(var round = 0; round < rounds; round++) {
         current = 0;
