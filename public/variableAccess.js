@@ -83,6 +83,8 @@ for(var round = 0; round < rounds; round++) {
 console.log("Flushed avg: " + (flushed_sum/rounds));
 console.log("Unflushed avg: " + (unflushed_sum/rounds));
 
+plot();
+
 function createDataSetToPlot(values) {
     var dataset = [];
     for(var i=0; i<values.length; i++) {
