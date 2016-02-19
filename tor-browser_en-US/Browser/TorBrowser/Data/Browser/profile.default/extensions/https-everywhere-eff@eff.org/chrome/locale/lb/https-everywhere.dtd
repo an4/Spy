@@ -1,0 +1,50 @@
+<!ENTITY https-everywhere.about.title "Iwwert HTTPS Everywhere">
+<!ENTITY https-everywhere.about.ext_name "HTTPS Everywhere">
+<!ENTITY https-everywhere.about.ext_description "Verschlësselt den Internet! Benotzt automatesch HTTPS fir eng helle Wull u Websäiten">
+<!ENTITY https-everywhere.about.version "Versioun">
+<!ENTITY https-everywhere.about.created_by "Erstallt vun">
+<!ENTITY https-everywhere.about.librarians "Bibliothekar Regelen">
+<!ENTITY https-everywhere.about.thanks "Merci un">
+<!ENTITY https-everywhere.about.contribute  "Wann dir HTTPS Everywhere gär hutt, dann consideréiert">
+<!ENTITY https-everywhere.about.donate_tor "Een Don fir Tor">
+<!ENTITY https-everywhere.about.tor_lang_code "lb">
+<!ENTITY https-everywhere.about.or "oder">
+<!ENTITY https-everywhere.about.donate_eff "Un d´ EFF spenden">
+
+<!ENTITY https-everywhere.menu.about "Iwwert HTTPS Everywhere">
+<!ENTITY https-everywhere.menu.observatory "SSL Observatory Astellungen">
+<!ENTITY https-everywhere.menu.globalEnable "HTTPS Everywhere aktivéieren">
+<!ENTITY https-everywhere.menu.globalDisable "HTTPS Everywhere desaktivéieren">
+<!ENTITY https-everywhere.menu.blockHttpRequests "All HTTP Ufro blockéieren">
+<!ENTITY https-everywhere.menu.showCounter "Compteur uweisen">
+<!ENTITY https-everywhere.menu.viewAllRules "All d'Regelen gesinn">
+
+<!ENTITY https-everywhere.prefs.title "HTTPS Everywhere Astellungen">
+<!ENTITY https-everywhere.prefs.enable_all "Alles aktivéieren">
+<!ENTITY https-everywhere.prefs.disable_all "Alles desaktivéieren">
+<!ENTITY https-everywhere.prefs.reset_defaults "Op d'Standardastellungen zerécksetzen">
+<!ENTITY https-everywhere.prefs.search "Sichen">
+<!ENTITY https-everywhere.prefs.site "Websäit">
+<!ENTITY https-everywhere.prefs.notes "Noten">
+<!ENTITY https-everywhere.prefs.list_caption "Wei eng HTTPS Weiderleedungsregelen sollen gëllen?">
+<!ENTITY https-everywhere.prefs.enabled "Aktivéiert">
+<!ENTITY https-everywhere.prefs.ruleset_howto "Dir kennt leieren är eegen Regelen ze kreéieren (Regelen fir aner Websäiten bäifügen)">
+<!ENTITY https-everywhere.prefs.here_link "hei">
+<!ENTITY https-everywhere.prefs.toggle "Ëmschalten">
+<!ENTITY https-everywhere.prefs.reset_default "Op d'Standardastellungen zerécksetzen">
+<!ENTITY https-everywhere.prefs.view_xml_source "Den XML Quellcode kucken">
+
+<!ENTITY https-everywhere.source.downloading "Um Roflueden">
+<!ENTITY https-everywhere.source.filename "Dateinumm">
+<!ENTITY https-everywhere.source.unable_to_download "D'Quell konnt net erofgelued ginn.">
+
+<!ENTITY https-everywhere.popup.title "HTTPS Everywhere 4.0development.11 Notifikatioun">
+<!ENTITY https-everywhere.popup.paragraph1 "Hoppla! Dir hutt eng stable Versioun vun HTTPS Everywhere benotzt, mä mir hunn iech méiglecherweis op eng Entwécklerversioun geupdatet.">
+<!ENTITY https-everywhere.popup.paragraph2 "Well dir zeréck zu enger stabiler Versioun?">
+<!ENTITY https-everywhere.popup.paragraph3 "Mir géifen eis immens freeën wann dir géift weider fueren an eis Entwécklerversioun weiderhin benotzt, domatt mir HTTPS Everywhere verbessere kennen! Dir fannt méiglecherweis hei an do ee Feeler deen der eis mellen kennt via Mail un https-everywhere@eff.org. Entschëllegt fir d'Ëmstänn a Merci datt dir HTTPS Everywhere benotzt.">
+<!ENTITY https-everywhere.popup.keep "Bei der Entwécklerversioun bleiwen">
+<!ENTITY https-everywhere.popup.revert "Déi letzt stabil Versioun eroflueden">
+
+<!ENTITY https-everywhere.ruleset-tests.status_title "HTTPS Everywhere Regelentester">
+<!ENTITY https-everywhere.ruleset-tests.status_cancel_button "Ofbriechen">
+<!ENTITY https-everywhere.ruleset-tests.status_start_button "Start">
