@@ -79,12 +79,12 @@ $(document).ready(function () {
             current = view.getUint32(current);
         } while (current != startAddress);
 
-        // eviction round 2
-        startAddress = Math.floor((Math.random() * (size/offset))) * offset;
-        current = startAddress;
-        do {
-            current = view.getUint32(current);
-        } while (current != startAddress);
+        // // eviction round 2
+        // startAddress = Math.floor((Math.random() * (size/offset))) * offset;
+        // current = startAddress;
+        // do {
+        //     current = view.getUint32(current);
+        // } while (current != startAddress);
 
         // retrieve a variable from view, thought to be from RAM since view already occupied
         // the cache.
