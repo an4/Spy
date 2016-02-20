@@ -11,6 +11,8 @@ $(document).ready(function () {
 
     var startAddress = 0;
 
+    var error_count = 0;
+
     var varAddress;
 
     var current;
@@ -20,16 +22,16 @@ $(document).ready(function () {
     var flushed_sum = 0;
     var unflushed_sum = 0;
 
+    var max_time = 0;
+
     // initialize linked list
     for (var i = 0; i < ((size) / offset) - 1; i++) {
         view.setUint32(i * offset, (i+1) * offset);
-        variables_view.setUint32(i * offset, (i+1) * offset);
     }
     view.setUint32((((size) / offset) - 1 ) * offset, 0);
-    variables_view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
     // numbber of rounds to test the attack
-    var rounds = 50;
+    var rounds = 5000;
 
     var times = 100000;
 
@@ -37,6 +39,7 @@ $(document).ready(function () {
     varAddress = Math.floor((Math.random() * (size/offset))) * offset;
 
     for(var round = 0; round < rounds; round++) {
+        // console.log("Round: " + round);
 
         // access all elements in view to add them to the cache, start from random value and
         // access it as a linked list.
@@ -48,8 +51,16 @@ $(document).ready(function () {
 
 
         // access a variable from FLview, retrieve value from RAM
+        var startTimeRAM0 = window.performance.now();
         current = variables_view.getUint32(varAddress);
+        var endTimeRAM0 = window.performance.now();
+        // console.log("RAM 0: " + Math.floor((endTimeRAM0 - startTimeRAM0) * times));
+
+        // access the previous variable again, this time from the cache
+        var startTimeCache0 = window.performance.now();
         current = variables_view.getUint32(varAddress);
+        var endTimeCache0 = window.performance.now();
+        // console.log("Cache 0: " + Math.floor((endTimeCache - startTimeCache) * times));
 
         // access the previous variable again, this time from the cache
         var startTimeCache = window.performance.now();
@@ -57,41 +68,54 @@ $(document).ready(function () {
         var endTimeCache = window.performance.now();
 
         var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
-        console.log("Time cache: " + diffTimeCache);
+        // console.log("Time cache: " + diffTimeCache);
         unflushed.push(diffTimeCache);
         unflushed_sum += diffTimeCache;
 
-        // eviction round
+        // eviction round 1
         startAddress = Math.floor((Math.random() * (size/offset))) * offset;
         current = startAddress;
         do {
             current = view.getUint32(current);
         } while (current != startAddress);
 
+        // eviction round 2
+        startAddress = Math.floor((Math.random() * (size/offset))) * offset;
+        current = startAddress;
+        do {
+            current = view.getUint32(current);
+        } while (current != startAddress);
 
         // retrieve a variable from view, thought to be from RAM since view already occupied
         // the cache.
-
         var startTimeRAM = window.performance.now();
+
         current = variables_view.getUint32(varAddress);
+
         var endTimeRAM = window.performance.now();
 
         var diffTimeRAM = Math.floor((endTimeRAM - startTimeRAM) * times);
-        console.log("Time RAM: " + diffTimeRAM);
+        // console.log("Time RAM: " + diffTimeRAM);
         flushed.push(diffTimeRAM);
         flushed_sum  += diffTimeRAM;
 
-        if(diffTimeRAM < diffTimeCache) {
-            console.log("3rr0r");
-            // alert("Again!");
+        if(max_time < diffTimeRAM) {
+            max_time = diffTimeRAM
         }
-        console.log(round);
+        if(max_time < diffTimeCache) {
+            max_time = diffTimeCache;
+        }
+
+        if(diffTimeRAM < diffTimeCache) {
+            error_count++;
+        }
     }
 
     console.log("Flushed avg: " + (flushed_sum/rounds));
     console.log("Unflushed avg: " + (unflushed_sum/rounds));
+    console.log("Error count: " +  error_count);
 
-    // plot();
+    plot();
 
 function createDataSetToPlot(data) {
     counts = {}
@@ -106,10 +130,8 @@ function createDataSetToPlot(data) {
     pdData = []
     for (var el in counts) {
         pdData.push([el, counts[el]/data.length]);
+        pdData.sort(function(a,b) {return a[0] - b[0];});
     }
-
-    pdData.sort(function(a,b) {return a[0] - b[0];});
-    // remove outliers
 
     return pdData;
     }
@@ -149,7 +171,7 @@ function createDataSetToPlot(data) {
             tickOptions: {
                 formatString: "%d"
             },
-            max: 100,
+            max: 80,
             min: 0
         },
         yaxis: {
