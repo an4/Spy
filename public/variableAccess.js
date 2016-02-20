@@ -11,6 +11,8 @@ $(document).ready(function () {
 
     var startAddress = 0;
 
+    var varAddress;
+
     var current;
 
     var flushed = [];
@@ -21,72 +23,75 @@ $(document).ready(function () {
     // initialize linked list
     for (var i = 0; i < ((size) / offset) - 1; i++) {
         view.setUint32(i * offset, (i+1) * offset);
+        variables_view.setUint32(i * offset, (i+1) * offset);
     }
     view.setUint32((((size) / offset) - 1 ) * offset, 0);
+    variables_view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
     // numbber of rounds to test the attack
-    var rounds = 1000;
+    var rounds = 50;
 
     var times = 100000;
 
+    // Choose random address for the variable
+    varAddress = Math.floor((Math.random() * (size/offset))) * offset;
+
     for(var round = 0; round < rounds; round++) {
+
         // access all elements in view to add them to the cache, start from random value and
         // access it as a linked list.
-
+        startAddress = Math.floor((Math.random() * (size/offset))) * offset;
         current = startAddress;
         do {
             current = view.getUint32(current);
         } while (current != startAddress);
 
-        // for (var i = 0; i < size / offset; i++) {
-        //     current = view.getUint32(i * offset);
-        // }
 
         // access a variable from FLview, retrieve value from RAM
-        current = variables_view.getUint32(startAddress);
-        current = variables_view.getUint32(startAddress);
+        current = variables_view.getUint32(varAddress);
+        current = variables_view.getUint32(varAddress);
 
         // access the previous variable again, this time from the cache
         var startTimeCache = window.performance.now();
-        current = variables_view.getUint32(startAddress);
+        current = variables_view.getUint32(varAddress);
         var endTimeCache = window.performance.now();
 
         var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
-        // console.log("Time cache: " + diffTimeCache);
+        console.log("Time cache: " + diffTimeCache);
         unflushed.push(diffTimeCache);
         unflushed_sum += diffTimeCache;
 
         // eviction round
-
+        startAddress = Math.floor((Math.random() * (size/offset))) * offset;
         current = startAddress;
         do {
             current = view.getUint32(current);
         } while (current != startAddress);
 
-        // for (var i = 0; i < size / offset; i++) {
-        //     current = view.getUint32(i * offset);
-        // }
 
         // retrieve a variable from view, thought to be from RAM since view already occupied
         // the cache.
+
         var startTimeRAM = window.performance.now();
-        current = variables_view.getUint32(startAddress);
+        current = variables_view.getUint32(varAddress);
         var endTimeRAM = window.performance.now();
 
         var diffTimeRAM = Math.floor((endTimeRAM - startTimeRAM) * times);
-        // console.log("Time RAM: " + diffTimeRAM);
+        console.log("Time RAM: " + diffTimeRAM);
         flushed.push(diffTimeRAM);
         flushed_sum  += diffTimeRAM;
 
         if(diffTimeRAM < diffTimeCache) {
             console.log("3rr0r");
+            // alert("Again!");
         }
+        console.log(round);
     }
 
     console.log("Flushed avg: " + (flushed_sum/rounds));
     console.log("Unflushed avg: " + (unflushed_sum/rounds));
 
-    plot();
+    // plot();
 
 function createDataSetToPlot(data) {
     counts = {}
