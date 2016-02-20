@@ -115,7 +115,7 @@ $(document).ready(function () {
     console.log("Unflushed avg: " + (unflushed_sum/rounds));
     console.log("Error count: " +  error_count);
 
-    plot();
+    drawPDF();
 
 function createDataSetToPlot(data) {
     counts = {}
@@ -136,8 +136,7 @@ function createDataSetToPlot(data) {
     return pdData;
     }
 
-    function plot() {
-    // jqplot data visualization
+function drawPDF() {
     plot1 = $.jqplot("chart1", [createDataSetToPlot(flushed), createDataSetToPlot(unflushed)], {
     title: "Access Latencies : Flushed vs Unflushed",
     cursor: {
