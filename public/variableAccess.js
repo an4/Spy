@@ -25,7 +25,7 @@ $(document).ready(function () {
     view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
     // numbber of rounds to test the attack
-    var rounds = 100;
+    var rounds = 1000;
 
     var times = 100000;
 
@@ -52,7 +52,7 @@ $(document).ready(function () {
         var endTimeCache = window.performance.now();
 
         var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
-        console.log("Time cache: " + diffTimeCache);
+        // console.log("Time cache: " + diffTimeCache);
         unflushed.push(diffTimeCache);
         unflushed_sum += diffTimeCache;
 
@@ -74,7 +74,7 @@ $(document).ready(function () {
         var endTimeRAM = window.performance.now();
 
         var diffTimeRAM = Math.floor((endTimeRAM - startTimeRAM) * times);
-        console.log("Time RAM: " + diffTimeRAM);
+        // console.log("Time RAM: " + diffTimeRAM);
         flushed.push(diffTimeRAM);
         flushed_sum  += diffTimeRAM;
 
