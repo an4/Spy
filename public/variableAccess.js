@@ -31,7 +31,7 @@ $(document).ready(function () {
     view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
     // numbber of rounds to test the attack
-    var rounds = 5000;
+    var rounds = 2500;
 
     var times = 100000;
 
