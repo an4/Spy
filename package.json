@@ -7,9 +7,7 @@
   "dependencies": {
     "angular": "^1.4.9",
     "express": "^4.13.3",
-    "nodemon": "^1.8.1",
-    "jquery": "~2.2.0",
-    "as-jqplot": "~1.0.8"
+    "nodemon": "^1.8.1"
   },
   "engines": {
     "node": ">=0.12.7"
