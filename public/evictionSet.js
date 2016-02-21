@@ -65,13 +65,13 @@ for(var i=0; i<addresses; i++) {
  *              is not part of the same set as x.
  *      2. If |S| = 12, return S. Otherwise report failure.
  */
+//
+// var rounds = 1;
+//
+// while (rounds > 0 && Object.keys(S).length != 12) {
+//     rounds--;
 
-var rounds = 2500;
-
-while (rounds > 0 && Object.keys(S).length != 12) {
-    rounds--;
-
-// while (true) {
+while (true) {
     // a
     // Object.keys(S).forEach(function(member) {
     //     current = view.getUint32(member * offset);
@@ -132,10 +132,10 @@ while (rounds > 0 && Object.keys(S).length != 12) {
         // flag to get lat 6 bits
         // 111111000000 (base 2) = 4032 (base 10)
         var flag = 4032;
-        var equal_bits = (s * offset * 8) & flag;
+        var equal_bits = (s * offset) & flag;
         for(var i=0; i<addresses; i++) {
             // Check if bits 6 through 12 are identical
-            if (parseInt((i * offset * 8) & flag) == parseInt(equal_bits)) {
+            if (parseInt(((i * offset) & flag) >> 6) == parseInt(equal_bits >> 6)) {
                 S_smaller[i] = false;
             }
         }
