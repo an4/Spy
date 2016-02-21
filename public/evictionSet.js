@@ -66,7 +66,7 @@ var startAddress = Math.floor((Math.random() * (size/offset))) * offset;
  *      2. If |S| = 12, return S. Otherwise report failure.
  */
 
-var rounds = 1000;
+var rounds = 100;
 
 while (rounds > 0 && Object.keys(S).length != 12) {
     rounds--;
