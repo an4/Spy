@@ -66,11 +66,12 @@ for(var i=0; i<addresses; i++) {
  *      2. If |S| = 12, return S. Otherwise report failure.
  */
 
-var rounds = 2000;
+var rounds = 2500;
 
 while (rounds > 0 && Object.keys(S).length != 12) {
     rounds--;
 
+// while (true) {
     // a
     // Object.keys(S).forEach(function(member) {
     //     current = view.getUint32(member * offset);
@@ -125,10 +126,22 @@ while (rounds > 0 && Object.keys(S).length != 12) {
 
     // f + g
     if(diffTimeBefore - diffTimeAfter > threshold) {
-        // Place s back into S and set s to true because we know s is part of the same cache set as x.
-        S[s] = true;
-        console.log("Found s in x's set.");
-        // TODO Finding one element should give us more info. Optimization 2.
+        // Found s which is part of x's cache set. Find the other possible elements in the same cache set.
+        // This reduces the set of S to around 8k instead of 131K.
+        S_smaller = {};
+        // flag to get lat 6 bits
+        // 111111000000 (base 2) = 4032 (base 10)
+        var flag = 4032;
+        var equal_bits = (s * offset * 8) & flag;
+        for(var i=0; i<addresses; i++) {
+            // Check if bits 6 through 12 are identical
+            if (parseInt((i * offset * 8) & flag) == parseInt(equal_bits)) {
+                S_smaller[i] = false;
+            }
+        }
+        S_smaller[s] = true;
+        S = S_smaller;
+        break;
     }
 }
 

@@ -60,7 +60,7 @@ function diff(x) {
   current = primeView.getUint32(x);
   var endTime1 = window.performance.now();
   var diffTime1 = endTime1 - startTime1;
-  console.log("B: " + diffTime1);
+  // console.log("B: " + diffTime1);
 
   // select random page s from S and remove it
   removeRandom(S)
@@ -72,7 +72,7 @@ function diff(x) {
   current = primeView.getUint32(x);
   var endTime2 = window.performance.now();
   var diffTime2 = endTime2 - startTime2;
-  console.log("A: " + diffTime2);
+  // console.log("A: " + diffTime2);
   return diffTime1 - diffTime2;
 }
 
@@ -86,6 +86,7 @@ while (true) {
     S[s] = true;
     console.log("Found in set: ", s)
     chipDown(s);
+    console.log(S);
     break
   }
   if (Object.keys(S).length % 100 === 0) {
