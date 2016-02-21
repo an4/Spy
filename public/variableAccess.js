@@ -31,7 +31,7 @@ $(document).ready(function () {
     view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
     // numbber of rounds to test the attack
-    var rounds = 2500;
+    var rounds = 400;
 
     var times = 100000;
 
@@ -115,77 +115,108 @@ $(document).ready(function () {
     console.log("Unflushed avg: " + (unflushed_sum/rounds));
     console.log("Error count: " +  error_count);
 
-    drawPDF();
+    // drawPDF();
 
-function createDataSetToPlot(data) {
-    counts = {}
-    data.forEach(function(el) {
-        if (el in counts) {
-            counts[el] += 1;
-        } else {
-            counts[el] = 1;
+    function createDataSetToPlot(data) {
+        counts = {}
+        data.forEach(function(el) {
+            if (el in counts) {
+                counts[el] += 1;
+            } else {
+                counts[el] = 1;
+            }
+        });
+
+        pdData = []
+        for (var el in counts) {
+            pdData.push([el, counts[el]/data.length]);
+            pdData.sort(function(a,b) {return a[0] - b[0];});
         }
-    });
 
-    pdData = []
-    for (var el in counts) {
-        pdData.push([el, counts[el]/data.length]);
-        pdData.sort(function(a,b) {return a[0] - b[0];});
+        return pdData;
     }
 
-    return pdData;
-    }
-
-function drawPDF() {
-    plot1 = $.jqplot("chart1", [createDataSetToPlot(flushed), createDataSetToPlot(unflushed)], {
-    title: "Access Latencies : Flushed vs Unflushed",
-    cursor: {
-        show: false
-    },
-    highlighter: {
-        show: true,
-        showMarker: false,
-        useAxesFormatters: false,
-        formatString: '%d, %.1f'
-    },
-    axesDefaults: {
-        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-    },
-    seriesDefaults: {
-        showMarker: false
-    },
-    series:[
-        {label: 'flushed'},
-        {label: 'unflushed'},
-    ],
-    legend: {
-        show: true,
-        location: 'ne'
-    },
-    axes: {
-        xaxis: {
-            label: 'Access Latency (10^-5 seconds)',
-            pad:0,
-            ticks: [],
-            tickOptions: {
-                formatString: "%d"
-            },
-            max: 80,
-            min: 0
+    function drawPDF() {
+        plot1 = $.jqplot("chart1", [createDataSetToPlot(flushed), createDataSetToPlot(unflushed)], {
+        title: "Access Latencies : Flushed vs Unflushed",
+        cursor: {
+            show: false
         },
-        yaxis: {
-            label: 'Probability Density (%)',
-            forceTickAt0: true,
-            pad: 0
+        highlighter: {
+            show: true,
+            showMarker: false,
+            useAxesFormatters: false,
+            formatString: '%d, %.1f'
+        },
+        axesDefaults: {
+            labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+        },
+        seriesDefaults: {
+            showMarker: false
+        },
+        series:[
+            {label: 'flushed'},
+            {label: 'unflushed'},
+        ],
+        legend: {
+            show: true,
+            location: 'ne'
+        },
+        axes: {
+            xaxis: {
+                label: 'Access Latency (10^-5 seconds)',
+                pad:0,
+                ticks: [],
+                tickOptions: {
+                    formatString: "%d"
+                },
+                max: 80,
+                min: 0
+            },
+            yaxis: {
+                label: 'Probability Density (%)',
+                forceTickAt0: true,
+                pad: 0
+            }
+        },
+        grid: {
+            drawBorder: false,
+            shadow: false,
+            background: "white"
         }
-    },
-    grid: {
-        drawBorder: false,
-        shadow: false,
-        background: "white"
-    }
-    });
+        });
 
+    }
+
+    // From google chart example
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var rawData = [];
+        rawData.push(["Time step", "Flushed", "Unflushed"]);
+        for(var i=0; i<rounds; i++) {
+            rawData.push([i, flushed[i], unflushed[i]]);
+        }
+
+        var data = google.visualization.arrayToDataTable(rawData);
+
+        var options = {
+            title: 'Variable access times',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            vAxis: {
+                viewWindow: {
+                    min: 0,
+                    max: 100
+                },
+                ticks: [0, 25, 50, 75, 100]
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
     }
 
 });
