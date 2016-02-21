@@ -24,7 +24,7 @@ var x = Math.floor((Math.random() * (size/offset))) * offset;
 var current;
 
 /* Threshold time. Needs to be changed. */
-var threshold = 10;
+var threshold = 0.005;
 
 /* Convert time measurement to something, not seconds. 10^5*/
 var times = 100000;
@@ -40,14 +40,14 @@ for(var i=0; i<addresses; i++) {
     S[i] = false;
 }
 
-/* Initialize buffer as a linked list */
-for (var i = 0; i < ((size) / offset) - 1; i++) {
-    view.setUint32(i * offset, (i+1) * offset);
-}
-view.setUint32((((size) / offset) - 1 ) * offset, 0);
+// /* Initialize buffer as a linked list */
+// for (var i = 0; i < ((size) / offset) - 1; i++) {
+//     view.setUint32(i * offset, (i+1) * offset);
+// }
+// view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
-/* Choose random start address to iterate through the buffer. */
-var startAddress = Math.floor((Math.random() * (size/offset))) * offset;
+// /* Choose random start address to iterate through the buffer. */
+// var startAddress = Math.floor((Math.random() * (size/offset))) * offset;
 
 /**
  * Algorithm 1 Profiling a Cache Set
@@ -66,23 +66,30 @@ var startAddress = Math.floor((Math.random() * (size/offset))) * offset;
  *      2. If |S| = 12, return S. Otherwise report failure.
  */
 
-var rounds = 100;
+var rounds = 2000;
 
 while (rounds > 0 && Object.keys(S).length != 12) {
     rounds--;
 
     // a
-    Object.keys(S).forEach(function(member) {
-        current = view.getUint32(member * offset);
-    });
+    // Object.keys(S).forEach(function(member) {
+    //     current = view.getUint32(member * offset);
+    // });
+
+    for(var i=0; i<addresses; i++) {
+        if(i in S) {
+            current = view.getUint32(i * offset);
+        }
+    }
 
     // b
     var startTimeBefore = window.performance.now();
     current = variables_view.getUint32(x);
     var endTimeBefore = window.performance.now();
-    var diffTimeBefore = Math.floor((endTimeBefore - startTimeBefore) * times);
+    // var diffTimeBefore = Math.floor((endTimeBefore - startTimeBefore) * times);
+    var diffTimeBefore = endTimeBefore - startTimeBefore;
 
-    console.log("Time to access x before the removal: " + diffTimeBefore);
+    // console.log("B: " + diffTimeBefore);
 
     // c
     /* Get all lines that are still in S and have not been tested */
@@ -97,17 +104,24 @@ while (rounds > 0 && Object.keys(S).length != 12) {
     }
 
     // d
-    Object.keys(S).forEach(function(member) {
-        current = view.getUint32(member * offset);
-    });
+    // Object.keys(S).forEach(function(member) {
+    //     current = view.getUint32(member * offset);
+    // });
+
+    for(var i=0; i<addresses; i++) {
+        if(i in S) {
+            current = view.getUint32(i * offset);
+        }
+    }
 
     // e
     var startTimeAfter = window.performance.now();
     current = variables_view.getUint32(x);
     var endTimeAfter = window.performance.now();
-    var diffTimeAfter = Math.floor((endTimeAfter - startTimeAfter) * times);
+    // var diffTimeAfter = Math.floor((endTimeAfter - startTimeAfter) * times);
+    var diffTimeAfter = endTimeAfter - startTimeAfter;
 
-    console.log("Time to access x after removing s: " + diffTimeAfter);
+    // console.log("A: " + diffTimeAfter);
 
     // f + g
     if(diffTimeBefore - diffTimeAfter > threshold) {
@@ -117,3 +131,5 @@ while (rounds > 0 && Object.keys(S).length != 12) {
         // TODO Finding one element should give us more info. Optimization 2.
     }
 }
+
+console.log(S);

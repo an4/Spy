@@ -5,10 +5,10 @@
 
 // probeView from paper - for invalidation
 var probeBuffer = new ArrayBuffer(8192 * 1024); // 8 MB eviction buffer
-var probeView = new DataView(probeBuffer); 
+var probeView = new DataView(probeBuffer);
 // primeView from paper - testing data retrieval
 var primeBuffer = new ArrayBuffer(8192 * 1024);
-var primeView = new DataView(primeBuffer); 
+var primeView = new DataView(primeBuffer);
 var x = 0; // page in question mb
 
 // page size 4Kb
@@ -60,6 +60,7 @@ function diff(x) {
   current = primeView.getUint32(x);
   var endTime1 = window.performance.now();
   var diffTime1 = endTime1 - startTime1;
+  console.log("B: " + diffTime1);
 
   // select random page s from S and remove it
   removeRandom(S)
@@ -71,6 +72,7 @@ function diff(x) {
   current = primeView.getUint32(x);
   var endTime2 = window.performance.now();
   var diffTime2 = endTime2 - startTime2;
+  console.log("A: " + diffTime2);
   return diffTime1 - diffTime2;
 }
 
@@ -111,5 +113,3 @@ while (Object.keys(S).length > 12) {
 
 console.log(S);
 **/
-
-
