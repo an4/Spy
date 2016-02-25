@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
+<!-- <html manifest="/cache.manifest"> -->
+<html>
     <head>
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Dependencies  -->
-      <script src="../node_modules/angular/angular.min.js"></script>
+        <!-- Dependencies  -->
+        <!-- <script src="../node_modules/angular/angular.js"></script> -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 
-      <!-- AngularJS Controller -->
-      <script src="controller.js"></script>
+        <!-- AngularJS Controller -->
+        <script src="/controller.js"></script>
 
-      <title>Awesome App</title>
+        <title>Awesome App</title>
     </head>
     <body data-ng-app="TheApp" data-ng-controller="MainCtrl">
-        <h1>Maybe working.</h1>
+        <button ng-click="run()">ABC</button>
     </body>
 </html>

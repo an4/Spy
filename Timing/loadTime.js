@@ -40,13 +40,14 @@ function time_script(url) {
     s.src = url;
 };
 
-// time_video('https://www.facebook.com/kristianTonef');
-// time_video('https://www.facebook.com/alina.ivan.946');
-// time_video('https://www.facebook.com/logan.lerman.37');
-// time_video('https://www.facebook.com/jzelikovic');
 
-var getThings = function() {
-    // time_video('https://www.facebook.com/groups/208547725916026', 'In');
-    // time_video('https://www.facebook.com/groups/852392078107320', 'Out');
-    time_video("http://www.example.com/index.html", "Example");
+
+function getThings() {
+    time_video('https://www.facebook.com/kristianTonef', "Chris");
+    time_video('https://www.facebook.com/alina.ivan.946', "Alina");
+    time_video('https://www.facebook.com/logan.lerman.37', "Not 1");
+    time_video('https://www.facebook.com/jzelikovic', "Not 2");
+
+    time_video('https://www.facebook.com/groups/208547725916026', 'In');
+    time_video('https://www.facebook.com/groups/852392078107320', 'Out');
 }
