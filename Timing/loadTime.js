@@ -14,6 +14,7 @@ function time_video(url, name) {
     s.onerror = function() {
         timeError = window.performance.now();
         console.log("Time video error: " + (timeError - timeLoad) + " " + name);
+        return 1;
     }
 
     s.onloadstart = function() {
@@ -44,6 +45,8 @@ function time_script(url) {
 // time_video('https://www.facebook.com/logan.lerman.37');
 // time_video('https://www.facebook.com/jzelikovic');
 
-
-time_video('https://www.facebook.com/groups/208547725916026/', 'In');
-time_video('https://www.facebook.com/groups/852392078107320/', 'Out');
+var getThings = function() {
+    // time_video('https://www.facebook.com/groups/208547725916026', 'In');
+    // time_video('https://www.facebook.com/groups/852392078107320', 'Out');
+    time_video("http://www.example.com/index.html", "Example");
+}
