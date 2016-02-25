@@ -43,11 +43,15 @@ function time_script(url) {
 
 
 function getThings() {
-    time_video('https://www.facebook.com/kristianTonef', "Chris");
-    time_video('https://www.facebook.com/alina.ivan.946', "Alina");
-    time_video('https://www.facebook.com/logan.lerman.37', "Not 1");
-    time_video('https://www.facebook.com/jzelikovic', "Not 2");
+    // time_video('https://www.facebook.com/kristianTonef', "Chris");
+    // time_video('https://www.facebook.com/alina.ivan.946', "Alina");
+    // time_video('https://www.facebook.com/logan.lerman.37', "Not 1");
+    // time_video('https://www.facebook.com/jzelikovic', "Not 2");
+    //
+    // time_video('https://www.facebook.com/groups/208547725916026', 'In');
+    // time_video('https://www.facebook.com/groups/852392078107320', 'Out');
 
-    time_video('https://www.facebook.com/groups/208547725916026', 'In');
-    time_video('https://www.facebook.com/groups/852392078107320', 'Out');
+    time_video('/test_50.html', '50');
+    time_video('/test_100.html', '100');
+    time_video('/test_200.html', '200');
 }
