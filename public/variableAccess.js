@@ -1,4 +1,4 @@
-var size = 8 * 1024 * 1024;
+var size = 6 * 1024 * 1024;
 
 var buffer = new ArrayBuffer(size);
 var view = new DataView(buffer);

@@ -9,6 +9,7 @@ app.controller("MainCtrl", ['$scope', '$http',
         var arr_100 = [];
         var arr_200 = [];
 
+        var ROUNDS = 100;
 
         function time_image(url) {
             var img = new Image();
@@ -19,7 +20,7 @@ app.controller("MainCtrl", ['$scope', '$http',
             img.src = url;
         };
 
-        function time_video(url, name) {
+        function time_video(url, name, iteration, results) {
             var s = document.createElement('video');
 
             var time = 0;
@@ -28,7 +29,16 @@ app.controller("MainCtrl", ['$scope', '$http',
                 timeError = window.performance.now();
                 // console.log("Time video error: " + (timeError - timeLoad) + " " + name);
                 time =  timeError - timeLoad;
-                console.log(name + ": " + time);
+                if(iteration < ROUNDS) {
+                    results.push(time);
+                    console.log(iteration);
+                    time_video(url, name, iteration + 1, results);
+                } else {
+                    var k = 0;
+                    results.forEach(function(result) {
+                        console.log((k++) + " " + result);
+                    });
+                }
             };
 
             s.onloadstart = function() {
@@ -64,12 +74,12 @@ app.controller("MainCtrl", ['$scope', '$http',
 
         function getData(iterations) {
 
-            for(var i=0; i<iterations; i++) {
-                time_video('/test_50.html', '50');
-                // time_video('/test_60.html', '60');
-                // time_video('/test_100.html', '100');
-                // time_video('/test_200.html', '200');
-            }
+            // for(var i=0; i<iterations; i++) {
+            //     time_video('/test_50.html', '50');
+            //     time_video('/test_60.html', '60');
+            //     time_video('/test_100.html', '100');
+            //     time_video('/test_200.html', '200');
+            // }
 
             //wait one minute
             // wait(60000);
@@ -94,6 +104,10 @@ app.controller("MainCtrl", ['$scope', '$http',
             time_video('/test_200.html', '200');
         };
 
-        getData(50);
-
+        // getData(50);
+        var results = [];
+        time_video('/test_50.html', '50', 0, results);
+        // time_video('/test_60.html', '60', 0, results);
+        // time_video('/test_100.html', '100', 0, results);
+        // time_video('/test_200.html', '200', 0, results);
 }]);
