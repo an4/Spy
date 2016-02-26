@@ -30,7 +30,7 @@ for (var i = 0; i < ((size) / offset) - 1; i++) {
 view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
 // numbber of rounds to test the attack
-var rounds = 400;
+var rounds = 300;
 
 var times = 100000;
 
@@ -123,7 +123,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var rawData = [];
-    rawData.push(["Time step", "Flushed", "Unflushed"]);
+    rawData.push(["Time step", "Access Time from RAM - Flushed", "Access Time from Cache - Unflushed"]);
     for(var i=0; i<rounds; i++) {
         rawData.push([i, flushed[i], unflushed[i]]);
     }
@@ -131,7 +131,7 @@ function drawChart() {
     var data = google.visualization.arrayToDataTable(rawData);
 
     var options = {
-        title: 'Variable access times',
+        title: 'Variable access time',
         curveType: 'function',
         legend: { position: 'bottom' },
         vAxis: {
