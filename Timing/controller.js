@@ -30,9 +30,13 @@ app.controller("MainCtrl", ['$scope', '$http',
                 // console.log("Time video error: " + (timeError - timeLoad) + " " + name);
                 time =  timeError - timeLoad;
                 if(iteration < ROUNDS) {
-                    results.push(time);
-                    console.log(iteration);
-                    time_video(url, name, iteration + 1, results);
+                    if(time > 20) {
+                        time_video(url, name, iteration, results);
+                    } else {
+                        results.push(time);
+                        console.log(iteration);
+                        time_video(url, name, iteration + 1, results);
+                    }
                 } else {
                     var k = 0;
                     results.forEach(function(result) {
@@ -106,8 +110,8 @@ app.controller("MainCtrl", ['$scope', '$http',
 
         // getData(50);
         var results = [];
-        time_video('/test_50.html', '50', 0, results);
-        // time_video('/test_60.html', '60', 0, results);
+        // time_video('/test_50.html', '50', 0, results);
+        time_video('/test_60.html', '60', 0, results);
         // time_video('/test_100.html', '100', 0, results);
         // time_video('/test_200.html', '200', 0, results);
 }]);
