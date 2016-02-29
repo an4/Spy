@@ -1,4 +1,4 @@
-var size = 8 * 1024 * 1024;
+var size = 6 * 1024 * 1024;
 
 var buffer = new ArrayBuffer(size);
 var view = new DataView(buffer);
@@ -71,12 +71,9 @@ for(var i=0; i<addresses; i++) {
 // while (rounds > 0 && Object.keys(S).length != 12) {
 //     rounds--;
 
-while (true) {
-    // a
-    // Object.keys(S).forEach(function(member) {
-    //     current = view.getUint32(member * offset);
-    // });
 
+function getTime(x) {
+    // a
     for(var i=0; i<addresses; i++) {
         if(i in S) {
             current = view.getUint32(i * offset);
@@ -89,8 +86,6 @@ while (true) {
     var endTimeBefore = window.performance.now();
     // var diffTimeBefore = Math.floor((endTimeBefore - startTimeBefore) * times);
     var diffTimeBefore = endTimeBefore - startTimeBefore;
-
-    // console.log("B: " + diffTimeBefore);
 
     // c
     /* Get all lines that are still in S and have not been tested */
@@ -105,10 +100,6 @@ while (true) {
     }
 
     // d
-    // Object.keys(S).forEach(function(member) {
-    //     current = view.getUint32(member * offset);
-    // });
-
     for(var i=0; i<addresses; i++) {
         if(i in S) {
             current = view.getUint32(i * offset);
@@ -122,10 +113,35 @@ while (true) {
     // var diffTimeAfter = Math.floor((endTimeAfter - startTimeAfter) * times);
     var diffTimeAfter = endTimeAfter - startTimeAfter;
 
-    // console.log("A: " + diffTimeAfter);
+    return diffTimeBefore - diffTimeAfter;
+};
 
+
+while (true) {
     // f + g
-    if(diffTimeBefore - diffTimeAfter > threshold) {
+    if(getTime(x) > threshold) {
+        // Found s which is part of x's cache set. Find the other possible elements in the same cache set.
+        // This reduces the set of S to around 8k instead of 131K.
+        S_smaller = {};
+        // flag to get lat 6 bits
+        // 111111000000 (base 2) = 4032 (base 10)
+        var flag = 4032;
+        var equal_bits = (s * offset) & flag;
+        for(var i=0; i<addresses && i in S; i++) {
+            // Check if bits 6 through 12 are identical
+            if (parseInt(((i * offset) & flag) >> 6) == parseInt(equal_bits >> 6)) {
+                S_smaller[i] = false;
+            }
+        }
+        S_smaller[s] = true;
+        S = S_smaller;
+        break;
+    }
+}
+
+// while (true) {
+    // f + g
+    if(getTime(x) > threshold) {
         // Found s which is part of x's cache set. Find the other possible elements in the same cache set.
         // This reduces the set of S to around 8k instead of 131K.
         S_smaller = {};
@@ -141,8 +157,8 @@ while (true) {
         }
         S_smaller[s] = true;
         S = S_smaller;
-        break;
+        // break;
     }
-}
+// }
 
 console.log(S);

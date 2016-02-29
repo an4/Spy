@@ -20,7 +20,24 @@ app.controller("MainCtrl", ['$scope', '$http',
             img.src = url;
         };
 
-        function time_video(url, name, iteration, results) {
+//////////////////////////////////////////////////VIDEO/////////////////////////////////////////////
+
+        function time_video_basic(url, name) {
+            var s = document.createElement('video');
+            var time = 0;
+            s.onerror = function() {
+                timeError = window.performance.now();
+                time =  timeError - timeLoad;
+                console.log(name + ": " + time);
+            };
+            s.onloadstart = function() {
+                timeLoad = window.performance.now();
+            };
+            var start = window.performance.now(), timeLoad, timeError;
+            s.src = url;
+        };
+
+        function time_video_basic(url, name, iteration, results) {
             var s = document.createElement('video');
 
             var time = 0;
@@ -30,13 +47,13 @@ app.controller("MainCtrl", ['$scope', '$http',
                 // console.log("Time video error: " + (timeError - timeLoad) + " " + name);
                 time =  timeError - timeLoad;
                 if(iteration < ROUNDS) {
-                    if(time > 20) {
-                        time_video(url, name, iteration, results);
-                    } else {
+                    // if(time > 20) {
+                    //     time_video(url, name, iteration, results);
+                    // } else {
                         results.push(time);
-                        console.log(iteration);
+                        // console.log(iteration);
                         time_video(url, name, iteration + 1, results);
-                    }
+                    // }
                 } else {
                     var k = 0;
                     results.forEach(function(result) {
@@ -52,6 +69,8 @@ app.controller("MainCtrl", ['$scope', '$http',
             var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
             s.src = url;
         };
+
+//////////////////////////////////////////////////VIDEO/////////////////////////////////////////////
 
         function time_script(url) {
             window.onerror = function() {
@@ -76,21 +95,12 @@ app.controller("MainCtrl", ['$scope', '$http',
             }
         }
 
-        function getData(iterations) {
-
-            // for(var i=0; i<iterations; i++) {
-            //     time_video('/test_50.html', '50');
-            //     time_video('/test_60.html', '60');
-            //     time_video('/test_100.html', '100');
-            //     time_video('/test_200.html', '200');
-            // }
-
-            //wait one minute
-            // wait(60000);
-
-
-
-        };
+        var timing_data = [
+            {index: 0, url: '/test_50.html', name: '50', start: 0, end: ROUNDS},
+            {index: 1, url: '/test_60.html', name: '60', start: 0, end: ROUNDS},
+            {index: 2, url: '/test_100.html', name: '100', start: 0, end: ROUNDS},
+            {index: 3, url: '/test_200.html', name: '200', start: 0, end: ROUNDS},
+        ];
 
 
         $scope.run = function() {
@@ -99,19 +109,17 @@ app.controller("MainCtrl", ['$scope', '$http',
             // time_video('https://www.facebook.com/logan.lerman.37', "Not 1");
             // time_video('https://www.facebook.com/jzelikovic', "Not 2");
 
-            time_video('http://www.facebook.com/groups/208547725916026', 'In');
-            time_video('http://www.facebook.com/groups/852392078107320', 'Out');
+            // time_video('http://www.facebook.com/groups/208547725916026', 'In');
+            // time_video('http://www.facebook.com/groups/852392078107320', 'Out');
 
-            time_video('/test_50.html', '50');
-            time_video('/test_60.html', '60');
-            time_video('/test_100.html', '100');
-            time_video('/test_200.html', '200');
+            /* DON't RUN THEM AT THE SAME TIME */
+            // var results = [];
+            // time_video('/test_50.html', '50', 0, results);
+            // time_video('/test_60.html', '60', 0, results);
+            // time_video('/test_100.html', '100', 0, results);
+            // time_video('/test_200.html', '200', 0, results);
         };
 
-        // getData(50);
-        var results = [];
-        // time_video('/test_50.html', '50', 0, results);
-        time_video('/test_60.html', '60', 0, results);
-        // time_video('/test_100.html', '100', 0, results);
-        // time_video('/test_200.html', '200', 0, results);
+
+
 }]);
