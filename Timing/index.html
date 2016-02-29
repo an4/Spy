@@ -8,13 +8,14 @@
         <script src="../node_modules/angular/angular.min.js"></script>
 
         <!-- AngularJS Controller -->
-        <script src="/controller.js"></script>
+        <!-- <script src="/controller.js"></script> -->
+        <script src="/videoCtrl.js"></script>
 
         <title>Timing</title>
     </head>
-    <body data-ng-app="TheApp" data-ng-controller="MainCtrl">
-        <button ng-click="run()">Run</button>
+    <body data-ng-app="TheApp">
+        <!-- <button ng-click="run()">Run</button> -->
         <!-- Video + app cache dashboard -->
-        <data-ng-include src="'video.html'"></data-ng-include>
+        <data-ng-include data-ng-controller="VideoCtrl" src="'video.html'"></data-ng-include>
     </body>
 </html>
