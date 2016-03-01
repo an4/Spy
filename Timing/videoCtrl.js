@@ -1,6 +1,6 @@
 'use strict';
 
-var videoCtrl = angular.module('AppControllers', []);
+var videoCtrl = angular.module('VideoCtrl', []);
 
 videoCtrl.controller("VideoCtrl", ['$scope', '$http',
     function($scope, $http) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- <html manifest="/cache.manifest"> -->
+<!-- <html manifest="/appCache/cache.manifest"> -->
 <html>
     <head>
         <meta charset="UTF-8"/>
@@ -8,17 +8,25 @@
         <!-- Dependencies  -->
         <script src="../node_modules/angular/angular.min.js"></script>
         <script src="../node_modules/angular-route/angular-route.min.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
         <!-- AngularJS Controller -->
         <script src="/controller.js"></script>
+        <script src="/imageCtrl.js"></script>
         <script src="/videoCtrl.js"></script>
+        <script src="/navbarCtrl.js"></script>
+
+        <!-- Style -->
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/style/style.css">
 
         <title>Timing</title>
     </head>
     <body data-ng-app="TheApp">
-        <!-- <button ng-click="run()">Run</button> -->
-        <!-- Video + app cache dashboard -->
-        <!-- <data-ng-include data-ng-controller="VideoCtrl" src="'video.html'"></data-ng-include> -->
+        <!-- Nav Bar -->
+        <data-ng-include src="'navbar.html'" ng-controller="navbarCtrl"></data-ng-include>
+        <!-- Attacks -->
         <div data-ng-view><div>
     </body>
 </html>

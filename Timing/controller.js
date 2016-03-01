@@ -2,7 +2,9 @@
 
 var app = angular.module('TheApp', [
     'ngRoute',
-    'AppControllers'
+    'ImageCtrl',
+    'VideoCtrl',
+    'navbarCtrl'
 ]);
 
 app.config(['$routeProvider',
@@ -11,6 +13,10 @@ app.config(['$routeProvider',
       when('/video', {
         templateUrl: 'video.html',
         controller: 'VideoCtrl'
+      }).
+      when('/image', {
+          templateUrl: 'image.html',
+          controller: 'ImageCtrl'
       }).
       otherwise({
         redirectTo: '/'
