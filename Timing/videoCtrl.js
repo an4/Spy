@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('TheApp', []);
+var videoCtrl = angular.module('AppControllers', []);
 
-app.controller("VideoCtrl", ['$scope', '$http',
+videoCtrl.controller("VideoCtrl", ['$scope', '$http',
     function($scope, $http) {
         $scope.video = {};
 
@@ -39,7 +39,9 @@ app.controller("VideoCtrl", ['$scope', '$http',
                     var k = 0;
                     var sum = 0;
                     results.forEach(function(result) {
-                        // console.log((k++) + " " + result);
+                        if($scope.video.PRINT_RESULTS) {
+                            console.log((k++) + " " + result);
+                        }
                         sum += result;
                     });
                     console.log("Average time: " + (sum/results.length));

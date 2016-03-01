@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html manifest="/cache.manifest">
+<!-- <html manifest="/cache.manifest"> -->
+<html>
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Dependencies  -->
         <script src="../node_modules/angular/angular.min.js"></script>
+        <script src="../node_modules/angular-route/angular-route.min.js"></script>
 
         <!-- AngularJS Controller -->
-        <!-- <script src="/controller.js"></script> -->
+        <script src="/controller.js"></script>
         <script src="/videoCtrl.js"></script>
 
         <title>Timing</title>
@@ -16,6 +18,7 @@
     <body data-ng-app="TheApp">
         <!-- <button ng-click="run()">Run</button> -->
         <!-- Video + app cache dashboard -->
-        <data-ng-include data-ng-controller="VideoCtrl" src="'video.html'"></data-ng-include>
+        <!-- <data-ng-include data-ng-controller="VideoCtrl" src="'video.html'"></data-ng-include> -->
+        <div data-ng-view><div>
     </body>
 </html>
