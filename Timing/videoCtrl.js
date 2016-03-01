@@ -28,8 +28,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
             s.onerror = function() {
                 timeError = window.performance.now();
                 time =  timeError - timeLoad;
-                if(iteration < $scope.video.VIDEO_ROUNDS) {
-                    if(time > $scope.video.VIDEO_LIMIT && $scope.video.VIDEO_LIMIT != 0) {
+                if(iteration < $scope.video.rounds) {
+                    if(time > $scope.video.limit && $scope.video.limit != 0) {
                         time_video(url, name, iteration, results);
                     } else {
                         results.push(time);
@@ -39,7 +39,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
                     var k = 0;
                     var sum = 0;
                     results.forEach(function(result) {
-                        if($scope.video.PRINT_RESULTS) {
+                        if($scope.video.print_results) {
                             console.log((k++) + " " + result);
                         }
                         sum += result;
@@ -58,21 +58,41 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
 
         $scope.time_video_50 = function () {
             var results = [];
-            time_video('/test_50.html', '50', 0, results);
+            time_video('/Files/test_50.html', '50', 0, results);
+        };
+
+        $scope.time_video_cached_50 = function () {
+            var results = [];
+            time_video('/Files/test_50_cached.html', '50', 0, results);
         };
 
         $scope.time_video_60 = function () {
             var results = [];
-            time_video('/test_60.html', '60', 0, results);
+            time_video('/Files/test_60.html', '60', 0, results);
+        };
+
+        $scope.time_video_cached_60 = function () {
+            var results = [];
+            time_video('/Files/test_60_cached.html', '60', 0, results);
         };
 
         $scope.time_video_100 = function () {
             var results = [];
-            time_video('/test_100.html', '100', 0, results);
+            time_video('/Files/test_100.html', '100', 0, results);
+        };
+
+        $scope.time_video_cached_100 = function () {
+            var results = [];
+            time_video('/Files/test_100_cached.html', '100', 0, results);
         };
 
         $scope.time_video_200 = function () {
             var results = [];
-            time_video('/test_200.html', '200', 0, results);
+            time_video('/Files/test_200.html', '200', 0, results);
+        };
+
+        $scope.time_video_cached_200 = function () {
+            var results = [];
+            time_video('/Files/test_200_cached.html', '200', 0, results);
         };
 }]);

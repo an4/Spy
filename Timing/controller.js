@@ -14,6 +14,10 @@ app.config(['$routeProvider',
         templateUrl: 'video.html',
         controller: 'VideoCtrl'
       }).
+      when('/videocached', {
+        templateUrl: 'video_cached.html',
+        controller: 'VideoCtrl'
+      }).
       when('/image', {
           templateUrl: 'image.html',
           controller: 'ImageCtrl'
@@ -25,14 +29,7 @@ app.config(['$routeProvider',
 
 // app.controller("MainCtrl", ['$scope', '$http',
 //     function($scope, $http) {
-//         function time_image(url) {
-//             var img = new Image();
-//             img.onerror = function() {
-//                 var end = window.performance.now();
-//             }
-//             var start = window.performance.now();
-//             img.src = url;
-//         };
+//
 //
 //         function time_script(url) {
 //             window.onerror = function() {

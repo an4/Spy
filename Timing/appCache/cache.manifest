@@ -1,9 +1,9 @@
 CACHE MANIFEST
 CACHE:
-./test_50.html
-./test_60.html
-./test_100.html
-./test_200.html
+./../Files/test_50_cached.html
+./../Files/test_60_cached.html
+./../Files/test_100_cached.html
+./../Files/test_200_cached.html
 
 NETWORK:
 *

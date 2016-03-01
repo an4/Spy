@@ -1,3 +1,10 @@
 <div>
-    <h1> Img </h1>
+    <h1> Image </h1>
+    <label>Enter rounds: <input type="text" ng-model="image.rounds" ng-init="image.rounds='100'"></label>
+    <label>Enter limit: <input type="text" ng-model="image.limit" ng-init="image.limit='0'"></label>
+
+    <button ng-click="time_image_50()"> 50KB </button>
+    <button ng-click="time_image_60()"> 60KB </button>
+    <button ng-click="time_image_100()"> 100KB </button>
+    <button ng-click="time_image_200()"> 200KB </button>
 </div>

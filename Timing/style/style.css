@@ -1,1 +1,20 @@
+.navbar {
+    margin-top: 0;
+    /*background-color:  #21468b;
+    color: #ecefef;
+    font-weight: 900;*/
+}
 
+.jumbotron {
+    margin-bottom: 0;
+    background-color:  #21468b;
+}
+
+.title {
+    color: #ecefef;
+    font-weight: 900;
+}
+
+.nav {
+    padding: 0px 0px 0px 50px;
+}
