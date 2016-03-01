@@ -4,8 +4,6 @@ var app = angular.module('TheApp', []);
 
 app.controller("VideoCtrl", ['$scope', '$http',
     function($scope, $http) {
-        console.log("loading controller");
-
         $scope.video = {};
 
         function time_video_basic(url, name) {
@@ -41,10 +39,10 @@ app.controller("VideoCtrl", ['$scope', '$http',
                     var k = 0;
                     var sum = 0;
                     results.forEach(function(result) {
-                        console.log((k++) + " " + result);
+                        // console.log((k++) + " " + result);
                         sum += result;
                     });
-                    console.log("Average time: " + (sum/k));
+                    console.log("Average time: " + (sum/results.length));
                 }
             };
 
@@ -58,7 +56,6 @@ app.controller("VideoCtrl", ['$scope', '$http',
 
         $scope.time_video_50 = function () {
             var results = [];
-            console.log($scope.video.VIDEO_ROUNDS);
             time_video('/test_50.html', '50', 0, results);
         };
 
