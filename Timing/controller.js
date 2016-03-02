@@ -5,7 +5,8 @@ var app = angular.module('TheApp', [
     'googlechart',
     'ImageCtrl',
     'VideoCtrl',
-    'navbarCtrl'
+    'navbarCtrl',
+    'ScriptCtrl'
 ]);
 
 app.config(['$routeProvider',
@@ -23,6 +24,10 @@ app.config(['$routeProvider',
           templateUrl: 'image.html',
           controller: 'ImageCtrl'
       }).
+      when('/script', {
+          templateUrl: 'script.html',
+          controller: 'ScriptCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
@@ -32,20 +37,7 @@ app.config(['$routeProvider',
 //     function($scope, $http) {
 //
 //
-//         function time_script(url) {
-//             window.onerror = function() {
-//                 var d = performance.now() - window.start;
-//                 console.log("parsing done " + d);
-//             };
-//             var s = document.createElement('script');
-//             s.type = "text/javascript";
-//             document.body.appendChild(s);
-//             s.onload = function() {
-//                 console.log("script downloaded");
-//                 window.start = window.performance.now();
-//             };
-//             s.src = url;
-//         };
+//
 //
 //         function wait(ms){
 //             var start = new Date().getTime();
