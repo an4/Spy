@@ -1,4 +1,4 @@
-<html manifest="/appCache/cache.manifest">
+<!-- <html manifest="/appCache/cache.manifest"> -->
 <html>
     <head>
         <meta charset="UTF-8"/>
@@ -16,7 +16,20 @@
         <script src="/imageCtrl.js"></script>
         <script src="/videoCtrl.js"></script>
         <script src="/navbarCtrl.js"></script>
-        <script src="/scriptCtrl.js" defer></script>
+        <script src="/scriptCtrl.js"></script>
+
+        <!-- Check if service worker is supported and register it. -->
+        <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                // Registration was successful
+                // console.log('ServiceWorker registration successful with scope: ',  registration.scope);
+            }).catch(function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
+        </script>
 
         <!-- Style -->
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">

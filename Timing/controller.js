@@ -20,6 +20,10 @@ app.config(['$routeProvider',
         templateUrl: 'video.html',
         controller: 'VideoCtrl'
       }).
+      when('/videosw', {
+        templateUrl: 'video.html',
+        controller: 'VideoCtrl'
+      }).
       when('/image', {
           templateUrl: 'image.html',
           controller: 'ImageCtrl'

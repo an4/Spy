@@ -16,6 +16,11 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         var URLcached100 = '/Files/test_100_cached.html';
         var URLcached200 = '/Files/test_200_cached.html';
 
+        var URLsw50 = '/Files/test_50_sw.html';
+        var URLsw60 = '/Files/test_60_sw.html';
+        var URLsw100 = '/Files/test_100_sw.html';
+        var URLsw200 = '/Files/test_200_sw.html';
+
         function time_video_basic(url, name) {
             var s = document.createElement('video');
             var time = 0;
@@ -230,9 +235,11 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         $scope.time_video_50 = function () {
             var results = [];
             if($location.path() === '/videocached') {
-                time_video(URLcached50, '50', 0, results);
-            } else {
+                time_video(URLcached60, '50', 0, results);
+            } else if ($location.path() === '/video') {
                 time_video(URL50, '50', 0, results);
+            } else if ($location.path() === '/videosw') {
+                time_video(URLsw50, '50', 0, results);
             }
 
         };
@@ -241,8 +248,10 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             var results = [];
             if($location.path() === '/videocached') {
                 time_video(URLcached60, '60', 0, results);
-            } else {
+            } else if ($location.path() === '/video') {
                 time_video(URL60, '60', 0, results);
+            } else if ($location.path() === '/videosw') {
+                time_video(URLsw60, '60', 0, results);
             }
         };
 
@@ -250,8 +259,10 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             var results = [];
             if($location.path() === '/videocached') {
                 time_video(URLcached100, '100', 0, results);
-            } else {
+            } else if ($location.path() === '/video') {
                 time_video(URL100, '100', 0, results);
+            } else if ($location.path() === '/videosw') {
+                time_video(URLsw100, '100', 0, results);
             }
         };
 
@@ -259,8 +270,10 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             var results = [];
             if($location.path() === '/videocached') {
                 time_video(URLcached200, '200', 0, results);
-            } else {
+            } else if ($location.path() === '/video') {
                 time_video(URL200, '200', 0, results);
+            } else if ($location.path() === '/videosw') {
+                time_video(URLsw200, '200', 0, results);
             }
         };
 
@@ -278,6 +291,15 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                     {url: URLcached60, name: '60'},
                     {url: URLcached100, name: '100'},
                     {url: URLcached200, name: '200'},
+                ];
+            }
+
+            if($location.path() === '/videosw') {
+                input = [
+                    {url: URLsw50, name: '50'},
+                    {url: URLsw60, name: '60'},
+                    {url: URLsw100, name: '100'},
+                    {url: URLsw200, name: '200'},
                 ];
             }
 
