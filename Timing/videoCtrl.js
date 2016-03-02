@@ -2,8 +2,8 @@
 
 var videoCtrl = angular.module('VideoCtrl', []);
 
-videoCtrl.controller("VideoCtrl", ['$scope', '$http',
-    function($scope, $http) {
+videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
         $scope.video = {};
 
         var URL50 = '/Files/test_50.html';
@@ -70,7 +70,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
 
         function getPDF(input) {
             var arr = [];
-            for(var i=0; i<100; i++) {
+            for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 arr[i] = 0;
             }
             input.forEach(function(el) {
@@ -84,7 +84,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
 
         function drawSomething(input) {
             var label_data = [];
-            for(var i=0; i<100; i++) {
+            for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 label_data.push(i/10.0);
             }
             var output = [];
@@ -92,7 +92,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
                 output.push(getPDF(el));
             });
 
-            for(var i=0; i<100; i++) {
+            for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 var row = {};
                 row.c = [{v: label_data[i]}, {v: output[0][i]}, {v: output[1][i]}, {v: output[2][i]}, {v: output[3][i]}];
                 $scope.chartObject.data.rows.push(row);
@@ -135,45 +135,58 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
 
         $scope.time_video_50 = function () {
             var results = [];
-            time_video(URL50, '50', 0, results);
-        };
+            if($location.path() === '/videocached') {
+                time_video(URLcached50, '50', 0, results);
+            } else {
+                time_video(URL50, '50', 0, results);
+            }
 
-        $scope.time_video_cached_50 = function () {
-            var results = [];
-            time_video(URLcached50, '50', 0, results);
         };
 
         $scope.time_video_60 = function () {
             var results = [];
-            time_video(URL60, '60', 0, results);
-        };
-
-        $scope.time_video_cached_60 = function () {
-            var results = [];
-            time_video(URLcached60, '60', 0, results);
+            if($location.path() === '/videocached') {
+                time_video(URLcached60, '60', 0, results);
+            } else {
+                time_video(URL60, '60', 0, results);
+            }
         };
 
         $scope.time_video_100 = function () {
             var results = [];
-            time_video(URL100, '100', 0, results);
-        };
-
-        $scope.time_video_cached_100 = function () {
-            var results = [];
-            time_video(URLcached100, '100', 0, results);
+            if($location.path() === '/videocached') {
+                time_video(URLcached100, '100', 0, results);
+            } else {
+                time_video(URL100, '100', 0, results);
+            }
         };
 
         $scope.time_video_200 = function () {
             var results = [];
-            time_video(URL200, '200', 0, results);
+            if($location.path() === '/videocached') {
+                time_video(URLcached200, '200', 0, results);
+            } else {
+                time_video(URL200, '200', 0, results);
+            }
         };
 
-        $scope.time_video_cached_200 = function () {
-            var results = [];
-            time_video(URLcached200, '200', 0, results);
-        };
+        $scope.time_video_all = function() {
+            var input = [
+                {url: URL50, name: '50'},
+                {url: URL60, name: '60'},
+                {url: URL100, name: '100'},
+                {url: URL200, name: '200'},
+            ];
 
-        function time_video_all_files_common(input) {
+            if($location.path() === '/videocached') {
+                input = [
+                    {url: URLcached50, name: '50'},
+                    {url: URLcached60, name: '60'},
+                    {url: URLcached100, name: '100'},
+                    {url: URLcached200, name: '200'},
+                ];
+            }
+
             $scope.chartObject = {};
 
             $scope.chartObject.type = "LineChart";
@@ -222,27 +235,5 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http',
             var results = [];
             var current = 0;
             time_video_all(input[current].url, input[current].name, 0, results, current, input);
-        };
-
-        $scope.time_video_cached_all_files = function() {
-            var input = [
-                {url: URLcached50, name: '50'},
-                {url: URLcached60, name: '60'},
-                {url: URLcached100, name: '100'},
-                {url: URLcached200, name: '200'},
-            ];
-
-            time_video_all_files_common(input)
-        };
-
-        $scope.time_video_all_files = function() {
-            var input = [
-                {url: URL50, name: '50'},
-                {url: URL60, name: '60'},
-                {url: URL100, name: '100'},
-                {url: URL200, name: '200'},
-            ];
-
-            time_video_all_files_common(input)
         };
 }]);

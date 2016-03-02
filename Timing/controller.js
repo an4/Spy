@@ -16,7 +16,7 @@ app.config(['$routeProvider',
         controller: 'VideoCtrl'
       }).
       when('/videocached', {
-        templateUrl: 'video_cached.html',
+        templateUrl: 'video.html',
         controller: 'VideoCtrl'
       }).
       when('/image', {
