@@ -84,7 +84,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 }],
                 "rows": []};
             $scope.chartObject.options = {
-                "title": "External resource load time.",
+                "title": "External resource load time. Samples: " + $scope.video.rounds,
                 "colors": ['#AE1C28'],
                 "defaultColors": ['#AE1C28'],
                 "isStacked": "true",
@@ -160,7 +160,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 }],
                 "rows": []};
             $scope.chartObject.options = {
-                "title": "External resource load time.",
+                "title": "External resource load time. Samples: " + $scope.video.rounds ,
                 "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
                 "defaultColors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
                 "isStacked": "true",
