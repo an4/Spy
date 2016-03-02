@@ -54,7 +54,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                         }
                         sum += result;
                     });
-                    console.log("Average time: " + (sum/results.length));
+                    // console.log("Average time: " + (sum/results.length));
+                    drawSomethingSimple(results, name);
                 }
             };
 
@@ -65,6 +66,54 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
             s.src = url;
         };
+
+        function drawSomethingSimple(results, name) {
+            $scope.chartObject = {};
+
+            $scope.chartObject.type = "LineChart";
+            $scope.chartObject.displayed = false;
+            $scope.chartObject.data = {
+                "cols": [{
+                    id: "sec",
+                    label: "Time",
+                    type: "string"
+                }, {
+                    id: name + "KB",
+                    label: name + "KB",
+                    type: "number"
+                }],
+                "rows": []};
+            $scope.chartObject.options = {
+                "title": "External resource load time.",
+                "colors": ['#AE1C28'],
+                "defaultColors": ['#AE1C28'],
+                "isStacked": "true",
+                "displayExactValues": true,
+                "vAxis": {
+                    "gridlines": {
+                        "count": 10
+                    }
+                },
+                "hAxis": {
+                    "title": "Milliseconds"
+                }
+            };
+
+            var label_data = [];
+            for(var i=0; i<$scope.video.Xaxis*10; i++) {
+                label_data.push(i/10.0);
+            }
+            var output = getPDF(results);
+
+            for(var i=0; i<$scope.video.Xaxis*10; i++) {
+                var row = {};
+                row.c = [{v: label_data[i]}, {v: output[i]}];
+                $scope.chartObject.data.rows.push(row);
+            }
+
+            $scope.$apply();
+        };
+
 
         var totalResults = [];
 
@@ -83,6 +132,49 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         };
 
         function drawSomething(input) {
+            $scope.chartObject = {};
+
+            $scope.chartObject.type = "LineChart";
+            $scope.chartObject.displayed = false;
+            $scope.chartObject.data = {
+                "cols": [{
+                    id: "sec",
+                    label: "Time",
+                    type: "string"
+                }, {
+                    id: "50kb",
+                    label: "50KB",
+                    type: "number"
+                }, {
+                    id: "60kb",
+                    label: "60KB",
+                    type: "number"
+                }, {
+                    id: "100kb",
+                    label: "100KB",
+                    type: "number"
+                }, {
+                    id: "200kb",
+                    label: "200KB",
+                    type: "number"
+                }],
+                "rows": []};
+            $scope.chartObject.options = {
+                "title": "External resource load time.",
+                "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
+                "defaultColors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
+                "isStacked": "true",
+                "displayExactValues": true,
+                "vAxis": {
+                    "gridlines": {
+                        "count": 10
+                    }
+                },
+                "hAxis": {
+                    "title": "Milliseconds"
+                }
+            };
+
             var label_data = [];
             for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 label_data.push(i/10.0);
@@ -97,6 +189,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 row.c = [{v: label_data[i]}, {v: output[0][i]}, {v: output[1][i]}, {v: output[2][i]}, {v: output[3][i]}];
                 $scope.chartObject.data.rows.push(row);
             }
+
+            $scope.$apply();
         };
 
         function time_video_all(url, name, iteration, results, current, input) {
@@ -186,49 +280,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                     {url: URLcached200, name: '200'},
                 ];
             }
-
-            $scope.chartObject = {};
-
-            $scope.chartObject.type = "LineChart";
-            $scope.chartObject.displayed = false;
-            $scope.chartObject.data = {
-                "cols": [{
-                    id: "sec",
-                    label: "Time",
-                    type: "string"
-                }, {
-                    id: "50kb",
-                    label: "50KB",
-                    type: "number"
-                }, {
-                    id: "60kb",
-                    label: "60KB",
-                    type: "number"
-                }, {
-                    id: "100kb",
-                    label: "100KB",
-                    type: "number"
-                }, {
-                    id: "200kb",
-                    label: "200KB",
-                    type: "number"
-                }],
-                "rows": []};
-            $scope.chartObject.options = {
-                "title": "External resource load time.",
-                "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
-                "defaultColors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
-                "isStacked": "true",
-                "displayExactValues": true,
-                "vAxis": {
-                    "gridlines": {
-                        "count": 10
-                    }
-                },
-                "hAxis": {
-                    "title": "Milliseconds"
-                }
-            };
 
             totalResults = [];
 
