@@ -2,6 +2,7 @@
 
 var app = angular.module('TheApp', [
     'ngRoute',
+    'googlechart',
     'ImageCtrl',
     'VideoCtrl',
     'navbarCtrl'
