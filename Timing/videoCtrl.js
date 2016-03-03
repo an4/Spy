@@ -235,7 +235,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         $scope.time_video_50 = function () {
             var results = [];
             if($location.path() === '/videocached') {
-                time_video(URLcached60, '50', 0, results);
+                time_video(URLcached50, '50', 0, results);
             } else if ($location.path() === '/video') {
                 time_video(URL50, '50', 0, results);
             } else if ($location.path() === '/videosw') {

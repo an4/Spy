@@ -23,7 +23,8 @@ this.addEventListener('fetch', function(event) {
       .then(function(response) {
         // Cache hit - return response
         if (response) {
-          return response;
+            console.log("return reponse");
+            return response;
         }
 
         return fetch(event.request);
