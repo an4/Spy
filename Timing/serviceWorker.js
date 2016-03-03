@@ -19,16 +19,29 @@ this.addEventListener('install', function(event) {
 
 this.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-            console.log("return reponse");
-            return response;
-        }
-
-        return fetch(event.request);
-      }
-    )
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
   );
 });
+
+
+// this.addEventListener('activate', function(event) {
+//     console.log("Activated!");
+// });
+//
+// this.addEventListener('fetch', function(event) {
+//   event.respondWith(
+//     caches.match(event.request)
+//       .then(function(response) {
+//         // Cache hit - return response
+//         if (response) {
+//             console.log("return reponse");
+//             return response;
+//         }
+//
+//         return fetch(event.request);
+//       }
+//     )
+//   );
+// });
