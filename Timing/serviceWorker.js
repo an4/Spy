@@ -7,7 +7,7 @@ var urlsToCache = [
   '/Files/test_200_sw.html'
 ];
 
-this.addEventListener('install', function(event) {
+self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache) {
@@ -17,12 +17,12 @@ this.addEventListener('install', function(event) {
     );
 });
 
-this.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    })
-  );
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
+        })
+    );
 });
 
 
@@ -30,16 +30,15 @@ this.addEventListener('fetch', function(event) {
 //     console.log("Activated!");
 // });
 //
-// this.addEventListener('fetch', function(event) {
+
+// self.addEventListener('fetch', function(event) {
 //   event.respondWith(
-//     caches.match(event.request)
-//       .then(function(response) {
-//         // Cache hit - return response
+//     caches.match(event.request).then(function(response) {
+//         console.log(event.request);
 //         if (response) {
 //             console.log("return reponse");
 //             return response;
 //         }
-//
 //         return fetch(event.request);
 //       }
 //     )
