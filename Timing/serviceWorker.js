@@ -7,10 +7,11 @@ var CURRENT_CACHES = {
 
 self.addEventListener('install', function(event) {
     var urlsToCache = [
-    //   '/Files/test_50_sw.html',
-    //   '/Files/test_60_sw.html',
-    //   '/Files/test_100_sw.html',
-      '/Files/test_200_sw.html'
+      '/Files/test_50_sw.html',
+      '/Files/test_60_sw.html',
+      '/Files/test_100_sw.html',
+      '/Files/test_200_sw.html',
+      new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'}),
     ];
 
     event.waitUntil(
@@ -47,7 +48,10 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    console.log(event);
+    console.log("Fetching...");
+    event.respondWith(
+        caches.match(event.request)
+    );
 });
 
 // self.addEventListener('fetch', function(event) {

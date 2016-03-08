@@ -293,34 +293,24 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         function resourceLoad(url) {
             return new Promise(function(resolve, reject) {
-                var request = new XMLHttpRequest();
-                request.open('GET', url);
-                request.responseType = 'blob';
-
-                request.onload = function() {
-                    if (request.status == 200) {
-                        var arrayResponse = [];
-                        arrayResponse[0] = request.response;
-                        arrayResponse[1] = url;
-                        resolve(arrayResponse);
-                    } else {
-                        reject(Error('Resource didn\'t load successfully; error code:' + request.statusText));
-                    }
+                var s = document.createElement('video');
+                s.onerror = function() {
+                    timeError = window.performance.now();
+                    var time =  timeError - timeLoad;
+                    resolve(time);
                 };
-
-                request.onerror = function() {
-                    reject(Error('There was a network error.'));
+                s.onloadstart = function() {
+                    timeLoad = window.performance.now();
                 };
-                request.send();
+                var timeLoad, timeError;
+                s.src = url;
             });
+
         };
 
         $scope.service_worker_50 = function() {
             var end;
-            var start = window.performance.now();
-            resourceLoad(URLsw50).then(function(arrayResponse) {
-                end = window.performance.now();
-                var time = end - start;
+            resourceLoad('https://www.facebook.com/adumitras').then(function(time) {
                 console.log("Time: " + time);
             });
         };
