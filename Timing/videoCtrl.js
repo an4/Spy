@@ -8,26 +8,26 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
         // All urls
         var URL = [
-            {size: 50: ,url: "/Files/test_50.html"},
-            {size: 100: ,url: "/Files/test_100.html"},
-            {size: 150: ,url: "/Files/test_150.html"},
-            {size: 200: ,url: "/Files/test_200.html"},
-            {size: 250: ,url: "/Files/test_250.html"},
-            {size: 300: ,url: "/Files/test_300.html"},
-            {size: 350: ,url: "/Files/test_350.html"},
-            {size: 400: ,url: "/Files/test_400.html"},
-            {size: 450: ,url: "/Files/test_450.html"},
-            {size: 500: ,url: "/Files/test_500.html"},
-            {size: 550: ,url: "/Files/test_550.html"},
-            {size: 600: ,url: "/Files/test_600.html"},
-            {size: 650: ,url: "/Files/test_650.html"},
-            {size: 700: ,url: "/Files/test_700.html"},
-            {size: 750: ,url: "/Files/test_750.html"},
-            {size: 800: ,url: "/Files/test_800.html"},
-            {size: 850: ,url: "/Files/test_850.html"},
-            {size: 900: ,url: "/Files/test_900.html"},
-            {size: 950: ,url: "/Files/test_950.html"},
-            {size: 1000: ,url: "/Files/test_1000.html"}
+            {size: 50, url: "/Files/test_50.html"},
+            {size: 100, url: "/Files/test_100.html"},
+            {size: 150, url: "/Files/test_150.html"},
+            {size: 200, url: "/Files/test_200.html"},
+            {size: 250, url: "/Files/test_250.html"},
+            {size: 300, url: "/Files/test_300.html"},
+            {size: 350, url: "/Files/test_350.html"},
+            {size: 400, url: "/Files/test_400.html"},
+            {size: 450, url: "/Files/test_450.html"},
+            {size: 500, url: "/Files/test_500.html"},
+            {size: 550, url: "/Files/test_550.html"},
+            {size: 600, url: "/Files/test_600.html"},
+            {size: 650, url: "/Files/test_650.html"},
+            {size: 700, url: "/Files/test_700.html"},
+            {size: 750, url: "/Files/test_750.html"},
+            {size: 800, url: "/Files/test_800.html"},
+            {size: 850, url: "/Files/test_850.html"},
+            {size: 900, url: "/Files/test_900.html"},
+            {size: 950, url: "/Files/test_950.html"},
+            {size: 1000, url: "/Files/test_1000.html"}
         ];
 
         var URL50 = '/Files/test_50.html';
@@ -255,51 +255,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             s.src = url;
         }
 
-        $scope.time_video_50 = function () {
-            var results = [];
-            if($location.path() === '/videocached') {
-                time_video(URLcached50, '50', 0, results);
-            } else if ($location.path() === '/video') {
-                time_video(URL50, '50', 0, results);
-            } else if ($location.path() === '/videosw') {
-                time_video(URLsw50, '50', 0, results);
-            }
-
-        };
-
-        $scope.time_video_60 = function () {
-            var results = [];
-            if($location.path() === '/videocached') {
-                time_video(URLcached60, '60', 0, results);
-            } else if ($location.path() === '/video') {
-                time_video(URL60, '60', 0, results);
-            } else if ($location.path() === '/videosw') {
-                time_video(URLsw60, '60', 0, results);
-            }
-        };
-
-        $scope.time_video_100 = function () {
-            var results = [];
-            if($location.path() === '/videocached') {
-                time_video(URLcached100, '100', 0, results);
-            } else if ($location.path() === '/video') {
-                time_video(URL100, '100', 0, results);
-            } else if ($location.path() === '/videosw') {
-                time_video(URLsw100, '100', 0, results);
-            }
-        };
-
-        $scope.time_video_200 = function () {
-            var results = [];
-            if($location.path() === '/videocached') {
-                time_video(URLcached200, '200', 0, results);
-            } else if ($location.path() === '/video') {
-                time_video(URL200, '200', 0, results);
-            } else if ($location.path() === '/videosw') {
-                time_video(URLsw200, '200', 0, results);
-            }
-        };
-
         $scope.time_video_all = function() {
             var input = [
                 {url: URL50, name: '50'},
@@ -332,4 +287,42 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             var current = 0;
             time_video_all(input[current].url, input[current].name, 0, results, current, input);
         };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Service Worker MAGIC
+////////////////////////////////////////////////////////////////////////////////////////////////////
+        function resourceLoad(url) {
+            return new Promise(function(resolve, reject) {
+                var request = new XMLHttpRequest();
+                request.open('GET', url);
+                request.responseType = 'blob';
+
+                request.onload = function() {
+                    if (request.status == 200) {
+                        var arrayResponse = [];
+                        arrayResponse[0] = request.response;
+                        arrayResponse[1] = url;
+                        resolve(arrayResponse);
+                    } else {
+                        reject(Error('Resource didn\'t load successfully; error code:' + request.statusText));
+                    }
+                };
+
+                request.onerror = function() {
+                    reject(Error('There was a network error.'));
+                };
+                request.send();
+            });
+        };
+
+        $scope.service_worker_50 = function() {
+            var end;
+            var start = window.performance.now();
+            resourceLoad(URLsw50).then(function(arrayResponse) {
+                end = window.performance.now();
+                var time = end - start;
+                console.log("Time: " + time);
+            });
+        };
+
 }]);

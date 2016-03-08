@@ -1,62 +1,80 @@
-var CACHE_NAME = 'timing-cache-v1';
+// importScripts('serviceworker-cache-polyfill.js');
 
-var urlsToCache = [
-  '/Files/test_50_sw.html',
-  '/Files/test_60_sw.html',
-  '/Files/test_100_sw.html',
-  '/Files/test_200_sw.html'
-];
+var CACHE_VERSION = 1;
+var CURRENT_CACHES = {
+  mycache: 'my-cache-v-' + CACHE_VERSION
+};
 
 self.addEventListener('install', function(event) {
+    var urlsToCache = [
+    //   '/Files/test_50_sw.html',
+    //   '/Files/test_60_sw.html',
+    //   '/Files/test_100_sw.html',
+      '/Files/test_200_sw.html'
+    ];
+
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
+        caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+            cache.addAll(urlsToCache.map(function(urlToCache) {
+                return new Request(urlToCache, {mode: 'no-cors'});
+            })).then(function() {
+                console.log('All urls have been fetched and cached.');
+            });
+        }).catch(function(error) {
+            console.error('Cache failed:', error);
         })
     );
 });
 
+self.addEventListener('activate', function(event) {
+    // Delete all caches that aren't named in CURRENT_CACHES.
+    var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
+        return CURRENT_CACHES[key];
+    });
 
-this.addEventListener('fetch', function(event) {
-    var response;
-    event.respondWith(caches.match(event.request).catch(function() {
-        return fetch(event.request);
-    }).then(function(r) {
-        response = r;
-        caches.open(CACHE_NAME).then(function(cache) {
-            cache.put(event.request, response);
-        });
-        return response.clone();
-    }).catch(function() {
-        return caches.match('/Files/test_50_sw.html');
-    }));
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (expectedCacheNames.indexOf(cacheName) == -1) {
+                        console.log('Deleted out of date cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
 });
 
-// self.addEventListener('fetch', function(event) {
-//     event.respondWith(
-//         caches.match(event.request).then(function(response) {
-//             return response || fetch(event.request);
-//         })
-//     );
-// });
+self.addEventListener('fetch', function(event) {
+    console.log('Fetch event:', event.request.url);
 
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            if (response) {
+                console.log('Found in cache:', response);
+                return response;
+            }
 
-// this.addEventListener('activate', function(event) {
-//     console.log("Activated!");
-// });
-//
+            console.log('No response found in cache. Fetch from network...');
 
-// self.addEventListener('fetch', function(event) {
-//   event.respondWith(
-//     caches.match(event.request).then(function(response) {
-//         console.log(event.request);
-//         if (response) {
-//             console.log("return reponse");
-//             return response;
-//         }
-//         return fetch(event.request);
-//       }
-//     )
-//   );
-// });
+            var fetchRequest = event.request.clone();
+
+            return fetch(fetchRequest).then(function(response) {
+                if(!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
+                }
+
+                var responseToCache = response.clone();
+
+                caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+                    var cacheRequest = event.request.clone();
+                    console.log("Add to cache:" + cacheRequest);
+                    cache.put(cacheRequest, responseToCache);
+                });
+
+                return response;
+            });
+        })
+    );
+});
