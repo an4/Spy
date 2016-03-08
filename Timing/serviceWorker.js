@@ -47,34 +47,38 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    console.log('Fetch event:', event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                console.log('Found in cache:', response);
-                return response;
-            }
-
-            console.log('No response found in cache. Fetch from network...');
-
-            var fetchRequest = event.request.clone();
-
-            return fetch(fetchRequest).then(function(response) {
-                if(!response || response.status !== 200 || response.type !== 'basic') {
-                    return response;
-                }
-
-                var responseToCache = response.clone();
-
-                caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-                    var cacheRequest = event.request.clone();
-                    console.log("Add to cache:" + cacheRequest);
-                    cache.put(cacheRequest, responseToCache);
-                });
-
-                return response;
-            });
-        })
-    );
+    console.log(event);
 });
+
+// self.addEventListener('fetch', function(event) {
+//     console.log('Fetch event:', event.request.url);
+//
+//     event.respondWith(
+//         caches.match(event.request).then(function(response) {
+//             if (response) {
+//                 console.log('Found in cache:', response);
+//                 return response;
+//             }
+//
+//             console.log('No response found in cache. Fetch from network...');
+//
+//             var fetchRequest = event.request.clone();
+//
+//             return fetch(fetchRequest).then(function(response) {
+//                 if(!response || response.status !== 200 || response.type !== 'basic') {
+//                     return response;
+//                 }
+//
+//                 var responseToCache = response.clone();
+//
+//                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+//                     var cacheRequest = event.request.clone();
+//                     console.log("Add to cache:" + cacheRequest);
+//                     cache.put(cacheRequest, responseToCache);
+//                 });
+//
+//                 return response;
+//             });
+//         })
+//     );
+// });

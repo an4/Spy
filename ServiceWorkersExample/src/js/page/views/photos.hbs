@@ -1,0 +1,17 @@
+{{#each this}}
+  <article class="photo">
+    <h1>
+      <a href="{{flickrUrl}}">
+        <span class="main-photo">
+          <span class="photo-fader">
+            <img src="{{imgUrl}}" alt="" class="main-photo-img">
+          </span>
+        </span>
+        <span class="title">{{title}}</span>
+      </a>
+    </h1>
+    {{#if description}}
+      <p class="description">{{{description}}}</p>
+    {{/if}}
+  </article>
+{{/each}}

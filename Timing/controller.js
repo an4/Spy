@@ -9,32 +9,36 @@ var app = angular.module('TheApp', [
     'ScriptCtrl'
 ]);
 
-app.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/video', {
-        templateUrl: 'video.html',
-        controller: 'VideoCtrl'
-      }).
-      when('/videocached', {
-        templateUrl: 'video.html',
-        controller: 'VideoCtrl'
-      }).
-      when('/videosw', {
-        templateUrl: 'video.html',
-        controller: 'VideoCtrl'
-      }).
-      when('/image', {
-          templateUrl: 'image.html',
-          controller: 'ImageCtrl'
-      }).
-      when('/script', {
-          templateUrl: 'script.html',
-          controller: 'ScriptCtrl'
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
+app.config(['$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {
+        $routeProvider.
+            when('/video', {
+                templateUrl: 'video.html',
+                controller: 'VideoCtrl'
+            }).
+            when('/videocached', {
+                templateUrl: 'video.html',
+                controller: 'VideoCtrl'
+                }).
+            when('/videosw', {
+                templateUrl: 'video.html',
+                controller: 'VideoCtrl'
+            }).
+            when('/image', {
+                templateUrl: 'image.html',
+                controller: 'ImageCtrl'
+            }).
+            when('/script', {
+                templateUrl: 'script.html',
+                controller: 'ScriptCtrl'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
   }]);
 
 // app.controller("MainCtrl", ['$scope', '$http',
