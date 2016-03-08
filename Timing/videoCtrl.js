@@ -6,6 +6,30 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
     function($scope, $http, $location) {
         $scope.video = {};
 
+        // All urls
+        var URL = [
+            {size: 50: ,url: "/Files/test_50.html"},
+            {size: 100: ,url: "/Files/test_100.html"},
+            {size: 150: ,url: "/Files/test_150.html"},
+            {size: 200: ,url: "/Files/test_200.html"},
+            {size: 250: ,url: "/Files/test_250.html"},
+            {size: 300: ,url: "/Files/test_300.html"},
+            {size: 350: ,url: "/Files/test_350.html"},
+            {size: 400: ,url: "/Files/test_400.html"},
+            {size: 450: ,url: "/Files/test_450.html"},
+            {size: 500: ,url: "/Files/test_500.html"},
+            {size: 550: ,url: "/Files/test_550.html"},
+            {size: 600: ,url: "/Files/test_600.html"},
+            {size: 650: ,url: "/Files/test_650.html"},
+            {size: 700: ,url: "/Files/test_700.html"},
+            {size: 750: ,url: "/Files/test_750.html"},
+            {size: 800: ,url: "/Files/test_800.html"},
+            {size: 850: ,url: "/Files/test_850.html"},
+            {size: 900: ,url: "/Files/test_900.html"},
+            {size: 950: ,url: "/Files/test_950.html"},
+            {size: 1000: ,url: "/Files/test_1000.html"}
+        ];
+
         var URL50 = '/Files/test_50.html';
         var URL60 = '/Files/test_60.html';
         var URL100 = '/Files/test_100.html';
@@ -23,16 +47,15 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
         function time_video_basic(url, name) {
             var s = document.createElement('video');
-            var time = 0;
             s.onerror = function() {
                 timeError = window.performance.now();
-                time =  timeError - timeLoad;
+                var time =  timeError - timeLoad;
                 console.log(name + ": " + time);
             };
             s.onloadstart = function() {
                 timeLoad = window.performance.now();
             };
-            var start = window.performance.now(), timeLoad, timeError;
+            var timeLoad, timeError;
             s.src = url;
         };
 
