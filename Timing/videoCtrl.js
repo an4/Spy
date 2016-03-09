@@ -4,30 +4,29 @@ var videoCtrl = angular.module('VideoCtrl', []);
 
 videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
     function($scope, $http, $location) {
-        $scope.video = {};
 
         // All urls
         var URL = [
-            {size: 50, url: "/Files/test_50.html"},
-            {size: 100, url: "/Files/test_100.html"},
-            {size: 150, url: "/Files/test_150.html"},
-            {size: 200, url: "/Files/test_200.html"},
-            {size: 250, url: "/Files/test_250.html"},
-            {size: 300, url: "/Files/test_300.html"},
-            {size: 350, url: "/Files/test_350.html"},
-            {size: 400, url: "/Files/test_400.html"},
-            {size: 450, url: "/Files/test_450.html"},
-            {size: 500, url: "/Files/test_500.html"},
-            {size: 550, url: "/Files/test_550.html"},
-            {size: 600, url: "/Files/test_600.html"},
-            {size: 650, url: "/Files/test_650.html"},
-            {size: 700, url: "/Files/test_700.html"},
-            {size: 750, url: "/Files/test_750.html"},
-            {size: 800, url: "/Files/test_800.html"},
-            {size: 850, url: "/Files/test_850.html"},
-            {size: 900, url: "/Files/test_900.html"},
-            {size: 950, url: "/Files/test_950.html"},
-            {size: 1000, url: "/Files/test_1000.html"}
+            {size: "50", url: "/Files/test_50.html", name: "50kB"},
+            {size: "100", url: "/Files/test_100.html", name: "100kB"},
+            {size: "150", url: "/Files/test_150.html", name: "150kB"},
+            {size: "200", url: "/Files/test_200.html", name: "200kB"},
+            {size: "250", url: "/Files/test_250.html", name: "250kB"},
+            {size: "300", url: "/Files/test_300.html", name: "300kB"},
+            {size: "350", url: "/Files/test_350.html", name: "350kB"},
+            {size: "400", url: "/Files/test_400.html", name: "400kB"},
+            {size: "450", url: "/Files/test_450.html", name: "450kB"},
+            {size: "500", url: "/Files/test_500.html", name: "500kB"},
+            {size: "550", url: "/Files/test_550.html", name: "550kB"},
+            {size: "600", url: "/Files/test_600.html", name: "600kB"},
+            {size: "650", url: "/Files/test_650.html", name: "650kB"},
+            {size: "700", url: "/Files/test_700.html", name: "700kB"},
+            {size: "750", url: "/Files/test_750.html", name: "750kB"},
+            {size: "800", url: "/Files/test_800.html", name: "800kB"},
+            {size: "850", url: "/Files/test_850.html", name: "850kB"},
+            {size: "900", url: "/Files/test_900.html", name: "900kB"},
+            {size: "950", url: "/Files/test_950.html", name: "950kB"},
+            {size: "1000", url: "/Files/test_1000.html", name: "1000kB"}
         ];
 
         var URL50 = '/Files/test_50.html';
@@ -45,103 +44,119 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         var URLsw100 = '/Files/test_100_sw.html';
         var URLsw200 = '/Files/test_200_sw.html';
 
-        function time_video_basic(url, name) {
-            var s = document.createElement('video');
-            s.onerror = function() {
-                timeError = window.performance.now();
-                var time =  timeError - timeLoad;
-                console.log(name + ": " + time);
-            };
-            s.onloadstart = function() {
-                timeLoad = window.performance.now();
-            };
-            var timeLoad, timeError;
-            s.src = url;
+///////////////////////////////////////////////////////////////
+///////////////////// TIME VIDEO METHODS //////////////////////
+///////////////////////////////////////////////////////////////
+        $scope.video = {};
+
+        // function time_video_basic(url, name) {
+        //     var s = document.createElement('video');
+        //     s.onerror = function() {
+        //         timeError = window.performance.now();
+        //         var time =  timeError - timeLoad;
+        //         console.log(name + ": " + time);
+        //     };
+        //     s.onloadstart = function() {
+        //         timeLoad = window.performance.now();
+        //     };
+        //     var timeLoad, timeError;
+        //     s.src = url;
+        // };
+
+        function time_video(url) {
+            return new Promise(function(resolve, reject) {
+                var video = document.createElement('video');
+                // The error is only triggered when the file has finished parsing
+                video.onerror = function() {
+                    timeError = window.perfomance.now();
+                    var time = timeError - timeLoad;
+                    resolve(time);
+                };
+                // Start timing once the resource is loaded and parsing begins.
+                video.onloadstart = function() {
+                    timeLoad = window.performance.now();
+                };
+                var timeLoad, timeError;
+                video.src = url;
+            });
         };
 
-        function time_video(url, name, iteration, results) {
-            var s = document.createElement('video');
-            var time = 0;
+        function time_video_all(files) {
+            var results = [];
 
-            s.onerror = function() {
-                timeError = window.performance.now();
-                time =  timeError - timeLoad;
-                if(iteration < $scope.video.rounds) {
-                    if(time > $scope.video.limit && $scope.video.limit != 0) {
-                        time_video(url, name, iteration, results);
-                    } else {
-                        results.push(time);
-                        time_video(url, name, iteration + 1, results);
-                    }
-                } else {
-                    var k = 0;
-                    var sum = 0;
-                    results.forEach(function(result) {
-                        if($scope.video.print_results) {
-                            console.log((k++) + " " + result);
+            var ROUNDS = $scope.video.rounds;
+            var LIMIT = $scope.video.limit;
+
+            files.forEach(function(file) {
+                // Array of times for current file.
+                var times = [];
+                for(var i=0; i<ROUNDS; i++) {
+                    var time = time_video(file.url);
+
+                    // Removes outliers
+                    if(LIMIT != 0) {
+                        while(time > LIMIT) {
+                            time = time_video(file.url);
                         }
-                        sum += result;
-                    });
-                    // console.log("Average time: " + (sum/results.length));
-                    drawSomethingSimple(results, name);
-                }
-            };
-
-            s.onloadstart = function() {
-                timeLoad = window.performance.now();
-            };
-
-            var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
-            s.src = url;
-        };
-
-        function drawSomethingSimple(results, name) {
-            $scope.chartObject = {};
-
-            $scope.chartObject.type = "LineChart";
-            $scope.chartObject.displayed = false;
-            $scope.chartObject.data = {
-                "cols": [{
-                    id: "sec",
-                    label: "Time",
-                    type: "string"
-                }, {
-                    id: name + "KB",
-                    label: name + "KB",
-                    type: "number"
-                }],
-                "rows": []};
-            $scope.chartObject.options = {
-                "title": "External resource load time. Samples: " + $scope.video.rounds,
-                "colors": ['#AE1C28'],
-                "defaultColors": ['#AE1C28'],
-                "isStacked": "true",
-                "displayExactValues": true,
-                "vAxis": {
-                    "gridlines": {
-                        "count": 10
                     }
-                },
-                "hAxis": {
-                    "title": "Milliseconds"
+
+                    times.push(time);
                 }
-            };
 
-            var label_data = [];
-            for(var i=0; i<$scope.video.Xaxis*10; i++) {
-                label_data.push(i/10.0);
-            }
-            var output = getPDF(results);
+                // Construct output for each file
+                var result = {};
+                result.url = file.url;
+                result.times = times;
+                result.name = file.name;
+                result.size = file.size;
 
-            for(var i=0; i<$scope.video.Xaxis*10; i++) {
-                var row = {};
-                row.c = [{v: label_data[i]}, {v: output[i]}];
-                $scope.chartObject.data.rows.push(row);
-            }
+                // Add result to results Array
+                results.push(result);
+            });
 
-            $scope.$apply();
+            return results;
         };
 
+
+        // // Time video using trick to call next iteration from onerror event
+        // function time_video_all(url, name, iteration, results, current, input) {
+        //     var s = document.createElement('video');
+        //     var time = 0;
+        //
+        //     s.onerror = function() {
+        //         timeError = window.performance.now();
+        //         time =  timeError - timeLoad;
+        //         if(iteration < $scope.video.rounds) {
+        //             if(time > $scope.video.limit && $scope.video.limit != 0) {
+        //                 time_video_all(url, name, iteration, results, current, input);
+        //             } else {
+        //                 results.push(time);
+        //                 time_video_all(url, name, iteration + 1, results, current, input);
+        //             }
+        //         } else {
+        //             totalResults.push(results);
+        //             current++;
+        //             if(current < 4) {
+        //                 results = [];
+        //                 time_video_all(input[current].url, input[current].name, 0, results, current, input);
+        //             } else {
+        //                 drawSomething(totalResults);
+        //             }
+        //         }
+        //     };
+        //
+        //     s.onloadstart = function() {
+        //         timeLoad = window.performance.now();
+        //     };
+        //
+        //     var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
+        //     s.src = url;
+        // }
+
+
+/////////////////////////////////////////////////////////
+//////////////////// COLOURS & LINES ////////////////////
+/////////////////////////////////////////////////////////
 
         var totalResults = [];
 
@@ -159,34 +174,42 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             return arr;
         };
 
-        function drawSomething(input) {
+
+        // Rewrite this function
+        function drawSomething(files) {
             $scope.chartObject = {};
 
             $scope.chartObject.type = "LineChart";
             $scope.chartObject.displayed = false;
-            $scope.chartObject.data = {
-                "cols": [{
-                    id: "sec",
-                    label: "Time",
-                    type: "string"
-                }, {
-                    id: "50kb",
-                    label: "50KB",
-                    type: "number"
-                }, {
-                    id: "60kb",
-                    label: "60KB",
-                    type: "number"
-                }, {
-                    id: "100kb",
-                    label: "100KB",
-                    type: "number"
-                }, {
-                    id: "200kb",
-                    label: "200KB",
-                    type: "number"
-                }],
-                "rows": []};
+            $scope.chartObject.data = {"cols": [], "rows": []};
+
+            // Add labels
+            $scope.chartObject.data.cols.push({id: "Seconds", label: "Time", type: "String"});
+
+            // Add chart data for each file
+            files.forEach(function(file) {
+                
+            });
+
+
+            {
+                id: "50kb",
+                label: "50KB",
+                type: "number"
+            }, {
+                id: "60kb",
+                label: "60KB",
+                type: "number"
+            }, {
+                id: "100kb",
+                label: "100KB",
+                type: "number"
+            }, {
+                id: "200kb",
+                label: "200KB",
+                type: "number"
+            }
+
             $scope.chartObject.options = {
                 "title": "External resource load time. Samples: " + $scope.video.rounds ,
                 "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
@@ -221,39 +244,9 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             $scope.$apply();
         };
 
-        function time_video_all(url, name, iteration, results, current, input) {
-            var s = document.createElement('video');
-            var time = 0;
-
-            s.onerror = function() {
-                timeError = window.performance.now();
-                time =  timeError - timeLoad;
-                if(iteration < $scope.video.rounds) {
-                    if(time > $scope.video.limit && $scope.video.limit != 0) {
-                        time_video_all(url, name, iteration, results, current, input);
-                    } else {
-                        results.push(time);
-                        time_video_all(url, name, iteration + 1, results, current, input);
-                    }
-                } else {
-                    totalResults.push(results);
-                    current++;
-                    if(current < 4) {
-                        results = [];
-                        time_video_all(input[current].url, input[current].name, 0, results, current, input);
-                    } else {
-                        drawSomething(totalResults);
-                    }
-                }
-            };
-
-            s.onloadstart = function() {
-                timeLoad = window.performance.now();
-            };
-
-            var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
-            s.src = url;
-        }
+/////////////////////////////////////////////////////////
+////////////////// BUTTONS & UI /////////////////////////
+/////////////////////////////////////////////////////////
 
         $scope.time_video_all = function() {
             var input = [
@@ -310,7 +303,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
         $scope.service_worker_50 = function() {
             var end;
-            resourceLoad('https://www.facebook.com/adumitras').then(function(time) {
+            // resourceLoad('https://www.facebook.com/adumitras').then(function(time) {
+            resourceLoad(URLsw50).then(function(time) {
                 console.log("Time: " + time);
             });
         };

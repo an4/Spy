@@ -5,13 +5,14 @@ var CURRENT_CACHES = {
   mycache: 'my-cache-v-' + CACHE_VERSION
 };
 
+var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
+
 self.addEventListener('install', function(event) {
     var urlsToCache = [
-      '/Files/test_50_sw.html',
-      '/Files/test_60_sw.html',
-      '/Files/test_100_sw.html',
-      '/Files/test_200_sw.html',
-      new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'}),
+        '/Files/test_50_sw.html',
+        '/Files/test_60_sw.html',
+        '/Files/test_100_sw.html',
+        '/Files/test_200_sw.html'
     ];
 
     event.waitUntil(
@@ -47,42 +48,42 @@ self.addEventListener('activate', function(event) {
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    console.log("Fetching...");
-    event.respondWith(
-        caches.match(event.request)
-    );
-});
-
 // self.addEventListener('fetch', function(event) {
-//     console.log('Fetch event:', event.request.url);
-//
+//     console.log("Fetching...");
 //     event.respondWith(
-//         caches.match(event.request).then(function(response) {
-//             if (response) {
-//                 console.log('Found in cache:', response);
-//                 return response;
-//             }
-//
-//             console.log('No response found in cache. Fetch from network...');
-//
-//             var fetchRequest = event.request.clone();
-//
-//             return fetch(fetchRequest).then(function(response) {
-//                 if(!response || response.status !== 200 || response.type !== 'basic') {
-//                     return response;
-//                 }
-//
-//                 var responseToCache = response.clone();
-//
-//                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-//                     var cacheRequest = event.request.clone();
-//                     console.log("Add to cache:" + cacheRequest);
-//                     cache.put(cacheRequest, responseToCache);
-//                 });
-//
-//                 return response;
-//             });
-//         })
+//         caches.match(event.request)
 //     );
 // });
+
+self.addEventListener('fetch', function(event) {
+    console.log('Fetch event:', event.request.url);
+
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            if (response) {
+                console.log('Found in cache:', response);
+                return response;
+            }
+
+            console.log('No response found in cache. Fetch from network...');
+
+            var fetchRequest = event.request.clone();
+
+            return fetch(fetchRequest).then(function(response) {
+                if(!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
+                }
+
+                var responseToCache = response.clone();
+
+                caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+                    var cacheRequest = event.request.clone();
+                    console.log("Add to cache:" + cacheRequest);
+                    cache.put(cacheRequest, responseToCache);
+                });
+
+                return response;
+            });
+        })
+    );
+});
