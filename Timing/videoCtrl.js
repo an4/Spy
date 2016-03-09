@@ -8,24 +8,24 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         // All urls
         var URL = [
             {size: "50", url: "/Files/test_50.html", name: "50kB"},
-            {size: "100", url: "/Files/test_100.html", name: "100kB"},
-            {size: "150", url: "/Files/test_150.html", name: "150kB"},
-            {size: "200", url: "/Files/test_200.html", name: "200kB"},
-            {size: "250", url: "/Files/test_250.html", name: "250kB"},
-            {size: "300", url: "/Files/test_300.html", name: "300kB"},
-            {size: "350", url: "/Files/test_350.html", name: "350kB"},
-            {size: "400", url: "/Files/test_400.html", name: "400kB"},
-            {size: "450", url: "/Files/test_450.html", name: "450kB"},
-            {size: "500", url: "/Files/test_500.html", name: "500kB"},
-            {size: "550", url: "/Files/test_550.html", name: "550kB"},
-            {size: "600", url: "/Files/test_600.html", name: "600kB"},
-            {size: "650", url: "/Files/test_650.html", name: "650kB"},
-            {size: "700", url: "/Files/test_700.html", name: "700kB"},
-            {size: "750", url: "/Files/test_750.html", name: "750kB"},
-            {size: "800", url: "/Files/test_800.html", name: "800kB"},
-            {size: "850", url: "/Files/test_850.html", name: "850kB"},
-            {size: "900", url: "/Files/test_900.html", name: "900kB"},
-            {size: "950", url: "/Files/test_950.html", name: "950kB"},
+            // {size: "100", url: "/Files/test_100.html", name: "100kB"},
+            // {size: "150", url: "/Files/test_150.html", name: "150kB"},
+            // {size: "200", url: "/Files/test_200.html", name: "200kB"},
+            // {size: "250", url: "/Files/test_250.html", name: "250kB"},
+            // {size: "300", url: "/Files/test_300.html", name: "300kB"},
+            // {size: "350", url: "/Files/test_350.html", name: "350kB"},
+            // {size: "400", url: "/Files/test_400.html", name: "400kB"},
+            // {size: "450", url: "/Files/test_450.html", name: "450kB"},
+            // {size: "500", url: "/Files/test_500.html", name: "500kB"},
+            // {size: "550", url: "/Files/test_550.html", name: "550kB"},
+            // {size: "600", url: "/Files/test_600.html", name: "600kB"},
+            // {size: "650", url: "/Files/test_650.html", name: "650kB"},
+            // {size: "700", url: "/Files/test_700.html", name: "700kB"},
+            // {size: "750", url: "/Files/test_750.html", name: "750kB"},
+            // {size: "800", url: "/Files/test_800.html", name: "800kB"},
+            // {size: "850", url: "/Files/test_850.html", name: "850kB"},
+            // {size: "900", url: "/Files/test_900.html", name: "900kB"},
+            // {size: "950", url: "/Files/test_950.html", name: "950kB"},
             {size: "1000", url: "/Files/test_1000.html", name: "1000kB"}
         ];
 
@@ -63,12 +63,12 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         //     s.src = url;
         // };
 
-        function time_video(url) {
+        function getTimeVideoOnce(url) {
             return new Promise(function(resolve, reject) {
                 var video = document.createElement('video');
                 // The error is only triggered when the file has finished parsing
                 video.onerror = function() {
-                    timeError = window.perfomance.now();
+                    timeError = window.performance.now();
                     var time = timeError - timeLoad;
                     resolve(time);
                 };
@@ -81,26 +81,16 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             });
         };
 
-        function time_video_all(files) {
-            var results = [];
+        function getTimeVideoFile(file) {
+            return new Promise(function(resolve, reject) {
+                var ROUNDS = $scope.video.rounds;
 
-            var ROUNDS = $scope.video.rounds;
-            var LIMIT = $scope.video.limit;
-
-            files.forEach(function(file) {
+                // Array of all promises to be resolved;
+                var promises = [];
                 // Array of times for current file.
                 var times = [];
                 for(var i=0; i<ROUNDS; i++) {
-                    var time = time_video(file.url);
-
-                    // Removes outliers
-                    if(LIMIT != 0) {
-                        while(time > LIMIT) {
-                            time = time_video(file.url);
-                        }
-                    }
-
-                    times.push(time);
+                    promises.push(getTimeVideoOnce(file.url));
                 }
 
                 // Construct output for each file
@@ -111,10 +101,24 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 result.size = file.size;
 
                 // Add result to results Array
-                results.push(result);
+                Promise.all(promises).then(function(result) {
+                    resolve(result);
+                });
             });
+        };
 
-            return results;
+        function getTimeVideoAll(files) {
+            return new Promise(function(resolve, reject) {
+                var promises = [];
+
+                files.forEach(function(file) {
+                    promises.push(getTimeVideoFile(file));
+                });
+
+                Promise.all(promises).then(function(results) {
+                    resolve(results);
+                });
+            });
         };
 
 
@@ -174,9 +178,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             return arr;
         };
 
-
-        // Rewrite this function
-        function drawSomething(files) {
+        function draw(files) {
             $scope.chartObject = {};
 
             $scope.chartObject.type = "LineChart";
@@ -184,38 +186,21 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             $scope.chartObject.data = {"cols": [], "rows": []};
 
             // Add labels
-            $scope.chartObject.data.cols.push({id: "Seconds", label: "Time", type: "String"});
+            $scope.chartObject.data.cols.push({id: "Seconds", label: "Time", type: "string"});
 
             // Add chart data for each file
             files.forEach(function(file) {
-                
+                var col = {};
+                col.id = file.name;
+                col.label = file.name;
+                col.type = "number";
+                $scope.chartObject.data.cols.push(col);
             });
 
-
-            {
-                id: "50kb",
-                label: "50KB",
-                type: "number"
-            }, {
-                id: "60kb",
-                label: "60KB",
-                type: "number"
-            }, {
-                id: "100kb",
-                label: "100KB",
-                type: "number"
-            }, {
-                id: "200kb",
-                label: "200KB",
-                type: "number"
-            }
-
+            //  Add more colours;
             $scope.chartObject.options = {
                 "title": "External resource load time. Samples: " + $scope.video.rounds ,
-                "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
-                "defaultColors": ['#0000FF', '#009900', '#CC0000', '#DD9900'],
                 "isStacked": "true",
-                "displayExactValues": true,
                 "vAxis": {
                     "gridlines": {
                         "count": 10
@@ -226,59 +211,75 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 }
             };
 
+            // X-axis labels
             var label_data = [];
             for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 label_data.push(i/10.0);
             }
-            var output = [];
-            input.forEach(function(el) {
-                output.push(getPDF(el));
+
+            // Get array of times for each file.
+            var times = [];
+            files.forEach(function(file) {
+                times.push(getPDF(file.times));
             });
 
+            // Add times for each file at each time step.
             for(var i=0; i<$scope.video.Xaxis*10; i++) {
                 var row = {};
-                row.c = [{v: label_data[i]}, {v: output[0][i]}, {v: output[1][i]}, {v: output[2][i]}, {v: output[3][i]}];
+                row.c = [];
+                // Add time step value
+                row.c.push({v: label_data[i]});
+                // Add times for each file at current time step.
+                for(var j=0; j<times.length; j++) {
+                    row.c.push({v: times[j][i]})
+                }
+                // row.c = [{v: label_data[i]}, {v: output[0][i]}, {v: output[1][i]}, {v: output[2][i]}, {v: output[3][i]}];
                 $scope.chartObject.data.rows.push(row);
             }
 
-            $scope.$apply();
+            // $scope.$apply();
         };
 
 /////////////////////////////////////////////////////////
 ////////////////// BUTTONS & UI /////////////////////////
 /////////////////////////////////////////////////////////
 
-        $scope.time_video_all = function() {
-            var input = [
-                {url: URL50, name: '50'},
-                {url: URL60, name: '60'},
-                {url: URL100, name: '100'},
-                {url: URL200, name: '200'},
-            ];
+        $scope.time_video = function() {
+            // var input = [
+            //     {url: URL50, name: '50'},
+            //     {url: URL60, name: '60'},
+            //     {url: URL100, name: '100'},
+            //     {url: URL200, name: '200'},
+            // ];
+            //
+            // if($location.path() === '/videocached') {
+            //     input = [
+            //         {url: URLcached50, name: '50'},
+            //         {url: URLcached60, name: '60'},
+            //         {url: URLcached100, name: '100'},
+            //         {url: URLcached200, name: '200'},
+            //     ];
+            // }
+            //
+            // if($location.path() === '/videosw') {
+            //     input = [
+            //         {url: URLsw50, name: '50'},
+            //         {url: URLsw60, name: '60'},
+            //         {url: URLsw100, name: '100'},
+            //         {url: URLsw200, name: '200'},
+            //     ];
+            // }
 
-            if($location.path() === '/videocached') {
-                input = [
-                    {url: URLcached50, name: '50'},
-                    {url: URLcached60, name: '60'},
-                    {url: URLcached100, name: '100'},
-                    {url: URLcached200, name: '200'},
-                ];
-            }
+            // totalResults = [];
+            //
+            // var results = [];
+            // var current = 0;
+            // time_video_all(input[current].url, input[current].name, 0, results, current, input);
 
-            if($location.path() === '/videosw') {
-                input = [
-                    {url: URLsw50, name: '50'},
-                    {url: URLsw60, name: '60'},
-                    {url: URLsw100, name: '100'},
-                    {url: URLsw200, name: '200'},
-                ];
-            }
-
-            totalResults = [];
-
-            var results = [];
-            var current = 0;
-            time_video_all(input[current].url, input[current].name, 0, results, current, input);
+            getTimeVideoAll(URL).then(function(results) {
+                console.log(results);
+                draw(results);
+            });
         };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
