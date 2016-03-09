@@ -49,20 +49,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 ///////////////////////////////////////////////////////////////
         $scope.video = {};
 
-        // function time_video_basic(url, name) {
-        //     var s = document.createElement('video');
-        //     s.onerror = function() {
-        //         timeError = window.performance.now();
-        //         var time =  timeError - timeLoad;
-        //         console.log(name + ": " + time);
-        //     };
-        //     s.onloadstart = function() {
-        //         timeLoad = window.performance.now();
-        //     };
-        //     var timeLoad, timeError;
-        //     s.src = url;
-        // };
-
         function getTimeVideoOnce(url) {
             return new Promise(function(resolve, reject) {
                 var video = document.createElement('video');
@@ -89,19 +75,20 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 var promises = [];
                 // Array of times for current file.
                 var times = [];
+
                 for(var i=0; i<ROUNDS; i++) {
                     promises.push(getTimeVideoOnce(file.url));
                 }
 
-                // Construct output for each file
-                var result = {};
-                result.url = file.url;
-                result.times = times;
-                result.name = file.name;
-                result.size = file.size;
-
-                // Add result to results Array
-                Promise.all(promises).then(function(result) {
+                Promise.all(promises).then(function(times) {
+                    // Construct output for each file
+                    var result = {};
+                    result.url = file.url;
+                    result.times = times;
+                    result.name = file.name;
+                    result.size = file.size;
+                    console.log(file.name);
+                    console.log(times);
                     resolve(result);
                 });
             });
@@ -120,43 +107,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 });
             });
         };
-
-
-        // // Time video using trick to call next iteration from onerror event
-        // function time_video_all(url, name, iteration, results, current, input) {
-        //     var s = document.createElement('video');
-        //     var time = 0;
-        //
-        //     s.onerror = function() {
-        //         timeError = window.performance.now();
-        //         time =  timeError - timeLoad;
-        //         if(iteration < $scope.video.rounds) {
-        //             if(time > $scope.video.limit && $scope.video.limit != 0) {
-        //                 time_video_all(url, name, iteration, results, current, input);
-        //             } else {
-        //                 results.push(time);
-        //                 time_video_all(url, name, iteration + 1, results, current, input);
-        //             }
-        //         } else {
-        //             totalResults.push(results);
-        //             current++;
-        //             if(current < 4) {
-        //                 results = [];
-        //                 time_video_all(input[current].url, input[current].name, 0, results, current, input);
-        //             } else {
-        //                 drawSomething(totalResults);
-        //             }
-        //         }
-        //     };
-        //
-        //     s.onloadstart = function() {
-        //         timeLoad = window.performance.now();
-        //     };
-        //
-        //     var start = window.performance.now(), timeLoad, timeCanPlay, timeError;
-        //     s.src = url;
-        // }
-
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
@@ -179,8 +129,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         };
 
         function draw(files) {
-            $scope.chartObject = {};
-
             $scope.chartObject.type = "LineChart";
             $scope.chartObject.displayed = false;
             $scope.chartObject.data = {"cols": [], "rows": []};
@@ -237,7 +185,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 $scope.chartObject.data.rows.push(row);
             }
 
-            // $scope.$apply();
+            $scope.$apply();
         };
 
 /////////////////////////////////////////////////////////
@@ -245,39 +193,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 /////////////////////////////////////////////////////////
 
         $scope.time_video = function() {
-            // var input = [
-            //     {url: URL50, name: '50'},
-            //     {url: URL60, name: '60'},
-            //     {url: URL100, name: '100'},
-            //     {url: URL200, name: '200'},
-            // ];
-            //
-            // if($location.path() === '/videocached') {
-            //     input = [
-            //         {url: URLcached50, name: '50'},
-            //         {url: URLcached60, name: '60'},
-            //         {url: URLcached100, name: '100'},
-            //         {url: URLcached200, name: '200'},
-            //     ];
-            // }
-            //
-            // if($location.path() === '/videosw') {
-            //     input = [
-            //         {url: URLsw50, name: '50'},
-            //         {url: URLsw60, name: '60'},
-            //         {url: URLsw100, name: '100'},
-            //         {url: URLsw200, name: '200'},
-            //     ];
-            // }
-
-            // totalResults = [];
-            //
-            // var results = [];
-            // var current = 0;
-            // time_video_all(input[current].url, input[current].name, 0, results, current, input);
-
             getTimeVideoAll(URL).then(function(results) {
-                console.log(results);
+                $scope.chartObject = {};
                 draw(results);
             });
         };
@@ -305,7 +222,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         $scope.service_worker_50 = function() {
             var end;
             // resourceLoad('https://www.facebook.com/adumitras').then(function(time) {
-            resourceLoad(URLsw50).then(function(time) {
+            resourceLoad(URL50).then(function(time) {
                 console.log("Time: " + time);
             });
         };
