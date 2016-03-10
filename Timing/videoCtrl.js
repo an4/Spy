@@ -65,19 +65,36 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
-                        console.log(result.name);
+                        console.log(result.name + ". Avg: " + avg(result.times));
                         results.push(result);
                         return getTimeVideoFile(files.shift());
                     });
                 }
 
                 promises[i].then(function(result) {
-                    console.log(result.name);
+                    console.log(result.name + ". Avg: " + avg(result.times));
                     results.push(result);
                     resolve(results);
                 });
             });
         };
+
+/////////////////////////////////////////////////////////
+///////////////////////// HELPER ////////////////////////
+/////////////////////////////////////////////////////////
+
+        function sum(arr) {
+            var sum = 0;
+            arr.forEach(function(el) {
+                sum += el;
+            });
+            return sum;
+        };
+
+        function avg(arr) {
+            return sum(arr)/arr.length;
+        };
+
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
