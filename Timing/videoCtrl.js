@@ -2,12 +2,12 @@
 
 var videoCtrl = angular.module('VideoCtrl', []);
 
-videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
+videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location', '$q',
+    function($scope, $http, $location, $q) {
 
         // All urls
         var URL = [
-            {size: "50", url: "/Files/test_50.html", name: "50kB"},
+            // {size: "50", url: "/Files/test_50.html", name: "50kB"},
             // {size: "100", url: "/Files/test_100.html", name: "100kB"},
             // {size: "150", url: "/Files/test_150.html", name: "150kB"},
             // {size: "200", url: "/Files/test_200.html", name: "200kB"},
@@ -67,6 +67,33 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             });
         };
 
+        // function asyncLoop(items, method) {
+        //     var i = 0;
+        //     var d = $q.defer();
+        //
+        //     nextIteration();
+        //
+        //     return d.promise;
+        //
+        //     function nextIteration() {
+        //         if(i < items.length) {
+        //             method(items[i], i, items).then(
+        //                 function() {
+        //                     i++;
+        //                     nextIteration();
+        //                 },
+        //                 onError
+        //             );
+        //         } else {
+        //             d.resolve();
+        //         }
+        //     };
+        //
+        //     function onError(error) {
+        //         d.reject(error);
+        //     };
+        // };
+
         function getTimeVideoFile(file) {
             return new Promise(function(resolve, reject) {
                 var ROUNDS = $scope.video.rounds;
@@ -76,9 +103,12 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 // Array of times for current file.
                 var times = [];
 
-                for(var i=0; i<ROUNDS; i++) {
-                    promises.push(getTimeVideoOnce(file.url));
-                }
+                // for(var i=0; i<ROUNDS; i++) {
+                //     promises.push(getTimeVideoOnce(file.url));
+                // }
+
+
+
 
                 Promise.all(promises).then(function(times) {
                     // Construct output for each file
