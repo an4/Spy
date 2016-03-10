@@ -79,14 +79,16 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
                 promises[0] = getTimeVideoFile(files.shift());
 
-                for(var i=1; i<files.length-1; i++) {
+                for(var i=1; i<files.length; i++) {
                     promises[i] = promises[i-1].then(function(result) {
+                        console.log(result.name);
                         results.push(result);
                         return getTimeVideoFile(files.shift());
                     });
                 }
 
                 promises[i-1].then(function(result) {
+                    console.log(result.name);
                     results.push(result);
                     resolve(results);
                 });
@@ -184,7 +186,7 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 {size: "150", url: "/Files/test_150.html", name: "150kB"},
                 {size: "200", url: "/Files/test_200.html", name: "200kB"},
                 {size: "250", url: "/Files/test_250.html", name: "250kB"},
-                {size: "300", url: "/Files/test_300.html", name: "300kB"},
+                // {size: "300", url: "/Files/test_300.html", name: "300kB"},
                 {size: "350", url: "/Files/test_350.html", name: "350kB"},
                 {size: "400", url: "/Files/test_400.html", name: "400kB"},
                 {size: "450", url: "/Files/test_450.html", name: "450kB"},
