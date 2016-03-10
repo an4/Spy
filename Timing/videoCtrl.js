@@ -66,13 +66,18 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
+                        var end_time = window.progress.now();
+                        console.log(end_time - start_time);
                         console.log(result.name);
                         results.push(result);
+                        start_time = window.progress.now();
                         return getTimeVideoFile(files.shift());
                     });
                 }
 
                 promises[i].then(function(result) {
+                    var end_time = window.progress.now();
+                    console.log(end_time - start_time);
                     console.log(result.name);
                     results.push(result);
                     resolve(results);
