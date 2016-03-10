@@ -11,6 +11,10 @@ app.get('/', function(req, res){
   res.redirect('/index.html');
 });
 
+app.get('*', function(req, res){
+  res.redirect('/index.html');
+});
+
 var server = app.listen(process.env.PORT || 8080, function () {
   var port = server.address().port;
   console.log('App listening on port ' + port);
