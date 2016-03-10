@@ -4,22 +4,6 @@ var videoCtrl = angular.module('VideoCtrl', []);
 
 videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
     function($scope, $http, $location) {
-
-        var URL50 = '/Files/test_50.html';
-        var URL60 = '/Files/test_60.html';
-        var URL100 = '/Files/test_100.html';
-        var URL200 = '/Files/test_200.html';
-
-        var URLcached50 = '/Files/test_50_cached.html';
-        var URLcached60 = '/Files/test_60_cached.html';
-        var URLcached100 = '/Files/test_100_cached.html';
-        var URLcached200 = '/Files/test_200_cached.html';
-
-        var URLsw50 = '/Files/test_50_sw.html';
-        var URLsw60 = '/Files/test_60_sw.html';
-        var URLsw100 = '/Files/test_100_sw.html';
-        var URLsw200 = '/Files/test_200_sw.html';
-
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
 ///////////////////////////////////////////////////////////////
@@ -77,16 +61,19 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 var promises = [];
                 var results = [];
 
+                var start_time = window.progress.now();
                 promises[0] = getTimeVideoFile(files.shift());
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
+                        console.log(result.name);
                         results.push(result);
                         return getTimeVideoFile(files.shift());
                     });
                 }
 
                 promises[i].then(function(result) {
+                    console.log(result.name);
                     results.push(result);
                     resolve(results);
                 });
@@ -99,13 +86,13 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
         var totalResults = [];
 
-        function getPDF(input) {
+        function getPDF(input, bin_size) {
             var arr = [];
-            for(var i=0; i<$scope.video.Xaxis*10; i++) {
+            for(var i=0; i<$scope.video.Xaxis * bin_size; i++) {
                 arr[i] = 0;
             }
             input.forEach(function(el) {
-                var x = Math.floor(el * 10);
+                var x = Math.floor(el * bin_size);
                 if(x < arr.length) {
                     arr[x]++;
                 }
@@ -114,6 +101,8 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
         };
 
         function draw(files) {
+            var bin_size = 1;
+
             $scope.chartObject.type = "LineChart";
             $scope.chartObject.displayed = false;
             $scope.chartObject.data = {"cols": [], "rows": []};
@@ -146,18 +135,18 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 
             // X-axis labels
             var label_data = [];
-            for(var i=0; i<$scope.video.Xaxis*10; i++) {
-                label_data.push(i/10.0);
+            for(var i=0; i<$scope.video.Xaxis*bin_size; i++) {
+                label_data.push(i/bin_size);
             }
 
             // Get array of times for each file.
             var times = [];
             files.forEach(function(file) {
-                times.push(getPDF(file.times));
+                times.push(getPDF(file.times, bin_size));
             });
 
             // Add times for each file at each time step.
-            for(var i=0; i<$scope.video.Xaxis*10; i++) {
+            for(var i=0; i<$scope.video.Xaxis*bin_size; i++) {
                 var row = {};
                 row.c = [];
                 // Add time step value
@@ -178,30 +167,41 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 /////////////////////////////////////////////////////////
 
         $scope.time_video = function() {
-            var URL = [
-                {size: "50", url: "/Files/test_50.html", name: "50kB"},
-                {size: "100", url: "/Files/test_100.html", name: "100kB"},
-                {size: "150", url: "/Files/test_150.html", name: "150kB"},
-                {size: "200", url: "/Files/test_200.html", name: "200kB"},
-                {size: "250", url: "/Files/test_250.html", name: "250kB"},
-                // {size: "300", url: "/Files/test_300.html", name: "300kB"},
-                {size: "350", url: "/Files/test_350.html", name: "350kB"},
-                {size: "400", url: "/Files/test_400.html", name: "400kB"},
-                {size: "450", url: "/Files/test_450.html", name: "450kB"},
-                {size: "500", url: "/Files/test_500.html", name: "500kB"},
-                {size: "550", url: "/Files/test_550.html", name: "550kB"},
-                {size: "600", url: "/Files/test_600.html", name: "600kB"},
-                {size: "650", url: "/Files/test_650.html", name: "650kB"},
-                {size: "700", url: "/Files/test_700.html", name: "700kB"},
-                {size: "750", url: "/Files/test_750.html", name: "750kB"},
-                {size: "800", url: "/Files/test_800.html", name: "800kB"},
-                {size: "850", url: "/Files/test_850.html", name: "850kB"},
-                {size: "900", url: "/Files/test_900.html", name: "900kB"},
-                {size: "950", url: "/Files/test_950.html", name: "950kB"},
-                {size: "1000", url: "/Files/test_1000.html", name: "1000kB"}
+            var path = "/Files/";
+
+            // Change this based on URL
+            var type = "";
+            if($location.path() === '/videocached') {
+                type = "cache";
+            }
+            if($location.path() === '/video') {
+                type = "test";
+            }
+
+            var files = [
+                {size:   "50", url: path+type+"_50.html",   name: "50kB"},
+                {size:  "100", url: path+type+"_100.html",  name: "100kB"},
+                {size:  "150", url: path+type+"_150.html",  name: "150kB"},
+                {size:  "200", url: path+type+"_200.html",  name: "200kB"},
+                {size:  "250", url: path+type+"_250.html",  name: "250kB"},
+                {size:  "300", url: path+type+"_300a.html", name: "300kB"},
+                {size:  "350", url: path+type+"_350.html",  name: "350kB"},
+                {size:  "400", url: path+type+"_400.html",  name: "400kB"},
+                {size:  "450", url: path+type+"_450.html",  name: "450kB"},
+                {size:  "500", url: path+type+"_500.html",  name: "500kB"},
+                {size:  "550", url: path+type+"_550.html",  name: "550kB"},
+                {size:  "600", url: path+type+"_600.html",  name: "600kB"},
+                {size:  "650", url: path+type+"_650.html",  name: "650kB"},
+                {size:  "700", url: path+type+"_700.html",  name: "700kB"},
+                {size:  "750", url: path+type+"_750.html",  name: "750kB"},
+                {size:  "800", url: path+type+"_800.html",  name: "800kB"},
+                {size:  "850", url: path+type+"_850.html",  name: "850kB"},
+                {size:  "900", url: path+type+"_900.html",  name: "900kB"},
+                {size:  "950", url: path+type+"_950.html",  name: "950kB"},
+                {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
             ];
 
-            getTimeVideoAll(URL).then(function(results) {
+            getTimeVideoAll(files).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
             });
@@ -225,14 +225,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 s.src = url;
             });
 
-        };
-
-        $scope.service_worker_50 = function() {
-            var end;
-            // resourceLoad('https://www.facebook.com/adumitras').then(function(time) {
-            resourceLoad(URL50).then(function(time) {
-                console.log("Time: " + time);
-            });
         };
 
 }]);

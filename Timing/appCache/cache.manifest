@@ -1,9 +1,25 @@
 CACHE MANIFEST
 CACHE:
-./../Files/test_50_cached.html
-./../Files/test_60_cached.html
-./../Files/test_100_cached.html
-./../Files/test_200_cached.html
+./../Files/cache_50.html
+./../Files/cache_100.html
+./../Files/cache_150.html
+./../Files/cache_200.html
+./../Files/cache_250.html
+./../Files/cache_300a.html
+./../Files/cache_350.html
+./../Files/cache_400.html
+./../Files/cache_450.html
+./../Files/cache_500.html
+./../Files/cache_550.html
+./../Files/cache_600.html
+./../Files/cache_650.html
+./../Files/cache_700.html
+./../Files/cache_750.html
+./../Files/cache_800.html
+./../Files/cache_850.html
+./../Files/cache_900.html
+./../Files/cache_950.html
+./../Files/cache_1000.html
 
 NETWORK:
 *
