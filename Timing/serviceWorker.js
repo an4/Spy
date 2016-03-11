@@ -9,10 +9,26 @@ var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
 
 self.addEventListener('install', function(event) {
     var urlsToCache = [
-        '/Files/test_50_sw.html',
-        '/Files/test_60_sw.html',
-        '/Files/test_100_sw.html',
-        '/Files/test_200_sw.html'
+        '/Files/sw_50.html',
+        '/Files/sw_100.html',
+        '/Files/sw_150.html',
+        '/Files/sw_200.html',
+        '/Files/sw_250.html',
+        '/Files/sw_300.html',
+        '/Files/sw_350.html',
+        '/Files/sw_400.html',
+        '/Files/sw_450.html',
+        '/Files/sw_500.html',
+        '/Files/sw_550.html',
+        '/Files/sw_600.html',
+        '/Files/sw_650.html',
+        '/Files/sw_700.html',
+        '/Files/sw_750.html',
+        '/Files/sw_800.html',
+        '/Files/sw_850.html',
+        '/Files/sw_900.html',
+        '/Files/sw_950.html',
+        '/Files/sw_1000.html'
     ];
 
     event.waitUntil(

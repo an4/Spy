@@ -181,23 +181,23 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 // {size:   "50", url: path+type+"_50.html",   name: "50kB"},
                 {size:  "100", url: path+type+"_100.html",  name: "100kB"},
                 // {size:  "150", url: path+type+"_150.html",  name: "150kB"},
-                {size:  "200", url: path+type+"_200.html",  name: "200kB"},
+                // {size:  "200", url: path+type+"_200.html",  name: "200kB"},
                 // {size:  "250", url: path+type+"_250.html",  name: "250kB"},
                 {size:  "300", url: path+type+"_300a.html", name: "300kB"},
                 // {size:  "350", url: path+type+"_350.html",  name: "350kB"},
-                {size:  "400", url: path+type+"_400.html",  name: "400kB"},
+                // {size:  "400", url: path+type+"_400.html",  name: "400kB"},
                 // {size:  "450", url: path+type+"_450.html",  name: "450kB"},
                 {size:  "500", url: path+type+"_500.html",  name: "500kB"},
                 // {size:  "550", url: path+type+"_550.html",  name: "550kB"},
-                {size:  "600", url: path+type+"_600.html",  name: "600kB"},
+                // {size:  "600", url: path+type+"_600.html",  name: "600kB"},
                 // {size:  "650", url: path+type+"_650.html",  name: "650kB"},
                 {size:  "700", url: path+type+"_700.html",  name: "700kB"},
                 // {size:  "750", url: path+type+"_750.html",  name: "750kB"},
-                {size:  "800", url: path+type+"_800.html",  name: "800kB"},
+                // {size:  "800", url: path+type+"_800.html",  name: "800kB"},
                 // {size:  "850", url: path+type+"_850.html",  name: "850kB"},
                 {size:  "900", url: path+type+"_900.html",  name: "900kB"},
                 // {size:  "950", url: path+type+"_950.html",  name: "950kB"},
-                {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
+                // {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
             ];
 
             getTimeVideoAll(files).then(function(results) {
@@ -225,5 +225,12 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             });
 
         };
+
+        $scope.script = function() {
+            var url = '/Files/sw_50.html';
+            resourceLoad(url).then(function(time) {
+                console.log("T: " + time);
+            });
+        }
 
 }]);

@@ -30,7 +30,7 @@ app.config(['$routeProvider', '$locationProvider',
             }).
             when('/script', {
                 templateUrl: 'script.html',
-                controller: 'ScriptCtrl'
+                controller: 'VideoCtrl'
             }).
             otherwise({
                 redirectTo: '/'
