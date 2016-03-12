@@ -5,7 +5,8 @@ var CURRENT_CACHES = {
   mycache: 'my-cache-v-' + CACHE_VERSION
 };
 
-var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
+// var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
+var link = new Request('https://www.facebook.com/adumitras?callback=undefined&q=show+tables&format=json&_=1457815470997', {mode: 'no-cors'});
 
 self.addEventListener('install', function(event) {
     var urlsToCache = [
@@ -29,6 +30,7 @@ self.addEventListener('install', function(event) {
         '/Files/sw_900.html',
         '/Files/sw_950.html',
         '/Files/sw_1000.html'
+        // link
     ];
 
     event.waitUntil(
