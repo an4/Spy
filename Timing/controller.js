@@ -6,11 +6,12 @@ var app = angular.module('TheApp', [
     'ImageCtrl',
     'VideoCtrl',
     'navbarCtrl',
-    'ScriptCtrl'
+    'ScriptCtrl',
+    'ServiceWorkerCtrl'
 ]);
 
-app.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider',
+    function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider.
             when('/video', {
                 templateUrl: 'video.html',
@@ -20,10 +21,6 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'video.html',
                 controller: 'VideoCtrl'
                 }).
-            when('/videosw', {
-                templateUrl: 'video.html',
-                controller: 'VideoCtrl'
-            }).
             when('/image', {
                 templateUrl: 'image.html',
                 controller: 'ImageCtrl'
@@ -32,13 +29,21 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'script.html',
                 controller: 'VideoCtrl'
             }).
-            otherwise({
-                redirectTo: '/'
+            when('/sw', {
+                templateUrl: 'serviceWorker.html',
+                controller: 'ServiceWorkerCtrl'
             });
+            // otherwise({
+            //     redirectTo: '/'
+            // });
+
             $locationProvider.html5Mode({
                 enabled: true,
                 requireBase: false
             });
+
+            // $httpProvider.defaults.useXDomain = true;
+            // delete $httpProvider.defaults.headers.common['X-Requested-With'];
   }]);
 
 // app.controller("MainCtrl", ['$scope', '$http',

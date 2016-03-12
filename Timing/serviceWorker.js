@@ -64,13 +64,6 @@ self.addEventListener('activate', function(event) {
     );
 });
 
-// self.addEventListener('fetch', function(event) {
-//     console.log("Fetching...");
-//     event.respondWith(
-//         caches.match(event.request)
-//     );
-// });
-
 self.addEventListener('fetch', function(event) {
     console.log('Fetch event:', event.request.url);
 
@@ -103,3 +96,20 @@ self.addEventListener('fetch', function(event) {
         })
     );
 });
+
+// self.addEventListener('fetch', function(event) {
+//     console.log("Fetching ...");
+//     var response;
+//     event.respondWith(caches.match(event.request).catch(function() {
+//         return fetch(event.request);
+//     }).then(function(r) {
+//         response = r;
+//         caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+//             cache.put(event.request, response);
+//         });
+//         console.log("Here!");
+//         return response.clone();
+//     }).catch(function() {
+//         return caches.match('/Files/sw_50.html');
+//     }));
+// });
