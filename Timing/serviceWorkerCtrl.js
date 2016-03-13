@@ -19,6 +19,7 @@ serviceWorkerCtrl.controller("ServiceWorkerCtrl", ['$scope', '$http',
 
             var img = new Image();
             img.src = url;
+            console.log(img.src);
 
             // $.ajax({
             //     url: url,
