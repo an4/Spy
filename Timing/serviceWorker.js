@@ -45,30 +45,10 @@ self.addEventListener('install', function(event) {
     );
 });
 
-// self.addEventListener('activate', function(event) {
-//     // Delete all caches that aren't named in CURRENT_CACHES.
-//     var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-//         return CURRENT_CACHES[key];
-//     });
-//
-//     event.waitUntil(
-//         caches.keys().then(function(cacheNames) {
-//             return Promise.all(
-//                 cacheNames.map(function(cacheName) {
-//                     if (expectedCacheNames.indexOf(cacheName) == -1) {
-//                         console.log('Deleted out of date cache:', cacheName);
-//                         return caches.delete(cacheName);
-//                     }
-//                 })
-//             );
-//         })
-//     );
-// });
-
 self.addEventListener('fetch', function(event) {
     console.log('Fetch event:', event.request.url);
 
-    event.respondWith(
+    // event.respondWith(
         // Check if request is already cached.
         caches.match(event.request).then(function(response) {
             if (response) {
@@ -97,5 +77,5 @@ self.addEventListener('fetch', function(event) {
                 return response;
             });
         })
-    );
+    // );
 });
