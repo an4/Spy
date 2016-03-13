@@ -1,0 +1,22 @@
+<div>
+    <label>Enter rounds: <input type="text" ng-model="settings.rounds" ng-init="settings.rounds='100'"></label>
+    <label>X axis length: <input type="text" ng-model="settings.Xaxis" ng-init="settings.Xaxis='30'"></label>
+    <label>Bin Size: <input type="text" ng-model="settings.binSize" ng-init="settings.binSize='0.2'"></label>
+
+    <br>
+
+    <form name="typeForm" ng-init="settings.type='video'">
+        <label>
+            <input type="radio" ng-model="settings.type" value="video"> Video
+        </label>
+        <label>
+            <input type="radio" ng-model="settings.type" value="image"> Image
+        </label>
+    </form>
+
+    <br>
+
+    <button ng-click="run()"> Graph </button>
+
+    <div google-chart chart="chartObject" style="height:900px; width:100%;" api></div>
+</div>

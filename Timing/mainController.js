@@ -1,15 +1,16 @@
 'use strict';
 
-var videoCtrl = angular.module('VideoCtrl', []);
+var MainController = angular.module('MainController', []);
 
-videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
+MainController.controller('MainController', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
+        $scope.video = {};
+
+
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
 ///////////////////////////////////////////////////////////////
-        $scope.video = {};
-
-        function getTimeVideoOnce(url) {
+        function measureTimeVideo(url) {
             return new Promise(function(resolve, reject) {
                 var video = document.createElement('video');
                 // The error is only triggered when the file has finished parsing
@@ -27,20 +28,43 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
             });
         };
 
-        function getTimeVideoFile(file) {
+///////////////////////////////////////////////////////////////
+///////////////////// IMAGE VIDEO METHODS /////////////////////
+///////////////////////////////////////////////////////////////
+        function measureTimeImage(url) {
             return new Promise(function(resolve, reject) {
-                var ROUNDS = $scope.video.rounds;
+                var img = new Image();
+                img.onerror = function() {
+                    var end = window.performance.now();
+                    var time = end-start;
+                    resolve(time);
+                }
+                var start = window.performance.now();
+                img.src = url;
+            });
+        };
 
+///////////////////////////////////////////////////////////////
+/////////////////////// Mutliple Files ////////////////////////
+///////////////////////////////////////////////////////////////
+        /**
+         * Get multiple measurements for the same file
+         * file - file to be measured
+         * rounds - how many measurements
+         * method - function used for measurement (image/video)
+         */
+        function getMeasurementFile(file, rounds, method) {
+            return new Promise(function(resolve, reject) {
                 // Array of all promises to be resolved;
                 var promises = [];
                 // Array of times for current file.
                 var times = [];
 
-                promises[0] = getTimeVideoOnce(file.url);
-                for(var i=1; i<ROUNDS; i++) {
+                promises[0] = method(file.url);
+                for(var i=1; i<rounds; i++) {
                     promises[i] = promises[i-1].then(function(time) {
                         times.push(time);
-                        return getTimeVideoOnce(file.url);
+                        return method(file.url);
                     });
                 }
 
@@ -51,33 +75,56 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                     result.times = times;
                     result.name = file.name;
                     result.size = file.size;
+                    result.index = file.index;
                     resolve(result);
                 });
             });
         };
 
-        function getTimeVideoAll(files) {
+        /**
+         * Get multiple measurement for a list of files
+         * files - array of files
+         * rounds - the number of measurements for each files
+         * method - function used to measure the time
+         */
+        function getMeasurementAll(files, rounds, method) {
             return new Promise(function(resolve, reject) {
                 var promises = [];
                 var results = [];
 
-                promises[0] = getTimeVideoFile(files.shift());
+                promises[0] = getMeasurementFile(files.shift(), rounds, method);
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
                         console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
-                        results.push(result);
-                        return getTimeVideoFile(files.shift());
+                        results[result.index] = result;
+                        return getMeasurementFile(files.shift(), rounds, method);
                     });
                 }
 
                 promises[i].then(function(result) {
                     console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
-                    results.push(result);
+                    results[result.index] = result;
                     resolve(results);
                 });
             });
         };
+
+/////////////////////////////////////////////////////////
+//////////////////////// HELPER /////////////////////////
+/////////////////////////////////////////////////////////
+
+        /* https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle */
+        /* Fisher-Yates shuffle */
+        function shuffle(array) {
+            for(var counter=array.length-1; counter > 0; counter--) {
+                let index = Math.floor(Math.random() * counter);
+                let temp = array[counter];
+                array[counter] = array[index];
+                array[index] = temp;
+            }
+            return array;
+        }
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
@@ -154,7 +201,6 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 for(var j=0; j<times.length; j++) {
                     row.c.push({v: times[j][i]})
                 }
-                // row.c = [{v: label_data[i]}, {v: output[0][i]}, {v: output[1][i]}, {v: output[2][i]}, {v: output[3][i]}];
                 $scope.chartObject.data.rows.push(row);
             }
 
@@ -165,16 +211,25 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
 ////////////////// BUTTONS & UI /////////////////////////
 /////////////////////////////////////////////////////////
 
-        $scope.time_video = function() {
+        $scope.run = function() {
             var path = "/Files/";
 
             // Change this based on URL
             var type = "";
-            if($location.path() === '/videocached') {
+            if($location.path() === '/cache') {
                 type = "cache";
             }
-            if($location.path() === '/video') {
+            if($location.path() === '/basic') {
                 type = "test";
+            }
+
+            var type = $scope.settings.type;
+            var method = 'measureTimeVideo';
+            if(type === 'video') {
+                method = 'measureTimeVideo';
+            }
+            if(type === 'image') {
+                method = 'measureTimeImage';
             }
 
             var files = [
@@ -200,37 +255,18 @@ videoCtrl.controller("VideoCtrl", ['$scope', '$http', '$location',
                 {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
             ];
 
-            getTimeVideoAll(files).then(function(results) {
+            // Add original index for each file
+            for(var i=0; i<files.length; i++) {
+                files[i].index = i;
+            }
+
+            files = shuffle(files);
+
+            var rounds = $scope.video.rounds;
+
+            getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
             });
         };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// Service Worker MAGIC
-////////////////////////////////////////////////////////////////////////////////////////////////////
-        function resourceLoad(url) {
-            return new Promise(function(resolve, reject) {
-                var s = document.createElement('video');
-                s.onerror = function() {
-                    timeError = window.performance.now();
-                    var time =  timeError - timeLoad;
-                    resolve(time);
-                };
-                s.onloadstart = function() {
-                    timeLoad = window.performance.now();
-                };
-                var timeLoad, timeError;
-                s.src = url;
-            });
-
-        };
-
-        $scope.script = function() {
-            var url = '/Files/sw_50.html';
-            resourceLoad(url).then(function(time) {
-                console.log("T: " + time);
-            });
-        }
-
 }]);

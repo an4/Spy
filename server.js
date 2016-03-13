@@ -11,7 +11,11 @@ app.use(express.static(__dirname + '/Timing'));
 /** UNICORNS */
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 
-app.get('*', function(req, res){
+app.get('/sw', function(req, res){
+  res.redirect('/index.html');
+});
+
+app.get('/', function(req, res){
   res.redirect('/index.html');
 });
 
