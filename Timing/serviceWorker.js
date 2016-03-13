@@ -11,11 +11,11 @@ var link = new Request('https://www.facebook.com/adumitras');
 
 self.addEventListener('install', function(event) {
     var urlsToCache = [
-        '/Files/sw_50.html',
-        '/Files/sw_100.html',
-        '/Files/sw_150.html',
-        '/Files/sw_200.html',
-        '/Files/sw_250.html',
+        // '/Files/sw_50.html',
+        // '/Files/sw_100.html',
+        // '/Files/sw_150.html',
+        // '/Files/sw_200.html',
+        // '/Files/sw_250.html',
         '/Files/sw_300.html',
         '/Files/sw_350.html',
         '/Files/sw_400.html',
@@ -26,11 +26,11 @@ self.addEventListener('install', function(event) {
         '/Files/sw_650.html',
         '/Files/sw_700.html',
         '/Files/sw_750.html',
-        '/Files/sw_800.html',
-        '/Files/sw_850.html',
-        '/Files/sw_900.html',
-        '/Files/sw_950.html',
-        '/Files/sw_1000.html',
+        // '/Files/sw_800.html',
+        // '/Files/sw_850.html',
+        // '/Files/sw_900.html',
+        // '/Files/sw_950.html',
+        // '/Files/sw_1000.html',
         // link
     ];
 
@@ -82,10 +82,6 @@ self.addEventListener('fetch', function(event) {
             var fetchRequest = event.request.clone();
 
             return fetch(fetchRequest).then(function(response) {
-                if(!response || response.status !== 200 || response.type !== 'basic') {
-                    return response;
-                }
-
                 var responseToCache = response.clone();
 
                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
@@ -94,7 +90,7 @@ self.addEventListener('fetch', function(event) {
                     var start_time = performance.now();
                     cache.put(cacheRequest, responseToCache).then(function() {
                         var end_time = performance.now();
-                        console.log("Put: " + start_time - end_time);
+                        console.log("Put: " + (end_time - start_time));
                         cache.delete(cacheRequest);
                     });
                 });
