@@ -4,7 +4,7 @@ var MainController = angular.module('MainController', []);
 
 MainController.controller('MainController', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
-        $scope.video = {};
+        $scope.settings = {};
 
 
 ///////////////////////////////////////////////////////////////
@@ -81,6 +81,38 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
             });
         };
 
+        function getMeasurementFileRandom(file, rounds, method) {
+            return new Promise(function(resolve, reject) {
+                // Array of all promises to be resolved;
+                var promises = [];
+                // Array of times for current file.
+                var times = [];
+
+                promises[0] = method(file.url);
+                for(var i=1; i<2*rounds; i++) {
+                    promises[i] = promises[i-1].then(function(time) {
+                        times.push(time);
+                        return method(file.url);
+                    });
+                }
+
+                promises[i-1].then(function(time) {
+                    times.push(time);
+
+                    var sample = getRandom(times, rounds);
+
+                    var result = {};
+                    result.url = file.url;
+                    result.times = sample;
+                    result.name = file.name;
+                    result.size = file.size;
+                    result.index = file.index;
+
+                    resolve(result);
+                });
+            });
+        };
+
         /**
          * Get multiple measurement for a list of files
          * files - array of files
@@ -92,13 +124,18 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
                 var promises = [];
                 var results = [];
 
-                promises[0] = getMeasurementFile(files.shift(), rounds, method);
+                var fileMethod = getMeasurementFile;
+                if($scope.settings.random === true) {
+                    fileMethod = getMeasurementFileRandom;
+                }
+
+                promises[0] = fileMethod(files.shift(), rounds, method);
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
                         console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
                         results[result.index] = result;
-                        return getMeasurementFile(files.shift(), rounds, method);
+                        return fileMethod(files.shift(), rounds, method);
                     });
                 }
 
@@ -124,7 +161,18 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
                 array[index] = temp;
             }
             return array;
-        }
+        };
+
+        /* Select n random values from the given array. */
+        function getRandom(array, n) {
+            var sample = [];
+            var length = array.length;
+            while(sample.length < n) {
+                var value = array[Math.floor(Math.random() * length)];
+                sample.push(value);
+            }
+            return sample;
+        };
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
@@ -134,7 +182,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
 
         function getPDF(input, bin_size) {
             var arr = [];
-            for(var i=0; i<$scope.video.Xaxis * bin_size; i++) {
+            for(var i=0; i<$scope.settings.Xaxis * bin_size; i++) {
                 arr[i] = 0;
             }
             input.forEach(function(el) {
@@ -147,7 +195,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
         };
 
         function draw(files) {
-            var bin_size = 1/$scope.video.binSize;
+            var bin_size = 1/$scope.settings.binSize;
 
             $scope.chartObject.type = "LineChart";
             $scope.chartObject.displayed = false;
@@ -167,7 +215,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
 
             //  Add more colours;
             $scope.chartObject.options = {
-                "title": "External resource load time. Samples: " + $scope.video.rounds ,
+                "title": "External resource load time. Samples: " + $scope.settings.rounds ,
                 "isStacked": "true",
                 "vAxis": {
                     "gridlines": {
@@ -181,7 +229,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
 
             // X-axis labels
             var label_data = [];
-            for(var i=0; i<$scope.video.Xaxis*bin_size; i++) {
+            for(var i=0; i<$scope.settings.Xaxis*bin_size; i++) {
                 label_data.push(i/bin_size);
             }
 
@@ -192,7 +240,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
             });
 
             // Add times for each file at each time step.
-            for(var i=0; i<$scope.video.Xaxis*bin_size; i++) {
+            for(var i=0; i<$scope.settings.Xaxis*bin_size; i++) {
                 var row = {};
                 row.c = [];
                 // Add time step value
@@ -223,13 +271,13 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
                 type = "test";
             }
 
-            var type = $scope.settings.type;
-            var method = 'measureTimeVideo';
-            if(type === 'video') {
-                method = 'measureTimeVideo';
+            var tag = $scope.settings.type;
+            var method = measureTimeVideo;
+            if(tag === 'video') {
+                method = measureTimeVideo;
             }
-            if(type === 'image') {
-                method = 'measureTimeImage';
+            if(tag === 'image') {
+                method = measureTimeImage;
             }
 
             var files = [
@@ -262,7 +310,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
 
             files = shuffle(files);
 
-            var rounds = $scope.video.rounds;
+            var rounds = $scope.settings.rounds;
 
             getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
