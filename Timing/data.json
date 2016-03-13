@@ -1,0 +1,11 @@
+{
+    "normal": [
+
+    ],
+    "cached": [
+        {"name" : "100kB", "url" : "Files/cache_100.html", "externalUrl": "https://drive.google.com/file/d/0BzDsR1RqW_MqRTZNeFJDYWh6RUk/view?usp=sharing", "size": 100}
+    ],
+    "service_worker": [
+
+    ]
+}
