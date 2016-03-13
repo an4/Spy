@@ -31,7 +31,7 @@ self.addEventListener('install', function(event) {
         '/Files/sw_900.html',
         '/Files/sw_950.html',
         '/Files/sw_1000.html',
-        link
+        // link
     ];
 
     event.waitUntil(
@@ -91,7 +91,12 @@ self.addEventListener('fetch', function(event) {
                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
                     var cacheRequest = event.request.clone();
                     console.log("Add to cache:" + cacheRequest);
-                    cache.put(cacheRequest, responseToCache);
+                    var start_time = performance.now();
+                    cache.put(cacheRequest, responseToCache).then(function() {
+                        var end_time = performance.now();
+                        console.log("Put: " + start_time - end_time);
+                        cache.delete(cacheRequest);
+                    });
                 });
 
                 return response;

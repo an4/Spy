@@ -17,13 +17,13 @@ serviceWorkerCtrl.controller("ServiceWorkerCtrl", ['$scope', '$http',
             //     console.log("Error");
             // });
 
-            // var img = new Image();
-            // img.onerror = function() {
-            //     var end = window.performance.now();
-            //     console.log("Time image: " + (end - start));
-            // }
-            // var start = window.performance.now();
-            // img.src = url;
+            var img = new Image();
+            img.onerror = function() {
+                var end = window.performance.now();
+                console.log("Time image: " + (end - start));
+            }
+            var start = window.performance.now();
+            img.src = url;
 
             // $.ajax({
             //     url: url,
