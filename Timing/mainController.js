@@ -53,15 +53,23 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
                 var script = document.createElement('script');
                 document.body.appendChild(script);
 
-                window.onerror = function() {
-                    var end = performance.now();
-                    var time = end-start;
-                    resolve(time);
+                script.onload = function() {
+                    start = window.performance.now();
+                    console.log(start);
                 };
 
-                script.onload = function() {
-                    console.log('script downloaded');
-                    start = window.performance.now();
+                window.onerror = function() {
+                    var end = performance.now();
+                    console.log('E:' + end);
+                    var time = end-start;
+                    // resolve(time);
+                };
+
+                script.onerror = function() {
+                    var end = performance.now();
+                    console.log('SE:' + end);
+                    var time = end-start;
+                    resolve(time);
                 };
 
                 var start;

@@ -5,7 +5,6 @@ var app = angular.module('TheApp', [
     'googlechart',
     'MainController',
     'navbarCtrl',
-    'ScriptCtrl',
     'ServiceWorkerCtrl'
 ]);
 

@@ -72,7 +72,7 @@ self.addEventListener('fetch', function(event) {
         // Check if request is already cached.
         caches.match(event.request).then(function(response) {
             if (response) {
-                console.log('Found in cache:', response);
+                // console.log('Found in cache:', response);
                 return response;
             }
 
@@ -82,10 +82,10 @@ self.addEventListener('fetch', function(event) {
                 var time = 0;
                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
                     var cacheRequest = event.request.clone();
-                    console.log("Add to cache:" + cacheRequest);
+                    // console.log("Add to cache:" + cacheRequest);
                     var start_time = performance.now();
 
-                    // add and remove 10 times
+                    // add and remove 10 times using promises
                     cache.put(cacheRequest, responseToCache).then(function() {
                         var end_time = performance.now();
                         time = end_time - start_time;
