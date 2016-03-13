@@ -5,6 +5,7 @@ var MainController = angular.module('MainController', []);
 MainController.controller('MainController', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
         $scope.settings = {};
+        $scope.settings.random = false;
 
 
 ///////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
         };
 
 ///////////////////////////////////////////////////////////////
-///////////////////// IMAGE VIDEO METHODS /////////////////////
+////////////////////// TIME IMAGE METHOD //////////////////////
 ///////////////////////////////////////////////////////////////
         function measureTimeImage(url) {
             return new Promise(function(resolve, reject) {
@@ -41,6 +42,31 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
                 }
                 var start = window.performance.now();
                 img.src = url;
+            });
+        };
+
+///////////////////////////////////////////////////////////////
+///////////////////// TIME SCRIPT METHOD //////////////////////
+///////////////////////////////////////////////////////////////
+        function measureTimeScript(url) {
+            return new Promise(function(resolve, reject) {
+                var script = document.createElement('script');
+                document.body.appendChild(script);
+
+                window.onerror = function() {
+                    var end = performance.now();
+                    var time = end-start;
+                    resolve(time);
+                };
+
+                script.onload = function() {
+                    console.log('script downloaded');
+                    start = window.performance.now();
+                };
+
+                var start;
+                script.type = "text/javascript";
+                script.src = url;
             });
         };
 
@@ -315,6 +341,14 @@ MainController.controller('MainController', ['$scope', '$http', '$location',
             getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
+            });
+        };
+
+
+        $scope.test = function() {
+            var url = 'File/test_50.js';
+            measureTimeScript(url).then(function(time) {
+                console.log("Script: " + time);
             });
         };
 }]);

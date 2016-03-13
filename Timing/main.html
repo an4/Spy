@@ -12,11 +12,16 @@
         <label>
             <input type="radio" ng-model="settings.type" value="image"> Image
         </label>
+        <br>
+        <label>Random
+            <input type="checkbox" ng-model="settings.random">
+        </label><br/>
     </form>
-
+    
     <br>
 
     <button ng-click="run()"> Graph </button>
+    <button ng-click="test()"> Test Script </button>
 
     <div google-chart chart="chartObject" style="height:600px; width:100%;" api></div>
 </div>
