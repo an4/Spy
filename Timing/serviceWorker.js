@@ -46,7 +46,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    console.log('Fetch event:', event.request.url);
+    // console.log('Fetch event:', event.request.url);
 
     // event.respondWith(
         // Check if request is already cached.
