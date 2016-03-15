@@ -1,8 +1,6 @@
 'use strict';
 
-var serviceWorkerCtrl = angular.module('ServiceWorkerCtrl', []);
-
-serviceWorkerCtrl.controller("ServiceWorkerCtrl", ['$scope', '$http',
+angular.module('TheApp').controller("ServiceWorkerCtrl", ['$scope', '$http',
     function($scope, $http) {
         // var url = 'https://www.facebook.com/adumitras?callback=JSON_CALLBACK';
         // var url = 'https://www.facebook.com/adumitras';

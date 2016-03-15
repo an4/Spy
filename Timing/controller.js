@@ -2,10 +2,7 @@
 
 var app = angular.module('TheApp', [
     'ngRoute',
-    'googlechart',
-    'MainController',
-    'navbarCtrl',
-    'ServiceWorkerCtrl'
+    'googlechart'
 ]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',

@@ -1,8 +1,6 @@
 'use strict';
 
-var MainController = angular.module('MainController', []);
-
-MainController.controller('MainController', ['$scope', '$http', '$location',
+angular.module('TheApp').controller('MainController', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
         $scope.settings = {};
         $scope.settings.random = false;
