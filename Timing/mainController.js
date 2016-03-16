@@ -46,6 +46,7 @@ angular.module('TheApp').controller('MainController', ['$scope', '$http', '$loca
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME SCRIPT METHOD //////////////////////
 ///////////////////////////////////////////////////////////////
+// Not working. WHY?
         function measureTimeScript(url) {
             return new Promise(function(resolve, reject) {
                 var script = document.createElement('script');
@@ -347,14 +348,6 @@ angular.module('TheApp').controller('MainController', ['$scope', '$http', '$loca
             getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
-            });
-        };
-
-
-        $scope.test = function() {
-            var url = 'File/test_50.js';
-            measureTimeScript(url).then(function(time) {
-                console.log("Script: " + time);
             });
         };
 }]);

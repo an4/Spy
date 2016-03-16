@@ -80,12 +80,41 @@ self.addEventListener('install', function(event) {
 //     // );
 // });
 
+function deleteAdd(url, response, cache) {
+    return new Promise(function(resolve, reject) {
+        cache.delete(url).then(function(res) {
+            cache.put(url, response).then(function() {
+                resolve(true);
+            })
+        })
+    });
+};
 
 self.addEventListener('fetch', function(event) {
     caches.match(event.request).then(function(response) {
         if (response) {
+            var url = response.url;
             var cacheRequest = event.request.clone();
-            // Remove + add to cache * 10. Make sure at the end the element is in cache.
+            var responseToCache = response.clone();
+
+            caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+                var promises = [];
+                var end;
+                var start = performance.now();
+                promises[0] = deleteAdd(url, response.clone(), cache);
+
+                for(var i=1; i<10; i++) {
+                    promises[i] = promises[i-1].then(function(val) {
+                        return deleteAdd(url, response.clone(), cache);
+                    })
+                }
+
+                promises[i-1].then(function(val) {
+                    end = performance.now();
+                    var time = end - start;
+                    console.log("Time :" + time);
+                });
+            });
         }
     });
 
