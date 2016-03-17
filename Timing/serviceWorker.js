@@ -10,25 +10,25 @@ var link = new Request('https://www.facebook.com/adumitras');
 self.addEventListener('install', function(event) {
     var urlsToCache = [
         '/Files/sw_50.html',
-        // '/Files/sw_100.html',
-        // '/Files/sw_150.html',
-        // '/Files/sw_200.html',
-        // '/Files/sw_250.html',
-        // '/Files/sw_300.html',
-        // '/Files/sw_350.html',
-        // '/Files/sw_400.html',
-        // '/Files/sw_450.html',
-        // '/Files/sw_500.html',
-        // '/Files/sw_550.html',
-        // '/Files/sw_600.html',
-        // '/Files/sw_650.html',
-        // '/Files/sw_700.html',
-        // '/Files/sw_750.html',
-        // '/Files/sw_800.html',
-        // '/Files/sw_850.html',
-        // '/Files/sw_900.html',
-        // '/Files/sw_950.html',
-        // '/Files/sw_1000.html'
+        '/Files/sw_100.html',
+        '/Files/sw_150.html',
+        '/Files/sw_200.html',
+        '/Files/sw_250.html',
+        '/Files/sw_300.html',
+        '/Files/sw_350.html',
+        '/Files/sw_400.html',
+        '/Files/sw_450.html',
+        '/Files/sw_500.html',
+        '/Files/sw_550.html',
+        '/Files/sw_600.html',
+        '/Files/sw_650.html',
+        '/Files/sw_700.html',
+        '/Files/sw_750.html',
+        '/Files/sw_800.html',
+        '/Files/sw_850.html',
+        '/Files/sw_900.html',
+        '/Files/sw_950.html',
+        '/Files/sw_1000.html'
         // link
     ];
 
@@ -83,10 +83,10 @@ self.addEventListener('install', function(event) {
 /**
  * Deletes an item from cache and then adds it back to cache.
  */
-function deletePut(url, cache) {
+function deletePut(url, response, cache) {
     return new Promise(function(resolve, reject) {
-        cache.delete(url).then(function(response) {
-            cache.put(url, new Response()).then(function() {
+        cache.delete(url).then(function(bool) {
+            cache.put(url, response).then(function() {
                 resolve(true);
             })
         })
@@ -106,36 +106,63 @@ function putDelete(url, response, cache) {
     });
 };
 
-// Check is the request matches the URLs currently storred in cache, like a triggered
 // Fetch some random url and keep the request object and use that to put and delete from cache.
+// self.addEventListener('fetch', function(event) {
+//     caches.match(event.request).then(function(response) {
+//         if (response) {
+//             var url = 'http://localhost:8080/Files/sw_500.html';
+//
+//             var ITERATIONS = 10;
+//
+//             caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+//                 // fetch URL to obtain the request object
+//                 fetch(url).then(function(response) {
+//                     var promises = [];
+//                     var end;
+//                     var start = performance.now();
+//
+//                     promises[0] = putDelete(url, response.clone(), cache);
+//
+//                     for(var i=1; i<ITERATIONS; i++) {
+//                         promises[i] = promises[i-1].then(function(val) {
+//                             return putDelete(url, response.clone(), cache);
+//                         })
+//                     }
+//
+//                     promises[i-1].then(function(val) {
+//                         end = performance.now();
+//                         var time = end - start;
+//                         console.log("Time :" + time + ", " + response.url);
+//                     });
+//                 });
+//             });
+//         }
+//     });
+// });
+
 self.addEventListener('fetch', function(event) {
     caches.match(event.request).then(function(response) {
-        // if the request matches any of the URLs storred in the Cache object.
+        // If the URL matches any of the items stored in cache time 10 deletePut operations.
         if (response) {
-            var url = 'http://localhost:8080/Files/sw_500.html';
-
             var ITERATIONS = 10;
-
             caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
                 // fetch URL to obtain the request object
-                fetch(url).then(function(response) {
-                    var promises = [];
-                    var end;
-                    var start = performance.now();
+                var promises = [];
+                var end;
+                var start = performance.now();
 
-                    promises[0] = putDelete(url, response.clone(), cache);
+                promises[0] = deletePut(event.request.clone(), response.clone(), cache);
 
-                    for(var i=1; i<ITERATIONS; i++) {
-                        promises[i] = promises[i-1].then(function(val) {
-                            return putDelete(url, response.clone(), cache);
-                        })
-                    }
+                for(var i=1; i<ITERATIONS; i++) {
+                    promises[i] = promises[i-1].then(function(val) {
+                        return deletePut(event.request.clone(), response.clone(), cache);
+                    })
+                }
 
-                    promises[i-1].then(function(val) {
-                        end = performance.now();
-                        var time = end - start;
-                        console.log("Time :" + time + ", " + response.url);
-                    });
+                promises[i-1].then(function(val) {
+                    end = performance.now();
+                    var time = end - start;
+                    console.log("Time :" + time + ", " + response.url);
                 });
             });
         }
