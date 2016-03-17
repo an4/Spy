@@ -10,7 +10,6 @@ var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
 var in_url = new Request('https://www.facebook.com/groups/208547725916026', {mode: 'no-cors'});
 var out_url = new Request('https://www.facebook.com/groups/852392078107320', {mode: 'no-cors'});
 
-
 self.addEventListener('install', function(event) {
     var urlsToCache = [
         '/Files/sw_50.html',
@@ -33,9 +32,9 @@ self.addEventListener('install', function(event) {
         '/Files/sw_900.html',
         '/Files/sw_950.html',
         '/Files/sw_1000.html',
-        in_url,
-        out_url,
-        link
+        // in_url,
+        // out_url,
+        // link
     ];
 
     event.waitUntil(
