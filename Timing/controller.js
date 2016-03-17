@@ -29,6 +29,3 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 requireBase: false
             });
   }]);
-
-// time_video('http://www.facebook.com/groups/208547725916026', 'In');
-// time_video('http://www.facebook.com/groups/852392078107320', 'Out');
