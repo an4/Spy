@@ -50,42 +50,40 @@ self.addEventListener('install', function(event) {
     );
 });
 
-
-// This works better for facebook. ? WHY ?
-self.addEventListener('fetch', function(event) {
-    console.log('Fetch event:', event.request.url);
-
-    // event.respondWith(
-        // Check if request is already cached.
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                // console.log('Found in cache:', response);
-                return response;
-            }
-
-            var fetchRequest = event.request.clone();
-            return fetch(fetchRequest).then(function(response) {
-                var responseToCache = response.clone();
-                var time = 0;
-                caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-                    var cacheRequest = event.request.clone();
-                    // console.log("Add to cache:" + cacheRequest);
-                    var start_time = performance.now();
-
-                    // add and remove 10 times using promises
-                    cache.put(cacheRequest, responseToCache).then(function() {
-                        var end_time = performance.now();
-                        time = end_time - start_time;
-                        console.log("Put: " + time);
-                        cache.delete(cacheRequest);
-                    });
-                });
-
-                return response;
-            });
-        })
-    // );
-});
+// EXAMPLE - Working for facebook
+// self.addEventListener('fetch', function(event) {
+//     console.log('Fetch event:', event.request.url);
+//
+//     event.respondWith(
+//         caches.match(event.request).then(function(response) {
+//             if (response) {
+//                 console.log('Found in cache:', response);
+//                 return response;
+//             }
+//
+//             var fetchRequest = event.request.clone();
+//             return fetch(fetchRequest).then(function(response) {
+//                 var responseToCache = response.clone();
+//                 var time = 0;
+//                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+//                     var cacheRequest = event.request.clone();
+//                     // console.log("Add to cache:" + cacheRequest);
+//                     var start_time = performance.now();
+//
+//                     // add and remove 10 times using promises
+//                     cache.put(cacheRequest, responseToCache).then(function() {
+//                         var end_time = performance.now();
+//                         time = end_time - start_time;
+//                         console.log("Put: " + time);
+//                         // cache.delete(cacheRequest);
+//                     });
+//                 });
+//
+//                 return response;
+//             });
+//         })
+//     );
+// });
 
 /**
  * Deletes an item from cache and then adds it back to cache.
@@ -114,44 +112,43 @@ function putDelete(url, response, cache) {
 };
 
 // Fetch some random url and keep the request object and use that to put and delete from cache.
-// self.addEventListener('fetch', function(event) {
-//     caches.match(event.request).then(function(response) {
-//         if (response) {
-//             var url = 'http://localhost:8080/Files/sw_500.html';
-//
-//             var ITERATIONS = 10;
-//
-//             caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-//                 // fetch URL to obtain the request object
-//                 fetch(url).then(function(response) {
-//                     var promises = [];
-//                     var end;
-//                     var start = performance.now();
-//
-//                     promises[0] = putDelete(url, response.clone(), cache);
-//
-//                     for(var i=1; i<ITERATIONS; i++) {
-//                         promises[i] = promises[i-1].then(function(val) {
-//                             return putDelete(url, response.clone(), cache);
-//                         })
-//                     }
-//
-//                     promises[i-1].then(function(val) {
-//                         end = performance.now();
-//                         var time = end - start;
-//                         console.log("Time :" + time + ", " + url);
-//                     });
-//                 });
-//             });
-//         }
-//     });
-// });
+self.addEventListener('fetch', function(event) {
+    var url = event.request.clone();
+
+    var ITERATIONS = 10;
+
+    caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+        // fetch URL to obtain the request object
+        var fetchRequest = event.request.clone();
+        fetch(fetchRequest).then(function(response) {
+            var promises = [];
+            var end;
+            var cacheRequest = event.request.clone();
+            var start = performance.now();
+            console.log("S: " + start);
+            promises[0] = putDelete(cacheRequest, response.clone(), cache);
+
+            for(var i=1; i<ITERATIONS; i++) {
+                promises[i] = promises[i-1].then(function(val) {
+                    console.log(performance.now());
+                    cacheRequest = event.request.clone();
+                    return putDelete(cacheRequest, response.clone(), cache);
+                })
+            }
+
+            promises[i-1].then(function(val) {
+                end = performance.now();
+                var time = end - start;
+                console.log("Time :" + time + ", " + event.request.url);
+            });
+        });
+    });
+});
 
 // self.addEventListener('fetch', function(event) {
 //     console.log("URL: " + event.request.url);
 //     caches.match(event.request).then(function(response) {
 //         // If the URL matches any of the items stored in cache time 10 deletePut operations.
-//         console.log(response);
 //         if (response) {
 //             console.log("defined");
 //             var ITERATIONS = 10;
