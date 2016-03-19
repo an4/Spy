@@ -107,8 +107,8 @@ function putDelete(url, response, cache) {
             cache.delete(url).then(function(res) {
                 console.log("PD");
                 resolve(true);
-            })
-        })
+            });
+        });
     });
 };
 
@@ -117,29 +117,6 @@ self.addEventListener('fetch', function(event) {
     var url = event.request.clone();
 
     var ITERATIONS = 10;
-
-    var abc = [
-        '/Files/sw_50.html',
-        '/Files/sw_100.html',
-        '/Files/sw_150.html',
-        '/Files/sw_200.html',
-        '/Files/sw_250.html',
-        '/Files/sw_300.html',
-        '/Files/sw_350.html',
-        '/Files/sw_400.html',
-        '/Files/sw_450.html',
-        '/Files/sw_500.html',
-        '/Files/sw_550.html',
-        '/Files/sw_600.html',
-        '/Files/sw_650.html',
-        '/Files/sw_700.html',
-        '/Files/sw_750.html',
-        '/Files/sw_800.html',
-        '/Files/sw_850.html',
-        '/Files/sw_900.html',
-        '/Files/sw_950.html',
-        '/Files/sw_1000.html'
-    ];
 
     caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
         // fetch URL to obtain the request object
@@ -156,14 +133,8 @@ self.addEventListener('fetch', function(event) {
                 promises[i] = promises[i-1].then(function(val) {
                     console.log(performance.now());
                     cacheRequest = event.request.clone();
-                    var def = abc.shift();
-                    cache.add(def).then(function() {
-                        cache.delete(def).then(function() {
-                            putDelete(cacheRequest, response.clone(), cache).then(function(response) {
-                                return response;
-                            });
-                        });
-                    });
+                    var responseClone = response.clone();
+                    return putDelete(cacheRequest, responseClone, cache);
                 })
             }
 
