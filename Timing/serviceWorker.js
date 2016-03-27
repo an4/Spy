@@ -105,7 +105,6 @@ function putDelete(url, response, cache) {
     return new Promise(function(resolve, reject) {
         cache.put(url, response).then(function() {
             cache.delete(url).then(function(res) {
-                console.log("PD");
                 resolve(true);
             });
         });
@@ -142,6 +141,7 @@ self.addEventListener('fetch', function(event) {
                 end = performance.now();
                 var time = end - start;
                 console.log("Time :" + time + ", " + event.request.url);
+                event.ports[0].postMessage(time);
             });
         });
     });

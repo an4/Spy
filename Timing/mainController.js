@@ -336,12 +336,28 @@ angular.module('TheApp').controller('MainController', ['$scope', '$http', '$loca
                 {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
             ];
 
+            var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
+
+            var external_files = [
+                {size: "16", url: base_url + "16kB.html", name: "16kB"},
+                {size: "32", url: base_url + "32kB.html", name: "32kB"},
+                {size: "64", url: base_url + "64kB.html", name: "64kB"},
+                {size: "128", url: base_url + "128kB.html", name: "128kB"},
+                {size: "256", url: base_url + "256kB.html", name: "256kB"},
+                {size: "512", url: base_url + "512kB.html", name: "512kB"},
+                {size: "1024", url: base_url + "1024kB.html", name: "1024kB"},
+                {size: "2048", url: base_url + "2048kB.html", name: "2048kB"},
+                // {size: "4096", url: base_url + "4096kB.html", name: "4096kB"}
+            ];
+
+            files = external_files;
+
             // Add original index for each file
             for(var i=0; i<files.length; i++) {
                 files[i].index = i;
             }
 
-            files = shuffle(files);
+            // files = shuffle(files);
 
             var rounds = $scope.settings.rounds;
 
