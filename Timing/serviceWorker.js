@@ -112,40 +112,40 @@ function putDelete(url, response, cache) {
 };
 
 // Fetch some random url and keep the request object and use that to put and delete from cache.
-self.addEventListener('fetch', function(event) {
-    var url = event.request.clone();
-
-    var ITERATIONS = 10;
-
-    caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-        // fetch URL to obtain the request object
-        var fetchRequest = event.request.clone();
-        fetch(fetchRequest).then(function(response) {
-            var promises = [];
-            var end;
-            var cacheRequest = event.request.clone();
-            var start = performance.now();
-            console.log("S: " + start);
-            promises[0] = putDelete(cacheRequest, response.clone(), cache);
-
-            for(var i=1; i<ITERATIONS; i++) {
-                promises[i] = promises[i-1].then(function(val) {
-                    console.log(performance.now());
-                    cacheRequest = event.request.clone();
-                    var responseClone = response.clone();
-                    return putDelete(cacheRequest, responseClone, cache);
-                })
-            }
-
-            promises[i-1].then(function(val) {
-                end = performance.now();
-                var time = end - start;
-                console.log("Time :" + time + ", " + event.request.url);
-                event.ports[0].postMessage(time);
-            });
-        });
-    });
-});
+// self.addEventListener('fetch', function(event) {
+//     var url = event.request.clone();
+//
+//     var ITERATIONS = 10;
+//
+//     caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
+//         // fetch URL to obtain the request object
+//         var fetchRequest = event.request.clone();
+//         fetch(fetchRequest).then(function(response) {
+//             var promises = [];
+//             var end;
+//             var cacheRequest = event.request.clone();
+//             var start = performance.now();
+//             console.log("S: " + start);
+//             promises[0] = putDelete(cacheRequest, response.clone(), cache);
+//
+//             for(var i=1; i<ITERATIONS; i++) {
+//                 promises[i] = promises[i-1].then(function(val) {
+//                     console.log(performance.now());
+//                     cacheRequest = event.request.clone();
+//                     var responseClone = response.clone();
+//                     return putDelete(cacheRequest, responseClone, cache);
+//                 })
+//             }
+//
+//             promises[i-1].then(function(val) {
+//                 end = performance.now();
+//                 var time = end - start;
+//                 console.log("Time :" + time + ", " + event.request.url);
+//                 event.ports[0].postMessage(time);
+//             });
+//         });
+//     });
+// });
 
 // self.addEventListener('fetch', function(event) {
 //     console.log("URL: " + event.request.url);

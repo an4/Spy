@@ -20,6 +20,16 @@ CACHE:
 ./../Files/cache_900.html
 ./../Files/cache_950.html
 ./../Files/cache_1000.html
+http://localhost:3000/50kB.html
+http://localhost:3000/100kB.html
+http://localhost:3000/150kB.html
+http://localhost:3000/200kB.html
+http://localhost:3000/250kB.html
+http://localhost:3000/300kB.html
+http://localhost:3000/350kB.html
+http://localhost:3000/400kB.html
+http://localhost:3000/450kB.html
+http://localhost:3000/500kB.html
 
 NETWORK:
 *
