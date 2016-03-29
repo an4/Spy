@@ -1,0 +1,27 @@
+<html manifest="cache.manifest">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Dependencies  -->
+        <script src="/node_modules/angular/angular.min.js"></script>
+        <script src="/node_modules/angular-google-chart/ng-google-chart.min.js"></script>
+        <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    	<script src="/node_modules/angular-animate/angular-animate.js"></script>
+    	<script src="/node_modules/angular-material/angular-material.js"></script>
+        <script src="/node_modules/mathjs/dist/math.min.js"></script>
+
+        <!-- AngularJS Controller -->
+        <script src="/controller.js"></script>
+
+        <!-- Style -->
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+
+        <title>File Size</title>
+    </head>
+    <body data-ng-app="TheApp">
+        <!-- <data-ng-include src="'container.html'"></data-ng-include> -->
+        <data-ng-include src="'toolbar.html'"></data-ng-include>
+    </body>
+</html>
