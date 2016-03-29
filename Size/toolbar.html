@@ -1,11 +1,17 @@
-<md-toolbar layout="column" layout-align="center center" class="md-warn">
+<md-toolbar layout="column" layout-align="center center" class="md-primary">
     <h1><b>File Size</b></h1>
-    <div>
-        <md-button class="md-raised" aria-label="Show Graph">
-            Graph
-        </md-button>
-        <md-button class="md-raised" aria-label="Guess">
-            Guess
-        </md-button>
-    </div>
 </md-toolbar>
+<md-tabs md-selected="currentTab" md-stretch-tabs="always" class="md-primary md-hue-2">
+    <md-tab id="tab1" aria-controls="Graph">
+        <md-tab-label>Graph</md-tab-label>
+        <md-tab-body>
+            <data-ng-include src="'graph.html'"></data-ng-include>
+        </md-tab-body>
+    </md-tab>
+    <md-tab id="tab2" aria-controls="Guess">
+        <md-tab-label>Guess</md-tab-label>
+        <md-tab-body>
+            <data-ng-include src="'guess.html'"></data-ng-include>
+          </md-tab-body>
+    </md-tab>
+</md-tabs>
