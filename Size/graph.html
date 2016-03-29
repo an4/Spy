@@ -37,7 +37,12 @@
         </div>
         <md-button class="md-raised md-warn" ng-click="run()"> Run </md-button>
     </md-sidenav>
-    <md-content layout="column" flex>
-        <div google-chart chart="chartObject" style="height:600px; width:100%;" api></div>
+    <md-content layout="column" flex layout-padding>
+        <md-content>
+            <md-progress-linear md-mode="determinate" class="md-warn" value="{{settings.progress}}"></md-progress-linear>
+        </md-content>
+        <md-content>
+            <div google-chart chart="chartObject" style="height:75%; width:90%;" api></div>
+        </md-content>
     </md-content>
 <div>

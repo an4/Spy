@@ -7,6 +7,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.settings = {};
         $scope.settings.random = false;
         $scope.settings.Xaxis = 30;
+        $scope.settings.progress = 0;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
@@ -136,6 +137,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                     promises[i+1] = promises[i].then(function(result) {
                         console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
                         results[result.index] = result;
+                        $scope.settings.progress += $scope.settings.progressPart;
+                        $scope.$apply();
                         return fileMethod(files.shift(), rounds, method);
                     });
                 }
@@ -143,6 +146,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 promises[i].then(function(result) {
                     console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
                     results[result.index] = result;
+                    $scope.settings.progress = 100;
                     resolve(results);
                 });
             });
@@ -263,6 +267,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.run = function() {
             var path = "/Files/";
 
+            $scope.settings.progress = 0;
+
             console.log("Running...");
 
             // Change this based on URL
@@ -360,6 +366,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             for(var i=0; i<files.length; i++) {
                 files[i].index = i;
             }
+
+            $scope.settings.progressPart = 100/files.length;
 
             // files = shuffle(files);
 
