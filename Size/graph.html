@@ -11,11 +11,11 @@
                     <label>Bin Size</label>
                     <input name="binSize" ng-model="settings.binSize" ng-init="settings.binSize='0.2'" required="true">
                 </md-input-container>
+                <!-- <md-input-container>
+                        <label>X Axis</label>
+                        <input name="xAxis" ng-model="settings.Xaxis" ng-init="settings.Xaxis='30'" required="true">
+                    </md-input-container> -->
             </md-content>
-        <!-- <md-input-container>
-                <label>X Axis</label>
-                <input name="xAxis" ng-model="settings.Xaxis" ng-init="settings.Xaxis='30'" required="true">
-            </md-input-container> -->
 
             <md-content layout="column" layout-padding>
                 <h4> HTML Tag: </h4>
@@ -37,7 +37,7 @@
         </div>
         <md-button class="md-raised md-warn" ng-click="run()"> Run </md-button>
     </md-sidenav>
-    <md-content flex>
-        Content
+    <md-content layout="column" flex>
+        <div google-chart chart="chartObject" style="height:600px; width:100%;" api></div>
     </md-content>
 <div>

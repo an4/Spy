@@ -1,13 +1,12 @@
 'use strict';
 
-var app = angular.module('TheApp', ['ngMaterial', 'googlechart']);
-
-'use strict';
+angular.module('TheApp', ['ngMaterial', 'googlechart']);
 
 angular.module('TheApp').controller('controller', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
         $scope.settings = {};
         $scope.settings.random = false;
+        $scope.settings.Xaxis = 30;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
@@ -263,6 +262,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
         $scope.run = function() {
             var path = "/Files/";
+
+            console.log("Running...");
 
             // Change this based on URL
             var type = "";
