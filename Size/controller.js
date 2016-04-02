@@ -289,8 +289,13 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 method = measureTimeImage;
             }
 
-            // var base_url = "http://raw.githubusercontent.com/an4/Data-Storage/master/";
-            var base_url = "http://localhost:3000/";
+            var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
+
+            var cache_base_url = "https://raw.githubusercontent.com/an4/Remote-File-Server---App-Cache/master/";
+
+            // base_url = cache_base_url;
+
+            // var base_url = "http://localhost:3000/";
 
             // var files = [
             //     // {size:   "50", url: path+type+"_50.html",   name: "50kB"},
@@ -315,17 +320,17 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             //     {size: "1000", url: path+type+"_1000.html", name: "1000kB"}
             // ];
 
-            var files = [
-                {size: "50", url: base_url + "50kB.html", name: "50kB"},
-                {size: "100", url: base_url + "100kB.html", name: "100kB"},
-                {size: "150", url: base_url + "150kB.html", name: "150kB"},
-                {size: "200", url: base_url + "200kB.html", name: "200kB"},
-                {size: "250", url: base_url + "250kB.html", name: "250kB"},
-                {size: "300", url: base_url + "300kB.html", name: "300kB"},
-                {size: "350", url: base_url + "350kB.html", name: "350kB"},
-                {size: "400", url: base_url + "400kB.html", name: "400kB"},
-                {size: "450", url: base_url + "450kB.html", name: "450kB"},
-                {size: "500", url: base_url + "500kB.html", name: "500kB"},
+            // var files = [
+            //     {size: "50", url: base_url + "50kB.html", name: "50kB"},
+            //     {size: "100", url: base_url + "100kB.html", name: "100kB"},
+            //     {size: "150", url: base_url + "150kB.html", name: "150kB"},
+            //     {size: "200", url: base_url + "200kB.html", name: "200kB"},
+            //     {size: "250", url: base_url + "250kB.html", name: "250kB"},
+            //     {size: "300", url: base_url + "300kB.html", name: "300kB"},
+            //     {size: "350", url: base_url + "350kB.html", name: "350kB"},
+            //     {size: "400", url: base_url + "400kB.html", name: "400kB"},
+            //     {size: "450", url: base_url + "450kB.html", name: "450kB"},
+            //     {size: "500", url: base_url + "500kB.html", name: "500kB"},
                 // {size: "550", url: base_url + "550kB.html", name: "550kB"},
                 // {size: "600", url: base_url + "600kB.html", name: "600kB"},
                 // {size: "650", url: base_url + "650kB.html", name: "650kB"},
@@ -346,21 +351,21 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 // {size: "1800", url: base_url + "1800kB.html", name: "1800kB"},
                 // {size: "1900", url: base_url + "1900kB.html", name: "1900kB"},
                 // {size: "2000", url: base_url + "2000kB.html", name: "2000kB"}
+            // ];
+
+            var external_files = [
+                {size: "16", url: base_url + "16kB.html", name: "16kB"},
+                {size: "32", url: base_url + "32kB.html", name: "32kB"},
+                // {size: "64", url: base_url + "64kB.html", name: "64kB"},
+                // {size: "128", url: base_url + "128kB.html", name: "128kB"},
+                // {size: "256", url: base_url + "256kB.html", name: "256kB"},
+                // {size: "512", url: base_url + "512kB.html", name: "512kB"},
+                // {size: "1024", url: base_url + "1024kB.html", name: "1024kB"},
+                // {size: "2048", url: base_url + "2048kB.html", name: "2048kB"},
+                // {size: "4096", url: base_url + "4096kB.html", name: "4096kB"}
             ];
 
-            // var external_files = [
-            //     {size: "16", url: base_url + "16kB.html", name: "16kB"},
-            //     {size: "32", url: base_url + "32kB.html", name: "32kB"},
-            //     {size: "64", url: base_url + "64kB.html", name: "64kB"},
-            //     {size: "128", url: base_url + "128kB.html", name: "128kB"},
-            //     {size: "256", url: base_url + "256kB.html", name: "256kB"},
-            //     {size: "512", url: base_url + "512kB.html", name: "512kB"},
-            //     {size: "1024", url: base_url + "1024kB.html", name: "1024kB"},
-            //     {size: "2048", url: base_url + "2048kB.html", name: "2048kB"},
-            //     // {size: "4096", url: base_url + "4096kB.html", name: "4096kB"}
-            // ];
-            //
-            // files = external_files;
+            var files = external_files;
 
             // Add original index for each file
             for(var i=0; i<files.length; i++) {
@@ -369,7 +374,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             $scope.settings.progressPart = 100/files.length;
 
-            // files = shuffle(files);
+            files = shuffle(files);
 
             var rounds = $scope.settings.rounds;
 
