@@ -78,6 +78,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                     result.name = file.name;
                     result.size = file.size;
                     result.index = file.index;
+                    result.mean = math.mean(times);
+                    result.std = math.std(times);
                     resolve(result);
                 });
             });
@@ -103,13 +105,15 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                     var sample = getRandom(times, rounds);
 
+                    // Construct result
                     var result = {};
                     result.url = file.url;
                     result.times = sample;
                     result.name = file.name;
                     result.size = file.size;
                     result.index = file.index;
-
+                    result.mean = math.mean(sample);
+                    result.std = math.std(sample);
                     resolve(result);
                 });
             });
@@ -135,7 +139,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                 for(var i=0; i<files.length; i++) {
                     promises[i+1] = promises[i].then(function(result) {
-                        console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
+                        console.log(result.name + ". Avg: " + result.mean + ". Std: " + result.std);
                         results[result.index] = result;
                         $scope.settings.progress += $scope.settings.progressPart;
                         $scope.$apply();
@@ -144,7 +148,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 }
 
                 promises[i].then(function(result) {
-                    console.log(result.name + ". Avg: " + math.mean(result.times) + ". Std: " + math.std(result.times));
+                    console.log(result.name + ". Avg: " + result.mean + ". Std: " + result.std);
                     results[result.index] = result;
                     $scope.settings.progress = 100;
                     resolve(results);
@@ -178,6 +182,93 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             }
             return sample;
         };
+
+
+/////////////////////////////////////////////////////////
+////////////////////////// GUESS ////////////////////////
+/////////////////////////////////////////////////////////
+        /**
+         * Given the path to the file, the method tries to guess the size of the file.
+         */
+        function getRange(url, files) {
+            var rounds = 200;
+
+            var range = {l: "0", h: "0"};
+
+            var guess = {size: "unknown", url: url, name: "unknown"};
+
+            getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
+                // get measurement for input file
+                getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
+                    if(guessResult.mean <= results[0].mean) {
+                        range.h = results[0].size;
+                        console.log(range.l + ", " + range.h);
+                        return range;
+                    }
+                    for(var i=1; i<results.length; i++) {
+                        if(results[i-1].mean <= guessResult.mean && guessResult.mean <= results[i].mean) {
+                            range.l = results[i-1].size;
+                            range.h = results[i].size;
+                            console.log(range.l + ", " + range.h);
+                            return range;
+                        }
+                    }
+                    range.l = results[results.length-1].size;
+                    console.log(range.l + ", " + range.h);
+                    return range;
+                });
+            });
+        };
+
+        $scope.guess = function() {
+            var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
+
+            var files = [
+                // {size: "50", url: base_url + "50kB.html", name: "50kB"},
+                {size: "100", url: base_url + "100kB.html", name: "100kB"},
+                // {size: "150", url: base_url + "150kB.html", name: "150kB"},
+                {size: "200", url: base_url + "200kB.html", name: "200kB"},
+                // {size: "250", url: base_url + "250kB.html", name: "250kB"},
+                {size: "300", url: base_url + "300kB.html", name: "300kB"},
+                // {size: "350", url: base_url + "350kB.html", name: "350kB"},
+                {size: "400", url: base_url + "400kB.html", name: "400kB"},
+                // {size: "450", url: base_url + "450kB.html", name: "450kB"},
+                {size: "500", url: base_url + "500kB.html", name: "500kB"},
+                // {size: "550", url: base_url + "550kB.html", name: "550kB"},
+                {size: "600", url: base_url + "600kB.html", name: "600kB"},
+                // {size: "650", url: base_url + "650kB.html", name: "650kB"},
+                {size: "700", url: base_url + "700kB.html", name: "700kB"},
+                // {size: "750", url: base_url + "750kB.html", name: "750kB"},
+                // {size: "800", url: base_url + "800kB.html", name: "800kB"},
+                // {size: "850", url: base_url + "850kB.html", name: "850kB"},
+                // {size: "900", url: base_url + "900kB.html", name: "900kB"},
+                // {size: "950", url: base_url + "950kB.html", name: "950kB"},
+                // {size: "1000", url: base_url + "1000kB.html", name: "1000kB"},
+                // {size: "1100", url: base_url + "1100kB.html", name: "1100kB"},
+                // {size: "1200", url: base_url + "1200kB.html", name: "1200kB"},
+                // {size: "1300", url: base_url + "1300kB.html", name: "1300kB"},
+                // {size: "1400", url: base_url + "1400kB.html", name: "1400kB"},
+                // {size: "1500", url: base_url + "1500kB.html", name: "1500kB"},
+                // {size: "1600", url: base_url + "1600kB.html", name: "1600kB"},
+                // {size: "1700", url: base_url + "1700kB.html", name: "1700kB"},
+                // {size: "1800", url: base_url + "1800kB.html", name: "1800kB"},
+                // {size: "1900", url: base_url + "1900kB.html", name: "1900kB"},
+                // {size: "2000", url: base_url + "2000kB.html", name: "2000kB"}
+            ];
+
+            // Add original index for each file
+            for(var i=0; i<files.length; i++) {
+                files[i].index = i;
+            }
+
+            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
+
+            files = shuffle(files);
+
+            var range = getRange(guess_file_url, files);
+
+            console.log(range);
+        }
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
