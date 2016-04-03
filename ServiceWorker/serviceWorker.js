@@ -3,11 +3,9 @@ var CURRENT_CACHES = {
   mycache: 'my-cache-v-' + CACHE_VERSION
 };
 
-var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
-// var link = new Request('https://www.facebook.com/adumitras?callback=undefined&q=show+tables&format=json&_=1457815470997', {mode: 'no-cors'});
-
-var in_url = new Request('https://www.facebook.com/groups/208547725916026', {mode: 'no-cors'});
-var out_url = new Request('https://www.facebook.com/groups/852392078107320', {mode: 'no-cors'});
+// var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
+// var in_url = new Request('https://www.facebook.com/groups/208547725916026', {mode: 'no-cors'});
+// var out_url = new Request('https://www.facebook.com/groups/852392078107320', {mode: 'no-cors'});
 
 self.addEventListener('install', function(event) {
     var urlsToCache = [];
@@ -24,54 +22,6 @@ self.addEventListener('install', function(event) {
         })
     );
 });
-
-// // EXAMPLE - Working for facebook
-// self.addEventListener('fetch', function(event) {
-//     console.log('Fetch event:', event.request.url);
-//
-//     event.respondWith(
-//         caches.match(event.request).then(function(response) {
-//             if (response) {
-//                 console.log('Found in cache:', response);
-//                 return response;
-//             }
-//
-//             var fetchRequest = event.request.clone();
-//             return fetch(fetchRequest).then(function(response) {
-//                 var responseToCache = response.clone();
-//                 var time = 0;
-//                 caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
-//                     var cacheRequest = event.request.clone();
-//                     // console.log("Add to cache:" + cacheRequest);
-//                     var start_time = performance.now();
-//
-//                     // add and remove 10 times using promises
-//                     cache.put(cacheRequest, responseToCache).then(function() {
-//                         var end_time = performance.now();
-//                         time = end_time - start_time;
-//                         console.log("Put: " + time);
-//                         // cache.delete(cacheRequest);
-//                     });
-//                 });
-//
-//                 return response;
-//             });
-//         })
-//     );
-// });
-
-/**
- * Deletes an item from cache and then adds it back to cache.
- */
-function deletePut(url, response, cache) {
-    return new Promise(function(resolve, reject) {
-        cache.delete(url).then(function(bool) {
-            cache.put(url, response).then(function() {
-                resolve(true);
-            })
-        })
-    });
-};
 
 /**
  * Adds an item to cache and then deletes it from cache.

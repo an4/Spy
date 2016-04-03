@@ -22,10 +22,19 @@
         <md-toolbar layout="column" layout-align="center center" class="md-primary">
             <h1><b>Service Worker</b></h1>
         </md-toolbar>
-        <md-content layout="row" layout-padding>
-            <md-button class="md-raised md-warn" ng-click="test()">Test</md-button>
-            <md-button class="md-raised md-warn" ng-click="in()">In</md-button>
-            <md-button class="md-raised md-warn" ng-click="out()">Out</md-button>
+        <md-content layout="column" layout-padding>
+            <md-content layout="row" layout-padding>
+                <md-button class="md-raised md-warn" ng-click="test()">Test</md-button>
+                <md-button class="md-raised md-warn" ng-click="in()">In</md-button>
+                <md-button class="md-raised md-warn" ng-click="out()">Out</md-button>
+            </md-content>
+            <md-content layout-padding>
+                <md-input-container>
+                    <label>URL</label>
+                    <input name="url" ng-model="sw.url" required="true">
+                </md-input-container>
+                <md-button class="md-raised md-warn" ng-click="anyUrl()">Try</md-button>
+            </md-content>
         </md-content>
     </body>
 </html>

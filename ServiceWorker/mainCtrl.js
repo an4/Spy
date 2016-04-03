@@ -6,6 +6,8 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
     function($scope, $http) {
         var url = 'https://www.facebook.com/adumitras';
 
+        $scope.sw = {};
+
         $scope.in = function() {
             var in_url = 'https://www.facebook.com/groups/208547725916026';
             var img = new Image();
@@ -26,6 +28,11 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
             // send_message_to_sw("Hello!!!").then(function(response) {
             //     console.log("From SW: " + response);
             // });
+        };
+
+        $scope.anyUrl = function() {
+            var img = new Image();
+            img.src = $scope.sw.url;
         };
 
         function send_message_to_sw(msg){
