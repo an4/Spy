@@ -19,6 +19,13 @@
         <title>Service Worker</title>
     </head>
     <body data-ng-app="Main" data-ng-controller="mainCtrl">
-        <h1> Main </h1>
+        <md-toolbar layout="column" layout-align="center center" class="md-primary">
+            <h1><b>Service Worker</b></h1>
+        </md-toolbar>
+        <md-content layout="row" layout-padding>
+            <md-button class="md-raised md-warn" ng-click="test()">Test</md-button>
+            <md-button class="md-raised md-warn" ng-click="in()">In</md-button>
+            <md-button class="md-raised md-warn" ng-click="out()">Out</md-button>
+        </md-content>
     </body>
 </html>
