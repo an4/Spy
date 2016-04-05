@@ -50,6 +50,21 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 /////////////////////// Mutliple Files ////////////////////////
 ///////////////////////////////////////////////////////////////
         /**
+         * Build the results for each file.
+         */
+        function buildResult(times, file) {
+            var result = {};
+            result.url = file.url;
+            result.times = times;
+            result.name = file.name;
+            result.size = file.size;
+            result.index = file.index;
+            result.mean = math.mean(times);
+            result.std = math.std(times);
+            return result;
+        }
+
+        /**
          * Get multiple measurements for the same file
          * file - file to be measured
          * rounds - how many measurements
@@ -72,15 +87,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                 promises[i-1].then(function(time) {
                     times.push(time);
-                    var result = {};
-                    result.url = file.url;
-                    result.times = times;
-                    result.name = file.name;
-                    result.size = file.size;
-                    result.index = file.index;
-                    result.mean = math.mean(times);
-                    result.std = math.std(times);
-                    resolve(result);
+                    resolve(buildResult(times, file));
                 });
             });
         };
@@ -107,14 +114,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                     // Construct result
                     var result = {};
-                    result.url = file.url;
-                    result.times = sample;
-                    result.name = file.name;
-                    result.size = file.size;
-                    result.index = file.index;
-                    result.mean = math.mean(sample);
-                    result.std = math.std(sample);
-                    resolve(result);
+                    resolve(buildResult(times, file));
                 });
             });
         };
@@ -188,37 +188,36 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 ////////////////////////// GUESS ////////////////////////
 /////////////////////////////////////////////////////////
         /**
-         * Given the path to the file, the method tries to guess the size of the file.
+         * Given the path to the file, the method returns the range in which the size of the file
+         * might be.
          */
-        function getRange(url, files) {
-            var rounds = 200;
-
-            var range = {l: "0", h: "0"};
-
-            var guess = {size: "unknown", url: url, name: "unknown"};
-
-            getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
-                // get measurement for input file
-                getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
-                    if(guessResult.mean <= results[0].mean) {
-                        range.h = results[0].size;
-                        console.log(range.l + ", " + range.h);
-                        return range;
+        function getRange(data, guess) {
+            return new Promise(function(resolve, reject) {
+                var range = {l: "0", h: "0"};
+                if(guess.mean <= data[0].mean) {
+                    range.h = results[0].size;
+                    ;resolve(range)
+                }
+                for(var i=1; i<data.length; i++) {
+                    if(data[i-1].mean <= guess.mean && guess.mean <= data[i].mean) {
+                        range.l = data[i-1].size;
+                        range.h = data[i].size;
+                        resolve(range);
                     }
-                    for(var i=1; i<results.length; i++) {
-                        if(results[i-1].mean <= guessResult.mean && guessResult.mean <= results[i].mean) {
-                            range.l = results[i-1].size;
-                            range.h = results[i].size;
-                            console.log(range.l + ", " + range.h);
-                            return range;
-                        }
-                    }
-                    range.l = results[results.length-1].size;
-                    console.log(range.l + ", " + range.h);
-                    return range;
-                });
+                }
+                range.l = results[results.length-1].size;
+                resolve(range);
             });
         };
+
+
+        /**
+         * Given the path to a file, the method returns the file size with the closest mean to the
+         * input file mean.
+         */
+        function closestMean(url, files) {
+
+        }
 
         $scope.guess = function() {
             var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
@@ -260,15 +259,21 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             for(var i=0; i<files.length; i++) {
                 files[i].index = i;
             }
-
-            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
-
             files = shuffle(files);
 
-            var range = getRange(guess_file_url, files);
+            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
+            var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
 
-            console.log(range);
-        }
+            var rounds = 200;
+
+            getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
+                getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
+                    getRange(results, guessResult).then(function(range) {
+                        console.log(range);
+                    })
+                });
+            });
+        };
 
 /////////////////////////////////////////////////////////
 //////////////////// COLOURS & LINES ////////////////////
