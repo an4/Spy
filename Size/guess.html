@@ -1,7 +1,7 @@
 <md-content layout="column" layout-padding>
     <md-input-container>
         <label>Path to file: </label>
-        <input name="path" ng-model="guess.path" required="true">
+        <input name="path" ng-model="guess.path" required="true" ng-init="guess.path='https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html'">
     </md-input-container>
     <md-content layout="row">
         <md-button class="md-raised md-warn" ng-click="guess()"> Run </md-button>

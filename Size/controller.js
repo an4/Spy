@@ -9,6 +9,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.settings.Xaxis = 30;
         $scope.settings.progress = 0;
 
+        $scope.guess = {};
+        $scope.guess.rounds = 100;
+
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
 ///////////////////////////////////////////////////////////////
@@ -283,10 +286,13 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             files = shuffle(files);
 
             // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
-            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/512kB.html";
-            // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/128kB.html";
+            // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/512kB.html";
+            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/128kB.html";
+
+            // var guess_file_url = $scope.guess.path;
             var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
 
+            // var rounds = $scope.guess.rounds;
             var rounds = 100;
 
             getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
