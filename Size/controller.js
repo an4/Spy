@@ -54,13 +54,14 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
          */
         function buildResult(times, file) {
             var result = {};
+            var timingData = removeOutliers(times);
             result.url = file.url;
             result.times = times;
             result.name = file.name;
             result.size = file.size;
             result.index = file.index;
-            result.mean = math.mean(times);
-            result.std = math.std(times);
+            result.mean = math.mean(timingData);
+            result.std = math.std(timingData);
             return result;
         }
 
@@ -183,6 +184,15 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             return sample;
         };
 
+        function removeOutliers(data) {
+            var median = math.median(data);
+            for(var i=0; i<data.length; i++) {
+                if(data[i] > median * 3) {
+                    data.splice(i,1);
+                }
+            }
+            return data;
+        };
 
 /////////////////////////////////////////////////////////
 ////////////////////////// GUESS ////////////////////////
@@ -215,8 +225,19 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
          * Given the path to a file, the method returns the file size with the closest mean to the
          * input file mean.
          */
-        function closestMean(url, files) {
-
+        function closestMean(data, guess) {
+            return new Promise(function(resolve, reject) {
+                var mean = guess.mean;
+                var closest = data[0].size;
+                var diff = Math.abs(data[0].mean, mean);
+                for(var i=1; i<data.length; i++) {
+                    if(Math.abs(data[i].mean - mean) < diff) {
+                        diff = Math.abs(data[i].mean - mean);
+                        closest = data[i].size;
+                    }
+                }
+                resolve(closest);
+            });
         }
 
         $scope.guess = function() {
@@ -261,15 +282,18 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             }
             files = shuffle(files);
 
-            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
+            // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
+            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/512kB.html";
+            // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/128kB.html";
             var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
 
-            var rounds = 200;
+            var rounds = 100;
 
             getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
                 getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
-                    getRange(results, guessResult).then(function(range) {
-                        console.log(range);
+                    // getRange(results, guessResult).then(function(result) {
+                    closestMean(results, guessResult).then(function(result) {
+                        console.log(result);
                     })
                 });
             });
