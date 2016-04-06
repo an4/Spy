@@ -208,7 +208,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             return new Promise(function(resolve, reject) {
                 var range = {l: "0", h: "0"};
                 if(guess.mean <= data[0].mean) {
-                    range.h = results[0].size;
+                    range.h = data[0].size;
                     ;resolve(range)
                 }
                 for(var i=1; i<data.length; i++) {
@@ -218,7 +218,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                         resolve(range);
                     }
                 }
-                range.l = results[results.length-1].size;
+                range.l = data[results.length-1].size;
                 resolve(range);
             });
         };
@@ -247,19 +247,19 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
 
             var files = [
-                // {size: "50", url: base_url + "50kB.html", name: "50kB"},
+                {size: "50", url: base_url + "50kB.html", name: "50kB"},
                 {size: "100", url: base_url + "100kB.html", name: "100kB"},
-                // {size: "150", url: base_url + "150kB.html", name: "150kB"},
+                {size: "150", url: base_url + "150kB.html", name: "150kB"},
                 {size: "200", url: base_url + "200kB.html", name: "200kB"},
-                // {size: "250", url: base_url + "250kB.html", name: "250kB"},
+                {size: "250", url: base_url + "250kB.html", name: "250kB"},
                 {size: "300", url: base_url + "300kB.html", name: "300kB"},
-                // {size: "350", url: base_url + "350kB.html", name: "350kB"},
+                {size: "350", url: base_url + "350kB.html", name: "350kB"},
                 {size: "400", url: base_url + "400kB.html", name: "400kB"},
-                // {size: "450", url: base_url + "450kB.html", name: "450kB"},
+                {size: "450", url: base_url + "450kB.html", name: "450kB"},
                 {size: "500", url: base_url + "500kB.html", name: "500kB"},
-                // {size: "550", url: base_url + "550kB.html", name: "550kB"},
+                {size: "550", url: base_url + "550kB.html", name: "550kB"},
                 {size: "600", url: base_url + "600kB.html", name: "600kB"},
-                // {size: "650", url: base_url + "650kB.html", name: "650kB"},
+                {size: "650", url: base_url + "650kB.html", name: "650kB"},
                 {size: "700", url: base_url + "700kB.html", name: "700kB"},
                 // {size: "750", url: base_url + "750kB.html", name: "750kB"},
                 // {size: "800", url: base_url + "800kB.html", name: "800kB"},
@@ -287,18 +287,18 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html";
             // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/512kB.html";
-            var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/128kB.html";
+            // var guess_file_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/128kB.html";
 
-            // var guess_file_url = $scope.guess.path;
+            var guess_file_url = $scope.guess.path;
             var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
 
             // var rounds = $scope.guess.rounds;
-            var rounds = 100;
+            var rounds = 50;
 
             getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
                 getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
-                    // getRange(results, guessResult).then(function(result) {
-                    closestMean(results, guessResult).then(function(result) {
+                    getRange(results, guessResult).then(function(result) {
+                    // closestMean(results, guessResult).then(function(result) {
                         console.log(result);
                     })
                 });
