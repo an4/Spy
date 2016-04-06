@@ -5,8 +5,16 @@
     </md-input-container>
     <md-content layout="row">
         <md-button class="md-raised md-warn" ng-click="guess()"> Run </md-button>
+        <md-button class="md-raised md-warn" ng-click="computeAndDisplayRanges()"> Show Ranges </md-button>
     </md-content>
     <md-content>
-        <h1> Answer </h1>
+        <md-list>
+            <md-list-item ng-repeat="range in guess.ranges">
+                <div class="md-list-item-text" layout="row">
+                    <p ng-bind="range.size"></p>
+                    <p ng-bind="range.time"></p>
+                </div>
+            </md-list-item>
+        </md-list>
     </md-content>
 </md-content>
