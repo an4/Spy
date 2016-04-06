@@ -11,6 +11,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
         $scope.guess = {};
         $scope.guess.rounds = 100;
+        $scope.guess.ranges = [];
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
@@ -228,12 +229,12 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 }
                 for(var i=1; i<data.length; i++) {
                     if(data[i-1].mean <= guess.mean && guess.mean <= data[i].mean) {
-                        range.l = data[i-1].size;
-                        range.h = data[i].size;
+                        range.l = data[i-1].name;
+                        range.h = data[i].name;
                         resolve(range);
                     }
                 }
-                range.l = data[data.length-1].size;
+                range.l = data[data.length-1].name;
                 resolve(range);
             });
         };
@@ -246,12 +247,12 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         function closestMean(data, guess) {
             return new Promise(function(resolve, reject) {
                 var mean = guess.mean;
-                var closest = data[0].size;
+                var closest = data[0].name;
                 var diff = Math.abs(data[0].mean, mean);
                 for(var i=1; i<data.length; i++) {
                     if(Math.abs(data[i].mean - mean) < diff) {
                         diff = Math.abs(data[i].mean - mean);
-                        closest = data[i].size;
+                        closest = data[i].name;
                     }
                 }
                 resolve(closest);
@@ -442,6 +443,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             var files = getFiles(true);
 
+            $scope.graph.progressPart = 100/files.length;
+
             getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
@@ -449,6 +452,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         };
 
         $scope.computeAndDisplayRanges = function() {
+            $scope.graph.progress = 0;
             computeMeans().then(function(means) {
                 $scope.guess.ranges = [];
                 var range = {};
@@ -473,24 +477,24 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
         };
 
+        $scope.showGuess = function() {
+            if($scope.guess.ranges === undefined || $scope.guess.ranges.length == 0) {
+                return true;
+            }
+            return false;
+        };
+
         $scope.guess = function() {
             var guess_file_url = $scope.guess.path;
             var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
 
-            var files = getFiles(true);
-
-            // var rounds = $scope.guess.rounds;
             var rounds = 50;
 
-            console.log("Scope rounds: " + $scope.guess.rounds);
+            getRange($scope.guess.ranges, guessResult).then(function(result) {
+            // closestMean(results, guessResult).then(function(result) {
+                console.log(result);
+            })
 
-            getMeasurementAll(files, rounds, measureTimeVideo).then(function(results) {
-                getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
-                    getRange(results, guessResult).then(function(result) {
-                    // closestMean(results, guessResult).then(function(result) {
-                        console.log(result);
-                    })
-                });
-            });
+
         };
 }]);

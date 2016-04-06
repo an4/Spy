@@ -11,6 +11,7 @@
 }
 
 .answer-container {
+    margin-top: 50px;
     min-height: 55%;
     background-color: red;
 }

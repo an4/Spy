@@ -5,9 +5,12 @@
             <input name="path" ng-model="guess.path" required="true" ng-init="guess.path='https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html'">
         </md-input-container>
         <md-container>
-            <md-button class="md-raised md-warn" ng-click="guess()"> Run </md-button>
+            <md-button class="md-raised md-warn" ng-disabled="showGuess()" ng-click="guess()"> Run </md-button>
             <md-button class="md-raised md-warn" ng-click="computeAndDisplayRanges()"> Show Ranges </md-button>
         </md-container>
+    </md-content>
+    <md-content>
+        <md-progress-linear md-mode="determinate" class="md-warn" value="{{graph.progress}}"></md-progress-linear>
     </md-content>
     <md-content layout-padding class="answer-container">
         <md-list>
