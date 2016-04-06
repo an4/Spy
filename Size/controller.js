@@ -223,8 +223,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         function getRange(data, guess) {
             return new Promise(function(resolve, reject) {
                 var range = {l: "0", h: "0"};
+                console.log("Guess mean: " + guess.mean);
                 if(guess.mean <= data[0].mean) {
-                    range.h = data[0].size;
+                    range.h = data[0].name;
                     resolve(range);
                 }
                 for(var i=1; i<data.length; i++) {
@@ -234,8 +235,10 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                         resolve(range);
                     }
                 }
-                range.l = data[data.length-1].name;
-                resolve(range);
+                if(guess.mean > data[data.length-1].mean) {
+                    range.l = data[data.length-1].name;
+                    resolve(range);
+                }
             });
         };
 
@@ -418,6 +421,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 files[i].index = i;
             }
 
+            $scope.graph.progressPart = 100/files.length;
+
             return shuffle(files);
         };
 
@@ -443,8 +448,6 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             var files = getFiles(true);
 
-            $scope.graph.progressPart = 100/files.length;
-
             getMeasurementAll(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
@@ -454,6 +457,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.computeAndDisplayRanges = function() {
             $scope.graph.progress = 0;
             computeMeans().then(function(means) {
+                $scope.guess.means = means;
                 $scope.guess.ranges = [];
                 var range = {};
                 // 0 - first
@@ -490,11 +494,11 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             var rounds = 50;
 
-            getRange($scope.guess.ranges, guessResult).then(function(result) {
-            // closestMean(results, guessResult).then(function(result) {
-                console.log(result);
-            })
-
-
+            getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
+                getRange($scope.guess.means, guessResult).then(function(result) {
+                // closestMean(results, guessResult).then(function(result) {
+                    console.log(result);
+                });
+            });
         };
 }]);
