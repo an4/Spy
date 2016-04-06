@@ -1,13 +1,15 @@
-<md-content layout="column" layout-padding>
-    <md-input-container>
-        <label>Path to file: </label>
-        <input name="path" ng-model="guess.path" required="true" ng-init="guess.path='https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html'">
-    </md-input-container>
-    <md-content layout="row">
-        <md-button class="md-raised md-warn" ng-click="guess()"> Run </md-button>
-        <md-button class="md-raised md-warn" ng-click="computeAndDisplayRanges()"> Show Ranges </md-button>
+<md-content layout="column" class="tab-container" flex>
+    <md-content layout="row" layout-padding>
+        <md-input-container flex>
+            <label>Path to file: </label>
+            <input name="path" ng-model="guess.path" required="true" ng-init="guess.path='https://raw.githubusercontent.com/an4/Data-Storage/master/256kB.html'">
+        </md-input-container>
+        <md-container>
+            <md-button class="md-raised md-warn" ng-click="guess()"> Run </md-button>
+            <md-button class="md-raised md-warn" ng-click="computeAndDisplayRanges()"> Show Ranges </md-button>
+        </md-container>
     </md-content>
-    <md-content>
+    <md-content layout-padding class="answer-container">
         <md-list>
             <md-list-item ng-repeat="range in guess.ranges">
                 <div class="md-list-item-text" layout="row">

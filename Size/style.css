@@ -1,3 +1,20 @@
 .settings-title {
     height: 30px;
 }
+
+.md-sidenav-left {
+    max-width: 256px;
+}
+
+.tab-container {
+    margin: 50px;
+}
+
+.answer-container {
+    min-height: 55%;
+    background-color: red;
+}
+
+.body {
+    height: 100%;
+}

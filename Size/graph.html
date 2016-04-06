@@ -1,37 +1,33 @@
-<div layout="row">
+<div layout="row" class="tab-container" flex>
     <md-sidenav md-component-id="left" md-is-locked-open="true" class="md-sidenav-left" layout="column" flex>
         <div layout="column" layout-padding>
             <md-content layout="column" layout-padding>
                 <h4> Graph Settings: </h4>
                 <md-input-container>
                     <label>Rounds</label>
-                    <input name="rounds" ng-model="settings.rounds" ng-init="settings.rounds='100'" required="true">
+                    <input name="rounds" ng-model="graph.rounds" ng-init="graph.rounds='100'" required="true">
                 </md-input-container>
                 <md-input-container>
                     <label>Bin Size</label>
-                    <input name="binSize" ng-model="settings.binSize" ng-init="settings.binSize='0.2'" required="true">
+                    <input name="binSize" ng-model="graph.binSize" ng-init="graph.binSize='0.2'" required="true">
                 </md-input-container>
-                <!-- <md-input-container>
-                        <label>X Axis</label>
-                        <input name="xAxis" ng-model="settings.Xaxis" ng-init="settings.Xaxis='30'" required="true">
-                    </md-input-container> -->
             </md-content>
 
             <md-content layout="column" layout-padding>
                 <h4> HTML Tag: </h4>
-                <md-radio-group ng-model="settings.type" ng-init="settings.type='video'" class="md-warn">
+                <md-radio-group ng-model="graph.type" ng-init="graph.type='video'" class="md-warn">
                     <md-radio-button value="video"> Video </md-radio-button>
                     <md-radio-button value="image"> Image </md-radio-button>
                 </md-radio-group>
             </md-content>
 
             <div>
-                <md-checkbox ng-model="settings.random" aria-label="Random" class="md-warn md-align-top-left">
+                <md-checkbox ng-model="graph.random" aria-label="Random" class="md-warn md-align-top-left">
                 Random
             </div>
 
             <div>
-                <md-checkbox ng-model="settings.cache" aria-label="AppCache" class="md-warn md-align-top-left">
+                <md-checkbox ng-model="graph.cache" aria-label="AppCache" class="md-warn md-align-top-left">
                 App Cache
             </div>
         </div>
@@ -39,10 +35,10 @@
     </md-sidenav>
     <md-content layout="column" flex layout-padding>
         <md-content>
-            <md-progress-linear md-mode="determinate" class="md-warn" value="{{settings.progress}}"></md-progress-linear>
+            <md-progress-linear md-mode="determinate" class="md-warn" value="{{graph.progress}}"></md-progress-linear>
         </md-content>
         <md-content>
-            <div google-chart chart="chartObject" style="height:75%; width:90%;" api></div>
+            <div google-chart chart="chartObject" style="height:65%; width:90%;" api></div>
         </md-content>
     </md-content>
 <div>

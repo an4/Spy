@@ -4,10 +4,10 @@ angular.module('TheApp', ['ngMaterial', 'googlechart']);
 
 angular.module('TheApp').controller('controller', ['$scope', '$http', '$location',
     function($scope, $http, $location) {
-        $scope.settings = {};
-        $scope.settings.random = false;
-        $scope.settings.Xaxis = 30;
-        $scope.settings.progress = 0;
+        $scope.graph = {};
+        $scope.graph.random = false;
+        $scope.graph.Xaxis = 30;
+        $scope.graph.progress = 0;
 
         $scope.guess = {};
         $scope.guess.rounds = 100;
@@ -119,7 +119,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 var results = [];
 
                 var fileMethod = getMeasurementFile;
-                if($scope.settings.random === true) {
+                if($scope.graph.random === true) {
                     fileMethod = getMeasurementFileRandom;
                 }
 
@@ -129,7 +129,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                     promises[i+1] = promises[i].then(function(result) {
                         console.log(result.name + ". Avg: " + result.mean + ". Std: " + result.std);
                         results[result.index] = result;
-                        $scope.settings.progress += $scope.settings.progressPart;
+                        $scope.graph.progress += $scope.graph.progressPart;
                         $scope.$apply();
                         return fileMethod(files.shift(), rounds, method);
                     });
@@ -138,7 +138,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 promises[i].then(function(result) {
                     console.log(result.name + ". Avg: " + result.mean + ". Std: " + result.std);
                     results[result.index] = result;
-                    $scope.settings.progress = 100;
+                    $scope.graph.progress = 100;
                     resolve(results);
                 });
             });
@@ -174,7 +174,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         function removeOutliers(data) {
             var median = math.median(data);
             for(var i=0; i<data.length; i++) {
-                if(data[i] > median * 3) {
+                if(data[i] > median * 2) {
                     data.splice(i,1);
                 }
             }
@@ -192,8 +192,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             result.name = file.name;
             result.size = file.size;
             result.index = file.index;
-            result.mean = math.mean(timingData);
-            result.std = math.std(timingData);
+            result.mean = parseFloat(math.mean(timingData).toFixed(4));
+            result.std = parseFloat(math.std(timingData).toFixed(4));
             return result;
         };
 
@@ -224,7 +224,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 var range = {l: "0", h: "0"};
                 if(guess.mean <= data[0].mean) {
                     range.h = data[0].size;
-                    ;resolve(range)
+                    resolve(range);
                 }
                 for(var i=1; i<data.length; i++) {
                     if(data[i-1].mean <= guess.mean && guess.mean <= data[i].mean) {
@@ -233,7 +233,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                         resolve(range);
                     }
                 }
-                range.l = data[results.length-1].size;
+                range.l = data[data.length-1].size;
                 resolve(range);
             });
         };
@@ -280,7 +280,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
         function getPDF(input, bin_size) {
             var arr = [];
-            for(var i=0; i<$scope.settings.Xaxis * bin_size; i++) {
+            for(var i=0; i<$scope.graph.Xaxis * bin_size; i++) {
                 arr[i] = 0;
             }
             input.forEach(function(el) {
@@ -293,7 +293,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         };
 
         function draw(files) {
-            var bin_size = 1/$scope.settings.binSize;
+            var bin_size = 1/$scope.graph.binSize;
 
             $scope.chartObject.type = "LineChart";
             $scope.chartObject.displayed = false;
@@ -313,7 +313,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             //  Add more colours;
             $scope.chartObject.options = {
-                "title": "External resource load time. Samples: " + $scope.settings.rounds ,
+                "title": "External resource load time. Samples: " + $scope.graph.rounds ,
                 "isStacked": "true",
                 "vAxis": {
                     "gridlines": {
@@ -327,7 +327,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             // X-axis labels
             var label_data = [];
-            for(var i=0; i<$scope.settings.Xaxis*bin_size; i++) {
+            for(var i=0; i<$scope.graph.Xaxis*bin_size; i++) {
                 label_data.push(i/bin_size);
             }
 
@@ -338,7 +338,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
 
             // Add times for each file at each time step.
-            for(var i=0; i<$scope.settings.Xaxis*bin_size; i++) {
+            for(var i=0; i<$scope.graph.Xaxis*bin_size; i++) {
                 var row = {};
                 row.c = [];
                 // Add time step value
@@ -427,9 +427,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.run = function() {
             var path = "/Files/";
 
-            $scope.settings.progress = 0;
+            $scope.graph.progress = 0;
 
-            var tag = $scope.settings.type;
+            var tag = $scope.graph.type;
             var method = measureTimeVideo;
             if(tag === 'video') {
                 method = measureTimeVideo;
@@ -438,7 +438,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 method = measureTimeImage;
             }
 
-            var rounds = $scope.settings.rounds;
+            var rounds = $scope.graph.rounds;
 
             var files = getFiles(true);
 
