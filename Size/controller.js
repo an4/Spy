@@ -22,14 +22,14 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 // The error is only triggered when the file has finished parsing
                 video.onerror = function() {
                     timeError = window.performance.now();
-                    var time = timeError - timeLoad;
+                    var time = timeError - timeSuspend;
                     resolve(time);
                 };
                 // Start timing once the resource is loaded and parsing begins.
-                video.onloadstart = function() {
-                    timeLoad = window.performance.now();
+                video.onsuspend = function() {
+                    timeSuspend = window.performance.now();
                 };
-                var timeLoad, timeError;
+                var timeSuspend, timeError;
                 video.src = url;
             });
         };
