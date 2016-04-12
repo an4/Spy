@@ -8,6 +8,8 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
         var msg_chan = new MessageChannel();
         navigator.serviceWorker.controller.postMessage("Connected", [msg_chan.port2]);
 
+        $scope.messages = [];
+
         var url = 'https://www.facebook.com/adumitras';
 
         $scope.sw = {};
@@ -25,7 +27,6 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
         }
 
         $scope.test = function() {
-            console.log("Testing...");
             var img = new Image();
             img.src = url;
         };
@@ -35,11 +36,23 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
             img.src = $scope.sw.url;
         };
 
+        $scope.showAll = function() {
+            $scope.messages.forEach(function(message) {
+                console.log(message);
+            });
+        };
+
+        $scope.showLast = function() {
+            console.log($scope.messages[$scope.messages.length-1]);
+        };
+
+        // Receive message from SW
         msg_chan.port1.onmessage = function(event){
             if(event.data.error){
                 console.log(event.data.error);
             }else{
                 console.log(event.data);
+                $scope.messages.push(event.data);
             }
         };
 }]);
