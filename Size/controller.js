@@ -81,6 +81,19 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
         };
 
+        // Not working
+        function getMeasurementFileParallel(file, rounds, method) {
+            return new Promise(function(resolve, reject) {
+                var promises = [];
+                for(var i=0; i<rounds; i++) {
+                    promises[i] = method(file.url);
+                }
+                Promise.all(promises).then(function(times) {
+                    resolve(buildResult(times, file));
+                });
+            });
+        };
+
         function getMeasurementFileRandom(file, rounds, method) {
             return new Promise(function(resolve, reject) {
                 // Array of all promises to be resolved;

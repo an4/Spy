@@ -4,6 +4,10 @@ angular.module('Main', ['ngMaterial']);
 
 angular.module('Main').controller('mainCtrl', ['$scope', '$http',
     function($scope, $http) {
+        // Create a Message Channel
+        var msg_chan = new MessageChannel();
+        navigator.serviceWorker.controller.postMessage("Connected", [msg_chan.port2]);
+
         var url = 'https://www.facebook.com/adumitras';
 
         $scope.sw = {};
@@ -24,10 +28,6 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
             console.log("Testing...");
             var img = new Image();
             img.src = url;
-
-            // send_message_to_sw("Hello!!!").then(function(response) {
-            //     console.log("From SW: " + response);
-            // });
         };
 
         $scope.anyUrl = function() {
@@ -35,22 +35,11 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
             img.src = $scope.sw.url;
         };
 
-        function send_message_to_sw(msg){
-            return new Promise(function(resolve, reject){
-                // Create a Message Channel
-                var msg_chan = new MessageChannel();
-
-                // Handler for recieving message reply from service worker
-                msg_chan.port1.onmessage = function(event){
-                    if(event.data.error){
-                        reject(event.data.error);
-                    }else{
-                        resolve(event.data);
-                    }
-                };
-
-                // Send message to service worker along with port for reply
-                navigator.serviceWorker.controller.postMessage("Client 1 says '"+msg+"'", [msg_chan.port2]);
-            });
-        }
+        msg_chan.port1.onmessage = function(event){
+            if(event.data.error){
+                console.log(event.data.error);
+            }else{
+                console.log(event.data);
+            }
+        };
 }]);

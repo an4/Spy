@@ -3,6 +3,8 @@ var CURRENT_CACHES = {
   mycache: 'my-cache-v-' + CACHE_VERSION
 };
 
+var PORT;
+
 // var link = new Request('https://www.facebook.com/adumitras', {mode: 'no-cors'});
 // var in_url = new Request('https://www.facebook.com/groups/208547725916026', {mode: 'no-cors'});
 // var out_url = new Request('https://www.facebook.com/groups/852392078107320', {mode: 'no-cors'});
@@ -39,7 +41,6 @@ function putDelete(url, response, cache) {
 // Fetch some random url and keep the request object and use that to put and delete from cache.
 self.addEventListener('fetch', function(event) {
     var url = event.request.clone();
-
     var ITERATIONS = 10;
 
     caches.open(CURRENT_CACHES['mycache']).then(function(cache) {
@@ -65,14 +66,18 @@ self.addEventListener('fetch', function(event) {
             promises[i-1].then(function(val) {
                 end = performance.now();
                 var time = end - start;
+                TIME = time;
                 console.log("Time :" + time + ", " + event.request.url);
-                // event.ports[0].postMessage(time);
+                if(PORT) {
+                    PORT.postMessage(time);
+                }
             });
         });
     });
 });
 
-// self.addEventListener('message', function(event){
-//     console.log("Client 1 Received Message: " + event.data);
-//     event.ports[0].postMessage("Client 1 Says 'Hello back!'");
-// });
+self.addEventListener('message', function(event){
+    // Establish connection.
+    console.log(event.data);
+    PORT = event.ports[0];
+});
