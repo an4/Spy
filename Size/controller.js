@@ -191,7 +191,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         function removeOutliers(data) {
             var median = math.median(data);
             for(var i=0; i<data.length; i++) {
-                if(data[i] > median * 2) {
+                if(data[i] > median * 1.5) {
                     data.splice(i,1);
                 }
             }
@@ -211,6 +211,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             result.index = file.index;
             result.mean = parseFloat(math.mean(timingData).toFixed(4));
             result.std = parseFloat(math.std(timingData).toFixed(4));
+            console.log("File: " + file.name + ". std: " + result.std + ". mean: " + result.mean);
             return result;
         };
 
@@ -271,16 +272,37 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
         };
 
+        function getTimeStepAdvanced() {
+            return new Promise(function(resolve, reject) {
+                getAverageTime($scope.constants.chunk).then(function(resultA) {
+                    getAverageTime(11 * $scope.constants.chunk).then(function(resultB) {
+                        resolve((resultB - resultA)/10);
+                    });
+                });
+            });
+        };
+
         function guessSize() {
             return new Promise(function(resolve, reject) {
                 var guess_file_url = $scope.guess.path;
                 var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
-                var rounds = 100;
+                var rounds = 50;
                 getMeasurementFileRandom(guess, rounds, measureTimeVideo).then(function(guessResult) {
                     getBaseCase().then(function(baseCase) {
                         getTimeStep().then(function(timeStep) {
                             var guessMean = guessResult.mean;
-                            var size = ((guessMean-baseCase) / timeStep + 1) * $scope.constants.chunk;
+                            // var size = ((guessMean-baseCase) / timeStep + 1) * $scope.constants.chunk;
+                            // var size = (guessMean / timeStep) * $scope.constants.chunk;
+
+                            // Weird method
+                            var size = 0;
+                            while(guessMean > timeStep) {
+                                size ++;
+                                guessMean -= timeStep;
+                                timeStep *= 0.9;
+                            }
+                            size += (guessMean/timeStep);
+                            size *= $scope.constants.chunk;
                             resolve(size);
                         });
                     });
@@ -292,7 +314,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             return new Promise(function(resolve, reject) {
                 var guess_file_url = $scope.guess.path;
                 var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
-                var rounds = 100;
+                var rounds = 50;
                 getMeasurementFileRandom(guess, rounds, measureTimeVideo).then(function(guessResult) {
                     getTimeStep().then(function(timeStep) {
                         var guessMean = guessResult.mean;
@@ -472,26 +494,26 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             }
 
             var files = [
-                {size: "50", url: base_url + "50kB.html", name: "50kB"},
+                // {size: "50", url: base_url + "50kB.html", name: "50kB"},
                 {size: "100", url: base_url + "100kB.html", name: "100kB"},
-                {size: "150", url: base_url + "150kB.html", name: "150kB"},
+                // {size: "150", url: base_url + "150kB.html", name: "150kB"},
                 {size: "200", url: base_url + "200kB.html", name: "200kB"},
-                {size: "250", url: base_url + "250kB.html", name: "250kB"},
+                // {size: "250", url: base_url + "250kB.html", name: "250kB"},
                 {size: "300", url: base_url + "300kB.html", name: "300kB"},
-                {size: "350", url: base_url + "350kB.html", name: "350kB"},
+                // {size: "350", url: base_url + "350kB.html", name: "350kB"},
                 {size: "400", url: base_url + "400kB.html", name: "400kB"},
                 // {size: "450", url: base_url + "450kB.html", name: "450kB"},
-                // {size: "500", url: base_url + "500kB.html", name: "500kB"},
+                {size: "500", url: base_url + "500kB.html", name: "500kB"},
                 // {size: "550", url: base_url + "550kB.html", name: "550kB"},
-                // {size: "600", url: base_url + "600kB.html", name: "600kB"},
+                {size: "600", url: base_url + "600kB.html", name: "600kB"},
                 // {size: "650", url: base_url + "650kB.html", name: "650kB"},
-                // {size: "700", url: base_url + "700kB.html", name: "700kB"},
+                {size: "700", url: base_url + "700kB.html", name: "700kB"},
                 // {size: "750", url: base_url + "750kB.html", name: "750kB"},
-                // {size: "800", url: base_url + "800kB.html", name: "800kB"},
+                {size: "800", url: base_url + "800kB.html", name: "800kB"},
                 // {size: "850", url: base_url + "850kB.html", name: "850kB"},
-                // {size: "900", url: base_url + "900kB.html", name: "900kB"},
+                {size: "900", url: base_url + "900kB.html", name: "900kB"},
                 // {size: "950", url: base_url + "950kB.html", name: "950kB"},
-                // {size: "1000", url: base_url + "1000kB.html", name: "1000kB"},
+                {size: "1000", url: base_url + "1000kB.html", name: "1000kB"},
                 // {size: "1100", url: base_url + "1100kB.html", name: "1100kB"},
                 // {size: "1200", url: base_url + "1200kB.html", name: "1200kB"},
                 // {size: "1300", url: base_url + "1300kB.html", name: "1300kB"},
