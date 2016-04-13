@@ -250,7 +250,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         /**
          * Calculates the average time it takes to parse 100kB.
          */
-        function getTimeStep() {
+        function getBaseCase() {
             return new Promise(function(resolve, reject) {
                 getAverageTime($scope.constants.chunk).then(function(result) {
                     resolve(result);
@@ -258,7 +258,37 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
         };
 
+        /**
+         * Return the difference between the average times of parsing a 100kB file and a 200kB file.
+         */
+        function getTimeStep() {
+            return new Promise(function(resolve, reject) {
+                getAverageTime($scope.constants.chunk).then(function(resultA) {
+                    getAverageTime(2 * $scope.constants.chunk).then(function(resultB) {
+                        resolve(resultB - resultA);
+                    });
+                });
+            });
+        };
+
         function guessSize() {
+            return new Promise(function(resolve, reject) {
+                var guess_file_url = $scope.guess.path;
+                var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
+                var rounds = 100;
+                getMeasurementFileRandom(guess, rounds, measureTimeVideo).then(function(guessResult) {
+                    getBaseCase().then(function(baseCase) {
+                        getTimeStep().then(function(timeStep) {
+                            var guessMean = guessResult.mean;
+                            var size = ((guessMean-baseCase) / timeStep + 1) * $scope.constants.chunk;
+                            resolve(size);
+                        });
+                    });
+                });
+            });
+        };
+
+        function guessSizeBasic() {
             return new Promise(function(resolve, reject) {
                 var guess_file_url = $scope.guess.path;
                 var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
@@ -271,7 +301,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                     });
                 });
             });
-        };
+        }
 
         $scope.guessSizeChunk = function() {
             guessSize().then(function(result) {
