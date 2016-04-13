@@ -10,8 +10,11 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         $scope.graph.progress = 0;
 
         $scope.guess = {};
-        $scope.guess.rounds = 100;
         $scope.guess.ranges = [];
+
+        $scope.constants = {};
+        $scope.constants.chunk = 100;
+        $scope.constants.rounds = 100;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
@@ -225,6 +228,57 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             });
             return output;
         };
+
+/////////////////////////////////////////////////////////
+/////////////////////// KNOWN RANGE /////////////////////
+/////////////////////////////////////////////////////////
+        /**
+         * Calculates the average time to load a n KB file.
+         */
+        function getAverageTime(n) {
+            return new Promise(function(resolve, reject) {
+                // Build the file object.
+                var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
+                var file = {size: "" + n, url: base_url + n + "kB.html", name: n + "kB"};
+                var rounds = 100;
+                getMeasurementFileRandom(file, rounds, measureTimeVideo).then(function(result) {
+                    resolve(result.mean);
+                });
+            });
+        };
+
+        /**
+         * Calculates the average time it takes to parse 100kB.
+         */
+        function getTimeStep() {
+            return new Promise(function(resolve, reject) {
+                getAverageTime($scope.constants.chunk).then(function(result) {
+                    resolve(result);
+                });
+            });
+        };
+
+        function guessSize() {
+            return new Promise(function(resolve, reject) {
+                var guess_file_url = $scope.guess.path;
+                var guess = {size: "unknown", url: guess_file_url, name: "unknown"};
+                var rounds = 100;
+                getMeasurementFileRandom(guess, rounds, measureTimeVideo).then(function(guessResult) {
+                    getTimeStep().then(function(timeStep) {
+                        var guessMean = guessResult.mean;
+                        var size = (guessMean/timeStep) * $scope.constants.chunk;
+                        resolve(size);
+                    });
+                });
+            });
+        };
+
+        $scope.guessSizeChunk = function() {
+            guessSize().then(function(result) {
+                console.log("Guess: " + result);
+            });
+        };
+
 
 /////////////////////////////////////////////////////////
 ////////////////////////// GUESS ////////////////////////
