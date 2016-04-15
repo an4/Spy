@@ -1,0 +1,63 @@
+\begin{thebibliography}{10}
+
+\bibitem{javascriptstats}
+Clientside scripting languages popularity.
+\newblock
+  \url{http://w3techs.com/technologies/overview/client_side_language/all}.
+\newblock [Accessed: 2016-04-10].
+
+\bibitem{dom}
+Dom - document object model.
+\newblock
+  \url{https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model}.
+\newblock Accessed: 2016-04-09.
+
+\bibitem{javascriptabout}
+Javascript.
+\newblock
+  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript}.
+\newblock [Accessed: 2016-04-09].
+
+\bibitem{statcounter}
+Stat counter.
+\newblock \url{http://gs.statcounter.com/}.
+\newblock Accessed: 2016-04-09.
+
+\bibitem{berjon2014html}
+Robin Berjon, Steve Faulkner, Travis Leithead, Erika~Doyle Navara, Edward
+  O’Connor, Silvia Pfeiffer, and Ian Hickson.
+\newblock Html 5.1 specification.
+\newblock {\em W3C Working Draft}, 2014.
+
+\bibitem{world1999html}
+World Wide~Web Consortium et~al.
+\newblock Html 4.01 specification.
+\newblock 1999.
+
+\bibitem{howbrowserswork}
+Tali Garsiel and Paul Irish.
+\newblock How browsers work: Behind the scenes of modern web browsers.
+\newblock
+  \url{http://www.html5rocks.com/en/tutorials/internals/howbrowserswork/}.
+\newblock Accessed: 2016-04-09.
+
+\bibitem{kocher1996timing}
+Paul~C Kocher.
+\newblock Timing attacks on implementations of diffie-hellman, rsa, dss, and
+  other systems.
+\newblock In {\em Advances in Cryptology—CRYPTO’96}, pages 104--113.
+  Springer, 1996.
+
+\bibitem{standaert2010introduction}
+Fran{\c{c}}ois-Xavier Standaert.
+\newblock Introduction to side-channel attacks.
+\newblock In {\em Secure Integrated Circuits and Systems}, pages 27--42.
+  Springer US, 2010.
+
+\bibitem{Tria2011}
+Assia Tria and Hamid Choukri.
+\newblock {\em Encyclopedia of Cryptography and Security}, chapter Invasive
+  Attacks, pages 623--629.
+\newblock Springer US, Boston, MA, 2011.
+
+\end{thebibliography}

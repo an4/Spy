@@ -1,0 +1,21 @@
+\select@language {british}
+\contentsline {chapter}{\numberline {1}Contextual Background}{1}
+\contentsline {chapter}{\numberline {2}Technical Background}{3}
+\contentsline {section}{\numberline {2.1}Side-Channel Attack}{3}
+\contentsline {chapter}{\numberline {3}Project Execution}{5}
+\contentsline {section}{\numberline {3.1}HTML}{5}
+\contentsline {section}{\numberline {3.2}Web Browsers}{5}
+\contentsline {section}{\numberline {3.3}Media Elements}{6}
+\contentsline {subsection}{\numberline {3.3.1}Image}{6}
+\contentsline {subsection}{\numberline {3.3.2}Video and Audio}{6}
+\contentsline {section}{\numberline {3.4}JavaScript}{6}
+\contentsline {subsection}{\numberline {3.4.1}Web Workers}{7}
+\contentsline {subsection}{\numberline {3.4.2}Offline Experience}{7}
+\contentsline {subsection}{\numberline {3.4.3}Application Cache}{7}
+\contentsline {subsection}{\numberline {3.4.4}Service Workers}{8}
+\contentsline {section}{\numberline {3.5}Title}{8}
+\contentsline {subsection}{\numberline {3.5.1}Side-Channel Attacks}{8}
+\contentsline {subsection}{\numberline {3.5.2}Timing Attacks}{8}
+\contentsline {subsection}{\numberline {3.5.3}Browser Attacks}{8}
+\contentsline {chapter}{\numberline {4}Critical Evaluation}{9}
+\contentsline {chapter}{\numberline {5}Conclusion}{11}
