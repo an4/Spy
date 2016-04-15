@@ -234,7 +234,11 @@ The literature classifies Side-Channel Attacks by either the level of intrusion 
 Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
 
 \section{Cache Attacks}
-Cache attacks are a particular kind of Side-Channel Attacks, which 
+Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache. Cache attacks are affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
+
+\subsection{Cache Memory}
+
+Cache memory is a type of memory l
 
 
 % -----------------------------------------------------------------------------
@@ -383,7 +387,7 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 \cleardoublepage
 \pagestyle{marked}
 
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{main.bib}
 
 \end{document}
