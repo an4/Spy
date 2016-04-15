@@ -1,7 +1,8 @@
 \select@language {british}
 \contentsline {chapter}{\numberline {1}Contextual Background}{1}
 \contentsline {chapter}{\numberline {2}Technical Background}{3}
-\contentsline {section}{\numberline {2.1}Side-Channel Attack}{3}
+\contentsline {section}{\numberline {2.1}Side-Channel Attacks}{3}
+\contentsline {section}{\numberline {2.2}Cache Attacks}{3}
 \contentsline {chapter}{\numberline {3}Project Execution}{5}
 \contentsline {section}{\numberline {3.1}HTML}{5}
 \contentsline {section}{\numberline {3.2}Web Browsers}{5}
