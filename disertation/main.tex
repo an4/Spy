@@ -1,0 +1,394 @@
+\documentclass[10pt,a4paper,twoside]{book}
+
+% UNICORNS %
+\usepackage[british]{babel}
+\usepackage{combelow}
+\useshorthands{"}
+\defineshorthand{"s}{\cb{s}}
+
+% packages
+\usepackage{adjustbox}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[algochapter]{algorithm2e}
+\usepackage{listings}
+\usepackage{lipsum}
+% end packages
+
+
+% configure style of pages
+
+\geometry{a4paper,lmargin=2.5cm,rmargin=2.5cm,tmargin=2.5cm,bmargin=2.5cm}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+
+  \fancyfoot[C]{\thepage}
+}
+
+\fancypagestyle{marked}{
+  \fancyhf{}
+
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+
+  \fancyhead[LO]{\slshape \rightmark}
+  \fancyhead[RE]{\slshape  \leftmark}
+
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+
+
+\begin{document}
+
+% =============================================================================
+% Title page
+
+ \newpage
+  \thispagestyle{empty}
+
+    \adjustbox{padding={5pt},frame={1pt},right}{Dissertation Type: research}
+
+  \vspace*{\fill}
+  \begin{center}
+                \includegraphics[scale=0.3]{logo/logo_uob_color}                \\
+                              \vspace*{1.0cm}
+                          DEPARTMENT OF COMPUTER SCIENCE                        \\
+                              \vspace*{2.0cm}
+                       
+ 				 \mbox{{\LARGE Timing Attacks in the Modern Web}} \\
+                              \vspace*{0.5cm}
+                              \vspace*{1.0cm}
+                          {\Large Ana-Maria Dumitra"s}                         \\
+
+                              \vspace*{1.0cm}
+                          \rule{0.5\textwidth}{0.5pt}
+                              \vspace*{1.0cm}
+
+            A dissertation submitted to the University of Bristol
+            in accordance with the requirements of the degree of
+            Master   of Engineering
+                    in the Faculty of Engineering.                                
+
+                              \vspace*{1.0cm}
+                          \rule{0.5\textwidth}{0.5pt}
+                              \vspace*{1.0cm}
+
+                                  \today
+  \end{center}
+  \vspace*{\fill}
+  
+%==============================================================================
+% Front matter
+
+\cleardoublepage
+\pagestyle{plain}
+\pagenumbering{roman}
+
+% =============================================================================
+% Declaration
+
+\newpage
+  \thispagestyle{plain}
+
+  \chapter*{Declaration}
+
+  This dissertation is submitted to the University of Bristol in accordance 
+  with the requirements of the degree of MEng in the Faculty 
+  of Engineering.  It has not been submitted for any other degree or diploma 
+  of any examining body.  Except where specifically acknowledged, it is all 
+  the work of the Author. 
+
+  \vspace{6cm}
+
+  \noindent {Ana-Maria Dumitra"s}, \today
+
+
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \listofalgorithms
+% \lstlistoflistings
+
+%========================================================================================================
+
+% -----------------------------------------------------------------------------
+
+
+\chapter*{Executive Summary}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Supporting Technologies}
+
+\begin{quote}
+\noindent
+\begin{itemize}
+\item HTML
+\item CSS
+\item JavaScript
+\item AngularJS 1
+\item Bootstrap
+\item jQuery
+\item Google Chart Angular
+\item mathjs
+\item NodeJS
+\item Magic ...
+\end{itemize}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Notation and Acronyms}
+
+% {\bf An optional section, of roughly $1$ or $2$ pages}
+% \vspace{1cm} 
+
+% \noindent
+% Any well written document will introduce notation and acronyms before
+% their use, {\em even if} they are standard in some way: this ensures 
+% any reader can understand the resulting self-contained content.  
+
+% Said introduction can exist within the dissertation itself, wherever 
+% that is appropriate.  For an acronym, this is typically achieved at 
+% the first point of use via ``Advanced Encryption Standard (AES)'' or 
+% similar, noting the capitalisation of relevant letters.  However, it 
+% can be useful to include an additional, dedicated list at the start 
+% of the dissertation; the advantage of doing so is that you cannot 
+% mistakenly use an acronym before defining it.  A limited example is 
+% as follows:
+
+\begin{quote}
+\noindent
+\begin{tabular}{lcl}
+% AES                 &:     & Advanced Encryption Standard                                         \\
+% DES                 &:     & Data Encryption Standard                                             \\
+%                     &\vdots&                                                                      \\
+% ${\mathcal H}( x )$ &:     & the Hamming weight of $x$                                            \\
+% ${\mathbb  F}_q$    &:     & a finite field with $q$ elements                                     \\
+% $x_i$               &:     & the $i$-th bit of some binary sequence $x$, st. $x_i \in \{ 0, 1 \}$ \\
+
+AppCache		    &:	   & Application Cache   												  \\	
+HTML				&:     & HyperText Markup Language											  \\
+RSA					&:	   & Rivest-Shamir-Adleman Cryptosystem									  \\
+SCA					&:	   & Side-Channel Attack												  \\	
+\end{tabular}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Acknowledgements}
+
+\noindent
+I would like to thank Clifton Suspension Bridge, Sergey Brin and gin.
+
+
+%========================================================================================================
+% Main matter
+\cleardoublepage
+\pagestyle{marked}
+\pagenumbering{arabic}
+%paragraph, change the 8
+\parindent=0in
+\parskip=8pt 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% UNICORNS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------------------------------
+
+\chapter{Contextual Background}
+\label{chap:context}
+
+
+% -----------------------------------------------------------------------------
+
+\chapter{Technical Background}
+\label{chap:technical}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% OREN PART %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Side-Channel Attack}
+
+Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
+
+Side-Channel Attacks can be classified in numerous ways, the literature usually sorts them among two orthogonal axes:
+\begin{enumerate}
+\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to the attacks where the device being attacked is permanently modified in order to capture information stored in memory areas 
+\end{enumerate}
+
+% Find some examples of SCA where they do not recover keys
+The main goal of Side-Channel Attacks is to recover the secret key. Side-Channel Attacks have also been used to 
+
+% paragraph about Kocher's attacks and what he broke
+% Kocher the first - timing, followed by power analysis 3 years later
+The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman exponents, factor RSA keys and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device which is related to the secret parameters involved in the computation.
+
+
+% Sentence about the attacks overall, requirements ?
+
+
+
+
+
+% -----------------------------------------------------------------------------
+
+\chapter{Project Execution}
+\label{chap:execution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{HTML}
+HyperText Markup Language, known as HTML, is a markup language used to create web pages. Initially designed as a language for semantically describing scientific documents, HTML became the standard markup language for building web documents. HTML is used to describe the structure and semantic content of a web page but not its functionality.\cite{world1999html}
+
+HTML consists of a set of elements, which define the structure of web pages. Most HTML elements are composed of a start tag, \texttt{<element>}, and an end tag, \texttt{</element>} ,with the content nested in between the two tags. The end tag is optional and all browsers will display documents which do not contain a matching closing tag for each opened tag; however this technique can produce unexpected results and it is not recommended. Furthermore, strict HTML document validators require that elements have both a start and an end tag. \cite{world1999html}
+
+HTML also includes a number of empty elements, elements formed of only a start tag or a start tag with the backslash appended to the element name, \texttt{<element/>}, with no content, such as \texttt{<br>}, which defines a line break. The HTML standard does not specify which of the two ways of representing an empty element is preferred. Though, the latter provides stricter validation and is accepted by XML parsers. \cite{world1999html}
+
+HTML elements can have attributes. Attributes are key, value pairs which determine the behaviour of elements, such as \texttt{color}, \texttt{font} or \texttt{position}. Attributes must be specified in the element's start tag. \cite{world1999html}
+
+% sentence about why we need html 5, need of standards something else ?
+HTML5 is the 5th version and the current version of the HTML standard. It was released in 2014 by the World Wide Web Consortium (W3C). The current version of HTML introduced a number of new features aimed at simplifying the incorporation of multimedia and graphical content into web based applications. \cite{berjon2014html}
+
+\section{Web Browsers}
+
+A web browser is a software used for interacting with web applications. The main functions of web browsers are retrieving the requested resource and displaying it in the browser window. In order to display the web document, browsers use rendering engines. There are multiple rendering engines available and different browsers use different engines. According to \cite{statcounter} the top 3 most popular browsers among desktop and tablet users are Chrome (56\%), Firefox(14\%) and Internet Explorer(12\%). They all use different rendering engines, Chrome uses Blink, Firefox uses Gecko while IE uses Trident.\cite{howbrowserswork}
+
+Rendering engines parse the HTML documents and create an output tree made out of DOM, Document Object Model, nodes. The rendering engine is also responsible for gathering all the style information about the DOM nodes. The final output of the engine is the render tree which is ready to be displayed by the browser.\cite{howbrowserswork} 
+
+The DOM is a programming interface which allows a more versatile way of accessing the HTML document. It can be easily manipulated by scripting or programming languages in order to change the structure, style or content of the original document. \cite{dom}
+
+\section{Media Elements}
+
+HTML elements are the basic building blocks of web pages. Apart from providing the overall structure of the web page, some HTML elements are used to embed media into a web page. HTML has always provided support for embedding media into web pages, newer versions of the language further simplify the process by introducing elements aimed exactly at this. The \texttt{<img>} element, available sine HTML 4.1, allows the insertion of images while the \texttt{<audio>} and \texttt{<video>} elements introduced in HTML5 enable audio and video content incorporation into web applications.
+
+\subsection{Image}
+
+The \texttt{<img>} tag is used to represent an image in a HTML document. The address to the resource to be displayed is stored in the \texttt{src} attribute. In order to successfully embed an image in a web page, the \texttt{src} attribute must be present and it must contain a valid non-empty URL.\cite{berjon2014html}
+
+The browser starts by downloading the external resource from the address provided in the \texttt{src} attribute or an alternative address if this is not available. The \texttt{load} event is delayed until the image data has been fetched over the network. Once the image file has finished downloading, the browser will try to display it. If the value of the \texttt{src} attribute does not link to a valid image file, the \texttt{error} event will be triggered on the \texttt{Image} element. \cite{berjon2014html}
+
+\subsection{Video and Audio}
+
+The \texttt{<video>} and \texttt{<audio>} elements were introduced in HTML5 and enable web developers to easily embed audio and video content into their applications. The most recent version of HTML makes the insertion of a video into a web application as easy as adding an image. \cite{berjon2014html}
+
+Similarly to the \texttt{<img>} element, the \texttt{Video} and  \texttt{Audio} elements will first download the external resource and then try to play it. However, these new media elements will not throw an error unless they have finished parsing the entire file. \cite{berjon2014html}
+
+In order to display a media file, the browser will start by downloading the external resource. While the file is being downloaded the \texttt{progress} event is being triggered. When the file has been fetched or if the downloading process has been paused the \texttt{suspend} event is fired. The browser proceeds by parsing the contents of the file to obtain information such as the length, width, height or extension, etc. of the file. If the media resource is not a valid file the browser will not be able to display it and the \texttt{error} event will be triggered on the media element. The time elapsed between the \texttt{suspend} and the \texttt{error} events is depended on the size of the file. The \texttt{error} event fires on the media element when the browser has finished parsing the file in contrast to the \texttt{Image} element, where the event is triggered when the browser learns that the file is not valid, usually as soon as it starts parsing it. \cite{berjon2014html}
+
+\section{JavaScript}
+JavaScript is an interpreted scripting language generally used on the client side of web applications. Developed independently by both Netscape and Microsoft, it has been standardized by ECMA International under the name ECMAScript.
+The most recent version is ECMAScript 2017. ECMAScript and thus JavaScript is supported in all modern browsers. JavaScript is the most widely used client side language. \cite{javascriptstats, javascriptabout}
+
+JavaScript's main role is to add dynamic behaviour to web applications through modifying the DOM. The use of technologies to make dynamic and animated web pages is known as Dynamic HyperText Markup, DHTML. DHTML allows scripting languages such as JavaScript to make changes to the DOM in order to alter the appearance or function of the static HTML elements.
+
+To add JavaScript to an HTML document the special \texttt{<script>} HTML element is used. JavaScript code can either be embedded in the page or it can be loaded from an external file. Keeping HTML and JavaScript separate is the preferred choice as it helps with both performance and maintenance.
+
+% how js runs
+
+\subsection{Web Workers}
+
+JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript task would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
+
+% https://www.w3.org/TR/service-workers/
+% https://www.w3.org/TR/workers/
+% http://alistapart.com/article/application-cache-is-a-douchebag
+\subsection{Offline Experience}
+Web applications are dependent on network availability and can not function if there is no network connection or in most cases even if the network connection is unstable or not strong enough. Web applications fall into two categories: those that provide access to data: YouTube, Wikipedia or Twitter and those that let users do stuff: Google Keep, Google Docs or CSS Lint.
+
+The first category has access to large amounts of data, but users only use a small portion of it at a given time. One of the ways such applications can be improved is by retrieving the data faster which relies mostly on the network provider and not the application developer. The second category of applications handles a small amount of data and most of the computation happens on the client side. 	The application data rarely changes and it would be a waste of network resources to retrieve the data every time it is used. 
+
+One solution to avoid these needless overuse of the network would be to store some of the data locally. At its simplest an offline web application would have all the needed resources stored locally and when there is no network connection the application would fetch the local copy of the file instead of the remote one.  Web developers have started to provide offline access to their applications for some time and there are several methods to achieve this.
+
+The most basic way of storing data is in the browser cache. All browsers are capable of storing web pages if told to do so; however the web developer has no control over the browser cache. It is up to the browser to decide what pages to keep and what pages to remove from the cache when it becomes full. 
+
+\subsection{Application Cache}
+
+Application Cache or AppCache is a framework which provides caching of resources in order to be later accessed offline. The AppCache API is part of HTML5 and allows web developers to specify which web pages and resources should be cached by the browser and made available offline.
+
+AppCache provides two ways to cache resources: either by specifying the path to the resource in the cache manifest or by including the cache manifest in the header of the document to be cached. The cache manifest is a text file containing the addresses of all web pages that should be stored locally. Despite being easy to use, AppCache does not allow developers to make any changes to its system. 
+
+Although it solves one of the main issues faced by web application developers, offline access, AppCache has a number of disadvantages. Once a resource is cached it will always be fetched from local storage even if the network condition are good. AppCache does not provide easy update of currently cached resources and is unable to identify any changes made to the remote file. The only way to update the resources cached locally is either to empty the cache or make changes to the manifest file.
+
+All this drawbacks determined developers to move away from AppCache and work towards developing new software for improving users' offline experience. Despite major browsers providing software for interacting with the Application Cache, they are currently removing support this framework.
+
+\subsection{Service Workers}
+Application Cache is a great way of providing users with the offline experience. Web application developers have to tailor their product meet the needs of the AppCache mechanism instead of make changes to AppCache to fit the needs of the product. This problem was fixed by Service Workers which allow developers more freedom when determining the offline behaviour of their application.
+
+Service Workers are event driven web workers which sit between the network layer and the application layer. Service Workers were inspired by AppCache, their main purpose is still proving users with the offline experience. What makes Service Workers different is that they give developers complete control over what the offline experience will be. 
+
+Compared to AppCache, Service Workers do not store the data needed to run the application in offline mode. Service Workers monitor the network and are able to over-ride default network behaviour. They communicate with other services such as the Cache API that deals with the actual storage part. Typically, a Service Worker would monitor request sent by the application and either serve the data from local storage if available or fetch it over the network and save it locally for later retrieval. 
+
+The Cache API stores key/value pairs where the key is the URL and the value is the response returned by fetch. The Cache API ignores the \texttt{"no-cache"} and \texttt{"no-store"} HTTP header. Resources which contain the the \texttt{"no-cache"} or \texttt{"no-store"} HTTP header can still be cached, however they cannot be displayed. 
+
+Service Workers are registered against an origin and a path and requests made from this location will trigger the service worker events. The events will not only fire for every page request within the Service Worker's scope but also for requests made by those pages. Service Workers allow CORS (Cross-Origin Resource Sharing) - requesting a page from a domain outside the domain from which the page originated.
+
+Service Workers run independent of the application they are monitoring. Service Workers need to be linked to the application once it is running and can only monitor applications which started while it was active. The first time the application is started the Service Worker will be linked to the application and start running. Once the Service Worker script is working, the application needs to be restarted, such that the Service Worker can start collecting network information about the application. If the Service Worker is active it can only be closed by stopping the script from the browser, the main application has no control over the Service Worker.
+
+% http://www.html5rocks.com/en/tutorials/service-worker/introduction/
+At the moment Service Workers are fully supported in Chrome and Firefox for both desktop and mobile and have basic support in Opera. Microsoft newest browser, Edge, is also working on adding support for this new technology.
+
+\section{Title}
+
+\subsection{Side-Channel Attacks}
+
+\subsection{Timing Attacks}
+
+\subsection{Browser Attacks}
+
+
+
+%use this in attacks section
+% The time it takes to display an image or to throw an error in the case of an invalid image file is dependent on the time it takes to download the external resource, which in turn is dependent on the network conditions. This measurement does not give accurate results and it is very hard to distinguish between files of different size. \cite{berjon2014html}
+
+%paragraph about the difference in time between img and video/audio, how the second is more accurate
+% information leackage
+
+
+% App Cache attack
+% HTTPS not allowed ?
+% cross origin ?
+% header - no cache - not ignore - better than Service Workers
+
+
+
+
+% -----------------------------------------------------------------------------
+
+\chapter{Critical Evaluation}
+\label{chap:evaluation}
+
+
+% -----------------------------------------------------------------------------
+
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% The End %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%========================================================================================================
+% Back Matter
+
+\cleardoublepage
+\pagestyle{marked}
+
+\bibliographystyle{plain}
+\bibliography{main.bib}
+
+\end{document}
