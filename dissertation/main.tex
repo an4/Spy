@@ -253,10 +253,17 @@ Multi-level caches split into two categories: inclusive and exclusive cache. Inc
 
 When the CPU need to access physical memory it will first look for the respective address in the cache. If the resource does not reside in the cache memory, it will have to be retrieved from the main memory. This is known as a \textit{Cache miss}. A \textit{Cache hit} occurs when the address the CPU is looking for is found in any of the cache memory levels \cite{oren2015spy}.
 
+Since cache memory is generally smaller than main memory, various techniques are used to map main memory to cache. Main memory is split into cache pages, a cache page is a block of main memory which size is dependent on the cache memory. Each cache page is further divided into cache lines. Based on the mapping mode caches can be split into: direct mapped, n-way set associative and fully associative cache.
+\begin{itemize}
+\item Direct Mapped: Direct Mapped Cache is also known as 1-way set associative cache. In direct mapped mode, the main memory is divided into cache pages equal to the size of the cache. Each cache line can only reside in one position in the cache memory. 
+\item Fully Associative: Fully Associative Cache allows any cache line from the main memory to reside anywhere in the cache memory. In a fully associative scheme, the main memory is only divided into cache lines and pages are completely ignored.
+\item N-way Set Associative Cache: Set Associative Cache is the most common technique to map CPU caches. 
+\end{itemize}
+
+
 % Advantage vs disadvantage cache vs RAM
 % SRAM vs DRAM (maybe not)
 
-% Associative cache
 % how it works, example of cache model
 % draw something ??
 
