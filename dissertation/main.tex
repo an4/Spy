@@ -219,7 +219,7 @@ I would like to thank Clifton Suspension Bridge, Sergey Brin and gin.
 \label{chap:technical}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%% OREN PART %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% Vampires %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Side-Channel Attacks}
@@ -236,10 +236,14 @@ The literature classifies Side-Channel Attacks by either the level of intrusion 
 
 Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
 
-\section{Cache Attacks}
+\subsection{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache. Cache attacks are affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
 
-\subsection{Cache Memory}
+\subsection{Timing Attacks}
+
+\subsection{Browser Attacks}
+
+\section{Cache Memory}
 
 Cache memory is a small high-speed memory, usually SRAM, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to frequently used resources. Cache memory acts as a buffer between the high speed CPU and the slower main memory or DRAM.
 
@@ -255,7 +259,7 @@ When the CPU need to access physical memory it will first look for the respectiv
 
 % cite an overview of cache by intel
 % http://download.intel.com/design/intarch/papers/cache6.pdf
-\subsubsection{Cache Organization}
+\subsection{Cache Organization}
 Since cache memory is generally smaller than main memory, various techniques are used to map main memory to cache. Main memory is split into cache pages, a cache page is a block of main memory which size is dependent on the cache memory. Each cache page is further divided into cache lines. Based on the mapping mode caches can be split into: direct mapped, n-way set associative and fully associative cache.
 \begin{itemize}
 \item Direct Mapped: Direct Mapped Cache is also known as 1-way set associative cache. In direct mapped mode, the main memory is divided into cache pages equal to the size of the cache. Each cache line can only reside in one position in the cache memory. 
@@ -263,64 +267,48 @@ Since cache memory is generally smaller than main memory, various techniques are
 \item N-way Set Associative Cache: A Set Associative Cache scheme is a combination of the previous two schemes and the most common technique to map CPU caches. The cache memory is split into n equal blocks known as cache ways. The main memory is split into cache pages of size equal to the cache way. Each cache way acts like a small direct mapped cache. Each cache line can now be stored in n positions in the cache memory. This decreased the need to overwrite the data in the cache memory.
 \end{itemize}
 
-\subsubsection{Last-Level Cache}
+\subsection{Last-Level Cache}
 
-% Advantage vs disadvantage cache vs RAM
-
-% how it works, example of cache model
-% draw something ??
-
-
-% -----------------------------------------------------------------------------
-
-\chapter{Project Execution}
-\label{chap:execution}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{HTML}
-HyperText Markup Language, known as HTML, is a markup language used to create web pages. Initially designed as a language for semantically describing scientific documents, HTML became the standard markup language for building web documents. HTML is used to describe the structure and semantic content of a web page but not its functionality.\cite{world1999html}
-
-HTML consists of a set of elements, which define the structure of web pages. Most HTML elements are composed of a start tag, \texttt{<element>}, and an end tag, \texttt{</element>} ,with the content nested in between the two tags. The end tag is optional and all browsers will display documents which do not contain a matching closing tag for each opened tag; however this technique can produce unexpected results and it is not recommended. Furthermore, strict HTML document validators require that elements have both a start and an end tag. \cite{world1999html}
-
-HTML also includes a number of empty elements, elements formed of only a start tag or a start tag with the backslash appended to the element name, \texttt{<element/>}, with no content, such as \texttt{<br>}, which defines a line break. The HTML standard does not specify which of the two ways of representing an empty element is preferred. Though, the latter provides stricter validation and is accepted by XML parsers. \cite{world1999html}
-
-HTML elements can have attributes. Attributes are key, value pairs which determine the behaviour of elements, such as \texttt{color}, \texttt{font} or \texttt{position}. Attributes must be specified in the element's start tag. \cite{world1999html}
-
-% sentence about why we need html 5, need of standards something else ?
-HTML5 is the 5th version and the current version of the HTML standard. It was released in 2014 by the World Wide Web Consortium (W3C). The current version of HTML introduced a number of new features aimed at simplifying the incorporation of multimedia and graphical content into web based applications. \cite{berjon2014html}
+% LLC example from Spy paper 
 
 \section{Web Browsers}
 
-A web browser is a software used for interacting with web applications. The main functions of web browsers are retrieving the requested resource and displaying it in the browser window. In order to display the web document, browsers use rendering engines. There are multiple rendering engines available and different browsers use different engines. According to \cite{statcounter} the top 3 most popular browsers among desktop and tablet users are Chrome (56\%), Firefox(14\%) and Internet Explorer(12\%). They all use different rendering engines, Chrome uses Blink, Firefox uses Gecko while IE uses Trident.\cite{howbrowserswork}
+A web browser is a software used for interacting with web applications. The main functions of web browsers are retrieving the requested resource and displaying it in the browser window. In order to display the web document, browsers use rendering engines. There are multiple rendering engines available and different browsers use different engines. According to \cite{statcounter} the top 3 most popular browsers among desktop and tablet users are Chrome (56\%), Firefox(14\%) and Internet Explorer(12\%). They all use different rendering engines, Chrome uses Blink, Firefox uses Gecko while IE uses Trident\cite{howbrowserswork}.
 
-Rendering engines parse the HTML documents and create an output tree made out of DOM, Document Object Model, nodes. The rendering engine is also responsible for gathering all the style information about the DOM nodes. The final output of the engine is the render tree which is ready to be displayed by the browser.\cite{howbrowserswork} 
+Rendering engines parse the HTML documents and create an output tree made out of DOM, Document Object Model, nodes. The rendering engine is also responsible for gathering all the style information about the DOM nodes. The final output of the engine is the render tree which is ready to be displayed by the browser\cite{howbrowserswork}.
 
-The DOM is a programming interface which allows a more versatile way of accessing the HTML document. It can be easily manipulated by scripting or programming languages in order to change the structure, style or content of the original document. \cite{dom}
+The DOM is a programming interface which allows a more versatile way of accessing the HTML document. It can be easily manipulated by scripting or programming languages in order to change the structure, style or content of the original document\cite{dom}.
 
-\section{Media Elements}
+\section{HTML}
+HyperText Markup Language, known as HTML, is a markup language used to create web pages. Initially designed as a language for semantically describing scientific documents, HTML became the standard markup language for building web documents. HTML is used to describe the structure and semantic content of a web page but not its functionality\cite{world1999html}.
 
+HTML consists of a set of elements, which define the structure of web pages. Most HTML elements are composed of a start tag, \texttt{<element>}, and an end tag, \texttt{</element>} ,with the content nested in between the two tags. The end tag is optional and all browsers will display documents which do not contain a matching closing tag for each opened tag; however this technique can produce unexpected results and it is not recommended. Furthermore, strict HTML document validators require that elements have both a start and an end tag\cite{world1999html}.
+
+HTML also includes a number of empty elements, elements formed of only a start tag or a start tag with the backslash appended to the element name, \texttt{<element/>}, with no content, such as \texttt{<br>}, which defines a line break. The HTML standard does not specify which of the two ways of representing an empty element is preferred. Though, the latter provides stricter validation and is accepted by XML parsers\cite{world1999html}.
+
+HTML elements can have attributes. Attributes are key, value pairs which determine the behaviour of elements, such as \texttt{color}, \texttt{font} or \texttt{position}. Attributes must be specified in the element's start tag\cite{world1999html}.
+
+% sentence about why we need html 5, need of standards something else ?
+HTML5 is the 5th version and the current version of the HTML standard. It was released in 2014 by the World Wide Web Consortium (W3C). The current version of HTML introduced a number of new features aimed at simplifying the incorporation of multimedia and graphical content into web based applications\cite{berjon2014html}.
+
+\subsection{Media Elements}
 HTML elements are the basic building blocks of web pages. Apart from providing the overall structure of the web page, some HTML elements are used to embed media into a web page. HTML has always provided support for embedding media into web pages, newer versions of the language further simplify the process by introducing elements aimed exactly at this. The \texttt{<img>} element, available sine HTML 4.1, allows the insertion of images while the \texttt{<audio>} and \texttt{<video>} elements introduced in HTML5 enable audio and video content incorporation into web applications.
 
-\subsection{Image}
+\subsubsection{Image}
+The \texttt{<img>} tag is used to represent an image in a HTML document. The address to the resource to be displayed is stored in the \texttt{src} attribute. In order to successfully embed an image in a web page, the \texttt{src} attribute must be present and it must contain a valid non-empty URL\cite{berjon2014html}.
 
-The \texttt{<img>} tag is used to represent an image in a HTML document. The address to the resource to be displayed is stored in the \texttt{src} attribute. In order to successfully embed an image in a web page, the \texttt{src} attribute must be present and it must contain a valid non-empty URL.\cite{berjon2014html}
+The browser starts by downloading the external resource from the address provided in the \texttt{src} attribute or an alternative address if this is not available. The \texttt{load} event is delayed until the image data has been fetched over the network. Once the image file has finished downloading, the browser will try to display it. If the value of the \texttt{src} attribute does not link to a valid image file, the \texttt{error} event will be triggered on the \texttt{Image} element\cite{berjon2014html}.
 
-The browser starts by downloading the external resource from the address provided in the \texttt{src} attribute or an alternative address if this is not available. The \texttt{load} event is delayed until the image data has been fetched over the network. Once the image file has finished downloading, the browser will try to display it. If the value of the \texttt{src} attribute does not link to a valid image file, the \texttt{error} event will be triggered on the \texttt{Image} element. \cite{berjon2014html}
+\subsubsection{Video and Audio}
+The \texttt{<video>} and \texttt{<audio>} elements were introduced in HTML5 and enable web developers to easily embed audio and video content into their applications. The most recent version of HTML makes the insertion of a video into a web application as easy as adding an image \cite{berjon2014html}.
 
-\subsection{Video and Audio}
+Similarly to the \texttt{<img>} element, the \texttt{Video} and  \texttt{Audio} elements will first download the external resource and then try to play it. However, these new media elements will not throw an error unless they have finished parsing the entire file\cite{berjon2014html}.
 
-The \texttt{<video>} and \texttt{<audio>} elements were introduced in HTML5 and enable web developers to easily embed audio and video content into their applications. The most recent version of HTML makes the insertion of a video into a web application as easy as adding an image. \cite{berjon2014html}
-
-Similarly to the \texttt{<img>} element, the \texttt{Video} and  \texttt{Audio} elements will first download the external resource and then try to play it. However, these new media elements will not throw an error unless they have finished parsing the entire file. \cite{berjon2014html}
-
-In order to display a media file, the browser will start by downloading the external resource. While the file is being downloaded the \texttt{progress} event is being triggered. When the file has been fetched or if the downloading process has been paused the \texttt{suspend} event is fired. The browser proceeds by parsing the contents of the file to obtain information such as the length, width, height or extension, etc. of the file. If the media resource is not a valid file the browser will not be able to display it and the \texttt{error} event will be triggered on the media element. The time elapsed between the \texttt{suspend} and the \texttt{error} events is depended on the size of the file. The \texttt{error} event fires on the media element when the browser has finished parsing the file in contrast to the \texttt{Image} element, where the event is triggered when the browser learns that the file is not valid, usually as soon as it starts parsing it. \cite{berjon2014html}
+In order to display a media file, the browser will start by downloading the external resource. While the file is being downloaded the \texttt{progress} event is being triggered. When the file has been fetched or if the downloading process has been paused the \texttt{suspend} event is fired. The browser proceeds by parsing the contents of the file to obtain information such as the length, width, height or extension, etc. of the file. If the media resource is not a valid file the browser will not be able to display it and the \texttt{error} event will be triggered on the media element. The time elapsed between the \texttt{suspend} and the \texttt{error} events is depended on the size of the file. The \texttt{error} event fires on the media element when the browser has finished parsing the file in contrast to the \texttt{Image} element, where the event is triggered when the browser learns that the file is not valid, usually as soon as it starts parsing it\cite{berjon2014html}.
 
 \section{JavaScript}
 JavaScript is an interpreted scripting language generally used on the client side of web applications. Developed independently by both Netscape and Microsoft, it has been standardized by ECMA International under the name ECMAScript.
-The most recent version is ECMAScript 2017. ECMAScript and thus JavaScript is supported in all modern browsers. JavaScript is the most widely used client side language. \cite{javascriptstats, javascriptabout}
+The most recent version is ECMAScript 2017. ECMAScript and thus JavaScript is supported in all modern browsers. JavaScript is the most widely used client side language \cite{javascriptstats, javascriptabout}.
 
 JavaScript's main role is to add dynamic behaviour to web applications through modifying the DOM. The use of technologies to make dynamic and animated web pages is known as Dynamic HyperText Markup, DHTML. DHTML allows scripting languages such as JavaScript to make changes to the DOM in order to alter the appearance or function of the static HTML elements.
 
@@ -328,14 +316,10 @@ To add JavaScript to an HTML document the special \texttt{<script>} HTML element
 
 % how js runs
 
-\subsection{Web Workers}
-
-JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript task would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
-
 % https://www.w3.org/TR/service-workers/
 % https://www.w3.org/TR/workers/
 % http://alistapart.com/article/application-cache-is-a-douchebag
-\subsection{Offline Experience}
+\section{Offline Experience}
 Web applications are dependent on network availability and can not function if there is no network connection or in most cases even if the network connection is unstable or not strong enough. Web applications fall into two categories: those that provide access to data: YouTube, Wikipedia or Twitter and those that let users do stuff: Google Keep, Google Docs or CSS Lint.
 
 The first category has access to large amounts of data, but users only use a small portion of it at a given time. One of the ways such applications can be improved is by retrieving the data faster which relies mostly on the network provider and not the application developer. The second category of applications handles a small amount of data and most of the computation happens on the client side. 	The application data rarely changes and it would be a waste of network resources to retrieve the data every time it is used. 
@@ -345,7 +329,6 @@ One solution to avoid these needless overuse of the network would be to store so
 The most basic way of storing data is in the browser cache. All browsers are capable of storing web pages if told to do so; however the web developer has no control over the browser cache. It is up to the browser to decide what pages to keep and what pages to remove from the cache when it becomes full. 
 
 \subsection{Application Cache}
-
 Application Cache or AppCache is a framework which provides caching of resources in order to be later accessed offline. The AppCache API is part of HTML5 and allows web developers to specify which web pages and resources should be cached by the browser and made available offline.
 
 AppCache provides two ways to cache resources: either by specifying the path to the resource in the cache manifest or by including the cache manifest in the header of the document to be cached. The cache manifest is a text file containing the addresses of all web pages that should be stored locally. Despite being easy to use, AppCache does not allow developers to make any changes to its system. 
@@ -353,6 +336,9 @@ AppCache provides two ways to cache resources: either by specifying the path to 
 Although it solves one of the main issues faced by web application developers, offline access, AppCache has a number of disadvantages. Once a resource is cached it will always be fetched from local storage even if the network condition are good. AppCache does not provide easy update of currently cached resources and is unable to identify any changes made to the remote file. The only way to update the resources cached locally is either to empty the cache or make changes to the manifest file.
 
 All this drawbacks determined developers to move away from AppCache and work towards developing new software for improving users' offline experience. Despite major browsers providing software for interacting with the Application Cache, they are currently removing support this framework.
+
+\subsection{Web Workers}
+JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript task would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
 
 \subsection{Service Workers}
 Application Cache is a great way of providing users with the offline experience. Web application developers have to tailor their product meet the needs of the AppCache mechanism instead of make changes to AppCache to fit the needs of the product. This problem was fixed by Service Workers which allow developers more freedom when determining the offline behaviour of their application.
@@ -370,13 +356,20 @@ Service Workers run independent of the application they are monitoring. Service 
 % http://www.html5rocks.com/en/tutorials/service-worker/introduction/
 At the moment Service Workers are fully supported in Chrome and Firefox for both desktop and mobile and have basic support in Opera. Microsoft newest browser, Edge, is also working on adding support for this new technology.
 
-\section{Title}
+\section{Related Attacks}
 
-\subsection{Side-Channel Attacks}
+\subsection{Oren Attack}
 
-\subsection{Timing Attacks}
+\subsection{Van Attack}
 
-\subsection{Browser Attacks}
+% -----------------------------------------------------------------------------
+
+\chapter{Project Execution}
+\label{chap:execution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 

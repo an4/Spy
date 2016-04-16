@@ -2,24 +2,25 @@
 \contentsline {chapter}{\numberline {1}Contextual Background}{1}
 \contentsline {chapter}{\numberline {2}Technical Background}{3}
 \contentsline {section}{\numberline {2.1}Side-Channel Attacks}{3}
-\contentsline {section}{\numberline {2.2}Cache Attacks}{3}
-\contentsline {subsection}{\numberline {2.2.1}Cache Memory}{4}
-\contentsline {subsubsection}{Cache Organization}{4}
-\contentsline {subsubsection}{Last-Level Cache}{5}
-\contentsline {chapter}{\numberline {3}Project Execution}{7}
-\contentsline {section}{\numberline {3.1}HTML}{7}
-\contentsline {section}{\numberline {3.2}Web Browsers}{7}
-\contentsline {section}{\numberline {3.3}Media Elements}{8}
-\contentsline {subsection}{\numberline {3.3.1}Image}{8}
-\contentsline {subsection}{\numberline {3.3.2}Video and Audio}{8}
-\contentsline {section}{\numberline {3.4}JavaScript}{8}
-\contentsline {subsection}{\numberline {3.4.1}Web Workers}{9}
-\contentsline {subsection}{\numberline {3.4.2}Offline Experience}{9}
-\contentsline {subsection}{\numberline {3.4.3}Application Cache}{9}
-\contentsline {subsection}{\numberline {3.4.4}Service Workers}{10}
-\contentsline {section}{\numberline {3.5}Title}{10}
-\contentsline {subsection}{\numberline {3.5.1}Side-Channel Attacks}{10}
-\contentsline {subsection}{\numberline {3.5.2}Timing Attacks}{10}
-\contentsline {subsection}{\numberline {3.5.3}Browser Attacks}{10}
+\contentsline {subsection}{\numberline {2.1.1}Cache Attacks}{3}
+\contentsline {subsection}{\numberline {2.1.2}Timing Attacks}{4}
+\contentsline {subsection}{\numberline {2.1.3}Browser Attacks}{4}
+\contentsline {section}{\numberline {2.2}Cache Memory}{4}
+\contentsline {subsection}{\numberline {2.2.1}Cache Organization}{4}
+\contentsline {subsection}{\numberline {2.2.2}Last-Level Cache}{5}
+\contentsline {section}{\numberline {2.3}Web Browsers}{5}
+\contentsline {section}{\numberline {2.4}HTML}{5}
+\contentsline {subsection}{\numberline {2.4.1}Media Elements}{6}
+\contentsline {subsubsection}{Image}{6}
+\contentsline {subsubsection}{Video and Audio}{6}
+\contentsline {section}{\numberline {2.5}JavaScript}{6}
+\contentsline {section}{\numberline {2.6}Offline Experience}{7}
+\contentsline {subsection}{\numberline {2.6.1}Application Cache}{7}
+\contentsline {subsection}{\numberline {2.6.2}Web Workers}{7}
+\contentsline {subsection}{\numberline {2.6.3}Service Workers}{8}
+\contentsline {section}{\numberline {2.7}Related Attacks}{8}
+\contentsline {subsection}{\numberline {2.7.1}Oren Attack}{8}
+\contentsline {subsection}{\numberline {2.7.2}Van Attack}{8}
+\contentsline {chapter}{\numberline {3}Project Execution}{9}
 \contentsline {chapter}{\numberline {4}Critical Evaluation}{11}
 \contentsline {chapter}{\numberline {5}Conclusion}{13}

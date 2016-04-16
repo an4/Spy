@@ -19,13 +19,6 @@ Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
   arXiv:1502.07373}, 2015.
 
-\bibitem{world1999html}
-W.~W.~W. Consortium {\em et~al.}, ``Html 4.01 specification,'' 1999.
-
-\bibitem{berjon2014html}
-R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
-  and I.~Hickson, ``Html 5.1 specification,'' {\em W3C Working Draft}, 2014.
-
 \bibitem{statcounter}
 ``Stat counter.'' \url{http://gs.statcounter.com/}.
 \newblock Accessed: 2016-04-09.
@@ -40,6 +33,13 @@ T.~Garsiel and P.~Irish, ``How browsers work: Behind the scenes of modern web
 ``Dom - document object model.''
   \url{https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model}.
 \newblock Accessed: 2016-04-09.
+
+\bibitem{world1999html}
+W.~W.~W. Consortium {\em et~al.}, ``Html 4.01 specification,'' 1999.
+
+\bibitem{berjon2014html}
+R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
+  and I.~Hickson, ``Html 5.1 specification,'' {\em W3C Working Draft}, 2014.
 
 \bibitem{javascriptstats}
 ``Clientside scripting languages popularity.''
