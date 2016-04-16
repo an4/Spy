@@ -267,7 +267,10 @@ Since cache memory is generally smaller than main memory, various techniques are
 \item N-way Set Associative Cache: A Set Associative Cache scheme is a combination of the previous two schemes and the most common technique to map CPU caches. The cache memory is split into n equal blocks known as cache ways. The main memory is split into cache pages of size equal to the cache way. Each cache way acts like a small direct mapped cache. Each cache line can now be stored in n positions in the cache memory. This decreased the need to overwrite the data in the cache memory.
 \end{itemize}
 
-\subsection{Last-Level Cache}
+\subsection{Intel's Last-Level Cache Structure}
+Intel's cache architecture is inclusive, so the last level cache contains all the elements stored in the cache. The LLC is divided into slices one for each core of the CPU. Each core is directly connected to a cache slice but also has access to all the other slices \cite{oren2015spy}.
+
+The size of the LLC varies between processor models and ranges between 3MiB and over 20MiB. Dues to its relatively large size it is not efficient to iterate through the whole cache when looking for a specific address. The LLC is further divided into cache sets, each block of main memory maps to a specific set in the cache memory. Each cache set contains several cache lines \cite{oren2015spy}. 
 
 % LLC example from Spy paper 
 
@@ -347,7 +350,7 @@ Service Workers are event driven web workers which sit between the network layer
 
 Compared to AppCache, Service Workers do not store the data needed to run the application in offline mode. Service Workers monitor the network and are able to over-ride default network behaviour. They communicate with other services such as the Cache API that deals with the actual storage part. Typically, a Service Worker would monitor request sent by the application and either serve the data from local storage if available or fetch it over the network and save it locally for later retrieval. 
 
-The Cache API stores key/value pairs where the key is the URL and the value is the response returned by fetch. The Cache API ignores the \texttt{"no-cache"} and \texttt{"no-store"} HTTP header. Resources which contain the the \texttt{"no-cache"} or \texttt{"no-store"} HTTP header can still be cached, however they cannot be displayed. 
+The Cache API stores key/value pairs where the key is the URL and the value is the response returned by fetch. The Cache API ignores the \texttt{"no-cache"} and \texttt{"no-store"} HTTP header. Resources which contain the \texttt{"no-cache"} or \texttt{"no-store"} HTTP header can still be cached, however they cannot be displayed. 
 
 Service Workers are registered against an origin and a path and requests made from this location will trigger the service worker events. The events will not only fire for every page request within the Service Worker's scope but also for requests made by those pages. Service Workers allow CORS (Cross-Origin Resource Sharing) - requesting a page from a domain outside the domain from which the page originated.
 
