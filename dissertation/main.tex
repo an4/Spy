@@ -270,9 +270,11 @@ Since cache memory is generally smaller than main memory, various techniques are
 \subsection{Intel's Last-Level Cache Structure}
 Intel's cache architecture is inclusive, so the last level cache contains all the elements stored in the cache. The LLC is divided into slices one for each core of the CPU. Each core is directly connected to a cache slice but also has access to all the other slices \cite{oren2015spy}.
 
-The size of the LLC varies between processor models and ranges between 3MiB and over 20MiB. Dues to its relatively large size it is not efficient to iterate through the whole cache when looking for a specific address. The LLC is further divided into cache sets, each block of main memory maps to a specific set in the cache memory. Each cache set contains several cache lines \cite{oren2015spy}. 
+The size of the LLC varies between processor models and ranges between 3MiB and over 20MiB. Due to its relatively large size it is not efficient to iterate through the whole cache when looking for a specific address. The LLC is further divided into cache sets, each block of main memory maps to a specific set in the cache memory. Each cache set contains several cache lines \cite{oren2015spy}. 
 
-% LLC example from Spy paper 
+The Intel Core i7-4960HQ processor is multi-core 4th generation Intel Core processor. The cache memory for this processor has a Smart Cache architecture. Smart Cache is an architecture developed by Intel that allows multi-core processors to share the same last level cache memory instead of having dedicated per-core cache. The processor has 8192 ($2^{13}$) cache sets, each set being 12-way associative. Every cache set can hold 12 lines of  64 ($2^6$) bytes each. The total cache size of the Intel Core i7-4960HQ processor is 8192x12x64=6MB \cite{oren2015spy}.
+
+Each cache line can only be stored in 12 positions in the cache memory. The algorithm that determines the mapping between a physical address and an index in cache memory is not public and has changed between processor generations \cite{oren2015spy}. Hund et el. \cite{hund2013practical} were able to reverse engineer the mapping in the case of Sandy Bridge processors.
 
 \section{Web Browsers}
 

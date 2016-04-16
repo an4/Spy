@@ -13,14 +13,14 @@
 \contentsline {subsection}{\numberline {2.4.1}Media Elements}{6}
 \contentsline {subsubsection}{Image}{6}
 \contentsline {subsubsection}{Video and Audio}{6}
-\contentsline {section}{\numberline {2.5}JavaScript}{6}
+\contentsline {section}{\numberline {2.5}JavaScript}{7}
 \contentsline {section}{\numberline {2.6}Offline Experience}{7}
 \contentsline {subsection}{\numberline {2.6.1}Application Cache}{7}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{8}
 \contentsline {subsection}{\numberline {2.6.3}Service Workers}{8}
-\contentsline {section}{\numberline {2.7}Related Attacks}{8}
-\contentsline {subsection}{\numberline {2.7.1}Oren Attack}{8}
-\contentsline {subsection}{\numberline {2.7.2}Van Attack}{8}
-\contentsline {chapter}{\numberline {3}Project Execution}{9}
-\contentsline {chapter}{\numberline {4}Critical Evaluation}{11}
-\contentsline {chapter}{\numberline {5}Conclusion}{13}
+\contentsline {section}{\numberline {2.7}Related Attacks}{9}
+\contentsline {subsection}{\numberline {2.7.1}Oren Attack}{9}
+\contentsline {subsection}{\numberline {2.7.2}Van Attack}{9}
+\contentsline {chapter}{\numberline {3}Project Execution}{11}
+\contentsline {chapter}{\numberline {4}Critical Evaluation}{13}
+\contentsline {chapter}{\numberline {5}Conclusion}{15}
