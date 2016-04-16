@@ -176,10 +176,13 @@
 % ${\mathbb  F}_q$    &:     & a finite field with $q$ elements                                     \\
 % $x_i$               &:     & the $i$-th bit of some binary sequence $x$, st. $x_i \in \{ 0, 1 \}$ \\
 
-AppCache		    &:	   & Application Cache   												  \\	
-HTML				&:     & HyperText Markup Language											  \\
-RSA					&:	   & Rivest-Shamir-Adleman Cryptosystem									  \\
-SCA					&:	   & Side-Channel Attack												  \\	
+AppCache		   	 	&:	   & Application Cache   									 \\	
+CPU					&:	   & Central Processing Unit									 \\
+DRAM					&:	   & Dynamic Random Access Memory							 \\
+HTML					&:     & HyperText Markup Language								 \\
+RSA					&:	   & Rivest-Shamir-Adleman Cryptosystem				    		 \\
+SCA					&:	   & Side-Channel Attack										 \\	
+SRAM					&:	   & Static Random Access Memory								 \\
 \end{tabular}
 \end{quote}
 
@@ -238,7 +241,24 @@ Cache attacks are a particular kind of Side-Channel Attacks, which monitor how p
 
 \subsection{Cache Memory}
 
-Cache memory is a type of memory l
+Cache memory is a small high-speed memory, usually SRAM, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to frequently used resources. Cache memory acts as a buffer between the high speed CPU and the slower main memory or DRAM.
+
+A system can only be as fast as its slowest component. Early computers had extremely slow main memory, but CPU were not fast either and their speed was increasing at roughly the same rate. Starting in the 1980s, the CPU clock speed started to increase while memory access time remained relatively slow. Despite having faster CPUs, machines were still slow due to the memory access bottleneck. The increasing gap between CPU speed and memory access time led to the development of the first CPU caches. Nowadays, cache memory is included in every modern CPU from the ultra-low power chips to the highest-end Intel Core i7.
+
+Cache memory increases the overall speed of the system by granting fast access to frequently accessed main memory contents. The algorithm which decides what resources to be stored in cache varies from one architecture to another and is known to change between processor generations \cite{oren2015spy}. 
+
+The structure of the cache memory follows a hierarchical scheme. The top level contains the level 1 (L1) cache which is the smallest, fastest and closest to the CPU. The L1 cache is followed by a series of progressively larger and slower memory elements until it reaches the main memory. Typically the cache is split into three levels: L1, L2 and L3. The cache level closest to the RAM is known as last-level cache or LLC \cite{oren2015spy}.
+
+Multi-level caches split into two categories: inclusive and exclusive cache. Inclusive cache requires that lower levels of the cache include all the data which can be found in the upper levels. Exclusive caches guarantee that data can be found in at most one cache level. The two designs have various advantages and disadvantages. Exclusive caches allow more data to be stored while removing data from inclusive caches is generally faster since it only needs to be removed from the last-level cache. Intel's cache architecture is inclusive while AMD's cache architecture is exclusive \cite{oren2015spy}.
+
+When the CPU need to access physical memory it will first look for the respective address in the cache. If the resource does not reside in the cache memory, it will have to be retrieved from the main memory. This is known as a \textit{Cache miss}. A \textit{Cache hit} occurs when the address the CPU is looking for is found in any of the cache memory levels \cite{oren2015spy}.
+
+% Advantage vs disadvantage cache vs RAM
+% SRAM vs DRAM (maybe not)
+
+% Associative cache
+% how it works, example of cache model
+% draw something ??
 
 
 % -----------------------------------------------------------------------------
