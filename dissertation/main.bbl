@@ -81,4 +81,9 @@ Y.~Jia, X.~Dong, Z.~Liang, and P.~Saxena, ``I know where you've been:
   Geo-inference attacks via the browser cache,'' {\em Internet Computing,
   IEEE}, vol.~19, no.~1, pp.~44--53, 2015.
 
+\bibitem{bortz2007exposing}
+A.~Bortz and D.~Boneh, ``Exposing private information by timing web
+  applications,'' in {\em Proceedings of the 16th international conference on
+  World Wide Web}, pp.~621--628, ACM, 2007.
+
 \end{thebibliography}
