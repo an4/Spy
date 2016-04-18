@@ -385,9 +385,21 @@ The attack presented by Bortz et al. \cite{bortz2007exposing} is vulnerable to c
 
 \subsection{Van Attack}
 
-Web-based timing attacks have been around for over a decade; however it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile network. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attack that are not dependent on network conditions \cite{van2015clock}.
+Web-based timing attacks have been around for over a decade; however it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile networks. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attack that are not dependent on network conditions \cite{van2015clock}.
 
-Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seems to outperform previous attacks in both speed and reliability. They also give several example of how this attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
+Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how this attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
+
+In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the resource. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the external resource into an \texttt{<img>} element and measured the time it takes to download the resource. 
+
+\begin{lstlisting}[caption={Example timing attack using Image.},label={img},language=HTML]
+var image = new Image();
+image.onerror = function() {
+	var endTime = window.performance.now();
+	alert('Time: ' + (endTime - startTime));
+};
+var startTime = window.performance.now();
+image.scr = 'http://example.com/image.html';
+\end{lstlisting}
 
 % -----------------------------------------------------------------------------
 
