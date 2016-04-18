@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  18 APR 2016 22:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  19 APR 2016 00:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,11 +496,11 @@ Chapter 2.
 Underfull \vbox (badness 3735) has occurred while \output is active []
 
  [9]
-[10] [11] [12
-
-]
+[10] [11] [12]
 Chapter 3.
-[13] [14
+[13
+
+] [14
 
 ]
 Chapter 4.
@@ -544,7 +544,7 @@ illa . org / en-[]US / docs / Web / JavaScript / About _
 Here is how much of TeX's memory you used:
  7046 strings out of 493304
  97947 string characters out of 6139871
- 294118 words of memory out of 5000000
+ 293118 words of memory out of 5000000
  10360 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -559,7 +559,7 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (33 pages, 195258 bytes).
+Output written on main.pdf (33 pages, 198688 bytes).
 PDF statistics:
  154 PDF objects out of 1000 (max. 8388607)
  106 compressed objects within 2 object streams

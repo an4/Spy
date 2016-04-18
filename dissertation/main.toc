@@ -20,6 +20,11 @@
 \contentsline {subsection}{\numberline {2.6.3}Service Workers}{8}
 \contentsline {section}{\numberline {2.7}Browser Attacks}{9}
 \contentsline {subsection}{\numberline {2.7.1}Van Attack}{10}
+\contentsline {subsubsection}{Video parsing}{10}
+\contentsline {subsubsection}{Application Cache}{11}
+\contentsline {subsubsection}{Service Workers}{11}
+\contentsline {subsubsection}{Script Parsing}{11}
+\contentsline {subsubsection}{Real-world attacks}{11}
 \contentsline {chapter}{\numberline {3}Project Execution}{13}
 \contentsline {chapter}{\numberline {4}Critical Evaluation}{15}
 \contentsline {chapter}{\numberline {5}Conclusion}{17}
