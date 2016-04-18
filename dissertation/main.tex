@@ -389,9 +389,9 @@ Web-based timing attacks have been around for over a decade; however it is very 
 
 Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how this attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
 
-In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the resource. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the external resource into an \texttt{<img>} element and measured the time it takes to download the resource. 
+In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the resource. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the external resource into an \texttt{<img>} element and measured the time it takes to download the resource. The code snippet needed to run the attack can be seen in Listing 2.1. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
 
-\begin{lstlisting}[caption={Example timing attack using Image.},label={img},language=HTML]
+\begin{lstlisting}[caption={Example timing attack using Image.},label={img}, xleftmargin=.2\textwidth]
 var image = new Image();
 image.onerror = function() {
 	var endTime = window.performance.now();
@@ -400,6 +400,19 @@ image.onerror = function() {
 var startTime = window.performance.now();
 image.scr = 'http://example.com/image.html';
 \end{lstlisting}
+
+Van Goethem et al. identified several methods to estimate the size of an external resource without being dependent on the network conditions. In order to test their finding they set up a remote server to serve four randomly generated HTML files, each with a different size: 50kB, 60kB, 150kB and 250kB. Then they compared each method each method based on how easily an attacker could distinguish between the measurements obtained by requesting the four files \cite{van2015clock}.
+
+% Video + Audio, App Cache, Service Workers, Script Parsing
+The first method they tried was replacing the \texttt{<img>} element with the newly introduced HTML5 Video element. Contrary to the results obtained using the Image element, the measurements obtained using the Video element are not dependent on network conditions. The Video element downloads the external resource and starts preparing it to be played in the browser. If the data received is not a valid video file an error event will be triggered on the Video element; however, the error will not happen until the application has finished parsing the entire file. The time it takes to parse the resource is dependent on its size. The attack uses two events associated with the Video element, \texttt{suspend} and \texttt{error}. The first event is triggered when the browser has finished downloading the resource and it starts parsing it, the second one is started once the browser has finished reading the file. Van. Goethem et al. where able to successfully distinguish between the three larger files, but the results obtained by running this attack where not good enough to differentiate between the 50kB and 60kB files.
+
+Even though the measurements are not dependent on the network conditions, the total runtime of the attack is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to cache it. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. The researchers tried to both combine Application Cache with the Video timing method and use the caching mechanism on its own by measuring the time it takes to load a resource from local storage. The results obtained were better than using the \texttt{<video>} element on its own; however, Application Cache is no longer supported by major browser since it does not provide developers with enough freedom.
+
+Browser software providers moved from Application Cache to Service Workers, a software that provides similar functionality but is compatible with a larger range of web applications. Service Workers do no interact directly with the main application, they are event driven scripts which are able to overwrite default network behaviour. The attack using Service Workers measures the time it takes to write a resource to local storage, the measurement is entirely dependent on the victim's machine. Out of all the attacks outlined by Van Goethem et al. this one performed the best in distinguishing between the four given files \cite{van2015clock}.
+
+The three methods: video parsing, Application Cache and Service Worker are based on relatively new HTML and JavaScript features. Their paper also presents an attack using the \texttt{<script>} element present in HTML, where they try to load an external resource as a JavaScript file. 
+
+ 
 
 % -----------------------------------------------------------------------------
 
