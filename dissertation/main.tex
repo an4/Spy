@@ -113,10 +113,10 @@
 
 
 \tableofcontents
-% \listoffigures
-% \listoftables
-% \listofalgorithms
-% \lstlistoflistings
+%\listoffigures
+%\listoftables
+%\listofalgorithms
+\lstlistoflistings
 
 %========================================================================================================
 
@@ -192,7 +192,7 @@ SRAM					&:	   & Static Random Access Memory								 \\
 \chapter*{Acknowledgements}
 
 \noindent
-I would like to thank Clifton Suspension Bridge, Sergey Brin and gin.
+%I would like to thank Clifton Suspension Bridge, Sergey Brin and gin.
 
 
 %========================================================================================================
@@ -240,9 +240,7 @@ Side-Channel Attacks are an important class of cryptanalytic techniques. In gene
 \subsection{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache. Cache attacks are affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
 
-\subsection{Timing Attacks}
-
-\subsection{Oren Attack}
+\subsection{Oren Attack + Background}
 
 \section{Cache Memory}
 
@@ -366,12 +364,16 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
 
+\subsection{CSS Attack}
 One of the most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done by using the CSS:\texttt{visited} pseudo-class. An attacker can request the computed style using JavaScript and therefore gaining access to the victim's browsers history \cite{cssvisited, van2015clock}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history \cite{jang2010empirical}.
 
+\subsection{Felten et al. - Browser Cache Attack}
 Analysing the style of a web page is not the only way to expose a user's browsing history. A similar attack discovered by Felten et al. \cite{felten2000timing} uses timing information to determine if a web page has been previously visited by the victim. This attack assumes that recently accessed resources will be cached by the browser in order to provide faster loading times for future visits. By comparing the loading time of different web pages an attacker can determine if a file is in the user's cache, and hence whether or not the user has accessed the file before . Although the attack was discovered over 15 years ago, no one has been able to come up with a solution that will both maintain a browser's caching capabilities and protect the user's privacy \cite{van2015clock}.
 
-Websites customize their services according to users' locations. For example a user accessing Google from within the United Kingdom will be redirected to www.google.co.uk. Jie et al. have shown that is possible to derive a user's location by simply checking what version of the website they are redirected to \cite{jia2015know}. Traditionally a user's location could by determined by checking their IP address; however, the same study shows that this can give imprecise results since users can use VPNs or similar techniques to hide their real IP addresses. Another option, which is more suited for mobile device users, would be to obtain a user's location from GPS sensors. Big websites, such as Google, are able to derive a user's location from their search history. A potential attacker will not have direct access to all the data about the victim but is still able to determine the location by checking where the user is redirected when accessing Google's homepage.
+\subsection{Jia et al. - Geo-location Attack}
+Websites customize their services according to users' locations. For example a user accessing Google from within the United Kingdom will be redirected to www.google.co.uk. Jia et al. have shown that is possible to derive a user's location by simply checking what version of the website they are redirected to \cite{jia2015know}. Traditionally a user's location could by determined by checking their IP address; however, the same study shows that this can give imprecise results since users can use VPNs or similar techniques to hide their real IP addresses. Another option, which is more suited for mobile device users, would be to obtain a user's location from GPS sensors. Big websites, such as Google, are able to derive a user's location from their search history. A potential attacker will not have direct access to all the data about the victim but is still able to determine the location by checking where the user is redirected when accessing Google's homepage.
 
+\subsection{Bortz et al. - Timing Web Application}
 % rewrite
 Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}. Their attack allows an adversary to obtain information about the victim's view of another website. Imagine an adversary, Eve, wants to see Alice's view of Bob's Facebook profile page. Eve builds a website, www.eve.com, which when accessed sends a request to Bob's Facebook profile, www.facebook.com/bob. Bob's profile page is private and only visible to Bob's friends. Bob's friends are able to see his photos and wall posts, someone who is not a friend of Bob's will see an empty page. There is a difference in the amount of data received by a user who is friends with Bob and a user who is not. A web application which is able to differentiate between two files of different sizes will also be able to make an assumption about whether or not Alice and Bob are friends. When Alice accesses Eve's malicious application, the website receives Bob's profile information seen from Alice's perspective, approximates the size of the received data and sends the result to Eve. If the size is less than some threshold (say, 500kB), Eve concludes that Alice and Bob are friends; otherwise, she concludes that the two do no know each other.
 
@@ -383,13 +385,13 @@ forces the website to display the resource. The attacker is able to measure the 
 
 The attack presented by Bortz et al. \cite{bortz2007exposing} is vulnerable to changing network conditions. Van Goethem et al. expand this attack and focus on detecting vulnerabilities in HTML and JavaScript that give more accurate timing measurements by removing the dependency on a victim's network  conditions \cite{van2015clock}.
 
-\subsection{Van Attack}
+\subsection{Van Goethem et al. - Timing Attacks in the Modern Web}
 
-Web-based timing attacks have been around for over a decade; however it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile networks. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attack that are not dependent on network conditions \cite{van2015clock}.
+Web-based timing attacks have been around for over a decade; however, it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile networks. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attacks which are not dependent on network conditions \cite{van2015clock}.
 
-Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how this attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
+Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how these attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
 
-In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the resource. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the external resource into an \texttt{<img>} element and measured the time it takes to download the resource. The code snippet needed to run the attack can be seen in Listing 2.1. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
+In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the file. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the file into an \texttt{<img>} element and measured the time it takes to download the data. The code snippet needed to run the attack can be seen in Listing 2.1. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
 
 \begin{lstlisting}[caption={Example timing attack using Image.},label={img}, xleftmargin=.2\textwidth]
 var image = new Image();
@@ -401,13 +403,13 @@ var startTime = window.performance.now();
 image.scr = 'http://example.com/image.html';
 \end{lstlisting}
 
-Van Goethem et al. identified several methods to estimate the size of an external resource without being dependent on the network conditions. In order to test their finding they set up a remote server to serve four randomly generated HTML files, each with a different size: 50kB, 60kB, 150kB and 250kB. Then they compared each method each method based on how easily an attacker could distinguish between the measurements obtained by requesting the four files \cite{van2015clock}.
+Van Goethem et al. identified several methods to estimate the size of file which are independent of network conditions. In order to test their findings, they set up a remote server to serve four randomly generated HTML files, each with a different size: 50kB, 60kB, 150kB and 250kB. Then they compared each method  based on how easily an attacker could distinguish between the measurements obtained by requesting the four files \cite{van2015clock}.
 
 \subsubsection{Video parsing}
-The first method they tried was replacing the \texttt{<img>} element with the newly introduced HTML5 Video element. Contrary to the results obtained using the Image element, the measurements obtained using the Video element are not dependent on network conditions. The Video element downloads the external resource and starts preparing it to be played in the browser. If the data received is not a valid video file an error event will be triggered on the Video element; however, the error will not happen until the application has finished parsing the entire file. The time it takes to parse the resource is dependent on its size. The attack uses two events associated with the Video element, \texttt{suspend} and \texttt{error}. The first event is triggered when the browser has finished downloading the resource and it starts parsing it, the second one is started once the browser has finished reading the file. Van. Goethem et al. where able to successfully distinguish between the three larger files, but the results obtained by running this attack where not good enough to differentiate between the 50kB and 60kB files.
+The first method they tried was replacing the \texttt{<img>} element with the newly introduced HTML5 Video element. Contrary to the results obtained using the Image element, the measurements obtained using the Video element are not dependent on network conditions. The Video element downloads the external resource and starts preparing it to be played in the browser. If the data received is not a valid video file an error event will be triggered on the Video element; however, the error will not happen until the application has finished parsing the entire file. The time it takes to parse the resource is dependent on its size. The attack uses two events associated with the Video element, \texttt{suspend} and \texttt{error}. The first event is triggered when the browser has finished downloading the resource and it starts parsing it, the second one is started once the browser has finished reading the file. Van. Goethem et al. were able to successfully distinguish between the three larger files, but the results obtained by running this attack where not good enough to differentiate between the 50kB and 60kB files.
 
 \subsubsection{Application Cache}
-Even though the measurements are not dependent on the network conditions, the total runtime of the attack is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to cache it. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. The researchers tried to both combine Application Cache with the Video timing method and use the caching mechanism on its own by measuring the time it takes to load a resource from local storage. The results obtained were better than using the \texttt{<video>} element on its own; however, Application Cache is no longer supported by major browser since it does not provide developers with enough freedom.
+Even though the measurements are not dependent on the network conditions, the total runtime of the attack still is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to store it locally. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. The researchers tried to both combine Application Cache with the Video timing method and use the caching mechanism on its own by measuring the time it takes to load a resource from local storage. The results obtained were better than using the \texttt{<video>} element on its own; however, Application Cache is no longer supported by major browser since it does not provide developers with enough freedom.
 
 \subsubsection{Service Workers}
 Browser software providers moved from Application Cache to Service Workers, a software that provides similar functionality but is compatible with a larger range of web applications. Service Workers do no interact directly with the main application, they are event driven scripts which are able to overwrite default network behaviour. The attack using Service Workers measures the time it takes to write a resource to local storage, the measurement is entirely dependent on the victim's machine. Out of all the attacks outlined by Van Goethem et al. this one performed the best in distinguishing between the four given files \cite{van2015clock}.
@@ -416,13 +418,18 @@ Browser software providers moved from Application Cache to Service Workers, a so
 The three methods: video parsing, Application Cache and Service Worker are based on relatively new HTML and JavaScript features. Their paper also shows a method of approximating the size of a file using technologies that have been incorporated into browsers for a long time, the \texttt{<script>} element. Although the measurements obtained using this attack are similar to the previous methods, running the attack requires more work from the adversary.
 
 \subsubsection{Real-world attacks}
-The aforementioned techniques work on a wide range of browsers, operating systems and devices. On slower devices the attacks provide more accurate measurements and tend to require fewer data \cite{van2015clock}. After identifying new methods of obtaining side-channel information, their paper  presents several real-world scenarios where this attacks can be used to extract personal information from users. 
+The aforementioned techniques work on a wide range of browsers, operating systems and devices. On slower devices the attacks provide more accurate measurements and tend to require fewer data \cite{van2015clock}. After identifying new methods of obtaining side-channel information, their paper  presents several real-world scenarios where these attacks can be used to extract personal information from users. 
 
-Facebook is the leading global social network with over 1.5 monthly active users. Apart from user profiles, Facebook also allows companies and brands to have pages. Pages have the same functionality as a user's profile. Additionally, pages are allowed to limit their status updates to a particular audience, for example users from a specific location, or users between the age of 20 and 25. When a user who is not part of the target audience tries to access the link to the status update, they are presented with a static page which states that the content is not available. Since the size of the static pages smaller than the size of the page containing the status update, this exposes side-channel information allowing an attacker to determine if a user belongs to a specific audience \cite{van2015clock}.
+Facebook is the leading global social network with over 1.5 billion monthly active users. Apart from user profiles, Facebook also allows companies and brands to have pages. Pages have the same functionality as a user's profile. Additionally, pages are allowed to limit their status updates to a particular audience, for example users from a specific location, or users between the age of 20 and 25. When a user who is not part of the target audience tries to access the link to the status update, they are presented with a static page which states that the content is not available. Since the size of the static page is smaller than the size of the page containing the status update, this exposes side-channel information allowing an attacker to determine if a user belongs to a specific audience \cite{van2015clock}.
 
 LinkedIn is a business oriented social network connecting users with recruiters and sales professionals. LinkedIn users can create bi-directional relations with others, known as connections. It is believed that users connect with colleagues, business partners, or friends in the same geographical location. This means that if an attacker is able to determine if two users are connected, they might also find a user's location, employer or other private information \cite{van2015clock}. For example, if a user has over 100 connections working at Google in Mountain View, it is likely that the user also works at Google in Mountain View.
 
 Twitter is an online social network that allows uni-directional relations between users and followers. Twitter supports both public accounts, where everybody can see the updates, and private account, where only followers can view the tweets. By checking if a user has access to a tweet from a private account, an attacker can determine if the victim is following the private account or not \cite{van2015clock}.
+
+% not only for private networks
+
+
+
 % -----------------------------------------------------------------------------
 
 \chapter{Project Execution}
