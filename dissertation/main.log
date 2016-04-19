@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  19 APR 2016 13:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  19 APR 2016 23:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -466,29 +466,35 @@ converted-to.pdf>] [2
 
  [3] [4
 
-] (./main.lol)
-\tf@lol=\write4
-\openout4 = `main.lol'.
+] (./main.loa)
+\tf@loa=\write4
+\openout4 = `main.loa'.
 
  [5] [6
 
-] [7] [8
+] (./main.lol)
+\tf@lol=\write5
+\openout5 = `main.lol'.
+
+ [7]
+[8
+
+] [9] [10
 
 ]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 135.
 
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 135.
- [9] [10
+ [11]
+[12
 
-] [11] [12
+] [13] [14
 
-]
-[13] [14
+] [15] [16
 
 ]
 Chapter 1.
@@ -498,23 +504,27 @@ Chapter 1.
 
 ]
 Chapter 2.
-[3] [4] [5] [6] [7]
+[3] [4] [5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6]
+[7]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8]
-[9] [10] [11] [12]
-Chapter 3.
-[13
-
-] [14
+[9] [10] [11] [12] [13] [14
 
 ]
-Chapter 4.
+Chapter 3.
 [15] [16
 
 ]
-Chapter 5.
+Chapter 4.
 [17] [18
+
+]
+Chapter 5.
+[19] [20
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -544,19 +554,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--58
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-) [19
+[21
 
-] (./main.aux) ) 
+]) [22] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 7049 strings out of 493304
- 97969 string characters out of 6139871
- 294118 words of memory out of 5000000
- 10360 multiletter control sequences out of 15000+600000
+ 7055 strings out of 493304
+ 98036 string characters out of 6139871
+ 294139 words of memory out of 5000000
+ 10363 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,11n,43p,1254b,915s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texli
@@ -565,10 +576,10 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (35 pages, 200470 bytes).
+Output written on main.pdf (40 pages, 213244 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 110 compressed objects within 2 object streams
+ 182 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

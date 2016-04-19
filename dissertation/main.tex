@@ -115,7 +115,7 @@
 \tableofcontents
 %\listoffigures
 %\listoftables
-%\listofalgorithms
+\listofalgorithms
 \lstlistoflistings
 
 %========================================================================================================
@@ -238,9 +238,7 @@ The literature classifies Side-Channel Attacks by either the level of intrusion 
 Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
 
 \subsection{Cache Attacks}
-Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache. Cache attacks are affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
-
-\subsection{Oren Attack + Background}
+Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache memory. Cache attacks are not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
 
 \section{Cache Memory}
 
@@ -430,9 +428,30 @@ The attacks identified by Van Goethem et. al are not only applicable to social n
 
 Existing defence mechanisms, adding a random delay or having a fixed response time for all server responses, only protect against attacks that are dependent on network conditions. The attacks proposed by Van Goethem et al. require countermeasures on the client side in order to be prevented.
 
-% not only for private networks
+\subsection{Oren et al. - Practical Cache Attacks in JavaScript}
 
+Another category of Side-Channel Attacks that affect browsers has been identified by Oren et al. in their paper \cite{oren2015spy}. In order for the attack to be successful, the victim has to navigate to an untrusted web page containing the attacker-controlled content. Their attack runs entirely in the browser and does not require the installation of additional software on the victim's machine.
 
+The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE method was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show hoe the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
+
+In general, the PRIME+PROBE algorithm consists of four steps:
+\begin{enumerate}
+\item In the first stage the attacker creates a buffer with known data.
+\item During the second step the attacker accesses the buffer such that its contents are now in the cache memory,thus bringing the cache into a known state.
+\item In the third step the attacker waits for the victim to perform an operation that might alter the contents of the cache.
+\item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
+\end{enumerate}
+
+Oren et al. use a modified version of the PRIME+PROBE algorithm where instead of monitoring the entire cache memory, they choose an \textit{eviction set}, which is a sequence of addresses that are mapped by the CPU in the same cache set \cite{oren2015spy}. The method for creating an eviction set is presented in Algorithm 2.1.
+
+\begin{algorithm}
+Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$ be an arbitrary page-aligned address in memory.
+
+\caption{Creating an Eviction Set}
+\label{evictionsetalg}
+\end{algorithm}
+
+The attack presented by Oren et al. is written entirely in JavaScript. This means that the attack affect a wide range of systems since it only requires a browser with JavaScript support to run. On the other hand, the choice of language makes implementing the attack more difficult. JavaScript has no notion of pointer so it is impossible to determine the virtual address of a variable. Additionally, JavaScript has severely restricted access to the system so the attacker has to use the JavaScript High Resolution API, which provides sub millisecond time measurements \cite{oren2015spy}.
 
 % -----------------------------------------------------------------------------
 
@@ -443,23 +462,13 @@ Existing defence mechanisms, adding a random delay or having a fixed response ti
 %%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%use this in attacks section
-% The time it takes to display an image or to throw an error in the case of an invalid image file is dependent on the time it takes to download the external resource, which in turn is dependent on the network conditions. This measurement does not give accurate results and it is very hard to distinguish between files of different size. \cite{berjon2014html}
-
-%paragraph about the difference in time between img and video/audio, how the second is more accurate
-% information leackage
-
-
-% App Cache attack
-% HTTPS not allowed ?
-% cross origin ?
-% header - no cache - not ignore - better than Service Workers
-
-
-
-
+%\begin{algorithm}
+%\For{$i=0$ {\bf upto} $n$}{
+%  $t_i \leftarrow 0$\;
+%}
+%\caption{PRIME+PROBE algorithm}
+%\label{primeprobealg}
+%\end{algorithm}
 % -----------------------------------------------------------------------------
 
 \chapter{Critical Evaluation}

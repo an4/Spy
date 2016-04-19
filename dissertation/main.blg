@@ -5,45 +5,45 @@ The style file: ieeetr.bst
 Database file #1: main.bib.bib
 Warning--can't use both author and editor fields in Tria2011
 Warning--empty journal in world1999html
-You've used 18 entries,
+You've used 20 entries,
             1876 wiz_defined-function locations,
-            573 strings with 6326 characters,
-and the built_in function-call counts, 4370 in all, are:
-= -- 430
-> -- 140
+            584 strings with 6665 characters,
+and the built_in function-call counts, 5055 in all, are:
+= -- 494
+> -- 168
 < -- 0
-+ -- 55
-- -- 37
-* -- 268
-:= -- 568
-add.period$ -- 24
-call.type$ -- 18
-change.case$ -- 17
++ -- 65
+- -- 45
+* -- 317
+:= -- 659
+add.period$ -- 26
+call.type$ -- 20
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 20
-duplicate$ -- 228
-empty$ -- 483
-format.name$ -- 37
-if$ -- 1099
+cite$ -- 22
+duplicate$ -- 265
+empty$ -- 554
+format.name$ -- 45
+if$ -- 1268
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 13
-newline$ -- 63
-num.names$ -- 13
-pop$ -- 108
+int.to.str$ -- 20
+missing$ -- 15
+newline$ -- 69
+num.names$ -- 15
+pop$ -- 120
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 153
+skip$ -- 177
 stack$ -- 0
-substring$ -- 272
-swap$ -- 80
+substring$ -- 323
+swap$ -- 94
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 40
-width$ -- 20
-write$ -- 163
+while$ -- 48
+width$ -- 22
+write$ -- 182
 (There were 2 warnings)

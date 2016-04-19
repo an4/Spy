@@ -86,4 +86,14 @@ A.~Bortz and D.~Boneh, ``Exposing private information by timing web
   applications,'' in {\em Proceedings of the 16th international conference on
   World Wide Web}, pp.~621--628, ACM, 2007.
 
+\bibitem{osvik2006cache}
+D.~A. Osvik, A.~Shamir, and E.~Tromer, ``Cache attacks and countermeasures: the
+  case of aes,'' in {\em Topics in Cryptology--CT-RSA 2006}, pp.~1--20,
+  Springer, 2006.
+
+\bibitem{liu2015last}
+F.~Liu, Y.~Yarom, Q.~Ge, G.~Heiser, and R.~B. Lee, ``Last-level cache
+  side-channel attacks are practical,'' in {\em IEEE Symposium on Security and
+  Privacy}, pp.~605--622, 2015.
+
 \end{thebibliography}
