@@ -389,7 +389,7 @@ Web-based timing attacks have been around for over a decade; however, it is very
 
 Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how these attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
 
-In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the file. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the file into an \texttt{<img>} element and measured the time it takes to download the data. The code snippet needed to run the attack can be seen in Listing 2.1. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
+In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the file. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the file into an \texttt{<img>} element and measured the time it takes to download the data. The code snippet needed to run the attack can be seen in Listing \ref{img}. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
 
 \begin{lstlisting}[caption={Example timing attack using Image.},label={img}, xleftmargin=.2\textwidth]
 var image = new Image();
@@ -430,9 +430,10 @@ Existing defence mechanisms, adding a random delay or having a fixed response ti
 
 \subsection{Oren et al. - Practical Cache Attacks in JavaScript}
 
-Another category of Side-Channel Attacks that affect browsers has been identified by Oren et al. in their paper \cite{oren2015spy}. In order for the attack to be successful, the victim has to navigate to an untrusted web page containing the attacker-controlled content. Their attack runs entirely in the browser and does not require the installation of additional software on the victim's machine.
+Another category of Side-Channel Attacks that affect browsers has been identified by Oren et al. in their paper \cite{oren2015spy}. Their attack uses a spy process running in the browser to map the cache memory of the victim. Based on the state of the cache memory an adversary can make assumptions about the victim's browsing activity. In order for the attack to be successful, the victim has to navigate to an untrusted web page containing the attacker-controlled content. Their attack runs entirely in the browser and does not require the installation of additional software on the victim's machine.
 
-The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE method was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show hoe the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
+The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE method was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches (LLC) and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show how
+ the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
 
 In general, the PRIME+PROBE algorithm consists of four steps:
 \begin{enumerate}
@@ -442,11 +443,23 @@ In general, the PRIME+PROBE algorithm consists of four steps:
 \item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
 \end{enumerate}
 
-Oren et al. use a modified version of the PRIME+PROBE algorithm where instead of monitoring the entire cache memory, they choose an \textit{eviction set}, which is a sequence of addresses that are mapped by the CPU in the same cache set \cite{oren2015spy}. The method for creating an eviction set is presented in Algorithm 2.1.
+Oren et al. use a modified version of the PRIME+PROBE algorithm where instead of monitoring the entire cache memory, they choose an \textit{eviction set}, which is a sequence of addresses that are mapped by the CPU in the same cache set \cite{oren2015spy}. The method for creating an eviction set is presented in Algorithm \ref{evictionsetalg}.
 
 \begin{algorithm}
 Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$ be an arbitrary page-aligned address in memory.
-
+\begin{enumerate}
+\item Repeat $k$ times:
+\begin{enumerate}
+\item Iteratively access all members of $S$.
+\item Measure $t_1$, the time it takes to access $x$.
+\item Select a random page $s$ from $S$ and remove it.
+\item Iteratively access all members of $S/s$.
+\item Measure $t_2$, the time it takes to access $x$.
+\item If removing $s$ caused the memory access to speed up considerably (i.e. $t_1 - t_2 > thres$). then this address is part of the same set as $x$. Place it back into $S$.
+\item If removing $s$ din not cause memory access to speed up considerably, then $s$ is not part of the same set as $x$.
+\end{enumerate}
+\item If $|S| = 12$, return $S$. Otherwise report failure.
+\end{enumerate}
 \caption{Creating an Eviction Set}
 \label{evictionsetalg}
 \end{algorithm}
