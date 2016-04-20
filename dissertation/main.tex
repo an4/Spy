@@ -432,13 +432,12 @@ Existing defence mechanisms, adding a random delay or having a fixed response ti
 
 Another category of Side-Channel Attacks that affect browsers has been identified by Oren et al. in their paper \cite{oren2015spy}. Their attack uses a spy process running in the browser to map the cache memory of the victim. Based on the state of the cache memory an adversary can make assumptions about the victim's browsing activity. In order for the attack to be successful, the victim has to navigate to an untrusted web page containing the attacker-controlled content. Their attack runs entirely in the browser and does not require the installation of additional software on the victim's machine.
 
-The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE method was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches (LLC) and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show how
- the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
+The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE algorithm was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show how the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
 
 In general, the PRIME+PROBE algorithm consists of four steps:
 \begin{enumerate}
 \item In the first stage the attacker creates a buffer with known data.
-\item During the second step the attacker accesses the buffer such that its contents are now in the cache memory,thus bringing the cache into a known state.
+\item During the second step the attacker accesses the buffer such that its contents are now in the cache memory, thus bringing the cache into a known state.
 \item In the third step the attacker waits for the victim to perform an operation that might alter the contents of the cache.
 \item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
 \end{enumerate}
@@ -460,15 +459,32 @@ Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$
 \end{enumerate}
 \item If $|S| = 12$, return $S$. Otherwise report failure.
 \end{enumerate}
-\caption{Creating an Eviction Set}
+\caption{Oren et al. Algortihm for Creating an Eviction Se.t}
 \label{evictionsetalg}
 \end{algorithm}
 
 The attack presented by Oren et al. is written entirely in JavaScript. This means that the attack affect a wide range of systems since it only requires a browser with JavaScript support to run. On the other hand, the choice of language makes implementing the attack more difficult. JavaScript has no notion of pointer so it is impossible to determine the virtual address of a variable. Additionally, JavaScript has severely restricted access to the system so the attacker has to use the JavaScript High Resolution API, which provides sub millisecond time measurements \cite{oren2015spy}.
 
-% describe method for checking if the attack works
+% Cache has lots of cache sets, identifying the most interesting one + algorithm
 
-% -----------------------------------------------------------------------------
+\begin{algorithm}
+Let $S$ be the data structure matched to eviction set $i$.
+\begin{itemize}
+\item For each set $i$:
+\begin{enumerate}
+\item Iteratively access all members of $S_i$, to prime the cache set.
+\item Measure the time it takes to iteratively access all members of $S$.
+\item Perform interesting operation.
+\item Measure once more the time it takes to iteratively access all members of $S$.
+\item If performing the interesting operation caused the access time to slow down considerably, then this operation is associated with cache set $i$.
+\end{enumerate}
+\end{itemize}
+\caption{Oren et al. Algorithm for Identifying Interesting Cache Regions.}
+\label{interestingcacheregions}
+\end{algorithm}
+
+
+%-----------------------------------------------------------------------------
 
 \chapter{Project Execution}
 \label{chap:execution}
