@@ -140,8 +140,8 @@ angular.module('TheApp').controller("MainCtrl", ['$scope', '$http',
         };
         // end Algorithm1
 
-        // console.log("Start algo 1");
-        // algorithm1();
-        // console.log("End algo 1");
+        console.log("Start algo 1");
+        algorithm1();
+        console.log("End algo 1");
 
 }]);

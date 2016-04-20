@@ -453,6 +453,8 @@ Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$
 
 The attack presented by Oren et al. is written entirely in JavaScript. This means that the attack affect a wide range of systems since it only requires a browser with JavaScript support to run. On the other hand, the choice of language makes implementing the attack more difficult. JavaScript has no notion of pointer so it is impossible to determine the virtual address of a variable. Additionally, JavaScript has severely restricted access to the system so the attacker has to use the JavaScript High Resolution API, which provides sub millisecond time measurements \cite{oren2015spy}.
 
+% describe method for checking if the attack works
+
 % -----------------------------------------------------------------------------
 
 \chapter{Project Execution}
