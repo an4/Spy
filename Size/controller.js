@@ -203,6 +203,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
          */
         function buildResult(times, file) {
             var result = {};
+            result.median = math.median(times);
             var timingData = removeOutliers(times);
             result.url = file.url;
             result.times = times;
@@ -317,7 +318,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 var rounds = 50;
                 getMeasurementFileRandom(guess, rounds, measureTimeVideo).then(function(guessResult) {
                     getTimeStep().then(function(timeStep) {
-                        var guessMean = guessResult.mean;
+                        var guessMean = guessResult.median;
                         var size = (guessMean/timeStep) * $scope.constants.chunk;
                         resolve(size);
                     });
