@@ -229,10 +229,10 @@ Timing information, power consumption, electromagnetic emission or heat dissipat
 
 The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman exponents, factor RSA keys and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device which is related to the secret parameters involved in the computation. 
 
-The literature classifies Side-Channel Attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
+The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
 \begin{enumerate}
 \item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat emission \cite{standaert2010introduction}.
-\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the heat dissipation. 
+\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
 \end{enumerate}
 
 Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
@@ -463,9 +463,14 @@ Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$
 \label{evictionsetalg}
 \end{algorithm}
 
-The attack presented by Oren et al. is written entirely in JavaScript. This means that the attack affect a wide range of systems since it only requires a browser with JavaScript support to run. On the other hand, the choice of language makes implementing the attack more difficult. JavaScript has no notion of pointer so it is impossible to determine the virtual address of a variable. Additionally, JavaScript has severely restricted access to the system so the attacker has to use the JavaScript High Resolution API, which provides sub millisecond time measurements \cite{oren2015spy}.
+The goal of the attacker is to find a mapping between interesting operations performed by the victim and different cache sets. Before finding the relation, the attacker needs to identify all cache sets.
 
-% Cache has lots of cache sets, identifying the most interesting one + algorithm
+
+The easiest way would be to allocate an 8MB buffer in memory, then fix a variable $x$ and iterate through all possible sets of size 12 out of the 131K (8MB/64B=131K) possible addresses that map to the same cache set as $x$. Since the algorithm would need to be run at least eight thousand times until all cache sets have been identified the total run time of the attack would increase dramatically. Given that the attacker only has a short time frame to gather all the information needed, the attack would no longer be feasible. Oren et al. suggested a series of optimizations that can be applied in order to speed up the cache set discovery stage. 
+
+The first optimization they suggest is to start with an eviction buffer containing all 131K addresses and gradually remove elements from the buffer until its size becomes 12. This is described in Algorithm \ref{evictionsetalg}. This adjustment significantly improves finding one cache set; however, there are another 8000 cache sets remaining. Another improvement identified by Oren et al. is that discovering one cache set immediately leads to 63 additional cache sets \cite{oren2015spy}.
+
+After identifying the cache sets, the attacker needs to find those cache sets which are associated with the operation they are trying to track. For example, if an attacker wants to check if a user opened a new tab in the browser, they will have to prime the cache, force the user to open a new tab, probe the cache and find the cache set or sets that have been affected by this action. Next time the victim opens a new tab, the attacker knows which cache sets will be affected so there is no need to recompute the mapping. The algorithm used by Oren et al. to identify interesting cache sets is depicted in Algorithm \ref{interestingcacheregions}.
 
 \begin{algorithm}
 Let $S$ be the data structure matched to eviction set $i$.
@@ -483,6 +488,10 @@ Let $S$ be the data structure matched to eviction set $i$.
 \label{interestingcacheregions}
 \end{algorithm}
 
+% use cases - calssifier and findings
+To demonstrate the validity of their attack, Oren et al. build a malicious website which spies on the victim's browsing activity. They were able to build a basic classifier that could tell apart the top most accessed websites with an accuracy of over 80\% \cite{oren2015spy}.
+
+The attack presented by Oren et al. is written entirely in JavaScript. This means that the attack affects a wide range of systems since it only requires a browser with JavaScript support to run. On the other hand, the choice of language makes implementing the attack more difficult. JavaScript has no notion of pointers so it is impossible to determine the virtual address of a variable. Additionally, JavaScript has severely restricted access to the system so the attacker has to use the JavaScript High Resolution API, which provides sub millisecond time measurements \cite{oren2015spy}.
 
 %-----------------------------------------------------------------------------
 
