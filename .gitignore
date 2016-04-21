@@ -1,3 +1,4 @@
 node_modules/*
 Size/node_modules/*
 ServiceWorker/node_modules/*
+serviceWorkerGuess/node_modules/*
