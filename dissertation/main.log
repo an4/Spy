@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  20 APR 2016 18:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  22 APR 2016 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -508,25 +508,29 @@ Chapter 2.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6]
-[7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8]
-[9] [10] [11] [12]
-Overfull \hbox (15.0pt too wide) detected at line 464
-[][] 
- []
-
-
-Overfull \hbox (15.0pt too wide) detected at line 489
-[][] 
- []
-
-[13] [14]
+[7] [8]
 Chapter 3.
-[15
+[9
 
-] [16
+]
+Underfull \vbox (badness 5245) has occurred while \output is active []
+
+ [10]
+[11]
+Underfull \vbox (badness 2828) has occurred while \output is active []
+
+ [12]
+[13]
+Overfull \hbox (15.0pt too wide) detected at line 496
+[][] 
+ []
+
+[14]
+Overfull \hbox (15.0pt too wide) detected at line 521
+[][] 
+ []
+
+[15] [16
 
 ]
 Chapter 4.
@@ -535,6 +539,10 @@ Chapter 4.
 ]
 Chapter 5.
 [19] [20
+
+]
+Chapter 6.
+[21] [22
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -564,17 +572,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--58
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-[21
+[23
 
-]) [22] (./main.aux) ) 
+]) [24] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 7056 strings out of 493304
- 98061 string characters out of 6139871
- 294150 words of memory out of 5000000
- 10364 multiletter control sequences out of 15000+600000
+ 7057 strings out of 493304
+ 98079 string characters out of 6139871
+ 293158 words of memory out of 5000000
+ 10365 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,11n,43p,1254b,915s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,11n,43p,1254b,1575s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
@@ -587,10 +595,10 @@ onts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (40 pages, 226070 bytes).
+Output written on main.pdf (42 pages, 230134 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 129 compressed objects within 2 object streams
+ 192 PDF objects out of 1000 (max. 8388607)
+ 133 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

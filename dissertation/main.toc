@@ -16,18 +16,18 @@
 \contentsline {subsection}{\numberline {2.6.1}Application Cache}{7}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{8}
 \contentsline {subsection}{\numberline {2.6.3}Service Workers}{8}
-\contentsline {section}{\numberline {2.7}Browser Attacks}{9}
-\contentsline {subsection}{\numberline {2.7.1}CSS Attack}{9}
-\contentsline {subsection}{\numberline {2.7.2}Felten et al. - Browser Cache Attack}{9}
-\contentsline {subsection}{\numberline {2.7.3}Jia et al. - Geo-location Attack}{9}
-\contentsline {subsection}{\numberline {2.7.4}Bortz et al. - Timing Web Application}{9}
-\contentsline {subsection}{\numberline {2.7.5}Van Goethem et al. - Timing Attacks in the Modern Web}{10}
-\contentsline {subsubsection}{Video parsing}{11}
-\contentsline {subsubsection}{Application Cache}{11}
-\contentsline {subsubsection}{Service Workers}{11}
-\contentsline {subsubsection}{Script Parsing}{11}
-\contentsline {subsubsection}{Real-world attacks}{11}
-\contentsline {subsection}{\numberline {2.7.6}Oren et al. - Practical Cache Attacks in JavaScript}{12}
-\contentsline {chapter}{\numberline {3}Project Execution}{15}
-\contentsline {chapter}{\numberline {4}Critical Evaluation}{17}
-\contentsline {chapter}{\numberline {5}Conclusion}{19}
+\contentsline {chapter}{\numberline {3}Research Review}{9}
+\contentsline {section}{\numberline {3.1}CSS Attack}{9}
+\contentsline {section}{\numberline {3.2}Felten and Schneider - Timing Attacks on Web Privacy}{9}
+\contentsline {section}{\numberline {3.3}Jia et al. - Geo-location Attack}{10}
+\contentsline {section}{\numberline {3.4}Bortz et al. - Timing Web Application}{11}
+\contentsline {section}{\numberline {3.5}Van Goethem et al. - Timing Attacks in the Modern Web}{11}
+\contentsline {subsection}{\numberline {3.5.1}Video parsing}{12}
+\contentsline {subsection}{\numberline {3.5.2}Application Cache}{12}
+\contentsline {subsection}{\numberline {3.5.3}Service Workers}{12}
+\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{13}
+\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{13}
+\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{13}
+\contentsline {chapter}{\numberline {4}Project Execution}{17}
+\contentsline {chapter}{\numberline {5}Critical Evaluation}{19}
+\contentsline {chapter}{\numberline {6}Conclusion}{21}
