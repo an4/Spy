@@ -52,7 +52,7 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
             if(event.data.error){
                 console.log(event.data.error);
             }else{
-                console.log(event.data);
+                // console.log(event.data);
                 $scope.messages.push(event.data);
             }
         };

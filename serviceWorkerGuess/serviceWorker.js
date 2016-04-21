@@ -28,15 +28,84 @@ self.addEventListener('install', function(event) {
 /**
  * Adds an item to cache and then deletes it from cache.
  */
-function putDelete(url, response, cache) {
+// function putDelete(url, response, cache) {
+//     return new Promise(function(resolve, reject) {
+//         cache.put(url, response).then(function() {
+//             cache.delete(url).then(function(res) {
+//                 resolve(true);
+//             });
+//         });
+//     });
+// };
+
+function putDeleteOnce(url, response, cache) {
+    var end;
+    var start = performance.now();
     return new Promise(function(resolve, reject) {
-        cache.put(url, response).then(function() {
+        cache.put(url, response.clone()).then(function() {
             cache.delete(url).then(function(res) {
-                resolve(true);
+                end = performance.now();
+                var time = end-start;
+                resolve(time);
             });
         });
     });
 };
+
+function getAvg(arr) {
+    return getSum(arr)/arr.length;
+};
+
+function getSum(arr) {
+    var sum = 0;
+    arr.forEach(function(el) {
+        sum += el;
+    });
+    return sum;
+}
+
+function doSomething(arr) {
+    arr.sort();
+    var nArr = [];
+    var median = arr[arr.length/2];
+    arr.forEach(function(el) {
+        if(Math.abs(el-median) < median/2) {
+            nArr.push(el);
+        }
+    });
+    console.log('Median: ' + median);
+    console.log('nArr: ' + nArr);
+    return getAvg(nArr);
+};
+
+function getMedian(arr) {
+    arr.sort();
+    return arr[arr.length/2];
+}
+
+function putDelete(url, response, cache) {
+    return new Promise(function(resolve, reject) {
+        var promises = [];
+        var iterations = 10;
+
+        var times = [];
+
+        promises[0] = putDeleteOnce(url, response, cache);
+        for(var i=1; i<iterations; i++) {
+            promises[i] = promises[i-1].then(function(time) {
+                times.push(time);
+                return putDeleteOnce(url, response, cache);
+            });
+        }
+
+        promises[i-1].then(function(time) {
+            times.push(time);
+            var avg = getMedian(times);
+            resolve(avg);
+        });
+    });
+
+}
 
 // Fetch some random url and keep the request object and use that to put and delete from cache.
 self.addEventListener('fetch', function(event) {
@@ -49,27 +118,20 @@ self.addEventListener('fetch', function(event) {
         var time_200 = 0;
         var fetchRequest = event.request.clone();
         fetch(url100).then(function(response_100) {
-            var start_100 = performance.now();
-            var end_100;
-            putDelete(url100, response_100, cache).then(function(val) {
-                end_100 = performance.now();
-                time_100 = end_100 - start_100;
+            putDelete(url100, response_100, cache).then(function(t_100) {
+                time_100 = t_100;
                 console.log("Time 100kB: " + time_100);
                 fetch(url200).then(function(response_200) {
-                    var start_200 = performance.now();
-                    var end_200;
-                    putDelete(url200, response_200, cache).then(function(val) {
-                        end_200 = performance.now();
-                        time_200 = end_200 - start_200;
+                    putDelete(url200, response_200, cache).then(function(t_200) {
+                        time_200 = t_200;
                         console.log("Time 200kB: " + time_200);
                         fetch(fetchRequest).then(function(response) {
                             var end;
                             var cacheRequest = event.request.clone();
                             var start = performance.now();
 
-                            putDelete(cacheRequest, response.clone(), cache).then(function(val) {
-                                end = performance.now();
-                                var time = end - start;
+                            putDelete(cacheRequest, response.clone(), cache).then(function(t) {
+                                var time = t;
                                 TIME = time;
                                 console.log("Time :" + time + ", " + event.request.url);
 
