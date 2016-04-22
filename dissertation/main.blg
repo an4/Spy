@@ -5,36 +5,36 @@ The style file: ieeetr.bst
 Database file #1: main.bib.bib
 Warning--can't use both author and editor fields in Tria2011
 Warning--empty journal in world1999html
-You've used 20 entries,
+You've used 21 entries,
             1876 wiz_defined-function locations,
-            584 strings with 6665 characters,
-and the built_in function-call counts, 5055 in all, are:
-= -- 494
-> -- 168
+            588 strings with 6792 characters,
+and the built_in function-call counts, 5171 in all, are:
+= -- 507
+> -- 169
 < -- 0
-+ -- 65
++ -- 66
 - -- 45
-* -- 317
-:= -- 659
-add.period$ -- 26
-call.type$ -- 20
-change.case$ -- 19
+* -- 321
+:= -- 671
+add.period$ -- 28
+call.type$ -- 21
+change.case$ -- 20
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 265
-empty$ -- 554
+cite$ -- 23
+duplicate$ -- 269
+empty$ -- 572
 format.name$ -- 45
-if$ -- 1268
+if$ -- 1301
 int.to.chr$ -- 0
-int.to.str$ -- 20
+int.to.str$ -- 21
 missing$ -- 15
-newline$ -- 69
+newline$ -- 73
 num.names$ -- 15
-pop$ -- 120
+pop$ -- 127
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 177
+skip$ -- 180
 stack$ -- 0
 substring$ -- 323
 swap$ -- 94
@@ -44,6 +44,6 @@ top$ -- 0
 type$ -- 0
 warning$ -- 2
 while$ -- 48
-width$ -- 22
-write$ -- 182
+width$ -- 23
+write$ -- 191
 (There were 2 warnings)

@@ -61,6 +61,11 @@ E.~W. Felten and M.~A. Schneider, ``Timing attacks on web privacy,'' in {\em
   Proceedings of the 7th ACM conference on Computer and communications
   security}, pp.~25--32, ACM, 2000.
 
+\bibitem{princetonunifelten}
+``Princeton university news.''
+  \url{https://www.princeton.edu/pr/news/00/q4/1205-browser.htm}, 2000.
+\newblock [Accessed: 2016-04-22].
+
 \bibitem{cssvisited}
 ``Css visited pages disclosure,'' 2002.
 
