@@ -19,14 +19,14 @@
 \contentsline {chapter}{\numberline {3}Research Review}{9}
 \contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{9}
 \contentsline {section}{\numberline {3.2}CSS Attack}{10}
-\contentsline {section}{\numberline {3.3}Jia et al. - Geo-location Attack}{11}
-\contentsline {section}{\numberline {3.4}Bortz et al. - Timing Web Application}{11}
+\contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{11}
+\contentsline {section}{\numberline {3.4}Bortz et al. - Timing Web Application}{12}
 \contentsline {section}{\numberline {3.5}Van Goethem et al. - Timing Attacks in the Modern Web}{12}
-\contentsline {subsection}{\numberline {3.5.1}Video parsing}{12}
-\contentsline {subsection}{\numberline {3.5.2}Application Cache}{12}
+\contentsline {subsection}{\numberline {3.5.1}Video parsing}{13}
+\contentsline {subsection}{\numberline {3.5.2}Application Cache}{13}
 \contentsline {subsection}{\numberline {3.5.3}Service Workers}{13}
-\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{13}
-\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{13}
+\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{14}
+\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{14}
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{14}
 \contentsline {chapter}{\numberline {4}Project Execution}{17}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{19}
