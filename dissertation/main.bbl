@@ -56,6 +56,11 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
   \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript}.
 \newblock [Accessed: 2016-04-09].
 
+\bibitem{felten2000timing}
+E.~W. Felten and M.~A. Schneider, ``Timing attacks on web privacy,'' in {\em
+  Proceedings of the 7th ACM conference on Computer and communications
+  security}, pp.~25--32, ACM, 2000.
+
 \bibitem{cssvisited}
 ``Css visited pages disclosure,'' 2002.
 
@@ -70,11 +75,6 @@ D.~Jang, R.~Jhala, S.~Lerner, and H.~Shacham, ``An empirical study of
   privacy-violating information flows in javascript web applications,'' in {\em
   Proceedings of the 17th ACM conference on Computer and communications
   security}, pp.~270--283, ACM, 2010.
-
-\bibitem{felten2000timing}
-E.~W. Felten and M.~A. Schneider, ``Timing attacks on web privacy,'' in {\em
-  Proceedings of the 7th ACM conference on Computer and communications
-  security}, pp.~25--32, ACM, 2000.
 
 \bibitem{jia2015know}
 Y.~Jia, X.~Dong, Z.~Liang, and P.~Saxena, ``I know where you've been:

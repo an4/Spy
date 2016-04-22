@@ -17,8 +17,8 @@
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{8}
 \contentsline {subsection}{\numberline {2.6.3}Service Workers}{8}
 \contentsline {chapter}{\numberline {3}Research Review}{9}
-\contentsline {section}{\numberline {3.1}CSS Attack}{9}
-\contentsline {section}{\numberline {3.2}Felten and Schneider - Timing Attacks on Web Privacy}{9}
+\contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{9}
+\contentsline {section}{\numberline {3.2}CSS Attack}{10}
 \contentsline {section}{\numberline {3.3}Jia et al. - Geo-location Attack}{10}
 \contentsline {section}{\numberline {3.4}Bortz et al. - Timing Web Application}{11}
 \contentsline {section}{\numberline {3.5}Van Goethem et al. - Timing Attacks in the Modern Web}{11}
