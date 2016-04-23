@@ -238,8 +238,23 @@ The literature classifies physical attacks by either the level of intrusion (inv
 
 Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
 
+\subsection{Timing Attacks}
+
+Timing attacks are one of the oldest categories of side channel attacks, where time measurements are used to recover the secret information. The basic idea behind timing attacks is to learn the secret key based on how long it takes to perform certain operations. In older systems, the time varied depending on the data and the cryptographic key, which would allow an attacker to easily learn the secret information \cite{Koeune2011}.
+
+The first side-channel attack using timing information was discovered by Kocher in \cite{kocher1996timing}, where he describes how to break various cryptosystems. Kocher was able to obtain the secret key due to faults in the algorithm's implementations which leak information about the private data.
+
+For example, RSA \cite{rivest1978method} requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key and $c$ can be found by an adversary. The attacker's goal is to find the value of $d$. The attack uses the fact that for every bit set in the private key $d$, the time to execute the modular exponentiation increases. Therefore, an attacker after computing the modular exponentiation for several values of $c$, could determine the secret value $d$ \cite{kocher1996timing}.
+
 \subsection{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache memory. Cache attacks are not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
+
+If timing attacks 
+
+\subsection{Browser Attacks}
+Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
+
+Famous attacks ...
 
 \section{Cache Memory}
 
@@ -363,9 +378,6 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 
 \chapter{Research Review}
 \label{chap:realtedWork}
-
-
-Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
 
 \section{Felten and Schneider - Timing Attacks on Web Privacy}
 \label{feltenschneider}

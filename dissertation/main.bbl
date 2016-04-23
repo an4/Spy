@@ -14,6 +14,16 @@ A.~Tria and H.~Choukri, {\em Encyclopedia of Cryptography and Security},
 F.-X. Standaert, ``Introduction to side-channel attacks,'' in {\em Secure
   Integrated Circuits and Systems}, pp.~27--42, Springer US, 2010.
 
+\bibitem{Koeune2011}
+F.~Koeune, {\em Encyclopedia of Cryptography and Security}, ch.~Timing Attack,
+  pp.~1303--1305.
+\newblock Boston, MA: Springer US, 2011.
+
+\bibitem{rivest1978method}
+R.~L. Rivest, A.~Shamir, and L.~Adleman, ``A method for obtaining digital
+  signatures and public-key cryptosystems,'' {\em Communications of the ACM},
+  vol.~21, no.~2, pp.~120--126, 1978.
+
 \bibitem{oren2015spy}
 Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
