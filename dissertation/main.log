@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  24 APR 2016 01:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  24 APR 2016 13:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -535,33 +535,47 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13] [14]
-Underfull \vbox (badness 2828) has occurred while \output is active []
+[13] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 463.
 
- [15]
-[16]
-Overfull \hbox (15.0pt too wide) detected at line 542
-[][] 
- []
 
+(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 463.
+ [14] [15]
+Underfull \vbox (badness 2318) has occurred while \output is active []
+
+ [16]
 [17]
-Overfull \hbox (15.0pt too wide) detected at line 567
+Overfull \hbox (15.0pt too wide) detected at line 571
 [][] 
  []
 
-[18]
-Chapter 4.
-[19
 
-] [20
+Overfull \hbox (15.0pt too wide) detected at line 596
+[][] 
+ []
+
+[18] [19] [20
 
 ]
-Chapter 5.
+Chapter 4.
 [21] [22
 
 ]
-Chapter 6.
+Chapter 5.
 [23] [24
+
+]
+Chapter 6.
+[25] [26
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -591,17 +605,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--72
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-[25
+[27
 
-]) [26] (./main.aux) ) 
+]) [28] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 7135 strings out of 493304
- 100124 string characters out of 6139871
- 206894 words of memory out of 5000000
- 10440 multiletter control sequences out of 15000+600000
+ 7436 strings out of 493304
+ 103793 string characters out of 6139871
+ 234630 words of memory out of 5000000
+ 10732 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,12n,43p,1254b,1595s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,12n,74p,1287b,1417s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
@@ -614,10 +628,10 @@ onts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (44 pages, 240562 bytes).
+Output written on main.pdf (46 pages, 246168 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 138 compressed objects within 2 object streams
+ 205 PDF objects out of 1000 (max. 8388607)
+ 142 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
