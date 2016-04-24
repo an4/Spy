@@ -33,6 +33,15 @@ Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
 A.~Canteaut, C.~Lauradoux, and A.~Seznec, ``Understanding cache attacks,''
   2006.
 
+\bibitem{kelsey1998side}
+J.~Kelsey, B.~Schneier, D.~Wagner, and C.~Hall, ``Side channel cryptanalysis of
+  product ciphers,'' in {\em Computer Security—ESORICS 98}, pp.~97--110,
+  Springer, 1998.
+
+\bibitem{page2002theoretical}
+D.~Page, ``Theoretical use of cache memory as a cryptanalytic side-channel.,''
+  {\em IACR Cryptology ePrint Archive}, vol.~2002, p.~169, 2002.
+
 \bibitem{hund2013practical}
 R.~Hund, C.~Willems, and T.~Holz, ``Practical timing side channel attacks
   against kernel space aslr,'' in {\em Security and Privacy (SP), 2013 IEEE

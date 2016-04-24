@@ -242,7 +242,7 @@ Side-Channel Attacks are an important class of cryptanalytic techniques. In gene
 
 Timing attacks are one of the oldest categories of side channel attacks, where time measurements are used to recover the secret information. The basic idea behind timing attacks is to learn the secret key based on how long it takes to perform certain operations. In older systems, the time varied depending on the data and the cryptographic key, which would allow an attacker to easily learn the secret information \cite{Koeune2011}.
 
-The first side-channel attack using timing information was discovered by Kocher in \cite{kocher1996timing}, where he describes how to break various cryptosystems. Kocher was able to obtain the secret key due to faults in the algorithm's implementations which leak information about the private data.
+The first side-channel attack using timing information was discovered by Kocher in \cite{kocher1996timing}, where he describes how to break various cryptosystems. Kocher was able to obtain the secret key due to faults in the algorithm's implementations which leaked information about the private data.
 
 For example, RSA \cite{rivest1978method} requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key and $c$ can be found by an adversary. The attacker's goal is to find the value of $d$. The attack uses the fact that for every bit set in the private key $d$, the time to execute the modular exponentiation increases. Therefore, an attacker after computing the modular exponentiation for several values of $c$, could determine the secret value $d$ \cite{kocher1996timing}.
 
@@ -251,10 +251,10 @@ Cache attacks are a particular kind of Side-Channel Attacks, which monitor how p
 
 If timing attacks exploit vulnerabilities in the cryptographic algorithm's implementation that could lead to the discovery of the secret key, cache attacks target the actual device and make use of the fact that memory access is not always performed in constant time \cite{canteaut2006understanding}.
 
+The idea of using cache memory as a side-channel was first proposed by Kelsey et al. in \cite{kelsey1998side}. The suggestion was later used by Page who described a theoretical attack against DES in \cite{page2002theoretical}. 
+
 \subsection{Browser Attacks}
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
-
-Famous attacks ...
 
 \section{Cache Memory}
 
@@ -449,6 +449,7 @@ The paper also presents the advantages of disadvantages of potential countermeas
 % Jia et al. have shown that is possible to derive a user's location by simply checking what version of the website they are redirected to \cite{jia2015know}. Traditionally a user's location could by determined by checking their IP address; however, the same study shows that this can give imprecise results since users can use VPNs or similar techniques to hide their real IP addresses. Another option, which is more suited for mobile device users, would be to obtain a user's location from GPS sensors. Big websites, such as Google, are able to derive a user's location from their search history. A potential attacker will not have direct access to all the data about the victim but is still able to determine the location by checking where the user is redirected when accessing Google's homepage.
 
 \section{Bortz et al. - Exposing Private Information by Timing Web Application}
+\label{bortz}
 
 Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}, where they use the time servers take to respond to HTTP request as a side channel. The paper presents two types of attacks: \textit{direct timing}, where the attacker has direct access to a website, and \textit{cross-site timing}, where the adversary uses the victim's view of the website to obtain private information. The researchers tested their attacks on two real world scenarios: obtaining the value of some boolean condition and estimating the size of hidden data \cite{bortz2007exposing}.
 
@@ -490,34 +491,34 @@ Bortz et al. also analysed the efficiency of various countermeasures. They agree
 %
 %The attack presented by Bortz et al. \cite{bortz2007exposing} is vulnerable to changing network conditions. Van Goethem et al. expand this attack and focus on detecting vulnerabilities in HTML and JavaScript that give more accurate timing measurements by removing the dependency on a victim's network  conditions \cite{van2015clock}.
 
-\section{Van Goethem et al. - Timing Attacks in the Modern Web}
+\section{Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}
 
 Web-based timing attacks have been around for over a decade; however, it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile networks. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attacks which are not dependent on network conditions \cite{van2015clock}.
 
-Van Goethem et al. present several new methods of measuring the load time of an external resources and compares them to existing attacks. Their methods seem to outperform previous attacks in both speed and reliability. They also give several example of how these attacks can be used to obtain information about a user and discuss possible countermeasures \cite{van2015clock}.
+Their research builds on previous work by Bortz et al.\cite{bortz2007exposing} and presents four new measuring techniques which are not dependent on network conditions, and therefore give more accurate timing results. The timing techniques explore recently added features to web browsers and web development technologies such as HTML5 and JavaScript. Van Goethem et al. claim that the new found methods outperform previous attacks in both speed an reliability \cite{van2015clock}. Their paper describes the four new measuring techniques, presents several real world scenarios, where the attacks can be used to obtain private information about a user, and discuss possible countermeasures.
 
-In general, web-based timing attacks attempt to load an external resource that leaks information about the state of the victim and measure the time required to download the file. By comparing the result against a file whose size is known, an attacker will be able to estimate the size of the external resource. Early attacks loaded the contents of the file into an \texttt{<img>} element and measured the time it takes to download the data. The code snippet needed to run the attack can be seen in Listing \ref{img}. This method has been proven to be highly unreliable since the correctness of the measurements depends on too many factors such as network congestion and latency \cite{van2015clock}. 
+The attack model requires a user to access a website containing attacker- controlled content, which performs measurements on a cross-origin website. The goal of the attack is to estimate the size of the hidden data the victim has access to \cite{van2015clock}. Their attack targets dynamically generated web pages and tries to obtain information about the victim's view of another website. 
 
-\begin{lstlisting}[caption={Example timing attack using Image.},label={img}, xleftmargin=.2\textwidth]
-var image = new Image();
-image.onerror = function() {
-	var endTime = window.performance.now();
-	alert('Time: ' + (endTime - startTime));
-};
-var startTime = window.performance.now();
-image.scr = 'http://example.com/image.html';
-\end{lstlisting}
-
-Van Goethem et al. identified several methods to estimate the size of file which are independent of network conditions. In order to test their findings, they set up a remote server to serve four randomly generated HTML files, each with a different size: 50kB, 60kB, 150kB and 250kB. Then they compared each method  based on how easily an attacker could distinguish between the measurements obtained by requesting the four files \cite{van2015clock}.
+In order to evaluate the performance of their attacks, the researchers compared their timing measurement to existing techniques, particularly the method using an \texttt{<img>} element discovered by Bortz et al. and described in \ref{bortz}. They also set up a remote server that would serve four files, each of different size: 50kB, 60kB, 150kB and 250kB. The success of their attack was measured in how easily an attacker can distinguish between the four files \cite{van2015clock}.
 
 \subsection{Video parsing}
-The first method they tried was replacing the \texttt{<img>} element with the newly introduced HTML5 Video element. Contrary to the results obtained using the Image element, the measurements obtained using the Video element are not dependent on network conditions. The Video element downloads the external resource and starts preparing it to be played in the browser. If the data received is not a valid video file an error event will be triggered on the Video element; however, the error will not happen until the application has finished parsing the entire file. The time it takes to parse the resource is dependent on its size. The attack uses two events associated with the Video element, \texttt{suspend} and \texttt{error}. The first event is triggered when the browser has finished downloading the resource and it starts parsing it, the second one is started once the browser has finished reading the file. Van. Goethem et al. were able to successfully distinguish between the three larger files, but the results obtained by running this attack where not good enough to differentiate between the 50kB and 60kB files.
+HTML5 introduced two new elements: audio and video which make including audio and video content into web pages as easy as adding an image. Similarly to the Image element, the browser is unable to tell if the resource loaded into the video element is a valid video file until it has finished downloading and parsing it. Video files require additional preprocessing before they can be displayed in order to obtain information such as width, length, type, etc.. If the resource is not a valid video file, the browser will trigger the \texttt{error} event on the Video element once it has finished examining the entire file. The parsing process starts as soon as the file has finished downloading. The new video element, has additional events attached such as \texttt{progress}, which is periodically fired while the file is being downloaded, and \texttt{suspend}, which is triggered once the file has finished downloading. An attacker can obtain the time required to parse a resource by measuring the time elapsed between the \texttt{suspend} and the \texttt{error} events.
+
+Van Goethem et al. discovered that the time needed to parse the file is dependent on the size of the file and could be exploited by an attacker. They were able to successfully distinguish between the three larger files, but the results obtained were not good enough to differentiate between the 50kB and 60kB file. Additionally, in Firefox and IE the \texttt{error} is fired immediately after the resource has finished downloading if it is not a valid fire, therefore the attack is not possible using those browsers \cite{van2015clock}.
 
 \subsection{Application Cache}
-Even though the measurements are not dependent on the network conditions, the total runtime of the attack still is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to store it locally. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. The researchers tried to both combine Application Cache with the Video timing method and use the caching mechanism on its own by measuring the time it takes to load a resource from local storage. The results obtained were better than using the \texttt{<video>} element on its own; however, Application Cache is no longer supported by major browser since it does not provide developers with enough freedom.
+Even though the measurements are not dependent on the network conditions, the total runtime of the attack still is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to store it locally. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. 
+
+Once a resource is cached it will always be fetched from local storage. The researchers discovered that the time it takes to load a file from cache is correlated to the size of the file and used this side channel information to distinguish between the four files. Application Cache gives better results than using the Video element to estimate a file's size.
+
+Van Goethem et al. also tried to combine Application Cache with the Video timing method. This reduced the overall run time of the Video attack since the files only needed to be downloaded once and then they were served from cache \cite{van2015clock}.
 
 \subsection{Service Workers}
-Browser software providers moved from Application Cache to Service Workers, a software that provides similar functionality but is compatible with a larger range of web applications. Service Workers do no interact directly with the main application, they are event driven scripts which are able to overwrite default network behaviour. The attack using Service Workers measures the time it takes to write a resource to local storage, the measurement is entirely dependent on the victim's machine. Out of all the attacks outlined by Van Goethem et al. this one performed the best in distinguishing between the four given files \cite{van2015clock}.
+Browser software providers moved from Application Cache to Service Workers, a software that provides similar functionality but is compatible with a larger range of web applications. Service Workers do no interact directly with the main application, they are event driven scripts which are able to overwrite default network behaviour. 
+
+Service Worker are independent of the main application and the process might still be running in the background, even though the tab containing the main application has been closed. This deamon-like property of the Service Workers is very useful for an attacker as it allows a larger time frame for gathering all the timing measurements \cite{van2015clock}.
+
+Service Workers use the Cache API to store resources and later serve them from cache memory. Van Goethem et al. exploited this feature and measured the time it takes to place a file in cache memory. The measurement is entirely dependent on the victim's machine. Out of all the attacks outlined by Van Goethem et al. this one performed the best in distinguishing between the four given files \cite{van2015clock}.
 
 \subsection{Script Parsing}
 The three methods: video parsing, Application Cache and Service Worker are based on relatively new HTML and JavaScript features. Their paper also shows a method of approximating the size of a file using technologies that have been incorporated into browsers for a long time, the \texttt{<script>} element. Although the measurements obtained using this attack are similar to the previous methods, running the attack requires more work from the adversary.
@@ -534,6 +535,15 @@ Twitter is an online social network that allows uni-directional relations betwee
 The attacks identified by Van Goethem et. al are not only applicable to social networks, web sites like Google and Amazon are also vulnerable. They discovered that an attacker can estimate the number of results returned for a specific query when the victim is using Google's search engine \cite{van2015clock}. 
 
 Existing defence mechanisms, adding a random delay or having a fixed response time for all server responses, only protect against attacks that are dependent on network conditions. The attacks proposed by Van Goethem et al. require countermeasures on the client side in order to be prevented.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CACHE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Osvik et al. - Cache Attacks and Countermeasures: The Case of AES}
+
+
+
 
 \section{Oren et al. - Practical Cache Attacks in JavaScript}
 

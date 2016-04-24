@@ -23,13 +23,14 @@
 \contentsline {section}{\numberline {3.2}CSS Attack}{12}
 \contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{13}
 \contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{14}
-\contentsline {section}{\numberline {3.5}Van Goethem et al. - Timing Attacks in the Modern Web}{15}
+\contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{15}
 \contentsline {subsection}{\numberline {3.5.1}Video parsing}{16}
 \contentsline {subsection}{\numberline {3.5.2}Application Cache}{16}
 \contentsline {subsection}{\numberline {3.5.3}Service Workers}{16}
-\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{16}
+\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{17}
 \contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{17}
-\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{17}
+\contentsline {section}{\numberline {3.6}Osvik et al. - Cache Attacks and Countermeasures: The Case of AES}{17}
+\contentsline {section}{\numberline {3.7}Oren et al. - Practical Cache Attacks in JavaScript}{17}
 \contentsline {chapter}{\numberline {4}Project Execution}{21}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{23}
 \contentsline {chapter}{\numberline {6}Conclusion}{25}
