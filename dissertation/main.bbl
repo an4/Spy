@@ -29,6 +29,10 @@ Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
   arXiv:1502.07373}, 2015.
 
+\bibitem{canteaut2006understanding}
+A.~Canteaut, C.~Lauradoux, and A.~Seznec, ``Understanding cache attacks,''
+  2006.
+
 \bibitem{hund2013practical}
 R.~Hund, C.~Willems, and T.~Holz, ``Practical timing side channel attacks
   against kernel space aslr,'' in {\em Security and Privacy (SP), 2013 IEEE

@@ -5,37 +5,38 @@ The style file: ieeetr.bst
 Database file #1: main.bib.bib
 Warning--can't use both author and editor fields in Tria2011
 Warning--can't use both author and editor fields in Koeune2011
+Warning--empty journal in canteaut2006understanding
 Warning--empty journal in world1999html
-You've used 22 entries,
+You've used 23 entries,
             1876 wiz_defined-function locations,
-            595 strings with 6771 characters,
-and the built_in function-call counts, 5519 in all, are:
-= -- 551
-> -- 170
+            598 strings with 6877 characters,
+and the built_in function-call counts, 5680 in all, are:
+= -- 562
+> -- 181
 < -- 0
-+ -- 67
-- -- 45
-* -- 345
-:= -- 710
-add.period$ -- 30
-call.type$ -- 22
-change.case$ -- 20
++ -- 71
+- -- 48
+* -- 357
+:= -- 737
+add.period$ -- 31
+call.type$ -- 23
+change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 285
-empty$ -- 606
-format.name$ -- 45
-if$ -- 1392
+cite$ -- 27
+duplicate$ -- 294
+empty$ -- 623
+format.name$ -- 48
+if$ -- 1428
 int.to.chr$ -- 0
-int.to.str$ -- 22
-missing$ -- 17
-newline$ -- 77
-num.names$ -- 16
-pop$ -- 127
+int.to.str$ -- 23
+missing$ -- 18
+newline$ -- 80
+num.names$ -- 17
+pop$ -- 133
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 196
+skip$ -- 197
 stack$ -- 0
 substring$ -- 363
 swap$ -- 106
@@ -43,8 +44,8 @@ text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 3
-while$ -- 52
-width$ -- 24
-write$ -- 202
-(There were 3 warnings)
+warning$ -- 4
+while$ -- 53
+width$ -- 25
+write$ -- 209
+(There were 4 warnings)
