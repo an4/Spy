@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  25 APR 2016 17:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  25 APR 2016 22:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -514,7 +514,7 @@ Chapter 1.
 
 ]
 Chapter 2.
-[3] [4]
+[3]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
@@ -527,38 +527,31 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
+ [4]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [5] [6] [7] [8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10]
-Underfull \vbox (badness 1270) has occurred while \output is active []
-
- [11]
-[12]
+ [5] [6] [7] [8] [9] [10]
 Chapter 3.
-[13
+[11
 
-] [14]
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 22.54448pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
-Underfull \vbox (badness 1072) has occurred while \output is active []
-
- [16]
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[13] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
@@ -572,37 +565,36 @@ File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 484.
- [17]
-Underfull \vbox (badness 1072) has occurred while \output is active []
+ [14]
+Underfull \vbox (badness 2856) has occurred while \output is active []
 
- [18]
-[19] [20] [21]
+ [15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+[17]
 Overfull \hbox (15.0pt too wide) detected at line 599
 [][] 
  []
 
-
+[18]
 Overfull \hbox (15.0pt too wide) detected at line 624
 [][] 
  []
 
-
-Underfull \vbox (badness 1314) has occurred while \output is active []
-
- [22]
-[23] [24
+[19] [20
 
 ]
 Chapter 4.
-[25] [26
+[21] [22
 
 ]
 Chapter 5.
-[27] [28
+[23] [24
 
 ]
 Chapter 6.
-[29] [30
+[25] [26
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -614,7 +606,7 @@ Missing character: There is no ™ in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [31
+ [27
 
 ]
 Underfull \hbox (badness 3428) in paragraph at lines 111--114
@@ -637,7 +629,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--131
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-) [32] (./main.aux)
+) [28] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -645,7 +637,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  7419 strings out of 493304
  103653 string characters out of 6139871
- 232878 words of memory out of 5000000
+ 234933 words of memory out of 5000000
  10715 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -662,10 +654,10 @@ sfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
 fb>
-Output written on main.pdf (50 pages, 253701 bytes).
+Output written on main.pdf (46 pages, 250968 bytes).
 PDF statistics:
- 218 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
+ 205 PDF objects out of 1000 (max. 8388607)
+ 142 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -31,6 +31,7 @@ var rounds = 300;
 // 10 ^ 6
 // JavaScript HighResolution Time API provides sub milliseconds time measurements (10^-3 s)
 // Multiplying by 10^-6 provides time measurements in nano seconds, easier to read and display.
+
 var times = 1000000;
 
 // Variable
