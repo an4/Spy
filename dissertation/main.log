@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  25 APR 2016 02:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  25 APR 2016 17:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -326,18 +326,18 @@ LaTeX Warning: Label `bortz' multiply defined.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count120
@@ -431,7 +431,7 @@ e
 
 \c@lstlisting=\count126
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 59--60
+Overfull \hbox (15.0pt too wide) in paragraph at lines 61--62
 [][] 
  []
 
@@ -443,21 +443,21 @@ Package epstopdf Info: Source file: <logo/logo_uob_color.eps>
 (epstopdf)                    size: 12029 bytes
 (epstopdf)             Command: <repstopdf --outfile=logo/logo_uob_color-eps-co
 nverted-to.pdf logo/logo_uob_color.eps>
-(epstopdf)             \includegraphics on input line 63.
+(epstopdf)             \includegraphics on input line 65.
 Package epstopdf Info: Output file is already uptodate.
 <logo/logo_uob_color-eps-converted-to.pdf, id=1, 546.04pt x 158.5925pt>
 File: logo/logo_uob_color-eps-converted-to.pdf Graphic file (type pdf)
 
 <use logo/logo_uob_color-eps-converted-to.pdf>
 Package pdftex.def Info: logo/logo_uob_color-eps-converted-to.pdf used on input
- line 63.
+ line 65.
 (pdftex.def)             Requested size: 163.81326pt x 47.57811pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 71.
+LaTeX Font Info:    Try loading font information for U+msa on input line 73.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 71.
+LaTeX Font Info:    Try loading font information for U+msb on input line 73.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -492,13 +492,13 @@ converted-to.pdf>] [2
 ] [9] [10
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
  [11]
 [12
 
@@ -514,7 +514,7 @@ Chapter 1.
 
 ]
 Chapter 2.
-[3]
+[3] [4]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
@@ -527,74 +527,82 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [4]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [5] [6] [7] [8] [9] [10]
+ [5] [6] [7] [8]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10]
+Underfull \vbox (badness 1270) has occurred while \output is active []
+
+ [11]
+[12]
 Chapter 3.
-[11
+[13
 
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+] [14]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 22.54448pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[15]
+Underfull \vbox (badness 1072) has occurred while \output is active []
+
+ [16]
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 482.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 484.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 482.
- [14]
-Underfull \vbox (badness 2856) has occurred while \output is active []
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 484.
+ [17]
+Underfull \vbox (badness 1072) has occurred while \output is active []
 
- [15]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16]
-[17]
-Overfull \hbox (15.0pt too wide) detected at line 597
+ [18]
+[19] [20] [21]
+Overfull \hbox (15.0pt too wide) detected at line 599
 [][] 
  []
 
-[18]
-Overfull \hbox (15.0pt too wide) detected at line 622
+
+Overfull \hbox (15.0pt too wide) detected at line 624
 [][] 
  []
 
-[19] [20
 
-]
-Chapter 4.
-[21] [22
+Underfull \vbox (badness 1314) has occurred while \output is active []
 
-]
-Chapter 5.
+ [22]
 [23] [24
 
 ]
-Chapter 6.
+Chapter 4.
 [25] [26
+
+]
+Chapter 5.
+[27] [28
+
+]
+Chapter 6.
+[29] [30
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -606,7 +614,7 @@ Missing character: There is no ™ in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [27
+ [31
 
 ]
 Underfull \hbox (badness 3428) in paragraph at lines 111--114
@@ -629,7 +637,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--131
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-) [28] (./main.aux)
+) [32] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -637,7 +645,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  7419 strings out of 493304
  103653 string characters out of 6139871
- 234932 words of memory out of 5000000
+ 232878 words of memory out of 5000000
  10715 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -654,10 +662,10 @@ sfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
 fb>
-Output written on main.pdf (46 pages, 250968 bytes).
+Output written on main.pdf (50 pages, 253701 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 142 compressed objects within 2 object streams
+ 218 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

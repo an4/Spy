@@ -1,18 +1,14 @@
 var size = 8 * 1024 * 1024;
 
+// Buffer of size 8MB
 var buffer = new ArrayBuffer(size);
 var view = new DataView(buffer);
-
-var variables = new ArrayBuffer(size);
-var variables_view = new DataView(variables);
 
 var offset = 64;
 
 var startAddress = 0;
 
 var error_count = 0;
-
-var varAddress;
 
 var current;
 
@@ -32,10 +28,13 @@ view.setUint32((((size) / offset) - 1 ) * offset, 0);
 // numbber of rounds to test the attack
 var rounds = 300;
 
-var times = 100000;
+// 10 ^ 6
+// JavaScript HighResolution Time API provides sub milliseconds time measurements (10^-3 s)
+// Multiplying by 10^-6 provides time measurements in nano seconds, easier to read and display.
+var times = 1000000;
 
-// Choose random address for the variable
-varAddress = Math.floor((Math.random() * (size/offset))) * offset;
+// Variable
+var x = 0;
 
 for(var round = 0; round < rounds; round++) {
     // console.log("Round: " + round);
@@ -48,44 +47,22 @@ for(var round = 0; round < rounds; round++) {
         current = view.getUint32(current);
     } while (current != startAddress);
 
-
-    // access a variable from FLview, retrieve value from RAM
-    var startTimeRAM0 = window.performance.now();
-    current = variables_view.getUint32(varAddress);
-    var endTimeRAM0 = window.performance.now();
-
-    // access the previous variable again, this time from the cache
-    var startTimeCache0 = window.performance.now();
-    current = variables_view.getUint32(varAddress);
-    var endTimeCache0 = window.performance.now();
+    var startTimeRAM = window.performance.now();
+    current = x;
+    var endTimeRAM = window.performance.now();
 
     // access the previous variable again, this time from the cache
     var startTimeCache = window.performance.now();
-    current = variables_view.getUint32(varAddress);
+    current = x;
     var endTimeCache = window.performance.now();
-
-    var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
-    unflushed.push(diffTimeCache);
-    unflushed_sum += diffTimeCache;
-
-    // eviction round 1
-    startAddress = Math.floor((Math.random() * (size/offset))) * offset;
-    current = startAddress;
-    do {
-        current = view.getUint32(current);
-    } while (current != startAddress);
-
-    // retrieve a variable from view, thought to be from RAM since view already occupied
-    // the cache.
-    var startTimeRAM = window.performance.now();
-
-    current = variables_view.getUint32(varAddress);
-
-    var endTimeRAM = window.performance.now();
 
     var diffTimeRAM = Math.floor((endTimeRAM - startTimeRAM) * times);
     flushed.push(diffTimeRAM);
     flushed_sum  += diffTimeRAM;
+
+    var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
+    unflushed.push(diffTimeCache);
+    unflushed_sum += diffTimeCache;
 
     if(max_time < diffTimeRAM) {
         max_time = diffTimeRAM
@@ -127,12 +104,12 @@ function drawChart() {
             title: "Time (ns)",
             viewWindow: {
                 min: 0,
-                max: 100
+                max: 1000
             },
-            ticks: [0, 25, 50, 75, 100]
+            ticks: [0, 200, 400, 600, 800, 1000]
         },
         hAxis: {
-            title: "Something"
+            title: "Iteration"
         }
     };
 
