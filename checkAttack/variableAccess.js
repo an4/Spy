@@ -53,13 +53,11 @@ for(var round = 0; round < rounds; round++) {
     var startTimeRAM0 = window.performance.now();
     current = variables_view.getUint32(varAddress);
     var endTimeRAM0 = window.performance.now();
-    // console.log("RAM 0: " + Math.floor((endTimeRAM0 - startTimeRAM0) * times));
 
     // access the previous variable again, this time from the cache
     var startTimeCache0 = window.performance.now();
     current = variables_view.getUint32(varAddress);
     var endTimeCache0 = window.performance.now();
-    // console.log("Cache 0: " + Math.floor((endTimeCache - startTimeCache) * times));
 
     // access the previous variable again, this time from the cache
     var startTimeCache = window.performance.now();
@@ -67,7 +65,6 @@ for(var round = 0; round < rounds; round++) {
     var endTimeCache = window.performance.now();
 
     var diffTimeCache = Math.floor((endTimeCache - startTimeCache) * times);
-    // console.log("Time cache: " + diffTimeCache);
     unflushed.push(diffTimeCache);
     unflushed_sum += diffTimeCache;
 
@@ -78,13 +75,6 @@ for(var round = 0; round < rounds; round++) {
         current = view.getUint32(current);
     } while (current != startAddress);
 
-    // // eviction round 2
-    // startAddress = Math.floor((Math.random() * (size/offset))) * offset;
-    // current = startAddress;
-    // do {
-    //     current = view.getUint32(current);
-    // } while (current != startAddress);
-
     // retrieve a variable from view, thought to be from RAM since view already occupied
     // the cache.
     var startTimeRAM = window.performance.now();
@@ -94,7 +84,6 @@ for(var round = 0; round < rounds; round++) {
     var endTimeRAM = window.performance.now();
 
     var diffTimeRAM = Math.floor((endTimeRAM - startTimeRAM) * times);
-    // console.log("Time RAM: " + diffTimeRAM);
     flushed.push(diffTimeRAM);
     flushed_sum  += diffTimeRAM;
 
@@ -135,11 +124,15 @@ function drawChart() {
         curveType: 'function',
         legend: { position: 'bottom' },
         vAxis: {
+            title: "Time (ns)",
             viewWindow: {
                 min: 0,
                 max: 100
             },
             ticks: [0, 25, 50, 75, 100]
+        },
+        hAxis: {
+            title: "Something"
         }
     };
 
