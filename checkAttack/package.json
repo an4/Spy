@@ -1,0 +1,14 @@
+{
+  "name": "TimingAttackCheck",
+  "version": "1.0.0",
+  "description": "Check if the machine is affected by Oren et al. timing attack.",
+  "private": true,
+  "author": "Ana Dumitras",
+  "dependencies": {
+    "express": "^4.13.3",
+    "nodemon": "^1.8.1"
+  },
+  "engines": {
+    "node": ">=0.12.7"
+  }
+}
