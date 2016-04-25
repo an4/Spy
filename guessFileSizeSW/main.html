@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Dependencies  -->
+        <script src="/node_modules/angular/angular.min.js"></script>
+        <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    	<script src="/node_modules/angular-animate/angular-animate.js"></script>
+    	<script src="/node_modules/angular-material/angular-material.js"></script>
+
+        <!-- AngularJS Controller -->
+        <script src="/mainCtrl.js"></script>
+
+        <!-- Style -->
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+
+        <title>Service Worker</title>
+    </head>
+    <body data-ng-app="Main" data-ng-controller="mainCtrl">
+        <md-toolbar layout="column" layout-align="center center" class="md-primary">
+            <h1><b>Service Worker</b></h1>
+        </md-toolbar>
+        <md-content>
+            {{sw.size}}
+        <md-content>
+        <md-content layout="row" layout-padding layout-fill>
+            <md-container flex>
+                <md-input-container layout-fill>
+                    <label>URL</label>
+                    <input name="url" ng-model="sw.url" required="true">
+                </md-input-container>
+            </md-container>
+            <md-container>
+                <md-button class="md-raised md-warn" ng-click="guessSize()"> Guess Size </md-button>
+            </md-container>
+        </md-content>
+    </body>
+</html>
