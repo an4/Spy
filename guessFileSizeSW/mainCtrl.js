@@ -8,13 +8,9 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
         var msg_chan = new MessageChannel();
         navigator.serviceWorker.controller.postMessage("Connected", [msg_chan.port2]);
 
-        $scope.messages = [];
-
-        var url = 'https://www.facebook.com/adumitras';
-        var url = 'https://raw.githubusercontent.com/an4/Data-Storage/master/1000kB.html'
-
         $scope.sw = {};
         $scope.sw.size = 0;
+        $scope.sw.show = false;
 
         // Given URL apporoximate size;
         $scope.guessSize = function() {
@@ -29,8 +25,8 @@ angular.module('Main').controller('mainCtrl', ['$scope', '$http',
                 console.log(event.data.error);
             }else{
                 if($scope.sw.url == event.data.url) {
-                    $scope.messages.push(event.data.size);
                     $scope.sw.size = event.data.size;
+                    $scope.sw.show = true;
                     $scope.$apply()
                 }
             }

@@ -22,9 +22,18 @@
         <md-toolbar layout="column" layout-align="center center" class="md-primary">
             <h1><b>Service Worker</b></h1>
         </md-toolbar>
-        <md-content>
-            {{sw.size}}
-        <md-content>
+        <md-content layout="row" layout-align="center center">
+            <md-content ng-if="sw.show">
+                <h1>
+                    Size: {{sw.size}} kB
+                </h1>
+            </md-content>
+            <md-content ng-if="!sw.show">
+                <h1>
+                    Size: <i>Undefined</i>
+                </h1>
+            </md-content>
+        </md-content>
         <md-content layout="row" layout-padding layout-fill>
             <md-container flex>
                 <md-input-container layout-fill>
