@@ -33,6 +33,11 @@ Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
 A.~Canteaut, C.~Lauradoux, and A.~Seznec, ``Understanding cache attacks,''
   2006.
 
+\bibitem{hu1992lattice}
+W.-M. Hu, ``Lattice scheduling and covert channels,'' in {\em Research in
+  Security and Privacy, 1992. Proceedings., 1992 IEEE Computer Society
+  Symposium on}, pp.~52--61, IEEE, 1992.
+
 \bibitem{kelsey1998side}
 J.~Kelsey, B.~Schneier, D.~Wagner, and C.~Hall, ``Side channel cryptanalysis of
   product ciphers,'' in {\em Computer Security—ESORICS 98}, pp.~97--110,
@@ -41,6 +46,21 @@ J.~Kelsey, B.~Schneier, D.~Wagner, and C.~Hall, ``Side channel cryptanalysis of
 \bibitem{page2002theoretical}
 D.~Page, ``Theoretical use of cache memory as a cryptanalytic side-channel.,''
   {\em IACR Cryptology ePrint Archive}, vol.~2002, p.~169, 2002.
+
+\bibitem{tsunoo2003cryptanalysis}
+Y.~Tsunoo, T.~Saito, T.~Suzaki, M.~Shigeri, and H.~Miyauchi, ``Cryptanalysis of
+  des implemented on computers with cache,'' in {\em Cryptographic Hardware and
+  Embedded Systems-CHES 2003}, pp.~62--76, Springer, 2003.
+
+\bibitem{osvik2006cache}
+D.~A. Osvik, A.~Shamir, and E.~Tromer, ``Cache attacks and countermeasures: the
+  case of aes,'' in {\em Topics in Cryptology--CT-RSA 2006}, pp.~1--20,
+  Springer, 2006.
+
+\bibitem{liu2015last}
+F.~Liu, Y.~Yarom, Q.~Ge, G.~Heiser, and R.~B. Lee, ``Last-level cache
+  side-channel attacks are practical,'' in {\em IEEE Symposium on Security and
+  Privacy}, pp.~605--622, 2015.
 
 \bibitem{cssvisited}
 ``Css visited pages disclosure,'' 2002.
@@ -113,15 +133,5 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 ``Princeton university news.''
   \url{https://www.princeton.edu/pr/news/00/q4/1205-browser.htm}, 2000.
 \newblock [Accessed: 2016-04-22].
-
-\bibitem{osvik2006cache}
-D.~A. Osvik, A.~Shamir, and E.~Tromer, ``Cache attacks and countermeasures: the
-  case of aes,'' in {\em Topics in Cryptology--CT-RSA 2006}, pp.~1--20,
-  Springer, 2006.
-
-\bibitem{liu2015last}
-F.~Liu, Y.~Yarom, Q.~Ge, G.~Heiser, and R.~B. Lee, ``Last-level cache
-  side-channel attacks are practical,'' in {\em IEEE Symposium on Security and
-  Privacy}, pp.~605--622, 2015.
 
 \end{thebibliography}

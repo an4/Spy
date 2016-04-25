@@ -177,11 +177,14 @@
 % ${\mathbb  F}_q$    &:     & a finite field with $q$ elements                                     \\
 % $x_i$               &:     & the $i$-th bit of some binary sequence $x$, st. $x_i \in \{ 0, 1 \}$ \\
 
+AES			   	 	&:	   & Advanced Encryption Standard							 \\	
 AppCache		   	 	&:	   & Application Cache   									 \\	
 CPU					&:	   & Central Processing Unit									 \\
 CSS					&:	   & Cascading Style Sheets									 \\
+DES					&:	   & Data Encryption Standard								 \\
 DRAM					&:	   & Dynamic Random Access Memory							 \\
 HTML					&:     & HyperText Markup Language								 \\
+RAM					&:	   & Random Access Memory									 \\
 RSA					&:	   & Rivest-Shamir-Adleman Cryptosystem				    		 \\
 SCA					&:	   & Side-Channel Attack										 \\	
 SRAM					&:	   & Static Random Access Memory								 \\
@@ -251,7 +254,11 @@ Cache attacks are a particular kind of Side-Channel Attacks, which monitor how p
 
 If timing attacks exploit vulnerabilities in the cryptographic algorithm's implementation that could lead to the discovery of the secret key, cache attacks target the actual device and make use of the fact that memory access is not always performed in constant time \cite{canteaut2006understanding}.
 
-The idea of using cache memory as a side-channel was first proposed by Kelsey et al. in \cite{kelsey1998side}. The suggestion was later used by Page who described a theoretical attack against DES in \cite{page2002theoretical}. 
+The idea of using cache memory as a side-channel was first proposed by Hu in \cite{hu1992lattice}. He was the first to suggest that the time difference between a cache hit and a cache miss can be used to learn more about the internal state of the system. In 1998 Kelsey et al. proposed that this information be used to attack cryptographic systems in \cite{kelsey1998side}. 
+
+Despite cache vulnerabilities being known for some time, actual cache attack have not been developed until early 2000s. The idea proposed by Kelsey et al. was later expanded by Page in \cite{page2002theoretical}, who described a theoretical attack against DES. A year later, Tsunoo et al. demonstrated a cache attack against DES and proposed a similar attack against AES \cite{tsunoo2003cryptanalysis}.
+
+In 2006, Osvik et al. presented a cache attack against AES based on inter-process leakage \cite{osvik2006cache}. Their paper also describes the PRIME+PROBE algorithm in the context of the first level cache, L1, which was later extended to last level cache (LLC) by Liu et al. \cite{liu2015last}. Oren et al. proposed a new category of cache attacks which affect browsers. Their attack builds on the work of Liu et al. and uses information about the cache memory to determine a user's browsing activity \cite{oren2015spy}.
 
 \subsection{Browser Attacks}
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.

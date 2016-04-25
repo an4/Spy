@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  24 APR 2016 23:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  25 APR 2016 02:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -527,17 +527,14 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
+ [4]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [4] [5]
-Underfull \vbox (badness 1721) has occurred while \output is active []
-
- [6]
-[7] [8] [9] [10]
+ [5] [6] [7] [8] [9] [10]
 Chapter 3.
 [11
 
@@ -560,14 +557,14 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 475.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 482.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 475.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 482.
  [14]
 Underfull \vbox (badness 2856) has occurred while \output is active []
 
@@ -576,12 +573,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16]
 [17]
-Overfull \hbox (15.0pt too wide) detected at line 590
+Overfull \hbox (15.0pt too wide) detected at line 597
 [][] 
  []
 
 [18]
-Overfull \hbox (15.0pt too wide) detected at line 615
+Overfull \hbox (15.0pt too wide) detected at line 622
 [][] 
  []
 
@@ -609,26 +606,25 @@ Missing character: There is no ™ in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
+ [27
 
-Underfull \hbox (badness 3428) in paragraph at lines 91--94
+]
+Underfull \hbox (badness 3428) in paragraph at lines 111--114
 []\OT1/cmr/m/n/10 ``Dom - doc-u-ment ob-ject model.'' $\OT1/cmtt/m/n/10 https :
  / / developer . mozilla . org / en-[]US / docs / Web / API /
  []
 
-[27
-
-]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 5652) in paragraph at lines 103--106
+Underfull \hbox (badness 5652) in paragraph at lines 123--126
 []\OT1/cmr/m/n/10 ``Clientside script-ing lan-guages pop-ular-ity.'' $\OT1/cmtt
 /m/n/10 http : / / w3techs . com / technologies / overview /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--111
+Underfull \hbox (badness 10000) in paragraph at lines 128--131
 []\OT1/cmr/m/n/10 ``Javascript.'' $\OT1/cmtt/m/n/10 https : / / developer . moz
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
@@ -639,10 +635,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7417 strings out of 493304
- 103613 string characters out of 6139871
- 234922 words of memory out of 5000000
- 10713 multiletter control sequences out of 15000+600000
+ 7419 strings out of 493304
+ 103653 string characters out of 6139871
+ 234932 words of memory out of 5000000
+ 10715 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,12n,74p,1287b,1419s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -658,7 +654,7 @@ sfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
 fb>
-Output written on main.pdf (46 pages, 249475 bytes).
+Output written on main.pdf (46 pages, 250968 bytes).
 PDF statistics:
  205 PDF objects out of 1000 (max. 8388607)
  142 compressed objects within 2 object streams

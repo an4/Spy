@@ -83,6 +83,11 @@ function getMedian(arr) {
     return arr[arr.length/2];
 }
 
+function getMin(arr) {
+    arr.sort();
+    return arr[0];
+}
+
 function putDelete(url, response, cache) {
     return new Promise(function(resolve, reject) {
         var promises = [];
@@ -100,7 +105,7 @@ function putDelete(url, response, cache) {
 
         promises[i-1].then(function(time) {
             times.push(time);
-            var avg = getMedian(times);
+            var avg = getMin(times);
             resolve(avg);
         });
     });
