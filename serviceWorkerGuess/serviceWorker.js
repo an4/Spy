@@ -43,9 +43,9 @@ function putDeleteOnce(url, response, cache) {
     var start = performance.now();
     return new Promise(function(resolve, reject) {
         cache.put(url, response.clone()).then(function() {
+            end = performance.now();
+            var time = end-start;
             cache.delete(url).then(function(res) {
-                end = performance.now();
-                var time = end-start;
                 resolve(time);
             });
         });
