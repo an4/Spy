@@ -1,5 +1,5 @@
 node_modules/*
 Size/node_modules/*
 ServiceWorker/node_modules/*
-serviceWorkerGuess/node_modules/*
+guessFileSizeSW/node_modules/*
 checkAttack/node_modules/*
