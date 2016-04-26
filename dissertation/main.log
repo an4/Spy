@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  26 APR 2016 18:41
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  26 APR 2016 23:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -476,35 +476,42 @@ converted-to.pdf>] [2
 
  [3] [4
 
-] (./main.loa)
-\tf@loa=\write4
-\openout4 = `main.loa'.
+] (./main.lof)
+\tf@lof=\write4
+\openout4 = `main.lof'.
 
  [5] [6
 
-] (./main.lol)
-\tf@lol=\write5
-\openout5 = `main.lol'.
+] (./main.loa)
+\tf@loa=\write5
+\openout5 = `main.loa'.
 
  [7]
 [8
 
-] [9] [10
+] (./main.lol)
+\tf@lol=\write6
+\openout6 = `main.lol'.
+
+ [9] [10
+
+] [11] [12
 
 ]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
 
- (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
- [11]
-[12
+ [13] [14
 
-] [13] [14
+] [15]
+[16
 
-] [15] [16
+] [17] [18
 
 ]
 Chapter 1.
@@ -586,15 +593,28 @@ Overfull \hbox (15.0pt too wide) detected at line 629
 
 ]
 Chapter 4.
-[21] [22
+[21] <figures/firefox39.png, id=147, 1743.51375pt x 609.27625pt>
+File: figures/firefox39.png Graphic file (type png)
+
+<use figures/firefox39.png>
+Package pdftex.def Info: figures/firefox39.png used on input line 683.
+(pdftex.def)             Requested size: 455.24411pt x 159.08675pt.
+
+<figures/firefoxnew.png, id=148, 1763.58875pt x 619.31375pt>
+File: figures/firefoxnew.png Graphic file (type png)
+
+<use figures/firefoxnew.png>
+Package pdftex.def Info: figures/firefoxnew.png used on input line 690.
+(pdftex.def)             Requested size: 455.24411pt x 159.86488pt.
+ [22 <./figures/firefox39.png> <./figures/firefoxnew.png>] [23] [24
 
 ]
 Chapter 5.
-[23] [24
+[25] [26
 
 ]
 Chapter 6.
-[25] [26
+[27] [28
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -606,7 +626,7 @@ Missing character: There is no ™ in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [27
+ [29
 
 ]
 Underfull \hbox (badness 3428) in paragraph at lines 111--114
@@ -629,19 +649,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--131
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
-) [28] (./main.aux)
+) [30] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7421 strings out of 493304
- 103673 string characters out of 6139871
- 234955 words of memory out of 5000000
- 10717 multiletter control sequences out of 15000+600000
+ 7439 strings out of 493304
+ 104000 string characters out of 6139871
+ 234987 words of memory out of 5000000
+ 10729 multiletter control sequences out of 15000+600000
  10482 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,12n,74p,1287b,1419s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,12n,74p,1287b,1681s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -654,10 +674,10 @@ sfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
 fb>
-Output written on main.pdf (46 pages, 252611 bytes).
+Output written on main.pdf (50 pages, 358983 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 142 compressed objects within 2 object streams
+ 220 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

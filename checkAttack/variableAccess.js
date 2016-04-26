@@ -103,9 +103,9 @@ function drawChart() {
             title: "Time (ns)",
             viewWindow: {
                 min: 0,
-                max: 1000
+                max: 500
             },
-            ticks: [0, 200, 400, 600, 800, 1000]
+            ticks: [0, 100, 200, 300, 400, 500]
         },
         hAxis: {
             title: "Round",

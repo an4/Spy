@@ -134,4 +134,14 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
   \url{https://www.princeton.edu/pr/news/00/q4/1205-browser.htm}, 2000.
 \newblock [Accessed: 2016-04-22].
 
+\bibitem{jshighresolutiontimeapi}
+``Javascript highresolution time api.''
+  \url{https://developer.mozilla.org/en-US/docs/Web/API/Performance/now}, 2016.
+\newblock [Accessed: 2016-04-26].
+
+\bibitem{typedarrays}
+``Typed arrays.''
+  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays}.
+\newblock [Accessed: 2016-04-26].
+
 \end{thebibliography}

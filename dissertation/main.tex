@@ -116,7 +116,7 @@
 
 
 \tableofcontents
-%\listoffigures
+\listoffigures
 %\listoftables
 \listofalgorithms
 \lstlistoflistings
@@ -644,9 +644,16 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 
 \section{Oren et al. Attack Test}
 
-The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an attacker can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is still possible by building a website which measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain secret information about the system.
+The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is still possible by building a website which measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain information about the state of the system.
 
-Another ch
+Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system and has no notion of pointers.
+
+Even though vanilla JavaScript does not provide all functionality needed for implementing the attack, there are numerous JavaScript APIs available which provide additional features. For this attack, I have used the JavaScript High Resolution Time API \cite{jshighresolutiontimeapi}, which provides sub millisecond time measurement needed for measuring the time it takes to access the variables. Another requirement for running the attack is the ability to declare buffers of certain size, Oren et al. suggest the use of Typed Arrays, which allows the allocation of contiguous blocks of memory of fixed size \cite{typedarrays}.
+
+The method used to determine if the two distributions are distinguishable is aimed at system whose last level cache size is less than 8MB. An 8MB buffer is allocated using the JavaScript Typed Arrays and used to fill the cache memory, thus bringing it into a known state. The size of the buffer can be easily changed; however, I decided that a size of 8MB would cover the majority of devices.
+
+The basic idea behind the algorithm is to measure the time it takes to retrieve a variable from cache and compare it to the time it takes to fetch a variable from RAM. If retrieving the variable from RAM takes significantly longer, an attacker will be able to distinguish a cache miss from a cache hit and therefore the system is vulnerable to the attack described by Oren et al.. The code for the algorithm is presented in Listing \ref{orentest}.
+
 
 \begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest}, language=HTML, xleftmargin=.1\textwidth, showstringspaces=false]
 var variable = 0;
@@ -664,6 +671,30 @@ var startTimeCache = window.performance.now();
 current = variable;
 var endTimeCache = window.performance.now();
 \end{lstlisting}
+
+Oren et al. discovered that there is no need to access the buffer byte by byte when filling the buffer and it can be accessed in offsets of 64 bytes \cite{oren2015spy}. In Listing \ref{orenetal}, the buffer has already been initialised as a linked list, where each node points to a value whose address is 64 bytes to the left.
+
+The algorithm starts by accessing every element in the buffer, thus bringing the cache memory into a known state. Then the variable $variable$ is accessed and the time taken to retrieve its value is measured. Since the buffer was filled with the contents of $view$, $variable$ is expected to have been fetched from RAM. After retrieving the value of $variable$, the variable is expected to reside in cache so subsequent retrievals should be faster. The algorithm accesses the value of the variable, $variable$, again and measures the time. This time the variable is expected to have been fetched from the cache memory.
+
+In order to test that the system is vulnerable to the attack developed by Oren et al., I ran the algorithm described above 100 times and plotted a line graph with the two measurements. If the two lines do not intersect, it means the two distributions are distinguishable, therefore the system is vulnerable, otherwise the attack described by Oren et al. will not work. I tested the web site on various versions of Chrome and Firefox. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/firefox39.png}
+\caption{Variable access times in Firefox 39.}
+\label{firefox39}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/firefoxnew.png}
+\caption{Variable access times in Firefox 45.}
+\label{firefox45}
+\end{figure}
+
+I discovered that the JavaScript High Resolution Time API has been updated in recent browsers and the measurements are not longer as precise as they used to be. The new version of the timing API provides time measurement accurate to a microsecond. If the difference between the time it takes to access a variable from the cache memory and from RAM is less than one microsecond (100 nanoseconds), an adversary would be unable to distinguish the two values. In the attack presented by Oren et al. the difference between the two values is on average under 100 nanoseconds, therefore browsers running the updated version of the API are no longer vulnerable to this attack. 
+
+Figure \ref{firefox39} shows the two distributions, reach represented as a line. As it can be seen there is a clear difference in time between a variable accessed from RAM and one accessed from the cache memory. Figure \ref{firefox45} shows the same attack on the newest version of Firefox, which contains the recent changes made to the JavaScript High Resolution Time API. The two distributions are indistinguishable, due to the loss in precision of the timing API, the two values are the same in most of the cases.
 
 
 %-----------------------------------------------------------------------------
