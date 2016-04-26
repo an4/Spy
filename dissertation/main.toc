@@ -14,6 +14,8 @@
 \contentsline {subsubsection}{Image}{7}
 \contentsline {subsubsection}{Video and Audio}{8}
 \contentsline {section}{\numberline {2.5}JavaScript}{8}
+\contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{8}
+\contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{8}
 \contentsline {section}{\numberline {2.6}Offline Experience}{8}
 \contentsline {subsection}{\numberline {2.6.1}Application Cache}{9}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{9}
@@ -31,5 +33,6 @@
 \contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{17}
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{17}
 \contentsline {chapter}{\numberline {4}Project Execution}{21}
+\contentsline {section}{\numberline {4.1}Oren et al. Attack Test}{21}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{23}
 \contentsline {chapter}{\numberline {6}Conclusion}{25}

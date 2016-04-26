@@ -26,7 +26,7 @@ for (var i = 0; i < ((size) / offset) - 1; i++) {
 view.setUint32((((size) / offset) - 1 ) * offset, 0);
 
 // numbber of rounds to test the attack
-var rounds = 300;
+var rounds = 100;
 
 // 10 ^ 6
 // JavaScript HighResolution Time API provides sub milliseconds time measurements (10^-3 s)
@@ -38,8 +38,6 @@ var times = 1000000;
 var x = 0;
 
 for(var round = 0; round < rounds; round++) {
-    // console.log("Round: " + round);
-
     // access all elements in view to add them to the cache, start from random value and
     // access it as a linked list.
     startAddress = Math.floor((Math.random() * (size/offset))) * offset;
@@ -110,7 +108,12 @@ function drawChart() {
             ticks: [0, 200, 400, 600, 800, 1000]
         },
         hAxis: {
-            title: "Iteration"
+            title: "Round",
+            viewWindow: {
+                min: 0,
+                max: 100
+            },
+            ticks: [0, 25, 50, 75, 100]
         }
     };
 

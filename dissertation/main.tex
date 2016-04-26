@@ -353,6 +353,10 @@ JavaScript's main role is to add dynamic behaviour to web applications through m
 
 To add JavaScript to an HTML document the special \texttt{<script>} HTML element is used. JavaScript code can either be embedded in the page or it can be loaded from an external file. Keeping HTML and JavaScript separate is the preferred choice as it helps with both performance and maintenance.
 
+\subsection{Typed Arrays}
+
+\subsection{High Resolution Time API}
+
 % how js runs
 
 % https://www.w3.org/TR/service-workers/
@@ -564,6 +568,7 @@ Existing defence mechanisms, adding a random delay or having a fixed response ti
 
 
 \section{Oren et al. - Practical Cache Attacks in JavaScript}
+\label{orenetal}
 
 Another category of Side-Channel Attacks that affect browsers has been identified by Oren et al. in their paper \cite{oren2015spy}. Their attack uses a spy process running in the browser to map the cache memory of the victim. Based on the state of the cache memory an adversary can make assumptions about the victim's browsing activity. In order for the attack to be successful, the victim has to navigate to an untrusted web page containing the attacker-controlled content. Their attack runs entirely in the browser and does not require the installation of additional software on the victim's machine.
 
@@ -637,9 +642,31 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 %%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{•}
+\section{Oren et al. Attack Test}
 
- -----------------------------------------------------------------------------
+The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an attacker can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is still possible by building a website which measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain secret information about the system.
+
+Another ch
+
+\begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest}, language=HTML, xleftmargin=.1\textwidth, showstringspaces=false]
+var variable = 0;
+var startAddress = 0;
+var current = startAddress;
+do {
+	current = view.getUint32(current);
+} while (current != startAddress);
+
+var startTimeRAM = window.performance.now();
+current = variable;
+var endTimeRAM = window.performance.now();
+
+var startTimeCache = window.performance.now();
+current = variable;
+var endTimeCache = window.performance.now();
+\end{lstlisting}
+
+
+%-----------------------------------------------------------------------------
 
 \chapter{Critical Evaluation}
 \label{chap:evaluation}
