@@ -11,13 +11,14 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
         $scope.guess = {};
         $scope.guess.ranges = [];
+        $scope.guess.answer = 0;
 
         $scope.constants = {};
         $scope.constants.chunk = 100;
         $scope.constants.rounds = 10;
 
-        // var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
-        var base_url = "http://localhost:3000/";
+        var base_url = "https://raw.githubusercontent.com/an4/Data-Storage/master/";
+        // var base_url = "http://localhost:3000/";
 
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
@@ -301,8 +302,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         };
 
         $scope.guessSizeChunk = function() {
-            console.log("Start guessing ...");
             guessSize().then(function(result) {
+                $scope.guess.answer = result + " kB";
+                $scope.$apply();
                 console.log("Guess: " + result);
             });
         };
@@ -585,7 +587,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             getMeasurementFile(guess, rounds, measureTimeVideo).then(function(guessResult) {
                 getRange($scope.guess.means, guessResult).then(function(result) {
-                // closestMean(results, guessResult).then(function(result) {
+                    $scope.guess.answer = result;
+                    $scope.$apply();
                     console.log(result);
                 });
             });
