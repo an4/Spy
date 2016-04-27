@@ -678,7 +678,7 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 %%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Oren et al. Attack Test}
+\section{Oren Test}
 
 The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
 
@@ -701,7 +701,7 @@ current = variable;
 var endTimeCache = window.performance.now();
 \end{lstlisting}
 
-Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system and has no notion of pointers.
+Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system, has no notion of pointers and does not support direct memory access.
 
 Even though vanilla JavaScript does not provide all functionality needed for implementing the attack, there are numerous JavaScript APIs available which provide additional features. For the test website I have used the JavaScript High Resolution Time API \cite{jshighresolutiontimeapi}, which provides sub millisecond time measurement needed for measuring the time it takes to access the variables. Another requirement for running the attack is the ability to declare buffers of certain size, Oren et al. suggest the use of Typed Arrays, which allows the allocation of contiguous blocks of memory of fixed size \cite{typedarrays}. I use Array Buffer \cite{arraybuffer} to declare a fixed size buffer and the Data View \cite{dataview} interface in order to easily manipulate the contents of the Array Buffer buffer.
 
@@ -709,13 +709,24 @@ The script allocates an 8MB buffer using the JavaScript Array Buffer object. The
 
 The basic idea behind the algorithm is to measure the time it takes to retrieve a variable from cache and compare it to the time it takes to fetch a variable from RAM. If retrieving the variable from RAM takes significantly longer, an attacker will be able to distinguish a cache miss from a cache hit and therefore the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. The code for measuring the time for one variable is presented in Listing \ref{orentest}.
 
-Cache memory is a small high-speed memory, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to recently used resources. The cache memory uses an algorithm to determine which element should be removed from the cache when it becomes full. CPU manufacturers do not make public what algorithms they use and the algorithms are known to change between processor generations. An element accessed from RAM, which is not in the cache memory, will automatically be added to cache for faster future access times.
+Cache memory is a small high-speed memory, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to recently used resources. The cache memory uses an algorithm to determine which element should be removed from the cache when it becomes full. CPU manufacturers do not make public what algorithms they use and the algorithms are known to change between processor generations. An element accessed from RAM, which is not in the cache memory, will automatically be added to cache for faster future access times. 
 
-Oren et al. discovered that there is no need to access the buffer byte by byte when filling the buffer and it can be accessed in offsets of 64 bytes \cite{oren2015spy}. In Listing \ref{orenetal}, the buffer has already been initialised as a linked list, where each node points to a value whose address is 64 bytes to the left.
+Generally, in order to bring the contents of the buffer into cache memory, all the elements need to be accesses. The Array Buffer mentioned earlier would have to be accessed byte by byte. Oren et al. discovered that if the buffer is accessed in offsets of 1 per every 64 bytes, the slowdown effect when accessing another unrelated variable persists. Therefore, the contents of the buffer are in the cache memory. I have used their suggestion in order to speed up the process of moving the contents of the buffer into the cache memory.
 
-The algorithm starts by accessing every element in the buffer, thus bringing the cache memory into a known state. Then the variable $variable$ is accessed and the time taken to retrieve its value is measured. Since the buffer was filled with the contents of $view$, $variable$ is expected to have been fetched from RAM. After retrieving the value of $variable$, the variable is expected to reside in cache so subsequent retrievals should be faster. The algorithm accesses the value of the variable, $variable$, again and measures the time. This time the variable is expected to have been fetched from the cache memory.
+Another recommendation made by Oren et al. in \cite{oren2015spy} was to access the buffer as a linked list. I initialised the Array Buffer as a circular linked list, where each element in the buffer whose address is a multiple of 64 points to an element 64 bytes to the left and the last element points back to the first element in the list as shown in Figure \ref{circularlinkedlist}.
 
-In order to test that the system is vulnerable to the attack developed by Oren et al., I ran the algorithm described above 100 times and plotted a line graph with the two measurements. If the two lines do not intersect, it means the two distributions are distinguishable, therefore the system is vulnerable, otherwise the attack described by Oren et al. will not work. I tested the web site on various versions of Chrome and Firefox. 
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/circularlinkedlist.png}
+\caption{Circular Linked List.}
+\label{circularlinkedlist}
+\end{figure}
+
+The algorithm starts by accessing the buffer as a linked list, thus moving the contents of the buffer into the cache memory and bringing the cache into a known state. Then it measures the access time of a previously fixed variable, which now resides in RAM since the cache is filled with the buffer's contents. The script accesses the variable and measures the time it took to fetch it from RAM. Now the variable is located in the cache memory. The algorithm fetches the variable again and measures the time. The second access should be significantly faster since the variable was fetched from the cache memory.
+
+The script collects multiple measurements by running the algorithm described above and depicted in Listing \ref{orenetal} multiple times. After obtaining the necessary data, the script plots the two sets of measurements as lines. I decided to collect measurements by running the algorithm 100 times. The resulted graph can be seen in Figure \ref{firefox39}.
+
+The role of the website is to collect data by running the algorithm multiple times and plot the two sets. The success of the attack described by Oren et al. \cite{oren2015spy} is measured in how easily it is to distinguish between the two lines. If the graph shows two lines which do not intersect and there is a significant gap between them as in Figure \ref{firefox39} then an adversary could easily distinguish between a cache miss and a cache hit and the system is vulnerable to the cache attack \cite{oren2015spy}. On the other hand, if the graph looks more like Figure \ref{firefox45}, where plotting the time data does not give two non intersecting lines, then the machine is not affected by the aforementioned attack.
 
 \begin{figure}[h]
 \centering
@@ -731,9 +742,19 @@ In order to test that the system is vulnerable to the attack developed by Oren e
 \label{firefox45}
 \end{figure}
 
-I discovered that the JavaScript High Resolution Time API has been updated in recent browsers and the measurements are not longer as precise as they used to be. The new version of the timing API provides time measurement accurate to a microsecond. If the difference between the time it takes to access a variable from the cache memory and from RAM is less than one microsecond (100 nanoseconds), an adversary would be unable to distinguish the two values. In the attack presented by Oren et al. the difference between the two values is on average under 100 nanoseconds, therefore browsers running the updated version of the API are no longer vulnerable to this attack. 
+I discovered that the JavaScript High Resolution Time API has been updated in recent browsers and the measurements are not longer as precise as they used to be. The new version of the timing API provides time measurement accurate to a microsecond. If the difference between the time it takes to access a variable from the cache memory and from RAM is less than one microsecond (100 nanoseconds), an adversary would not be unable to distinguish between the two values. In the attack presented by Oren et al. the difference between the two values is on average under 100 nanoseconds, therefore browsers running the updated version of the API are no longer vulnerable to this attack. 
 
-Figure \ref{firefox39} shows the two distributions, reach represented as a line. As it can be seen there is a clear difference in time between a variable accessed from RAM and one accessed from the cache memory. Figure \ref{firefox45} shows the same attack on the newest version of Firefox, which contains the recent changes made to the JavaScript High Resolution Time API. The two distributions are indistinguishable, due to the loss in precision of the timing API, the two values are the same in most of the cases.
+Figure \ref{firefox39} shows the two distributions, each represented as a line. As it can be seen there is a clear difference in time between a variable accessed from RAM and one accessed from the cache memory. The timing data for Figure \ref{firefox39} was collected using Firefox 39. Figure \ref{firefox45} shows the same attack on the newest version of Firefox, Firefox 45, which contains the recent changes made to the JavaScript High Resolution Time API. The two distributions are indistinguishable, due to the loss in precision of the timing API, the two values are the same in most of the cases.
+ 
+The change in the JavaScript timing API made the attack impossible in JavaScript as there are no known JavaScript APIs which provide the needed functionality. Also, browser vendors are aware of this attack and will not longer provide support for APIs which offer time measurements accurate to less than a microsecond. 
+
+Although the recent changes to the JavaScript High Resolution Time API makes the attack impossible in newer versions of the browser, there are still ways in which the attack can be implemented. Oren et al. decided to use JavaScript because it is the most popular client side language, therefore finding a vulnerability in JavaScript will affect a large number of user; however, there are other client side technologies which might still be affected by a similar attack. 
+
+The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
+ 
+\section{Van}
+
+
 
 
 %-----------------------------------------------------------------------------

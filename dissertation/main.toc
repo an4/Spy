@@ -33,6 +33,7 @@
 \contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{17}
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{17}
 \contentsline {chapter}{\numberline {4}Project Execution}{21}
-\contentsline {section}{\numberline {4.1}Oren et al. Attack Test}{21}
+\contentsline {section}{\numberline {4.1}Oren Test}{21}
+\contentsline {section}{\numberline {4.2}Van}{24}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{25}
 \contentsline {chapter}{\numberline {6}Conclusion}{27}
