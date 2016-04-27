@@ -644,7 +644,9 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 
 \section{Oren et al. Attack Test}
 
-The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is still possible by building a website which measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain information about the state of the system.
+The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
+
+The web application measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain information about the state of the system.
 
 Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system and has no notion of pointers.
 
