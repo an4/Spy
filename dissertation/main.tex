@@ -19,6 +19,43 @@
 %\usepackage{lipsum}
 % end packages
 
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\small\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=10pt,
+   tabsize=4,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b,
+   xleftmargin=0.7cm
+}
+
 
 % configure style of pages
 
@@ -206,9 +243,8 @@ SRAM					&:	   & Static Random Access Memory								 \\
 \cleardoublepage
 \pagestyle{marked}
 \pagenumbering{arabic}
-%paragraph, change the 8
 \parindent=0in
-\parskip=8pt 
+\parskip=1em 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% UNICORNS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -484,7 +520,7 @@ Direct timing attacks can also be used to estimate the size of hidden data. The 
 
 The other kind of attacks presented by Bortz et al. in their paper are \textit{cross-site timing} attacks. In this type of attacks the adversary gains access to the victim's view of a website. For example, the attacker, Eve, wants to see Alice's view of Bob's Facebook profile page. Eve builds a website, www.eve.com, which when accessed sends a request to Bob's Facebook profile, www.facebook.com/bob. Bob's profile page is private and only visible to Bob's friends. Bob's friends are able to see his photos and wall posts, someone who is not a friend of Bob's will see an empty page. There is a difference in the amount of data received by a user who is friends with Bob and a user who is not. A web application which is able to differentiate between two files of different sizes will also be able to make an assumption about whether or not Alice and Bob are friends. When Alice accesses Eve's malicious application, the website receives Bob's profile information seen from Alice's perspective, approximates the size of the received data based on the time measurements and sends the result to Eve. If the size is less than some threshold (say, 500kB), Eve concludes that Alice and Bob are friends; otherwise, she concludes that the two do no know each other.
 
-\begin{lstlisting}[caption={Example JavaScript timing code},label={bortz}, language=HTML, xleftmargin=.1\textwidth, showstringspaces=false]
+\begin{lstlisting}[caption={Example JavaScript timing code},label={bortz}, language=HTML, showstringspaces=false]
 <html><body><img id="test" style="display: none">
 <script>
 	var test = document.getElementById('test);
@@ -646,18 +682,9 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 
 The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
 
-The web application measures the access time for variables retrieved from the cache memory and variables retrieved from RAM and checks if the two distributions are distinguishable, thus allowing an adversary to obtain information about the state of the system.
+The web application has a script running in the background, which measures the time it takes to access variables stored in RAM and in the cache memory. The time measurement values for 100 variables are plotted as a line as it can be seen in Figure \ref{firefox39}. If the two lines do not intersect and there is a significant gap between them, it means that the two distributions are distinguishable, therefore an attacker would be able to differentiate between a cache miss and a cache hit with high probability and the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. 
 
-Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system and has no notion of pointers.
-
-Even though vanilla JavaScript does not provide all functionality needed for implementing the attack, there are numerous JavaScript APIs available which provide additional features. For this attack, I have used the JavaScript High Resolution Time API \cite{jshighresolutiontimeapi}, which provides sub millisecond time measurement needed for measuring the time it takes to access the variables. Another requirement for running the attack is the ability to declare buffers of certain size, Oren et al. suggest the use of Typed Arrays, which allows the allocation of contiguous blocks of memory of fixed size \cite{typedarrays}.
-
-The method used to determine if the two distributions are distinguishable is aimed at system whose last level cache size is less than 8MB. An 8MB buffer is allocated using the JavaScript Typed Arrays and used to fill the cache memory, thus bringing it into a known state. The size of the buffer can be easily changed; however, I decided that a size of 8MB would cover the majority of devices.
-
-The basic idea behind the algorithm is to measure the time it takes to retrieve a variable from cache and compare it to the time it takes to fetch a variable from RAM. If retrieving the variable from RAM takes significantly longer, an attacker will be able to distinguish a cache miss from a cache hit and therefore the system is vulnerable to the attack described by Oren et al.. The code for the algorithm is presented in Listing \ref{orentest}.
-
-
-\begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest}, language=HTML, xleftmargin=.1\textwidth, showstringspaces=false]
+\begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest},  xleftmargin=0.7cm]
 var variable = 0;
 var startAddress = 0;
 var current = startAddress;
@@ -673,6 +700,16 @@ var startTimeCache = window.performance.now();
 current = variable;
 var endTimeCache = window.performance.now();
 \end{lstlisting}
+
+Oren et al. described an attack implemented in JavaScript which runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system and has no notion of pointers.
+
+Even though vanilla JavaScript does not provide all functionality needed for implementing the attack, there are numerous JavaScript APIs available which provide additional features. For the test website I have used the JavaScript High Resolution Time API \cite{jshighresolutiontimeapi}, which provides sub millisecond time measurement needed for measuring the time it takes to access the variables. Another requirement for running the attack is the ability to declare buffers of certain size, Oren et al. suggest the use of Typed Arrays, which allows the allocation of contiguous blocks of memory of fixed size \cite{typedarrays}. I use Array Buffer \cite{arraybuffer} to declare a fixed size buffer and the Data View \cite{dataview} interface in order to easily manipulate the contents of the Array Buffer buffer.
+
+The script allocates an 8MB buffer using the JavaScript Array Buffer object. The contents of the buffer are used to fill the cache memory, thus bringing it in a known state. Both the attack presented by Oren et al. and the website I built for testing if the attack is possible require the buffer's size to be greater than the size of the last level cache (LLC). In the majority of devices the last level cache size is less than 8MB. If the last level cache size is greater than the size of the buffer, the variable will never be evicted from cache, therefore it will be impossible to measure its retrieval time from RAM.
+
+The basic idea behind the algorithm is to measure the time it takes to retrieve a variable from cache and compare it to the time it takes to fetch a variable from RAM. If retrieving the variable from RAM takes significantly longer, an attacker will be able to distinguish a cache miss from a cache hit and therefore the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. The code for measuring the time for one variable is presented in Listing \ref{orentest}.
+
+Cache memory is a small high-speed memory, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to recently used resources. The cache memory uses an algorithm to determine which element should be removed from the cache when it becomes full. CPU manufacturers do not make public what algorithms they use and the algorithms are known to change between processor generations. An element accessed from RAM, which is not in the cache memory, will automatically be added to cache for faster future access times.
 
 Oren et al. discovered that there is no need to access the buffer byte by byte when filling the buffer and it can be accessed in offsets of 64 bytes \cite{oren2015spy}. In Listing \ref{orenetal}, the buffer has already been initialised as a linked list, where each node points to a value whose address is 64 bytes to the left.
 

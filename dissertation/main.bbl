@@ -144,4 +144,14 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
   \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays}.
 \newblock [Accessed: 2016-04-26].
 
+\bibitem{arraybuffer}
+``Array buffer.''
+  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer}.
+\newblock [Accessed: 2016-04-27].
+
+\bibitem{dataview}
+``Data view.''
+  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView}.
+\newblock [Accessed: 2016-04-27].
+
 \end{thebibliography}
