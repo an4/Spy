@@ -1,4 +1,4 @@
-var size = 8 * 1024 * 1024;
+var size = 6 * 1024 * 1024;
 
 // Buffer of size 8MB
 var buffer = new ArrayBuffer(size);
@@ -106,6 +106,7 @@ function drawChart() {
                 max: 500
             },
             ticks: [0, 100, 200, 300, 400, 500]
+            // ticks: [0, 1000, 2000, 3000, 4000, 5000, 6000]
         },
         hAxis: {
             title: "Round",
