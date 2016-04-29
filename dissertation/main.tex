@@ -16,6 +16,7 @@
 \usepackage[algochapter]{algorithm2e}
 \usepackage{listings}
 \usepackage[usenames, dvipsnames]{color}
+\usepackage{algorithmic} 
 %\usepackage{lipsum}
 % end packages
 
@@ -273,7 +274,7 @@ The idea of using Side-Channel information to attack cryptographic schemes was i
 
 The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
 \begin{enumerate}
-\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat emission \cite{standaert2010introduction}.
+\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat dissipation \cite{standaert2010introduction}.
 \item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
 \end{enumerate}
 
@@ -286,6 +287,20 @@ Timing attacks are one of the oldest categories of side channel attacks, where t
 The first side-channel attack using timing information was discovered by Kocher in \cite{kocher1996timing}, where he describes how to break various cryptosystems. Kocher was able to obtain the secret key due to faults in the algorithm's implementations which leaked information about the private data.
 
 For example, RSA \cite{rivest1978method} requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key and $c$ can be found by an adversary. The attacker's goal is to find the value of $d$. The attack uses the fact that for every bit set in the private key $d$, the time to execute the modular exponentiation increases. Therefore, an attacker after computing the modular exponentiation for several values of $c$, could determine the secret value $d$ \cite{kocher1996timing}.
+
+\begin{algorithm}
+\caption{Square and Multiply Algorithm}
+\label{alg:squareandmultiply}
+$d = \{d_w, d_{w-1}, ..., d_1, d_0\}$\\
+$result = 1$\\
+\For{$i=w-1$ {\bf downto} $0$}{
+	$result = result^2$ {\bf mod} $N$\\
+	\If{$d_i == 1$}{
+		$result = result \cdot c$ {\bf mod} $N$\\
+	}
+}
+{\bf return} $result$
+\end{algorithm}
 
 \subsection{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache memory. Cache attacks are not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
@@ -301,10 +316,10 @@ In 2006, Osvik et al. presented a cache attack against AES based on inter-proces
 \subsection{Browser Attacks}
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and SQL injection, over the last few years there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
 
-One of the most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done by using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gaining access to the victim’s browsers history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user’s browsing history
+One of the most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done by using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gaining access to the victim's browser history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history
 \cite{jang2010empirical}.
 
-Analysing the style of a web page is not the only way to expose a user’s browsing history. A similar attack discovered by Felten et al. \cite{felten2000timing} uses timing information to determine if a web page has been previously visited by the victim. This attack assumes that recently accessed resources will be cached by the browser in order to provide faster loading times for future visits. By comparing the loading time of different web pages an attacker can determine if a file is in the user’s cache, and hence whether or not the user has accessed the file before.
+Analysing the style of a web page is not the only way to expose a user's browsing history. A similar attack discovered by Felten et al. \cite{felten2000timing} uses timing information to determine if a web page has been previously visited by the victim. This attack assumes that recently accessed resources will be cached by the browser in order to provide faster loading times for future visits. By comparing the loading time of different web pages an attacker can determine if a file is in the user’s cache, and hence whether or not the user has accessed the file before.
 
 Websites customize their services according to users’ locations. For example a user accessing Google from within the United Kingdom will be redirected to www.google.co.uk. Jia et al. have shown that is possible to derive a user’s location by simply checking what version of the website they are redirected to \cite{jia2015know}.
 
