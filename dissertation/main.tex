@@ -286,7 +286,11 @@ Timing attacks are one of the oldest categories of side channel attacks, where t
 
 The first side-channel attack using timing information was discovered by Kocher in \cite{kocher1996timing}, where he describes how to break various cryptosystems. Kocher was able to obtain the secret key due to faults in the algorithm's implementations which leaked information about the private data.
 
-For example, RSA \cite{rivest1978method} requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key and $c$ can be found by an adversary. The attacker's goal is to find the value of $d$. The attack uses the fact that for every bit set in the private key $d$, the time to execute the modular exponentiation increases. Therefore, an attacker after computing the modular exponentiation for several values of $c$, could determine the secret value $d$ \cite{kocher1996timing}.
+%For example, RSA \cite{rivest1978method} requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key and $c$ can be found by an adversary. The attacker's goal is to find the value of $d$. The attack uses the fact that for every bit set in the private key $d$, the time to execute the modular exponentiation increases. Therefore, an attacker after computing the modular exponentiation for several values of $c$, could determine the secret value $d$ \cite{kocher1996timing}.
+
+One of the cryptosystems vulnerable to the timing attack discovered by Kocher is RSA \cite{rivest1978method}. RSA requires the computation of $m = c^d \, mod \, N$, where $N$ is the public key, $d$ is the secret key and $c$ can be found by an adversary. The attacker's goal in timing attacks is to find the value of $d$. The modular exponentiation in RSA can be implemented using various algorithms. Square and multiply described in Algorithm \ref{alg:squareandmultiply} is a famous method for computing the modular exponentiation step in RSA; however, it is also vulnerable to timing attack as Kocher demonstrated in his paper \cite{kocher1996timing}.
+
+The square and multiply algorithm computes $c^d \, mod \, N$. The algorithm iterates to every bit of $d$, starting from the most significant bit down to the least significant bit. At the start of the algorithm, the $result$ is initialised to $1$. For every step of the iteration in the square and multiply method, the $result$ is being squared. If the value of the current bit of $d$, $d_i$ is one the algorithm makes one additional step and multiplies the $result$ by $c$. At the end of the $for$ loop the algorithm returns the value of $result$. 
 
 \begin{algorithm}
 \caption{Square and Multiply Algorithm}
@@ -301,6 +305,14 @@ $result = 1$\\
 }
 {\bf return} $result$
 \end{algorithm}
+
+The total runtime of the square and multiply algorithm leaks the number of bits set to 1 in the private exponent $d$. If one iteration of the algorithm takes longer then usual, there is a high chance that the value of the current bit is 1, otherwise the bit should be 0. Although one time measurement is not enough to recover the secret key, Kocher\cite{kocc2009cryptographic} showed that repeated executions with the same secret key and different values of $c$ can be used to recover the secret exponent.
+
+Not all algorithm used for implementing the modular exponentiation step in RSA or similar cryptosystems are vulnerable to this particular timing attack. In his paper \cite{kocher1996timing}, Kocher suggested the use of Chinese Remainder Theorem (CRT) instead of the square and multiply algorithm or Montgomery exponentiation.
+
+In the years that followed, there were a series of vulnerabilities discovered in hardware devices that could be exploited through timing attacks, cite{dhem1998practical} and \cite{schindler2000timing}. At the time it was believed that web servers are not vulnerable to timing attacks since the execution time is masked by numerous concurrent processes running on the system \cite{brumley2005remote}.
+
+In 2003, Brumley et al. \cite{brumley2005remote} were the first to show that web servers are vulnerable to timing attacks by successfully attacking OpenSSL \cite{openssl}. They were also able to recover the secret exponent in implementations of RSA using the Chinese Remainder Theorem, which was previously believed to be secure. 
 
 \subsection{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the cache memory. Cache attacks are not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.

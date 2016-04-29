@@ -24,6 +24,23 @@ R.~L. Rivest, A.~Shamir, and L.~Adleman, ``A method for obtaining digital
   signatures and public-key cryptosystems,'' {\em Communications of the ACM},
   vol.~21, no.~2, pp.~120--126, 1978.
 
+\bibitem{kocc2009cryptographic}
+{\c{C}}.~K. Ko{\c{c}}, {\em About cryptographic engineering}.
+\newblock Springer, 2009.
+
+\bibitem{schindler2000timing}
+W.~Schindler, ``A timing attack against rsa with the chinese remainder
+  theorem,'' in {\em Cryptographic Hardware and Embedded Systems—CHES 2000},
+  pp.~109--124, Springer, 2000.
+
+\bibitem{brumley2005remote}
+D.~Brumley and D.~Boneh, ``Remote timing attacks are practical,'' {\em Computer
+  Networks}, vol.~48, no.~5, pp.~701--716, 2005.
+
+\bibitem{openssl}
+``Openssl.'' \url{https://www.openssl.org/}.
+\newblock [Accessed: 2016-04-29].
+
 \bibitem{oren2015spy}
 Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint

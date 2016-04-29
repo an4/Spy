@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  29 APR 2016 21:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  30 APR 2016 00:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -541,22 +541,14 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [5] [6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-[8]
-Underfull \vbox (badness 2556) has occurred while \output is active []
-
- [9]
-[10]
-Chapter 3.
-[11
+ [5] [6] [7] [8] [9] [10] [11] [12
 
 ]
+Chapter 3.
+[13]
 Underfull \vbox (badness 7504) has occurred while \output is active []
 
- [12]
+ [14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -566,59 +558,59 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[15] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 543.
- [14] [15]
-[16] [17]
-Overfull \hbox (15.0pt too wide) detected at line 659
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 555.
+ [16] [17]
+[18] [19]
+Overfull \hbox (15.0pt too wide) detected at line 671
 [][] 
  []
 
-[18]
-Overfull \hbox (15.0pt too wide) detected at line 684
+[20]
+Overfull \hbox (15.0pt too wide) detected at line 696
 [][] 
  []
 
-[19] [20
+[21] [22
 
 ]
 Chapter 4.
-[21] <figures/circularlinkedlist.png, id=150, 3155.79pt x 634.37pt>
+[23] <figures/circularlinkedlist.png, id=157, 3155.79pt x 634.37pt>
 File: figures/circularlinkedlist.png Graphic file (type png)
 
 <use figures/circularlinkedlist.png>
-Package pdftex.def Info: figures/circularlinkedlist.png used on input line 739.
+Package pdftex.def Info: figures/circularlinkedlist.png used on input line 751.
 
 (pdftex.def)             Requested size: 455.24411pt x 91.51183pt.
- [22 <./figures/circularlinkedlist.png>]
-<figures/firefox39.png, id=156, 1743.51375pt x 609.27625pt>
+ [24 <./figures/circularlinkedlist.png>]
+<figures/firefox39.png, id=163, 1743.51375pt x 609.27625pt>
 File: figures/firefox39.png Graphic file (type png)
 
 <use figures/firefox39.png>
-Package pdftex.def Info: figures/firefox39.png used on input line 752.
+Package pdftex.def Info: figures/firefox39.png used on input line 764.
 (pdftex.def)             Requested size: 455.24411pt x 159.08675pt.
 
-<figures/firefox45.png, id=157, 1773.62625pt x 620.3175pt>
+<figures/firefox45.png, id=164, 1773.62625pt x 620.3175pt>
 File: figures/firefox45.png Graphic file (type png)
 
 <use figures/firefox45.png>
-Package pdftex.def Info: figures/firefox45.png used on input line 759.
+Package pdftex.def Info: figures/firefox45.png used on input line 771.
 (pdftex.def)             Requested size: 455.24411pt x 159.21532pt.
- [23 <./figures/firefox39.png> <./figures/firefox45.png>] [24]
+ [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26]
 Chapter 5.
-[25
+[27
 
-] [26
+] [28
 
 ]
 Chapter 6.
-[27] [28
+[29] [30
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -630,10 +622,13 @@ Missing character: There is no ™ in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [29
+Missing character: There is no â in font cmti10!
+Missing character: There is no € in font cmti10!
+Missing character: There is no ” in font cmti10!
+ [31
 
 ]
-Underfull \hbox (badness 3428) in paragraph at lines 111--114
+Underfull \hbox (badness 3428) in paragraph at lines 128--131
 []\OT1/cmr/m/n/10 ``Dom - doc-u-ment ob-ject model.'' $\OT1/cmtt/m/n/10 https :
  / / developer . mozilla . org / en-[]US / docs / Web / API /
  []
@@ -642,39 +637,39 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 5652) in paragraph at lines 123--126
+Underfull \hbox (badness 5652) in paragraph at lines 140--143
 []\OT1/cmr/m/n/10 ``Clientside script-ing lan-guages pop-ular-ity.'' $\OT1/cmtt
 /m/n/10 http : / / w3techs . com / technologies / overview /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--131
+Underfull \hbox (badness 10000) in paragraph at lines 145--148
 []\OT1/cmr/m/n/10 ``Javascript.'' $\OT1/cmtt/m/n/10 https : / / developer . moz
 illa . org / en-[]US / docs / Web / JavaScript / About _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--155
+Underfull \hbox (badness 10000) in paragraph at lines 169--172
 []\OT1/cmr/m/n/10 ``Array buf-fer.'' $\OT1/cmtt/m/n/10 https : / / developer . 
 mozilla . org / en-[]US / docs / Web / JavaScript / Reference /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--160
+Underfull \hbox (badness 10000) in paragraph at lines 174--177
 []\OT1/cmr/m/n/10 ``Data view.'' $\OT1/cmtt/m/n/10 https : / / developer . mozi
 lla . org / en-[]US / docs / Web / JavaScript / Reference /
  []
 
-) [30] (./main.aux)
+) [32] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7598 strings out of 493304
- 106006 string characters out of 6139871
- 264129 words of memory out of 5000000
- 10883 multiletter control sequences out of 15000+600000
+ 7602 strings out of 493304
+ 106078 string characters out of 6139871
+ 264149 words of memory out of 5000000
+ 10887 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,13n,72p,1287b,1284s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -692,10 +687,10 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (50 pages, 424682 bytes).
+Output written on main.pdf (52 pages, 428489 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
+ 241 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
