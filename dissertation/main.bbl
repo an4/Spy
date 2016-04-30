@@ -28,6 +28,15 @@ R.~L. Rivest, A.~Shamir, and L.~Adleman, ``A method for obtaining digital
 {\c{C}}.~K. Ko{\c{c}}, {\em About cryptographic engineering}.
 \newblock Springer, 2009.
 
+\bibitem{montgomery1985modular}
+P.~L. Montgomery, ``Modular multiplication without trial division,'' {\em
+  Mathematics of computation}, vol.~44, no.~170, pp.~519--521, 1985.
+
+\bibitem{dhem1998practical}
+J.-F. Dhem, F.~Koeune, P.-A. Leroux, P.~Mestr{\'e}, J.-J. Quisquater, and J.-L.
+  Willems, ``A practical implementation of the timing attack,'' in {\em Smart
+  Card Research and Applications}, pp.~167--182, Springer, 1998.
+
 \bibitem{schindler2000timing}
 W.~Schindler, ``A timing attack against rsa with the chinese remainder
   theorem,'' in {\em Cryptographic Hardware and Embedded Systems—CHES 2000},
