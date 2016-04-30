@@ -422,7 +422,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                     }
                 },
                 "hAxis": {
-                    "title": "Milliseconds"
+                    "title": "Time (ms)"
                 }
             };
 

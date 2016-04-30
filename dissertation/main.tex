@@ -804,10 +804,45 @@ Although the recent changes to the JavaScript High Resolution Time API makes the
 
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
  
+\newpage
 \section{Van}
 
+Van Goethem et al. \cite{van2015clock} 
 
+\begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
+function measureTimeVideo(url) {
+	return new Promise(function(resolve, reject) {
+		var video = document.createElement('video');
+        // The error is triggered when the file has finished parsing.
+		video.onerror = function() {
+			timeError = window.performance.now();
+			var time = timeError - timeSuspend;
+			resolve(time);
+		};
+		// Start timing once the resource is loaded and parsing begins.
+		video.onsuspend = function() {
+			timeSuspend = window.performance.now();
+		};
+		var timeSuspend, timeError;
+		video.src = url;
+	});
+};
+\end{lstlisting}
 
+\begin{lstlisting}[caption={Measuring the load time of an external resource as an Image},label={vanimage}]
+function measureTimeImage(url) {
+    return new Promise(function(resolve, reject) {
+        var img = new Image();
+        img.onerror = function() {
+            var end = window.performance.now();
+            var time = end-start;
+            resolve(time);
+        }
+        var start = window.performance.now();
+        img.src = url;
+    });
+};
+\end{lstlisting}
 
 %-----------------------------------------------------------------------------
 
