@@ -426,6 +426,11 @@ For security reasons, JavaScript has severely restricted access to the system. I
 
 \subsection{Typed Arrays}
 
+JavaScript supports Array, which are used to store multiple elements into a single variable. JavaScript Arrays are  resized and can hold anything from objects to another array. One disadvantage of native JavaScript Arrays is that the containing elements do no necessary reside in sequential blocks of memory. This can bring severe performance penalties when sending data to external APIs, such as WebGL \cite{webgl}.
+
+JavaScript Typed Arrays \cite{typedarrays} are a relatively new API born the need to access raw binary data, which is not possible in JavaScript. Typed Arrays allow the allocation of a fixed sized buffer of binary data in memory. The advantage of using Typed Arrays is that the buffer can be efficiently passed to native libraries.
+
+Compared to the C programming language, JavaScript does not support the declaration of fixed sized arrays. For example, it is impossible to declare an array of 4MB in JavaScript. The Typed Arrays API can be use to solve this issue.
 
 
 \subsection{High Resolution Time API}

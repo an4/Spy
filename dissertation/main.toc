@@ -15,11 +15,11 @@
 \contentsline {subsubsection}{Video and Audio}{8}
 \contentsline {section}{\numberline {2.5}JavaScript}{9}
 \contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{9}
-\contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{9}
-\contentsline {section}{\numberline {2.6}Offline Experience}{9}
+\contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{10}
+\contentsline {section}{\numberline {2.6}Offline Experience}{10}
 \contentsline {subsection}{\numberline {2.6.1}Application Cache}{10}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{10}
-\contentsline {subsection}{\numberline {2.6.3}Service Workers}{10}
+\contentsline {subsection}{\numberline {2.6.3}Service Workers}{11}
 \contentsline {chapter}{\numberline {3}Research Review}{13}
 \contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{13}
 \contentsline {section}{\numberline {3.2}CSS Attack}{14}

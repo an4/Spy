@@ -155,6 +155,15 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
   \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript}.
 \newblock [Accessed: 2016-04-09].
 
+\bibitem{webgl}
+``Webgl.'' \url{https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API}.
+\newblock [Accessed: 2016-04-30].
+
+\bibitem{typedarrays}
+``Typed arrays.''
+  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays}.
+\newblock [Accessed: 2016-04-26].
+
 \bibitem{princetonunifelten}
 ``Princeton university news.''
   \url{https://www.princeton.edu/pr/news/00/q4/1205-browser.htm}, 2000.
@@ -167,11 +176,6 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 \bibitem{jshighresolutiontimeapi}
 ``Javascript highresolution time api.''
   \url{https://developer.mozilla.org/en-US/docs/Web/API/Performance/now}, 2016.
-\newblock [Accessed: 2016-04-26].
-
-\bibitem{typedarrays}
-``Typed arrays.''
-  \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays}.
 \newblock [Accessed: 2016-04-26].
 
 \bibitem{arraybuffer}
