@@ -435,13 +435,17 @@ Compared to the C programming language, JavaScript does not support the declarat
 
 \subsection{High Resolution Time API}
 
+User experience in modern web applications is greatly influenced by the application's performance. As web applications get more and more complex, analysing its performance becomes a key issue. Existing timing APIs provide millisecond time measurements; however, this lacks the precision needed for good understanding of the underlying problem.
+
+The JavaScript High Resolution Time API \cite{jshighresolutiontimeapi} provides time measurements accurate to a microsecond. Previous versions of the API used to provide submicrosecond time measurements. Due to security issues, the API had to be changed and it no longer provides such accurate time measurements. Recent versions of Firefox and Chrome even restrict the time measurements to 5 microseconds.
+
 % how js runs
 
 % https://www.w3.org/TR/service-workers/
 % https://www.w3.org/TR/workers/
 % http://alistapart.com/article/application-cache-is-a-douchebag
 \section{Offline Experience}
-Web applications are dependent on network availability and can not function if there is no network connection or in most cases even if the network connection is unstable or not strong enough. Web applications fall into two categories: those that provide access to data: YouTube, Wikipedia or Twitter and those that let users do stuff: Google Keep, Google Docs or CSS Lint.
+Web applications are dependent on network availability and cannot function if there is no network connection or in most cases even if the network connection is unstable or not strong enough. Web applications fall into two categories: those that provide access to data: YouTube, Wikipedia or Twitter and those that let users do stuff: Google Keep, Google Docs or CSS Lint.
 
 The first category has access to large amounts of data, but users only use a small portion of it at a given time. One of the ways such applications can be improved is by retrieving the data faster which relies mostly on the network provider and not the application developer. The second category of applications handles a small amount of data and most of the computation happens on the client side. 	The application data rarely changes and it would be a waste of network resources to retrieve the data every time it is used. 
 
@@ -456,19 +460,19 @@ AppCache provides two ways to cache resources: either by specifying the path to 
 
 Although it solves one of the main issues faced by web application developers, offline access, AppCache has a number of disadvantages. Once a resource is cached it will always be fetched from local storage even if the network condition are good. AppCache does not provide easy update of currently cached resources and is unable to identify any changes made to the remote file. The only way to update the resources cached locally is either to empty the cache or make changes to the manifest file.
 
-All this drawbacks determined developers to move away from AppCache and work towards developing new software for improving users' offline experience. Despite major browsers providing software for interacting with the Application Cache, they are currently removing support this framework.
+All this drawbacks determined developers to move away from AppCache and work towards developing new software for improving users' offline experience. Despite major browsers providing software for interacting with the Application Cache, they are currently removing support for this framework.
 
 \subsection{Web Workers}
-JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript task would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
+JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript tasks would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
 
 \subsection{Service Workers}
-Application Cache is a great way of providing users with the offline experience. Web application developers have to tailor their product meet the needs of the AppCache mechanism instead of make changes to AppCache to fit the needs of the product. This problem was fixed by Service Workers which allow developers more freedom when determining the offline behaviour of their application.
+Application Cache was one of the first frameworks whose main role was to provide offline experience in web based applications. Web application developers have to tailor their product to meet the needs of the AppCache mechanism instead of make changes to AppCache to fit the needs of the product. This problem was fixed by Service Workers which allow developers more freedom when determining the offline behaviour of their application.
 
 Service Workers are event driven web workers which sit between the network layer and the application layer. Service Workers were inspired by AppCache, their main purpose is still proving users with the offline experience. What makes Service Workers different is that they give developers complete control over what the offline experience will be. 
 
-Compared to AppCache, Service Workers do not store the data needed to run the application in offline mode. Service Workers monitor the network and are able to over-ride default network behaviour. They communicate with other services such as the Cache API that deals with the actual storage part. Typically, a Service Worker would monitor request sent by the application and either serve the data from local storage if available or fetch it over the network and save it locally for later retrieval. 
+Compared to AppCache, Service Workers do not store the data needed to run the application in offline mode. Service Workers monitor the network and are able to over-ride default network behaviour. They communicate with other services such as the Cache API that deals with the actual storage part. Typically, a Service Worker would monitor requests sent by the application and either serve the data from local storage if available or fetch it over the network and save it locally for later retrieval. 
 
-The Cache API stores key/value pairs where the key is the URL and the value is the response returned by fetch. The Cache API ignores the \texttt{"no-cache"} and \texttt{"no-store"} HTTP header. Resources which contain the \texttt{"no-cache"} or \texttt{"no-store"} HTTP header can still be cached, however they cannot be displayed. 
+The Cache API stores (key, value) pairs where the key is the URL and the value is the response returned by fetch. The Cache API ignores the \texttt{"no-cache"} and \texttt{"no-store"} HTTP header. Resources which contain the \texttt{"no-cache"} or \texttt{"no-store"} HTTP header can still be cached, however they cannot be displayed. 
 
 Service Workers are registered against an origin and a path and requests made from this location will trigger the service worker events. The events will not only fire for every page request within the Service Worker's scope but also for requests made by those pages. Service Workers allow CORS (Cross-Origin Resource Sharing) - requesting a page from a domain outside the domain from which the page originated.
 
@@ -476,6 +480,9 @@ Service Workers run independent of the application they are monitoring. Service 
 
 % http://www.html5rocks.com/en/tutorials/service-worker/introduction/
 At the moment Service Workers are fully supported in Chrome and Firefox for both desktop and mobile and have basic support in Opera. Microsoft newest browser, Edge, is also working on adding support for this new technology.
+
+\subsection{HTTP Protocol}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -486,7 +493,7 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 \label{feltenschneider}
 Felten and Schneider were the first to identify a vulnerability in the browser's cache mechanism which lets an adversary spy on a user's browsing history. The attack, which uses timing information to determine if a web page has been previously visited by the victim, is described in their 2000 paper \cite{felten2000timing}.
 
-Their attack model assumes that the victim accesses a web page containing attacker-controlled content. For example, an attacker Eve wants to see if the victim, Alice, has recently been to Bob's website. Eve builds a malicious website which sends a request to Bob's web page and measures the time it takes to receive the file. When Alice accesses Eve's website, the spy process automatically computes the time it takes to access Bob's website and sends the result to Eve. If the time is less than some threshold, Eve concludes that Bob's web page is stored in Alice's cache, therefore Alice has recently accessed Bob's web page. On the other hand, if the time to access Bob's web site is greater than the threshold, Eve learns that Alice has not been to Bob's web site.
+Their attack model assumes that the victim accesses a web page containing attacker-controlled content. For example, an attacker Eve wants to see if the victim, Alice, has recently been to Bob's website. Eve builds a malicious website which sends a request to Bob's web page and measures the time it takes to receive the response. When Alice accesses Eve's website, the spy process automatically computes the time it takes to access Bob's website and sends the result to Eve. If the time is less than some threshold, Eve concludes that Bob's web page is stored in Alice's cache, therefore Alice has recently accessed Bob's web page. On the other hand, if the time to access Bob's web site is greater than the threshold, Eve learns that Alice has not been to Bob's web site.
 
 Felten and Schneider outline several methods for convincing the victim to access the malicious web page, such as \cite{felten2000timing}:
 \begin{itemize}
