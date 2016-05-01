@@ -21,10 +21,19 @@
                 </md-radio-group>
             </md-content>
 
-            <div>
+            <md-content layout="column" layout-padding>
+                <h4> Files: </h4>
+                <md-radio-group ng-model="graph.fl" ng-init="graph.fl='l50'" class="md-warn">
+                    <md-radio-button value="l50"> Linear 50kB </md-radio-button>
+                    <md-radio-button value="l100"> Linear 100kB </md-radio-button>
+                    <md-radio-button value="exp"> Exponential </md-radio-button>
+                </md-radio-group>
+            </md-content>
+
+            <!-- <div>
                 <md-checkbox ng-model="graph.random" aria-label="Random" class="md-warn md-align-top-left">
                 Random
-            </div>
+            </div> -->
         </div>
         <md-button class="md-raised md-warn" ng-click="run()"> Run </md-button>
     </md-sidenav>

@@ -807,13 +807,25 @@ The attack was possible due to a feature of the JavaScript High Resolution Time 
 \newpage
 \section{Van}
 
-Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading and external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. I decided to test if the claim is true by implementing a website which compares the accuracy of the two measurements.
+Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. They also test how software used for providing offline access to web applications such as Application Cache and Service Workers can improve the efficiency of the timing attack. 
 
-In order to test the attack I set up a remote server, which contain randomly generated HTML files of different sizes ranging from 50kB to 2048kB. The files can be split into two groups:
+The methods used by Van Goethem et al. \cite{van2015clock} to measure the loading time of a file from a cross-origin website require the files to be stored remotely. In order to test the attack, I set up a remote server, which contains randomly generated HTML files of different sizes ranging from 50kB to 1024kB. The files can be split into three overlapping groups:
 \begin{itemize}
 \item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
-\item The second group contains 8 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB, 1024kB and 2048kB.
+\item The second group contains 20 files with sizes ranging from 50kB to 1000kB, in 50kB increments.
+\item The third group contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB and 1024kB.
 \end{itemize}
+
+The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on the assumption that an adversary can distinguish between files of different only having access to the files' load times. I decided to test if using the Video element to load an external resource provides better results than when the Image element is used. I build a website which measures the load time of files of various sizes using both the Image element and the Video element and compares the efficiency of the two methods.
+
+The web application can be split into two parts: 
+
+
+
+
+
+
+
 
 
 
