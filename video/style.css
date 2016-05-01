@@ -13,3 +13,18 @@
 .body {
     height: 100%;
 }
+
+.guess {
+    color: rgb(255,87,34);
+}
+
+.answer-container {
+    margin: auto;
+    margin-bottom: 30px;
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    border-radius: 25px;
+    background: rgb(63,81,181);
+    color: white;
+}

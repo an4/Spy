@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  1 MAY 2016 15:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  1 MAY 2016 16:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -606,11 +606,18 @@ File: figures/firefox45.png Graphic file (type png)
 <use figures/firefox45.png>
 Package pdftex.def Info: figures/firefox45.png used on input line 789.
 (pdftex.def)             Requested size: 455.24411pt x 159.21532pt.
- [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] [27] [28
+ [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] <figures/interfa
+ce.png, id=171, 1843.88875pt x 972.63374pt>
+File: figures/interface.png Graphic file (type png)
 
-]
+<use figures/interface.png>
+Package pdftex.def Info: figures/interface.png used on input line 828.
+(pdftex.def)             Requested size: 455.24411pt x 240.13023pt.
+ [27 <./figures/interface.png>] [28]
 Chapter 5.
-[29] [30
+[29
+
+] [30
 
 ]
 Chapter 6.
@@ -670,13 +677,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7625 strings out of 493304
- 106374 string characters out of 6139871
- 298186 words of memory out of 5000000
- 10910 multiletter control sequences out of 15000+600000
+ 7631 strings out of 493304
+ 106510 string characters out of 6139871
+ 277197 words of memory out of 5000000
+ 10915 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,13n,72p,1287b,1284s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,13n,72p,1287b,1676s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -691,10 +698,10 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (54 pages, 436184 bytes).
+Output written on main.pdf (54 pages, 502370 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
+ 248 PDF objects out of 1000 (max. 8388607)
  169 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
