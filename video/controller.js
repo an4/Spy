@@ -2,8 +2,8 @@
 
 angular.module('TheApp', ['ngMaterial', 'googlechart']);
 
-angular.module('TheApp').controller('controller', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
+angular.module('TheApp').controller('controller', ['$scope', '$http', '$location', '$timeout',
+    function($scope, $http, $location, $timeout) {
         $scope.graph = {};
         $scope.graph.random = false;
         $scope.graph.Xaxis = 30;
@@ -23,20 +23,18 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 ///////////////////////////////////////////////////////////////
 ///////////////////// TIME VIDEO METHODS //////////////////////
 ///////////////////////////////////////////////////////////////
-        function measureTimeVideo(url) {
+        function measureTimeVideo(url, index) {
             return new Promise(function(resolve, reject) {
-                var error = undefined;
                 var video = document.createElement('video');
                 // The error is only triggered when the file has finished parsing
                 video.onerror = function() {
                     timeError = window.performance.now();
                     var time = timeError - timeSuspend;
-                    error = true;
-                    resolve(time);
+                    var response = {'index': index, 'time': time};
+                    resolve(response);
                 };
                 // Start timing once the resource is loaded and parsing begins.
                 video.onsuspend = function() {
-                    error = false;
                     timeSuspend = window.performance.now();
                 };
 
@@ -48,13 +46,14 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 ///////////////////////////////////////////////////////////////
 ////////////////////// TIME IMAGE METHOD //////////////////////
 ///////////////////////////////////////////////////////////////
-        function measureTimeImage(url) {
+        function measureTimeImage(url, index) {
             return new Promise(function(resolve, reject) {
                 var img = new Image();
                 img.onerror = function() {
                     var end = window.performance.now();
                     var time = end-start;
-                    resolve(time);
+                    var response = {'index': index, 'time': time};
+                    resolve(response);
                 }
                 var start = window.performance.now();
                 img.src = url;
@@ -64,6 +63,93 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 ///////////////////////////////////////////////////////////////
 /////////////////////// Mutliple Files ////////////////////////
 ///////////////////////////////////////////////////////////////
+        /**
+         * Get measurements for an array of files - Once for each files.
+         */
+        function getMeasurementArray(files, method) {
+            return new Promise(function(resolve, reject) {
+                var promises = [];
+                var len = files.length;
+                var times = [];
+                for(var i=0; i<len; i++) {
+                    times.push(0);
+                }
+
+                var currentFile = files.shift();
+                promises[0] = method(currentFile.url, currentFile.index);
+                for(var i=1; i<len; i++) {
+                    promises[i] = promises[i-1].then(function(result) {
+                        times[result.index] = result.time;
+                        currentFile = files.shift();
+                        return method(currentFile.url, currentFile.index);
+                    }, function() {
+                        console.log("3rr0r");
+                    });
+                }
+
+                promises[i-1].then(function(result) {
+                    times[result.index] = result.time;
+                    resolve(times);
+                });
+            });
+        };
+
+        /**
+         * Get measurements for all files. Shuffle files before each round.
+         */
+        function getMeasurementShuffle(files, rounds, method) {
+            return new Promise(function(resolve, reject) {
+                $scope.graph.progressPart = 100/rounds;
+                $scope.graph.progress = 0;
+                var sortedFiles = files;
+                var promises = [];
+                var results = [];
+                var fileResult = [];
+                for(var i=0; i<files.length; i++) {
+                    var temp = {'file': files[i], 'times': []};
+                    fileResult.push(temp);
+                }
+
+                promises[0] = getMeasurementArray(shuffle(files.slice(0)), method);
+                for(var i=1; i<rounds; i++) {
+                    promises[i] = promises[i-1].then(function(arrayResult) {
+                        for(var j=0; j<files.length; j++) {
+                            fileResult[j].times.push(arrayResult[j]);
+                        }
+                        $scope.graph.progress += $scope.graph.progressPart;
+                        $scope.$apply();
+
+                        // console.log("Before");
+                        // for(var k=0; k<2000000000;) {
+                        //     k++;
+                        // }
+                        // console.log("After");
+
+                        return getMeasurementArray(shuffle(files.slice(0)), method);
+                    }, function() {
+                        console.log("3rr0r");
+                    });
+                }
+
+                promises[i-1].then(function(arrayResult) {
+                    for(var j=0; j<files.length; j++) {
+                        fileResult[j].times.push(arrayResult[j]);
+                    }
+
+                    $scope.graph.progress += $scope.graph.progressPart;
+                    $scope.$apply();
+
+                    // Build all files result.
+                    for(var j=0; j<files.length; j++) {
+                        results[j] = buildResult(fileResult[j].times, fileResult[j].file);
+                    }
+
+                    $scope.graph.progress = 100;
+                    resolve(results);
+                });
+            });
+        };
+
         /**
          * Get multiple measurements for the same file
          * file - file to be measured
@@ -79,18 +165,16 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                 promises[0] = method(file.url);
                 for(var i=1; i<rounds; i++) {
-                    promises[i] = promises[i-1].then(function(time) {
-                        if(time != 0) {
-                            times.push(time);
-                        }
+                    promises[i] = promises[i-1].then(function(result) {
+                        times.push(result.time);
                         return method(file.url);
                     }, function() {
-                        console.log("Something went wrong");
+                        console.log("Something went wrong.");
                     });
                 }
 
-                promises[i-1].then(function(time) {
-                    times.push(time);
+                promises[i-1].then(function(result) {
+                    times.push(result.time);
                     resolve(buildResult(times, file));
                 });
             });
@@ -105,18 +189,16 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                 promises[0] = method(file.url);
                 for(var i=1; i<2*rounds; i++) {
-                    promises[i] = promises[i-1].then(function(time) {
-                        if(time != 0) {
-                            times.push(time);
-                        }
+                    promises[i] = promises[i-1].then(function(result) {
+                        times.push(result.time);
                         return method(file.url);
                     }, function() {
                         console.log("Something went wrong");
                     });
                 }
 
-                promises[i-1].then(function(time) {
-                    times.push(time);
+                promises[i-1].then(function(result) {
+                    times.push(result.time);
 
                     var sample = getRandom(times, rounds);
 
@@ -194,7 +276,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         function removeOutliers(data) {
             var median = math.median(data);
             for(var i=0; i<data.length; i++) {
-                if(data[i] > median * 1.5) {
+                if(Math.abs(data[i] - median) < median * 0.5) {
                     data.splice(i,1);
                 }
             }
@@ -216,7 +298,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
             result.mean = parseFloat(math.mean(timingData).toFixed(4));
             result.std = parseFloat(math.std(timingData).toFixed(4));
             result.min = getMinimum(times);
-            console.log("File: " + file.name + ". min: " + result.min + ". mean: " + result.mean);
+            console.log("File: " + file.name + ". min: " + result.min + ". mean: " + result.mean + ". median: " + result.median);
             return result;
         };
 
@@ -522,7 +604,7 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             $scope.graph.progressPart = 100/files.length;
 
-            return shuffle(files);
+            return files;
         };
 
 /////////////////////////////////////////////////////////
@@ -547,7 +629,12 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
             var files = getFiles(true);
 
-            getMeasurementAll(files, rounds, method).then(function(results) {
+            // getMeasurementAll(files, rounds, method).then(function(results) {
+            //     $scope.chartObject = {};
+            //     draw(results);
+            // });
+
+            getMeasurementShuffle(files, rounds, method).then(function(results) {
                 $scope.chartObject = {};
                 draw(results);
             });
