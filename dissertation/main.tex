@@ -54,7 +54,8 @@
    breaklines=true,
    showtabs=false,
    captionpos=b,
-   xleftmargin=0.7cm
+   xleftmargin=0.7cm,
+   aboveskip=1.5em
 }
 
 
@@ -819,7 +820,7 @@ Van Goethem et al. \cite{van2015clock} claim that loading a file into a Video el
 
 The web application can be split into two parts:
 \begin{itemize}
-\item A web page which lets user generate graphs in order to determine how easy it is to distinguish between files of different size using either the Video or the Image methods which can be seen in Figure \ref{fig:videointerface}.
+\item A web page which lets users generate graphs in order to determine how easy it is to distinguish between files of different sizes by measuring the load time using either the Video or the Image methods which can be seen in Figure \ref{fig:videointerface}.
 \item And a second web page which tries to estimate the size of a given file by using the Video method proposed by Van Goethem et al. in \cite{van2015clock}. The web page can be seen in Figure \ref{fig:videoguess}.
 \end{itemize}
 
@@ -832,13 +833,13 @@ The back-end script contains various functions for measuring the time of loading
 
 The Image method was first proposed by Bortz et al. in \cite{bortz2007exposing}, where it was used to estimate the size of a cross-origin resource. The value returned by this method measures the total time it takes to download the external resource, which is highly dependent on the network. 
 
-The function starts by creating a new Image object, which will hold the contents of the file whose size it is trying to guess. Before setting the value of the \texttt{src} attribute, the \texttt{error} event needs to be registered on the Image object. The \texttt{error} event fires when the browser is unable to display the resource as an image, which usually happens as soon as the file has finished downloading. 
+The function from Listing \ref{vanimage} starts by creating a new Image object, which will hold the contents of the file whose size it is trying to guess. Before setting the value of the \texttt{src} attribute, the \texttt{error} event needs to be registered on the Image object. The \texttt{error} event fires when the browser is unable to display the resource as an image, which usually happens as soon as the file has finished downloading. 
 
-The JavaScript High Resolution Time API described in Section \ref{javascript}, which provides time measurements accurate to one microsecond, is used to measure the loading time. The original algorithm, proposed by Bortz et el \cite{bortz2007exposing}, was using the \texttt{Date.now()} \cite{datenow} method to measure the time, which returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC. The JavaScript High Resolution Time API measures the time elapsed since the page has started loading. This method of estimating time, provides better measurements, which are relative to the page and are not influenced by changes in the system's time. 
+The JavaScript High Resolution Time API described in Section \ref{javascript}, which provides time measurements accurate to one microsecond, is used to measure the loading time. The original algorithm, proposed by Bortz et el \cite{bortz2007exposing}, was using the \texttt{Date.now()} \cite{datenow} method to measure the time, which returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC. The JavaScript High Resolution Time API measures the time elapsed since the page has started loading. This method of estimating time, provides better measurements, which are relative to the page and are not influenced by changes in the system's time. The API contains a single method, \texttt{performance.now()}, which returns the number of microseconds elapsed since the pages has started loading.
 
-To measure the time it takes to load the resource, we call the \texttt{performance.now()} method in order to receive the time elapsed since the application started loading and store the value in a variable, \texttt{start}. Then we set the value of the \texttt{src} attribute to link to the file we are trying to estimate the size of. The browser will start downloading the resource and once it received all the data will try to display it. In case the resource is not a valid image file, the \texttt{error} event will fire. We know that the \texttt{error} event is only triggered once the file has finished downloading so we measure the time again by calling the \texttt{performance.now()} method, and store the value in \texttt{end}. The time difference between the two variable, \texttt{end} and \textbf{start}, represents the total load time of the file. The function ends by returning the time measurement.
+To measure the time it takes to load the resource, we call the \texttt{performance.now()} method in order to receive the time elapsed since the application started loading and store the value in a variable, \texttt{start}. Then we set the value of the \texttt{src} attribute to link which points to the file we are trying to estimate the size of. The browser will start downloading the resource and once it received all the data will try to display it. In case the resource is not a valid image file, the \texttt{error} event will fire. We know that the \texttt{error} event is only triggered once the file has finished downloading so we measure the time again by calling the \texttt{performance.now()} method, and store the value in \texttt{end}. The time difference between the two variables, \texttt{end} and \textbf{start}, represents the total load time of the file. The function ends by returning the time measurement.
 
-
+The function, which measures the load time of a file as an image, returns a promise, which will be resolved to the time measurement value. A JavaScript promise represents an action which has not completed yet, but is expected to in the future. Promises are used to make sure that the current file has completely finished downloading before any other operation is started.
 
 \begin{lstlisting}[caption={Measuring the load time of an external resource as an Image},label={vanimage}]
 function measureTimeImage(url) {
@@ -855,9 +856,11 @@ function measureTimeImage(url) {
 };
 \end{lstlisting}
 
+Measuring the time it takes to load a file as an Image is dependent on the network conditions and is heavily influenced by loss of packets and server load. Van Goethem et al. \cite{van2015clock} propose replacing the Image element with a recently introduced HTML element, the Video element. They claim that this method provides more accurate results since the time measurement is independent of the network conditions. The function used for measuring the time it takes to load a cross-origin file into a video element is presented in Listing \ref{vanvideo}.
 
-% describe video algo
-The 
+Similarly to the Image object, the Video object has an \texttt{error} event associated, which fires when the browser learns that the file to be displayed is not a valid video file. The video element has some additional event which can be monitored such as \texttt{progress} and \texttt{suspend}. The \texttt{progress} event is being triggered periodically while the file is being downloaded. Once the file has finished downloading, the \texttt{suspend} event will fire. 
+
+The \texttt{error} event associated with the Video element has a slightly different behaviour than the one from the Image element. Additionally, it is known to act differently between browser versions. In Chrome, the \texttt{error} event will fire once the browser has finished parsing the contents of the file and it realizes the resource is not a valid video file. Therefore, the time between the \texttt{suspend} event and the \texttt{error} event is dependent on the size of the file. Firefox, however, does not wait until it has finished parsing the contents of the file and will trigger the \texttt{error} event as soon as the resource has finished downloading, if the file is not valid. Despite the video method only working in Chrome, it is still worth mentioning since, according to \cite{statcounter}, over half of the world's desktop and tablet users use Chrome.
 
 \begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
 function measureTimeVideo(url) {
@@ -878,9 +881,6 @@ function measureTimeVideo(url) {
 	});
 };
 \end{lstlisting}
-
-% describe img algo
-
 
 
 %why we need mutiple and how to get them, two methods + promises

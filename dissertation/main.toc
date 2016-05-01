@@ -38,7 +38,7 @@
 \contentsline {section}{\numberline {4.2}Van}{27}
 \contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
 \contentsline {subsubsection}{Back-end}{27}
-\contentsline {subsubsection}{Graph}{28}
+\contentsline {subsubsection}{Graph}{29}
 \contentsline {subsubsection}{Guess}{29}
 \contentsline {subsubsection}{Backend}{29}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{31}
