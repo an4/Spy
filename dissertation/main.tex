@@ -807,7 +807,17 @@ The attack was possible due to a feature of the JavaScript High Resolution Time 
 \newpage
 \section{Van}
 
-Van Goethem et al. \cite{van2015clock} 
+Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading and external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. I decided to test if the claim is true by implementing a website which compares the accuracy of the two measurements.
+
+In order to test the attack I set up a remote server, which contain randomly generated HTML files of different sizes ranging from 50kB to 2048kB. The files can be split into two groups:
+\begin{itemize}
+\item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
+\item The second group contains 8 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB, 1024kB and 2048kB.
+\end{itemize}
+
+
+
+
 
 \begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
 function measureTimeVideo(url) {

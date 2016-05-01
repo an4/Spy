@@ -25,17 +25,21 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 ///////////////////////////////////////////////////////////////
         function measureTimeVideo(url) {
             return new Promise(function(resolve, reject) {
+                var error = undefined;
                 var video = document.createElement('video');
                 // The error is only triggered when the file has finished parsing
                 video.onerror = function() {
                     timeError = window.performance.now();
                     var time = timeError - timeSuspend;
+                    error = true;
                     resolve(time);
                 };
                 // Start timing once the resource is loaded and parsing begins.
                 video.onsuspend = function() {
+                    error = false;
                     timeSuspend = window.performance.now();
                 };
+
                 var timeSuspend, timeError;
                 video.src = url;
             });
@@ -76,7 +80,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 promises[0] = method(file.url);
                 for(var i=1; i<rounds; i++) {
                     promises[i] = promises[i-1].then(function(time) {
-                        times.push(time);
+                        if(time != 0) {
+                            times.push(time);
+                        }
                         return method(file.url);
                     }, function() {
                         console.log("Something went wrong");
@@ -100,7 +106,9 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                 promises[0] = method(file.url);
                 for(var i=1; i<2*rounds; i++) {
                     promises[i] = promises[i-1].then(function(time) {
-                        times.push(time);
+                        if(time != 0) {
+                            times.push(time);
+                        }
                         return method(file.url);
                     }, function() {
                         console.log("Something went wrong");
