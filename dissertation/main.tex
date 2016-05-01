@@ -809,35 +809,27 @@ The attack was possible due to a feature of the JavaScript High Resolution Time 
 
 Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. They also test how software used for providing offline access to web applications such as Application Cache and Service Workers can improve the efficiency of the timing attack. 
 
-The methods used by Van Goethem et al. \cite{van2015clock} to measure the loading time of a file from a cross-origin website require the files to be stored remotely. In order to test the attack, I set up a remote server, which contains randomly generated HTML files of different sizes ranging from 50kB to 1024kB. The files can be split into three overlapping groups:
+The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on the assumption that an adversary can distinguish between files of different sizes only having access to the files' load times. I decided to test if several of the methods proposed in their paper are still possible and how accurately they can estimate the size of an external resource. I built two web applications: one which compares the Video method proposed by Van Goethem et al. \cite{van2015clock} to the Image method presented by Bortz et al. \cite{bortz2007exposing} and tries to estimate the size of an external resource by loading it into a Video element, and a second application which tries to guess the size of a remote file using Service Workers.
+
+The methods used by Van Goethem et al. \cite{van2015clock} to measure the loading time of a file from a cross-origin website require the files to be stored remotely. In order to test the attack, I set up a remote server, which contains randomly generated HTML files of different sizes ranging from 50kB to 1024kB. 
+
+\subsection{Video vs. Image}
+Van Goethem et al. \cite{van2015clock} claim that loading a file into a Video element provides more accurate results than measuring the time by loading the file into an Image element. I built a web application which compares the two methods and also tries to estimate the size of an external resource using the Video algorithm proposed by Van Goethem et al. \cite{van2015clock}.
+
+The web application can be split into two parts:
 \begin{itemize}
-\item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
-\item The second group contains 20 files with sizes ranging from 50kB to 1000kB, in 50kB increments.
-\item The third group contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB and 1024kB.
+\item A web page which lets user generate graphs in order to determine how easy it is to distinguish between files of different size using either the Video or the Image methods which can be seen in Figure \ref{fig:videointerface}.
+\item And a second web page which tries to estimate the size of a given file by using the Video method proposed by Van Goethem et al. in \cite{van2015clock}. The web page can be seen in Figure \ref{fig:videoguess}.
 \end{itemize}
 
-The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on the assumption that an adversary can distinguish between files of different only having access to the files' load times. I decided to test if using the Video element to load an external resource provides better results than when the Image element is used. I build a website which measures the load time of files of various sizes using both the Image element and the Video element and compares the efficiency of the two methods.
+The two web pages communicate with a background script which provides the time measuring methods and generates all the data needed for plotting the graph. The script is written entirely in JavaScript. The front-end was built using AngularJS, whose two way data binding simplifies the process of sending data between the background script and the front end parts of the application.
 
-The web application can be split into two sections:
-\begin{itemize}
-\item A part which provides a friendly user interface for generating graphs as it can be seen in Figure \ref{fig:videointerface}
-\end{itemize}
+% backend
+\subsubsection{Back-end}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/interface.png}
-\caption{Web application interface.}
-\label{fig:videointerface}
-\end{figure}
+The back-end script contains various functions for measuring the time of loading an external resource into an Image element or a Video element. The basic building block are the two algorithm depicted in Listing \ref{vanvideo} for measuring the load time of a file using the Video elements and in Listing \ref{vanimage} which measures the load time of an external resource using the Image element.
 
-
-
-
-
-
-
-
-
+% describe video algo
 
 \begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
 function measureTimeVideo(url) {
@@ -859,6 +851,8 @@ function measureTimeVideo(url) {
 };
 \end{lstlisting}
 
+% describe img algo
+
 \begin{lstlisting}[caption={Measuring the load time of an external resource as an Image},label={vanimage}]
 function measureTimeImage(url) {
     return new Promise(function(resolve, reject) {
@@ -873,6 +867,40 @@ function measureTimeImage(url) {
     });
 };
 \end{lstlisting}
+
+% Good
+
+\subsubsection{Graph}
+
+The Graph generating part provides a user friendly interface as it can be seen in Figure \ref{fig:videointerface}. On the left side there is a dashboard which lets the user customize the graph. They can choose from three different data sets:
+\begin{itemize}
+\item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
+\item The second group contains 20 files with sizes ranging from 50kB to 1000kB, in 50kB increments.
+\item The third group contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB and 1024kB.
+\end{itemize}
+
+The application provides two method for measuring the load time the files: video and audio. Users can also change the number of measurements to be recorder for each file, by default the application gathers 50 time measurements for each of the files in the data set. There is also an option for selecting the bin size for the plot.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/interface.png}
+\caption{Web application interface for creating graphs.}
+\label{fig:videointerface}
+\end{figure}
+
+\subsubsection{Guess}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/guess.png}
+\caption{Web application interface for estimating size of file.}
+\label{fig:videoguess}
+\end{figure}
+
+\subsubsection{Backend}
+
+
 
 %-----------------------------------------------------------------------------
 

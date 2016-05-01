@@ -36,5 +36,10 @@
 \contentsline {chapter}{\numberline {4}Project Execution}{23}
 \contentsline {section}{\numberline {4.1}Oren Test}{23}
 \contentsline {section}{\numberline {4.2}Van}{27}
-\contentsline {chapter}{\numberline {5}Critical Evaluation}{29}
-\contentsline {chapter}{\numberline {6}Conclusion}{31}
+\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
+\contentsline {subsubsection}{Back-end}{27}
+\contentsline {subsubsection}{Graph}{28}
+\contentsline {subsubsection}{Guess}{28}
+\contentsline {subsubsection}{Backend}{28}
+\contentsline {chapter}{\numberline {5}Critical Evaluation}{31}
+\contentsline {chapter}{\numberline {6}Conclusion}{33}
