@@ -3,3 +3,4 @@
 \contentsline {lstlisting}{\numberline {4.2}Measuring the load time of an external resource as an Image}{27}
 \contentsline {lstlisting}{\numberline {4.3}Measuring the load time of an external resource as a Video}{28}
 \contentsline {lstlisting}{\numberline {4.4}JavaScript implementation of the Fisher-Yates algorithm}{30}
+\contentsline {lstlisting}{\numberline {4.5}JavaScript code for estimating the size of a cross-origin file.}{31}

@@ -941,10 +941,7 @@ The function receives a list of files for which it has to collect multiple time 
 
 \subsubsection{Guess}
 
-% what it does, accepts an url  of a html file and estimates the size
-
-% methods of estiamting the size, linear function why base case + step size
-
+The second part of the web application estimates the size of a given file. The user provides the URL to a cross-origin resource, such as a Facebook profile page or a random HTML file and the application uses the Video method presented in Listing \ref{vanvideo} to guess the size of the file.
 
 \begin{figure}[h]
 \centering
@@ -953,7 +950,31 @@ The function receives a list of files for which it has to collect multiple time 
 \label{fig:videoguess}
 \end{figure}
 
+In order to estimate the size of a file, a user has to type the URL pointing to the file's location in the input box and click the \texttt{GUESS SIZE} button. Once the button is clicked a function on the back end side will fetch the URL and start the guessing process.
+
+The function collects multiple measurements by calling the function presented in Listing \ref{vanvideo} multiple times. The time measurements can be influenced by noise produced by the victim's system, we select the minimum value since it is the least likely to have been influenced by noise. 
+
+\begin{lstlisting}[caption={JavaScript code for estimating the size of a cross-origin file.},label={filesizevideo}]
+function guessSize(unknownFileLoadTime, load100, load200) {
+	var size = 0;
+	if(unknownFileLoadTime > load100) {
+		unknownFileLoadTime -= load100;
+		size += 100;
+		size = size + 100 * (uunknownFileLoadTime/(load200-load100));
+	}
+	return size;
+};
+\end{lstlisting}
+
+Another problem we face when trying to determine the size of a file from a cross-origin website is that there is no way to determine what system the victim is using, they can browse the website from a mobile device or a laptop. The time measurement obtained by running the \texttt{measureTimeVideo()} method is influenced by the system the website is being accessed from. In order to determine the victim's system speed we are going to measure the load time of two files of known sizes (100kB and 200kB). The files reside on the remote server we set up earlier in order to compare the two measurement methods. We collect multiple time measurements for the two files and choose the minimum values, as they are less influenced by noise.
+
+Subtracting the time it takes to parse the 100kB file  from the time it takes to parse the 200kB , gives us the time it takes to parse a chuck of 100kB of a file. I decided to use the difference between the two measurements to obtain the time it takes to parse 100kB, rather than use the time it takes to parse the 100kB file, since the parsing process spends some time opening the file. We use the following algorithm presented in Listing \ref{filesizevideo} to determine the size of the file.
+
+The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the obtained value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
+
 \section{Service Worker}
+
+% video only works in chrome so i built this as well
 
 \section{Other}
 
