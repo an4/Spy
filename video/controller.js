@@ -119,12 +119,6 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
                         $scope.graph.progress += $scope.graph.progressPart;
                         $scope.$apply();
 
-                        // console.log("Before");
-                        // for(var k=0; k<2000000000;) {
-                        //     k++;
-                        // }
-                        // console.log("After");
-
                         return getMeasurementArray(shuffle(files.slice(0)), method);
                     }, function() {
                         console.log("3rr0r");
@@ -254,8 +248,8 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
         /* Fisher-Yates shuffle */
         function shuffle(array) {
             for(var counter=array.length-1; counter > 0; counter--) {
-                let index = Math.floor(Math.random() * counter);
-                let temp = array[counter];
+                var index = Math.floor(Math.random() * counter);
+                var temp = array[counter];
                 array[counter] = array[index];
                 array[index] = temp;
             }

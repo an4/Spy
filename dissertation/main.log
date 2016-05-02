@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 13:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 15:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -617,19 +617,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/interface.png Graphic file (type png)
 
 <use figures/interface.png>
-Package pdftex.def Info: figures/interface.png used on input line 923.
+Package pdftex.def Info: figures/interface.png used on input line 937.
 (pdftex.def)             Requested size: 455.24411pt x 240.13023pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 <figures/guess.png, id=183, 1855.93375pt x 578.16pt>
 File: figures/guess.png Graphic file (type png)
  <use figures/guess.png>
-Package pdftex.def Info: figures/guess.png used on input line 937.
+Package pdftex.def Info: figures/guess.png used on input line 953.
 (pdftex.def)             Requested size: 455.24411pt x 141.81364pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[30 <./figures/interface.png>] [31 <./figures/guess.png>] [32
+[30] [31 <./figures/interface.png> <./figures/guess.png>] [32
 
 ]
 Chapter 5.
@@ -699,10 +702,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7639 strings out of 493304
- 106643 string characters out of 6139871
- 274227 words of memory out of 5000000
- 10922 multiletter control sequences out of 15000+600000
+ 7650 strings out of 493304
+ 106773 string characters out of 6139871
+ 274243 words of memory out of 5000000
+ 10933 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,13n,72p,1287b,1284s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -720,7 +723,7 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (58 pages, 545334 bytes).
+Output written on main.pdf (58 pages, 547474 bytes).
 PDF statistics:
  262 PDF objects out of 1000 (max. 8388607)
  178 compressed objects within 2 object streams

@@ -916,7 +916,23 @@ The Graph generating part provides a user friendly interface as it can be seen i
 
 The application provides two method for measuring the load time the files: video described in Listing \ref{vanvideo}, and audio described in Listing \ref{vanimage}. Users can also change the number of measurements to be recorder for each file, by default the application gathers 50 time measurements for each of the files in the data set. There is also an option for selecting the bin size for the plot.
 
-After setting all the parameters, a user has to click the \texttt{RUN} button in order to generate the graph shown on the right side in Figure \ref{fig:videointerface}.
+After setting all the parameters, a user has to click the \texttt{RUN} button in order to generate the graph shown on the right side in Figure \ref{fig:videointerface}. The button calls a JavaScript function, which collects all the user provided information such as what data set to use, how many measurements to collect, what method to use for measuring the loading time and the bin size. The function constructs an object with all the needed information and sends it to the function responsible for collecting the time measurements.
+
+\begin{lstlisting}[caption={JavaScript implementation of the Fisher-Yates algorithm},label={fisheryates}]
+function shuffle(array) {
+	for(var counter=array.length-1; counter > 0; counter--) {
+		var index = Math.floor(Math.random() * counter);
+		var temp = array[counter];
+		array[counter] = array[index];
+		array[index] = temp;
+	}
+	return array;
+};
+\end{lstlisting}
+
+The function receives a list of files for which it has to collect multiple time measurement using the shuffling technique described in the previous section. The function shuffles the files, measures the time it takes to load each of the files one and repeats the process until enough data has been collected. The list of files is shuffled using the Fisher-Yates algorithm \cite{fisher1949statistical} defined in Listing \ref{fisheryates}.
+
+% graph drawing part
 
 \begin{figure}[h]
 \centering

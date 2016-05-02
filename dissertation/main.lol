@@ -2,3 +2,4 @@
 \contentsline {lstlisting}{\numberline {4.1}Code for comparing access times from RAM vs Cache}{23}
 \contentsline {lstlisting}{\numberline {4.2}Measuring the load time of an external resource as an Image}{27}
 \contentsline {lstlisting}{\numberline {4.3}Measuring the load time of an external resource as a Video}{28}
+\contentsline {lstlisting}{\numberline {4.4}JavaScript implementation of the Fisher-Yates algorithm}{30}
