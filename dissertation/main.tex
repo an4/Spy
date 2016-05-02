@@ -970,11 +970,47 @@ Another problem we face when trying to determine the size of a file from a cross
 
 Subtracting the time it takes to parse the 100kB file  from the time it takes to parse the 200kB , gives us the time it takes to parse a chuck of 100kB of a file. I decided to use the difference between the two measurements to obtain the time it takes to parse 100kB, rather than use the time it takes to parse the 100kB file, since the parsing process spends some time opening the file. We use the following algorithm presented in Listing \ref{filesizevideo} to determine the size of the file.
 
-The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the obtained value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
+The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the resulted value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
 
 \section{Service Worker}
 
-% video only works in chrome so i built this as well
+Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. I build another web application, which estimates the size of a given file, using Service Workers. 
+
+\begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
+$scope.guessSize = function() {
+	var img = new Image();
+	img.src = $scope.sw.url;
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
+function putDelete(url, response, cache) {
+    var end;
+    var start = performance.now();
+    return new Promise(function(resolve, reject) {
+        cache.put(url, response.clone()).then(function() {
+            end = performance.now();
+            var time = end-start;
+            cache.delete(url).then(function(res) {
+                resolve(time);
+            });
+        });
+    });
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
+var size = 0;
+if(time > time_100) {
+    time -= time_100;
+    size += 100;
+    var timeStep = time_200 - time_100;
+    var x = time/timeStep;
+    size = size + 100 * x;
+}
+\end{lstlisting}
+
+
 
 \section{Other}
 
