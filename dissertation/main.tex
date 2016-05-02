@@ -974,7 +974,16 @@ The function receives the time it takes to parse the unknown file, the times it 
 
 \section{Service Worker}
 
-Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. I build another web application, which estimates the size of a given file, using Service Workers. 
+Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/sw_size.png}
+\caption{Web application interface for estimating size of file using Service Workers.}
+\label{fig:swguess}
+\end{figure}
+
+% where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
 
 \begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
 $scope.guessSize = function() {

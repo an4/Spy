@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 21:00
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -631,15 +631,22 @@ File: figures/guess.png Graphic file (type png)
 Package pdftex.def Info: figures/guess.png used on input line 948.
 (pdftex.def)             Requested size: 455.24411pt x 141.81364pt.
 
-[31 <./figures/guess.png>] [32]
-Chapter 5.
-[33
+[31 <./figures/guess.png>]
+<figures/sw_size.png, id=190, 1841.88126pt x 423.5825pt>
+File: figures/sw_size.png Graphic file (type png)
 
-] [34
+<use figures/sw_size.png>
+Package pdftex.def Info: figures/sw_size.png used on input line 981.
+(pdftex.def)             Requested size: 455.24411pt x 104.69318pt.
+ [32 <./figures/sw_size.png>] [33] [34
+
+]
+Chapter 5.
+[35] [36
 
 ]
 Chapter 6.
-[35] [36
+[37] [38
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -654,7 +661,7 @@ Missing character: There is no ” in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [37
+ [39
 
 ]
 Underfull \hbox (badness 3428) in paragraph at lines 137--140
@@ -695,19 +702,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--195
 illa . org / en-[]US / docs / Web / JavaScript / Reference /
  []
 
-) [38] (./main.aux)
+) [40] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7673 strings out of 493304
- 107047 string characters out of 6139871
- 284287 words of memory out of 5000000
- 10956 multiletter control sequences out of 15000+600000
+ 7679 strings out of 493304
+ 107166 string characters out of 6139871
+ 275298 words of memory out of 5000000
+ 10961 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,13n,72p,1287b,1284s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,13n,72p,1287b,1684s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -722,10 +729,10 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (58 pages, 553946 bytes).
+Output written on main.pdf (60 pages, 572780 bytes).
 PDF statistics:
- 262 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
+ 269 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

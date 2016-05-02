@@ -41,6 +41,6 @@
 \contentsline {subsubsection}{Graph}{30}
 \contentsline {subsubsection}{Guess}{31}
 \contentsline {section}{\numberline {4.3}Service Worker}{32}
-\contentsline {section}{\numberline {4.4}Other}{32}
-\contentsline {chapter}{\numberline {5}Critical Evaluation}{33}
-\contentsline {chapter}{\numberline {6}Conclusion}{35}
+\contentsline {section}{\numberline {4.4}Other}{33}
+\contentsline {chapter}{\numberline {5}Critical Evaluation}{35}
+\contentsline {chapter}{\numberline {6}Conclusion}{37}
