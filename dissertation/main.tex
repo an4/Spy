@@ -862,6 +862,8 @@ Similarly to the Image object, the Video object has an \texttt{error} event asso
 
 The \texttt{error} event associated with the Video element has a slightly different behaviour than the one from the Image element. Additionally, it is known to act differently between browser versions. In Chrome, the \texttt{error} event will fire once the browser has finished parsing the contents of the file and it realizes the resource is not a valid video file. Therefore, the time between the \texttt{suspend} event and the \texttt{error} event is dependent on the size of the file. Firefox, however, does not wait until it has finished parsing the contents of the file and will trigger the \texttt{error} event as soon as the resource has finished downloading, if the file is not valid. Despite the video method only working in Chrome, it is still worth mentioning since, according to \cite{statcounter}, over half of the world's desktop and tablet users use Chrome.
 
+The function described in Listing \ref{vanvideo} return a promise which resolves to the time measurement once the browser has finished parsing the resource. The function starts  by creating a new video object which will contain the contents of the cross-origin resource. Again, the event we are monitoring need to be registered before we set the value of the \texttt{src} attribute. Compared to the Image object, where only one event was being watched, for the Video object we are going to use two events, \texttt{error} and \texttt{suspend}.
+
 \begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
 function measureTimeVideo(url) {
 	return new Promise(function(resolve, reject) {
@@ -882,10 +884,22 @@ function measureTimeVideo(url) {
 };
 \end{lstlisting}
 
+After the needed events are registered on the Video object, the function declares a couple of variables, \texttt{timeSuspend} and \texttt{timeError}, which will be used to store the number of microseconds elapsed since the page has started loading. Then, it sets the value of the \texttt{src} attribute to the url where the external resource resides. Once the \texttt{src} attribute is set the browser starts downloading the cross-origin resource and triggers the \texttt{progress} event. The \texttt{progress} event does not need to be watched since it does not provide any information which can help estimate the size of the external resource. 
 
-%why we need mutiple and how to get them, two methods + promises
+The \texttt{suspend} event will fire once the browser has finished downloading the file. This event is being triggered after the file has finished downloading, but before the browser has started the parsing process. In Listing \ref{vanvideo}, when the \texttt{suspend} event fires, the \texttt{performance.now()} method is called in order to obtain the current time stamp and the values is stored in \texttt{timeSuspend}. Then the browser starts the parsing process, which depending on the browser version can be interrupted by the \texttt{error} event. 
 
-% Good
+I used Chrome as the default browser for testing the attacks described by Van Goethem et al. \cite{van2015clock} so I am going to focus on the behaviour of the \texttt{error} event in this browser. Once the browser has finished parsing the recently downloaded file it tries to display it. The \texttt{error} event will fire if the resource is not a valid video file. When the event fires, a call will be made to the \texttt{performance.now()} method in order to obtain the time since the page has started loading. Again, we store the time measurement in a variable, \texttt{timeError}.
+
+The difference between the two variables, \texttt{timeError} and \texttt{timeSuspend}, represents the time it took the browser to parse the contents of the file, which is dependent on the size of the file. Once the \texttt{error} event fire, the function computes the time value and resolves the promise.
+
+As it can be seen from the description of the two functions presented in Listing \ref{vanimage} and Listing \ref{vanvideo}, there is a significant difference in the way they measure the load time of the file. The Image method measures how long it takes to download the resource, which can be influenced by network conditions, while the Video method measures how long it takes the browser to parse the contents of the resource.
+
+Due to varying network conditions in the case of the Image method and noise produced by other processes running on the same system in the Video method case, multiple time measurements need to be collected in order to accurately estimate the size of the file. 
+
+% first method, why it doesn't work
+
+% second shuffling method
+
 
 \subsubsection{Graph}
 

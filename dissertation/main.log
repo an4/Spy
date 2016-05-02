@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 00:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  2 MAY 2016 02:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -609,35 +609,32 @@ File: figures/firefox45.png Graphic file (type png)
 <use figures/firefox45.png>
 Package pdftex.def Info: figures/firefox45.png used on input line 791.
 (pdftex.def)             Requested size: 455.24411pt x 159.21532pt.
- [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] [27] [28]
-<figures/interface.png, id=177, 1843.88875pt x 972.63374pt>
+ [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] [27] [28] [29]
+<figures/interface.png, id=182, 1843.88875pt x 972.63374pt>
 File: figures/interface.png Graphic file (type png)
 
 <use figures/interface.png>
-Package pdftex.def Info: figures/interface.png used on input line 903.
+Package pdftex.def Info: figures/interface.png used on input line 917.
 (pdftex.def)             Requested size: 455.24411pt x 240.13023pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<figures/guess.png, id=178, 1855.93375pt x 578.16pt>
+<figures/guess.png, id=183, 1855.93375pt x 578.16pt>
 File: figures/guess.png Graphic file (type png)
  <use figures/guess.png>
-Package pdftex.def Info: figures/guess.png used on input line 913.
+Package pdftex.def Info: figures/guess.png used on input line 927.
 (pdftex.def)             Requested size: 455.24411pt x 141.81364pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[29] [30 <./figures/interface.png> <./figures/guess.png>]
-Chapter 5.
-[31
+[30 <./figures/interface.png>] [31 <./figures/guess.png>] [32
 
-] [32
+]
+Chapter 5.
+[33] [34
 
 ]
 Chapter 6.
-[33] [34
+[35] [36
 
 ] (./main.bbl
 Missing character: There is no â in font cmti10!
@@ -652,7 +649,7 @@ Missing character: There is no ” in font cmti10!
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
- [35
+ [37
 
 ]
 Underfull \hbox (badness 3428) in paragraph at lines 137--140
@@ -693,7 +690,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--195
 illa . org / en-[]US / docs / Web / JavaScript / Reference /
  []
 
-) [36] (./main.aux)
+) [38] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -701,7 +698,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  7639 strings out of 493304
  106643 string characters out of 6139871
- 272227 words of memory out of 5000000
+ 273227 words of memory out of 5000000
  10922 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -720,10 +717,10 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (56 pages, 539393 bytes).
+Output written on main.pdf (58 pages, 542734 bytes).
 PDF statistics:
- 256 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
+ 262 PDF objects out of 1000 (max. 8388607)
+ 178 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
