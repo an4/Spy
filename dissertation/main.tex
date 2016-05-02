@@ -907,6 +907,13 @@ Apart from providing methods for collecting data, the back-end script also deals
 
 \subsubsection{Graph}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/interface.png}
+\caption{Web application interface for creating graphs.}
+\label{fig:videointerface}
+\end{figure}
+
 The Graph generating part provides a user friendly interface as it can be seen in Figure \ref{fig:videointerface}. On the left side there is a dashboard which lets the user customize the graph. They can choose from three different data sets:
 \begin{itemize}
 \item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
@@ -930,18 +937,7 @@ function shuffle(array) {
 };
 \end{lstlisting}
 
-The function receives a list of files for which it has to collect multiple time measurement using the shuffling technique described in the previous section. The function shuffles the files, measures the time it takes to load each of the files one and repeats the process until enough data has been collected. The list of files is shuffled using the Fisher-Yates algorithm \cite{fisher1949statistical} defined in Listing \ref{fisheryates}.
-
-% graph drawing part
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/interface.png}
-\caption{Web application interface for creating graphs.}
-\label{fig:videointerface}
-\end{figure}
-
-% explain what the run button does -> what function are being called, what happens
+The function receives a list of files for which it has to collect multiple time measurement using the shuffling technique described in the previous section. The function shuffles the files, measures the time it takes to load each of the files one and repeats the process until enough data has been collected. The list of files is shuffled using the Fisher-Yates algorithm \cite{fisher1949statistical} defined in Listing \ref{fisheryates}. After all the necessary data has been collected, the script calls the graph drawing function. The set of measurements for each file is presented as a histogram.  
 
 \subsubsection{Guess}
 
