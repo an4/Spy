@@ -806,7 +806,6 @@ Although the recent changes to the JavaScript High Resolution Time API makes the
 
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
  
-\newpage
 \section{Van}
 
 Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. They also test how software used for providing offline access to web applications such as Application Cache and Service Workers can improve the efficiency of the timing attack. 
@@ -896,10 +895,17 @@ As it can be seen from the description of the two functions presented in Listing
 
 Due to varying network conditions in the case of the Image method and noise produced by other processes running on the same system in the Video method case, multiple time measurements need to be collected in order to accurately estimate the size of the file. 
 
-% first method, why it doesn't work
+The first method I implemented for collecting multiple time measurements for the same file was simply to call one of the functions in Listing \ref{vanimage} or Listing \ref{vanvideo} multiple times. If data from multiple files was needed, we call the previous method for each given file.
 
-% second shuffling method
+Web servers might block a website if they receive too many requests. Web browsers can stop the script if they notice that the same request is being sent multiple times. Therefore, the previously described method of collecting multiple measurements does not always work. 
 
+Additionally, web browsers might cache the response if the same resource is being requested numerous times, which can affect the Image method as it measures the download time. If the resource is cached, the Image method would measure the time it takes to read the response from cache. Although the time it takes to read a file from the browser's cache is dependent on the size of the file, there is no way to tell if the resource is served from the browser's cache or over the network. Thus, when requesting the file multiple times we can end up with some of the values representing retrieval from cache and the rest of the values representing download time. The video method is not affected by caching. Moreover, the total runtime of the attack using the video method will improve since most of the time is wasted on re-downloading the cross-origin files. 
+
+The second method alternates the requests such that no consecutive request have the same data, therefore the browser is less likely to cache the resources and the remote server should not be able to detect the attack. This method can be used when multiple time measurements are needed from at least two different files. This method collects one time measurement for each given file, then shuffles the files and repeats the process until enough data has been gathered. 
+
+Apart from providing methods for collecting data, the back-end script also deals with creating the graphs. The application uses the Google Charts API to draw the graphs. An example of a graph can be seen in Figure \ref{fig:videointerface}.
+
+% what each graph repsresent, probability density funciton, fitted line shit
 
 \subsubsection{Graph}
 

@@ -35,11 +35,11 @@
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{19}
 \contentsline {chapter}{\numberline {4}Project Execution}{23}
 \contentsline {section}{\numberline {4.1}Oren Test}{23}
-\contentsline {section}{\numberline {4.2}Van}{27}
-\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
+\contentsline {section}{\numberline {4.2}Van}{26}
+\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{26}
 \contentsline {subsubsection}{Back-end}{27}
-\contentsline {subsubsection}{Graph}{30}
+\contentsline {subsubsection}{Graph}{29}
 \contentsline {subsubsection}{Guess}{30}
 \contentsline {subsubsection}{Backend}{30}
-\contentsline {chapter}{\numberline {5}Critical Evaluation}{33}
-\contentsline {chapter}{\numberline {6}Conclusion}{35}
+\contentsline {chapter}{\numberline {5}Critical Evaluation}{31}
+\contentsline {chapter}{\numberline {6}Conclusion}{33}
