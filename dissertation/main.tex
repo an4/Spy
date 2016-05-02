@@ -974,7 +974,9 @@ The function receives the time it takes to parse the unknown file, the times it 
 
 \section{Service Worker}
 
-Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
+Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
+
+A Service Worker is a background script, which runs independent of the main web application. Service Workers do not have access to the main application and cannot manipulate the DOM; however, they can communicate with the main application through messages. The website consists of two scripts: a main script which deals with gathering the information from the user and displaying the results, and a Service Worker which monitors network requests and estimates the size of the hidden data.
 
 \begin{figure}[h]
 \centering
@@ -982,6 +984,8 @@ Measuring the load time of an external resource when loading it as a Video only 
 \caption{Web application interface for estimating size of file using Service Workers.}
 \label{fig:swguess}
 \end{figure}
+
+The main script is responsible for monitoring the user interaction with the application front-end shown in Figure \ref{fig:swguess}. The user can type a URL in the input field and click the \texttt{GUESS SIZE} button, which will call a function the \texttt{guessSize()} method from the main script. The \texttt{guessSize()} method, shown in Listing \ref{SWimg}, takes the input from the user and tries to load it into an Image object. Once the \texttt{src} attribute on the Image object is set, the browser will send a request to download the external resource. Since the Service Worker is already registered and monitors all network requests made by the page, the request made from \texttt{guessSize()} will be detected by the Service Worker script.
 
 % where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
 
