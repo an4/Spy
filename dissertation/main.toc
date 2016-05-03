@@ -43,4 +43,4 @@
 \contentsline {subsection}{\numberline {4.2.2}Application Cache}{32}
 \contentsline {subsection}{\numberline {4.2.3}Service Worker}{32}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{35}
-\contentsline {chapter}{\numberline {6}Conclusion}{37}
+\contentsline {chapter}{\numberline {6}Conclusion}{39}

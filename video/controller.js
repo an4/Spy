@@ -89,6 +89,10 @@ angular.module('TheApp').controller('controller', ['$scope', '$http', '$location
 
                 promises[i-1].then(function(result) {
                     times[result.index] = result.time;
+                    console.log("Round");
+                    for(var i=0; i<1048576;) {
+                        i++;
+                    }
                     resolve(times);
                 });
             });

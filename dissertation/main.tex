@@ -922,7 +922,7 @@ Apart from providing methods for collecting data, the back-end script also deals
 The Graph generating part provides a user friendly interface as it can be seen in Figure \ref{fig:videointerface}. On the left side there is a dashboard which lets the user customize the graph. They can choose from three different data sets:
 \begin{itemize}
 \item The first group contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
-\item The second group contains 20 files with sizes ranging from 50kB to 1000kB, in 50kB increments.
+\item The second group contains 10 files with sizes ranging from 50kB to 500kB, in 50kB increments.
 \item The third group contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB and 1024kB.
 \end{itemize}
 
@@ -979,7 +979,11 @@ The function receives the time it takes to parse the unknown file, the times it 
 
 \subsection{Application Cache}
 
-% redownloading the files
+The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads the file before every measurement. This increases the overall run-time of the attack since it requires the collection of numerous time measurements for each file. In their paper, they propose the use of Application Cache. AppCache allows resources to be stored locally and be served from local storage when they are requested. 
+
+The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
+
+Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is not longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
 
 \subsection{Service Worker}
 
@@ -1045,6 +1049,48 @@ if(time > time100) {
 
 \chapter{Critical Evaluation}
 \label{chap:evaluation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/i100L50H.png}
+\caption{Data Set 1 - Image}
+\label{fig:videointerface}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/i100L100.png}
+\caption{Data Set 2 - Image}
+\label{fig:videointerface}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/i100E.png}
+\caption{Data Set 3 - Image}
+\label{fig:videointerface}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/v100L50H.png}
+\caption{Data Set 1 - Video}
+\label{fig:videointerface}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/v100L100.png}
+\caption{Data Set 2 - Video}
+\label{fig:videointerface}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/v100E.png}
+\caption{Data Set 3 - Video}
+\label{fig:videointerface}
+\end{figure}
 
 
 % -----------------------------------------------------------------------------
