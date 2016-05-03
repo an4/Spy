@@ -43,4 +43,5 @@
 \contentsline {subsection}{\numberline {4.2.2}Application Cache}{32}
 \contentsline {subsection}{\numberline {4.2.3}Service Worker}{33}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{35}
+\contentsline {section}{\numberline {5.1}Browser Timing Attacks}{35}
 \contentsline {chapter}{\numberline {6}Conclusion}{39}

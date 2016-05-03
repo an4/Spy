@@ -1053,6 +1053,13 @@ if(time > time100) {
 \chapter{Critical Evaluation}
 \label{chap:evaluation}
 
+\section{Browser Timing Attacks}
+
+The first application I built in order to test the attacks discovered by Van Goethem et al. \cite{van2015clock} compares the efficiency of two methods for estimating the size of a file from a cross-origin website. The first method was proposed by Bortz et al. \cite{bortz2007exposing} and measures the time it takes to load an external resource as an Image object, which represents the total download time of the file. The second method was discovered by Van Goethem et al. and uses the time it takes to load a file from a cross-origin website into a \texttt{video} element to estimate the size of the hidden data. The method used by Van Goethem et al. \cite{van2015clock} measures the time it takes the browser to parse the file, which is dependent on the system on which the website is running rather than network conditions, as the method proposed by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock} claim that their method provides more accurate timing measurement. I am going to test this claim by comparing the results obtained by the two methods on different data sets.
+
+% when is the method successful if the attacker can distinguish between easily between files of different sizes, close sizes
+
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/i100L50H.png}

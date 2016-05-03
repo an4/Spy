@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  3 MAY 2016 22:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  3 MAY 2016 22:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -681,14 +681,14 @@ Chapter 5.
 File: figures/i100L50H.png Graphic file (type png)
 
 <use figures/i100L50H.png>
-Package pdftex.def Info: figures/i100L50H.png used on input line 1058.
+Package pdftex.def Info: figures/i100L50H.png used on input line 1062.
 (pdftex.def)             Requested size: 452.96826pt x 243.26947pt.
 
 <figures/i100L100.png, id=201, 1151.30125pt x 614.295pt>
 File: figures/i100L100.png Graphic file (type png)
 
 <use figures/i100L100.png>
-Package pdftex.def Info: figures/i100L100.png used on input line 1065.
+Package pdftex.def Info: figures/i100L100.png used on input line 1069.
 (pdftex.def)             Requested size: 452.96826pt x 241.68309pt.
 
 
@@ -697,7 +697,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/i100E.png, id=202, 1127.21124pt x 608.2725pt>
 File: figures/i100E.png Graphic file (type png)
  <use figures/i100E.png>
-Package pdftex.def Info: figures/i100E.png used on input line 1072.
+Package pdftex.def Info: figures/i100E.png used on input line 1076.
 (pdftex.def)             Requested size: 452.96826pt x 244.43703pt.
 
 
@@ -707,7 +707,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L50H.png Graphic file (type png)
 
 <use figures/v100L50H.png>
-Package pdftex.def Info: figures/v100L50H.png used on input line 1079.
+Package pdftex.def Info: figures/v100L50H.png used on input line 1083.
 (pdftex.def)             Requested size: 452.96826pt x 241.47485pt.
 
 
@@ -717,7 +717,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L100.png Graphic file (type png)
 
 <use figures/v100L100.png>
-Package pdftex.def Info: figures/v100L100.png used on input line 1086.
+Package pdftex.def Info: figures/v100L100.png used on input line 1090.
 (pdftex.def)             Requested size: 452.96826pt x 244.90442pt.
 
 
@@ -726,7 +726,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/v100E.png, id=205, 1150.2975pt x 613.29124pt>
 File: figures/v100E.png Graphic file (type png)
  <use figures/v100E.png>
-Package pdftex.def Info: figures/v100E.png used on input line 1093.
+Package pdftex.def Info: figures/v100E.png used on input line 1097.
 (pdftex.def)             Requested size: 452.96826pt x 241.50342pt.
 
 
@@ -823,7 +823,7 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (63 pages, 873024 bytes).
+Output written on main.pdf (63 pages, 874060 bytes).
 PDF statistics:
  285 PDF objects out of 1000 (max. 8388607)
  189 compressed objects within 2 object streams
