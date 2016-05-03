@@ -731,7 +731,7 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 
 %why the two papers
 
-
+% one timing, one cache, new technoligies/functions
 
 
 \section{JavaScript Cache Attacks}
@@ -984,6 +984,8 @@ The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads
 The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
 
 Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is not longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
+
+% website tested the attack with app cache - no significant improement + video
 
 \subsection{Service Worker}
 
