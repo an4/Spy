@@ -22,9 +22,9 @@ self.addEventListener('install', function(event) {
 });
 
 function putDeleteOnce(url, response, cache) {
-    var end;
-    var start = performance.now();
     return new Promise(function(resolve, reject) {
+        var end;
+        var start = performance.now();
         cache.put(url, response.clone()).then(function() {
             end = performance.now();
             var time = end-start;

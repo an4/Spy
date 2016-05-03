@@ -198,4 +198,9 @@ R.~A. Fisher, F.~Yates, {\em et~al.}, ``Statistical tables for biological,
   agricultural and medical research.,'' {\em Statistical tables for biological,
   agricultural and medical research.}, no.~Ed. 3., 1949.
 
+\bibitem{cacheAPI}
+``Cache api.'' \url{https://developer.mozilla.org/en-US/docs/Web/API/Cache/},
+  2016.
+\newblock [Accessed: 2016-05-01].
+
 \end{thebibliography}

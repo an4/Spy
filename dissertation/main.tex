@@ -61,7 +61,7 @@
 
 % configure style of pages
 
-\geometry{a4paper,lmargin=2.5cm,rmargin=2.5cm,tmargin=2.5cm,bmargin=2.5cm}
+\geometry{a4paper,lmargin=2.54cm,rmargin=2.54cm,tmargin=2.54cm,bmargin=2.54cm}
 
 \renewcommand{\baselinestretch}{1}
 
@@ -106,7 +106,7 @@
                           DEPARTMENT OF COMPUTER SCIENCE                        \\
                               \vspace*{2.0cm}
                        
- 				 \mbox{{\LARGE Timing Attacks in the Modern Web}} \\
+ 				 \mbox{{\LARGE Side-Channel Attacks in Web Browsers}} \\
                               \vspace*{0.5cm}
                               \vspace*{1.0cm}
                           {\Large Ana-Maria Dumitra"s}                         \\
@@ -729,7 +729,12 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 %%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Oren Test}
+%why the two papers
+
+
+
+
+\section{JavaScript Cache Attacks}
 
 The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
 
@@ -806,7 +811,7 @@ Although the recent changes to the JavaScript High Resolution Time API makes the
 
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
  
-\section{Van}
+\section{JavaScript Timing Attacks}
 Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar timing attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. In their paper, van Goethem et al. \cite{van2015clock}, also investigate how information leaked from newer technologies such as Application Cache and Service Workers can be used to track users' activity.
 
 The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on the assumption that an adversary can distinguish between files of different sizes only having access to the files' load times. I decided to test if several of the methods proposed in their paper are still possible and how accurately they can estimate the size of a cross-origin file. I built two web applications: one which compares the Video method proposed by Van Goethem et al. \cite{van2015clock} with the Image method presented by Bortz et al. \cite{bortz2007exposing} and tries to estimate the size of an external resource by loading it into a Video element, and a second application which estimates the size of a remote file using Service Workers.
@@ -972,7 +977,11 @@ Subtracting the time it takes to parse the 100kB file  from the time it takes to
 
 The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the resulted value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
 
-\section{Service Worker}
+\subsection{Application Cache}
+
+% redownloading the files
+
+\subsection{Service Worker}
 
 Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
 
@@ -996,11 +1005,16 @@ $scope.guessSize = function() {
 };
 \end{lstlisting}
 
+The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
+
+In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
+
+
 \begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
 function putDelete(url, response, cache) {
-    var end;
-    var start = performance.now();
     return new Promise(function(resolve, reject) {
+        var end;
+        var start = performance.now();
         cache.put(url, response.clone()).then(function() {
             end = performance.now();
             var time = end-start;
@@ -1012,22 +1026,20 @@ function putDelete(url, response, cache) {
 };
 \end{lstlisting}
 
+The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
+
+The script collects numerous measurements by calling the \texttt{putDelete()} function multiple times and chooses the smallest time value as it is least likely to have been altered by noise. The script is unable to determine the victim's system so we need to compare the time it takes to store the unknown file against files with known size. The application measures the time of storing two files: one of 100kB and one of 200kB, and uses the obtained values to determine the size of the hidden data. The function for determining the cross-origin resource's size can be seen in Listing \ref{SWsize}. The two variables, \texttt{time100} and \texttt{time200}, represent the time it takes to store the 100kB and 200kB files, and \texttt{time} is the time returned after calling the \texttt{putDelete()} method on the unknown file. Once it has calculated the size of the hidden file, the Service Worker sends the result to the main script in order to be displayed as it can be seen in Figure \ref{fig:swguess}.
+
 \begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
 var size = 0;
-if(time > time_100) {
-    time -= time_100;
+if(time > time100) {
+    time -= time100;
     size += 100;
-    var timeStep = time_200 - time_100;
+    var timeStep = time200 - time100;
     var x = time/timeStep;
     size = size + 100 * x;
 }
 \end{lstlisting}
-
-
-
-\section{Other}
-
-
 
 %-----------------------------------------------------------------------------
 
