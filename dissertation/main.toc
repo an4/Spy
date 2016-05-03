@@ -36,7 +36,7 @@
 \contentsline {chapter}{\numberline {4}Project Execution}{23}
 \contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{23}
 \contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{26}
-\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{26}
+\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
 \contentsline {subsubsection}{Back-end}{27}
 \contentsline {subsubsection}{Graph}{30}
 \contentsline {subsubsection}{Guess}{31}
