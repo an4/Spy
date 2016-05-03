@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  3 MAY 2016 04:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  3 MAY 2016 13:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -619,7 +619,7 @@ Chapter 4.
 File: figures/circularlinkedlist.png Graphic file (type png)
 
 <use figures/circularlinkedlist.png>
-Package pdftex.def Info: figures/circularlinkedlist.png used on input line 776.
+Package pdftex.def Info: figures/circularlinkedlist.png used on input line 774.
 
 (pdftex.def)             Requested size: 452.96826pt x 91.0472pt.
  [24 <./figures/circularlinkedlist.png>]
@@ -627,30 +627,33 @@ Package pdftex.def Info: figures/circularlinkedlist.png used on input line 776.
 File: figures/firefox39.png Graphic file (type png)
 
 <use figures/firefox39.png>
-Package pdftex.def Info: figures/firefox39.png used on input line 789.
+Package pdftex.def Info: figures/firefox39.png used on input line 787.
 (pdftex.def)             Requested size: 452.96826pt x 158.28722pt.
 
 <figures/firefox45.png, id=164, 1773.62625pt x 620.3175pt>
 File: figures/firefox45.png Graphic file (type png)
 
 <use figures/firefox45.png>
-Package pdftex.def Info: figures/firefox45.png used on input line 796.
+Package pdftex.def Info: figures/firefox45.png used on input line 794.
 (pdftex.def)             Requested size: 452.96826pt x 158.42023pt.
- [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] [27] [28]
+ [25 <./figures/firefox39.png> <./figures/firefox45.png>] [26] [27]
 Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [28]
+Underfull \vbox (badness 3838) has occurred while \output is active []
 
  [29]
 <figures/interface.png, id=182, 1843.88875pt x 972.63374pt>
 File: figures/interface.png Graphic file (type png)
 
 <use figures/interface.png>
-Package pdftex.def Info: figures/interface.png used on input line 917.
+Package pdftex.def Info: figures/interface.png used on input line 915.
 (pdftex.def)             Requested size: 452.96826pt x 238.9281pt.
  [30 <./figures/interface.png>]
 <figures/guess.png, id=186, 1855.93375pt x 578.16pt>
 File: figures/guess.png Graphic file (type png)
  <use figures/guess.png>
-Package pdftex.def Info: figures/guess.png used on input line 953.
+Package pdftex.def Info: figures/guess.png used on input line 951.
 (pdftex.def)             Requested size: 452.96826pt x 141.10788pt.
 
 [31 <./figures/guess.png>]
@@ -658,22 +661,26 @@ Package pdftex.def Info: figures/guess.png used on input line 953.
 File: figures/sw_size.png Graphic file (type png)
 
 <use figures/sw_size.png>
-Package pdftex.def Info: figures/sw_size.png used on input line 998.
+Package pdftex.def Info: figures/sw_size.png used on input line 996.
 (pdftex.def)             Requested size: 452.96826pt x 104.16965pt.
- [32 <./figures/sw_size.png>] [33] [34]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32] [33 <./figures/sw_size.png>] [34]
 Chapter 5.
 <figures/i100L50H.png, id=200, 1164.35pt x 625.33624pt>
 File: figures/i100L50H.png Graphic file (type png)
 
 <use figures/i100L50H.png>
-Package pdftex.def Info: figures/i100L50H.png used on input line 1057.
+Package pdftex.def Info: figures/i100L50H.png used on input line 1055.
 (pdftex.def)             Requested size: 452.96826pt x 243.26947pt.
 
 <figures/i100L100.png, id=201, 1151.30125pt x 614.295pt>
 File: figures/i100L100.png Graphic file (type png)
 
 <use figures/i100L100.png>
-Package pdftex.def Info: figures/i100L100.png used on input line 1064.
+Package pdftex.def Info: figures/i100L100.png used on input line 1062.
 (pdftex.def)             Requested size: 452.96826pt x 241.68309pt.
 
 
@@ -682,7 +689,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/i100E.png, id=202, 1127.21124pt x 608.2725pt>
 File: figures/i100E.png Graphic file (type png)
  <use figures/i100E.png>
-Package pdftex.def Info: figures/i100E.png used on input line 1071.
+Package pdftex.def Info: figures/i100E.png used on input line 1069.
 (pdftex.def)             Requested size: 452.96826pt x 244.43703pt.
 
 
@@ -692,7 +699,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L50H.png Graphic file (type png)
 
 <use figures/v100L50H.png>
-Package pdftex.def Info: figures/v100L50H.png used on input line 1078.
+Package pdftex.def Info: figures/v100L50H.png used on input line 1076.
 (pdftex.def)             Requested size: 452.96826pt x 241.47485pt.
 
 
@@ -702,7 +709,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L100.png Graphic file (type png)
 
 <use figures/v100L100.png>
-Package pdftex.def Info: figures/v100L100.png used on input line 1085.
+Package pdftex.def Info: figures/v100L100.png used on input line 1083.
 (pdftex.def)             Requested size: 452.96826pt x 244.90442pt.
 
 
@@ -711,7 +718,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/v100E.png, id=205, 1150.2975pt x 613.29124pt>
 File: figures/v100E.png Graphic file (type png)
  <use figures/v100E.png>
-Package pdftex.def Info: figures/v100E.png used on input line 1092.
+Package pdftex.def Info: figures/v100E.png used on input line 1090.
 (pdftex.def)             Requested size: 452.96826pt x 241.50342pt.
 
 
@@ -789,11 +796,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  7710 strings out of 493304
  107810 string characters out of 6139871
- 274308 words of memory out of 5000000
+ 269308 words of memory out of 5000000
  10986 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,13n,72p,1287b,1664s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,13n,72p,1287b,1686s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -808,7 +815,7 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (63 pages, 869306 bytes).
+Output written on main.pdf (63 pages, 869810 bytes).
 PDF statistics:
  285 PDF objects out of 1000 (max. 8388607)
  189 compressed objects within 2 object streams
