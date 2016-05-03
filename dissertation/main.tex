@@ -820,6 +820,7 @@ The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on 
 The methods used by Van Goethem et al. \cite{van2015clock} to measure the loading time of a file from a cross-origin website require the files to be stored remotely. In order to test the attack, I set up a remote server, which contains randomly generated HTML files of different sizes ranging from 50kB to 1024kB. 
 
 \subsection{Video vs. Image}
+\label{vvsi}
 Van Goethem et al. \cite{van2015clock} claim that loading a file into a Video element provides more accurate results than measuring the time by loading the file into an Image element. I built a web application which compares the two methods and also tries to estimate the size of an external resource using the Video algorithm proposed by Van Goethem et al. \cite{van2015clock}.
 
 The web application can be split into two parts:
@@ -1053,54 +1054,73 @@ if(time > time100) {
 \chapter{Critical Evaluation}
 \label{chap:evaluation}
 
-\section{Browser Timing Attacks}
+The first application I built in order to test the attacks discovered by Van Goethem et al. \cite{van2015clock} compares the efficiency of two methods for estimating the size of a file from a cross-origin website. The first method was proposed by Bortz et al. \cite{bortz2007exposing} and measures the time it takes to load an external resource as an Image object, which represents the total download time of the file. The second method was discovered by Van Goethem et al. \cite{van2015clock} and uses the time it takes to load a file from a cross-origin website into a \texttt{video} element to estimate the size of the hidden data. The method used by Van Goethem et al. \cite{van2015clock} measures the time it takes the browser to parse the file, which is dependent on the system on which the website is running rather than network conditions, like in the case of the method proposed by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock} claim that their method provides more accurate timing measurement. I am going to test this claim by comparing the results obtained by the two methods on different data sets.
 
-The first application I built in order to test the attacks discovered by Van Goethem et al. \cite{van2015clock} compares the efficiency of two methods for estimating the size of a file from a cross-origin website. The first method was proposed by Bortz et al. \cite{bortz2007exposing} and measures the time it takes to load an external resource as an Image object, which represents the total download time of the file. The second method was discovered by Van Goethem et al. and uses the time it takes to load a file from a cross-origin website into a \texttt{video} element to estimate the size of the hidden data. The method used by Van Goethem et al. \cite{van2015clock} measures the time it takes the browser to parse the file, which is dependent on the system on which the website is running rather than network conditions, as the method proposed by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock} claim that their method provides more accurate timing measurement. I am going to test this claim by comparing the results obtained by the two methods on different data sets.
+The efficiency of the two methods is measures in how easily it is to distinguish between files of different sizes. If plotting the data, results in a graph where the distributions of the time measurements for each file do not overlap, then an attacker could easily distinguish between files of different sizes and they will be able to obtain private information about the user. On the other hand, if when plotting the data, the distributions overlap, an attacker would be unable to accurately determine the size of a given file.
 
-% when is the method successful if the attacker can distinguish between easily between files of different sizes, close sizes
+I created three different data sets in order to test the two methods:
+\begin{itemize}
+\item Data Set 1: contains 10 files with sizes ranging from 50kB to 500kB, in 50kB increments.
+\item Data Set 2: contains 10 files with sizes ranging from 100kB to 1000kB, in 100kB increments.
+\item Data Set 3: contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB, 1024kB.
+\end{itemize}
 
+I used the web application described in Section \ref{vvsi} to generate six graphs, which are going to help compare the efficiency of the two methods. Figure \ref{fig:l50V} and Figure \ref{fig:l;l50I} were obtained by timing the load time of the files from the first data set. The first graph is using the Image method proposed by Bortz et al. \cite{bortz2007exposing}, while the second image, Figure \ref{fig:l50V} uses the Video methods discovered by Van Goethem et al. \cite{van2015clock}.
+
+As it can be seen from the two figures, Figure \ref{fig:l50V} and Figure \ref{fig:l50I}, the video methods performs better as the time measurements of the different files are easily distinguishable. In Figure \ref{fig:l50I} the data contains values which are very close, making it almost impossible to distinguish between files of different sizes. The Video method performs slightly better, especially for the four smallest files (50kB, 100kB, 150kB and 200kB); however, as the size of the files gets bigger is becoming very hard to distinguish between them.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/i100L50H.png}
+\includegraphics[width=\textwidth, height=7cm]{figures/i100L50H.png}
 \caption{Data Set 1 - Image}
-\label{fig:videointerface}
+\label{fig:l50V}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/i100L100.png}
-\caption{Data Set 2 - Image}
-\label{fig:videointerface}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/i100E.png}
-\caption{Data Set 3 - Image}
-\label{fig:videointerface}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/v100L50H.png}
+\includegraphics[width=\textwidth, height=7cm]{figures/v100L50H.png}
 \caption{Data Set 1 - Video}
-\label{fig:videointerface}
+\label{fig:l50I}
+\end{figure}
+
+I decided to run the same experiment on a different data set, with files ranging from 100kB to 1000kB, in 100kB increments. The results of the experiment can be seen in Figure \ref{fig:l100V} for the Video method, and in Figure \ref{fig:l100I} for the Image method. As expected, the Video method provided slightly better results; however, it is still hard to distinguish between files of larger size. This is due to the fact that the absolute difference between two consecutive files remains constant, 100kB, as the file sizes increase, while the difference between them compared to the actual file size decreases. For example, it is easier to distinguish between two files, one of 100kB and one of 200kb, since the second one is double the size of the first one. Whereas, when the sizes of the files are 900kB and 1000kB, the size of the second file is only 11\% bigger than the size of the first file.
+
+The image method performed better on the second data set, where the difference between the two consecutive files is 100kB, compared to the first data set. This behaviour was expected since the download times is dependent on the size of the file.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth, height=7cm]{figures/i100L100.png}
+\caption{Data Set 2 - Image}
+\label{fig:l100V}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/v100L100.png}
+\includegraphics[width=\textwidth, height=7cm]{figures/v100L100.png}
 \caption{Data Set 2 - Video}
-\label{fig:videointerface}
+\label{fig:l100I}
+\end{figure}
+
+The last data set I tested the two methods on contains file whose sizes increase logarithmically, the difference between two consecutive files does not remain constant as the file size increases. The difference between the files in this data set, should fix the problem we had earlier where as the file sizes increase it is very hard to distinguish between files of different sizes. 
+
+The results of running the experiment on the third data set are shown in Figure \ref{fig:eV} for the video method and in Figure \ref{fig:eI} for the image method. As expected, when plotting the data obtained from loading the files as videos, there is a clear difference between all the files in the data set and and adversary could easily distinguish between them. 
+
+As before, the Image method produced inconclusive results. It is impossible to distinguish between the smaller files. Surprisingly, the difference between the two larger files, 512kB and 1024kB, is quite obvious. Therefore an attacker would be able to differentiate between files of different sizes using the image method, as long as the difference in size between the two files is at least 500kB.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth, height=7cm]{figures/i100E.png}
+\caption{Data Set 3 - Image}
+\label{fig:eV}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/v100E.png}
+\includegraphics[width=\textwidth, height=7cm]{figures/v100E.png}
 \caption{Data Set 3 - Video}
-\label{fig:videointerface}
+\label{fig:eI}
 \end{figure}
+
 
 
 % -----------------------------------------------------------------------------
