@@ -35,12 +35,12 @@
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{20}
 \contentsline {chapter}{\numberline {4}Project Execution}{23}
 \contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{23}
-\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{26}
+\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{27}
 \contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
 \contentsline {subsubsection}{Back-end}{27}
 \contentsline {subsubsection}{Graph}{30}
 \contentsline {subsubsection}{Guess}{31}
 \contentsline {subsection}{\numberline {4.2.2}Application Cache}{32}
-\contentsline {subsection}{\numberline {4.2.3}Service Worker}{32}
+\contentsline {subsection}{\numberline {4.2.3}Service Worker}{33}
 \contentsline {chapter}{\numberline {5}Critical Evaluation}{35}
 \contentsline {chapter}{\numberline {6}Conclusion}{39}
