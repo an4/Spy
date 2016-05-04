@@ -40,7 +40,7 @@
 \contentsline {subsubsection}{Back-end}{27}
 \contentsline {subsubsection}{Graph}{30}
 \contentsline {subsubsection}{Guess}{31}
-\contentsline {subsection}{\numberline {4.2.2}Application Cache}{32}
-\contentsline {subsection}{\numberline {4.2.3}Service Worker}{33}
-\contentsline {chapter}{\numberline {5}Critical Evaluation}{35}
-\contentsline {chapter}{\numberline {6}Conclusion}{39}
+\contentsline {subsubsection}{Critical Evaluation}{32}
+\contentsline {subsection}{\numberline {4.2.2}Application Cache}{36}
+\contentsline {subsection}{\numberline {4.2.3}Service Worker}{36}
+\contentsline {chapter}{\numberline {5}Conclusion}{39}

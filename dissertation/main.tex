@@ -979,80 +979,7 @@ Subtracting the time it takes to parse the 100kB file  from the time it takes to
 
 The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the resulted value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
 
-\subsection{Application Cache}
-
-The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads the file before every measurement. This increases the overall run-time of the attack since it requires the collection of numerous time measurements for each file. In their paper, they propose the use of Application Cache. AppCache allows resources to be stored locally and be served from local storage when they are requested. 
-
-The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
-
-Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is not longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
-
-% website tested the attack with app cache - no significant improement + video
-
-\subsection{Service Worker}
-
-Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
-
-A Service Worker is a background script, which runs independent of the main web application. Service Workers do not have access to the main application and cannot manipulate the DOM; however, they can communicate with the main application through messages. The website consists of two scripts: a main script which deals with gathering the information from the user and displaying the results, and a Service Worker which monitors network requests and estimates the size of the hidden data.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/sw_size.png}
-\caption{Web application interface for estimating size of file using Service Workers.}
-\label{fig:swguess}
-\end{figure}
-
-The main script is responsible for monitoring the user interaction with the application front-end shown in Figure \ref{fig:swguess}. The user can type a URL in the input field and click the \texttt{GUESS SIZE} button, which will call a function the \texttt{guessSize()} method from the main script. The \texttt{guessSize()} method, shown in Listing \ref{SWimg}, takes the input from the user and tries to load it into an Image object. Once the \texttt{src} attribute on the Image object is set, the browser will send a request to download the external resource. Since the Service Worker is already registered and monitors all network requests made by the page, the request made from \texttt{guessSize()} will be detected by the Service Worker script.
-
-% where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
-
-\begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
-$scope.guessSize = function() {
-	var img = new Image();
-	img.src = $scope.sw.url;
-};
-\end{lstlisting}
-
-The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
-
-In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
-
-
-\begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
-function putDelete(url, response, cache) {
-    return new Promise(function(resolve, reject) {
-        var end;
-        var start = performance.now();
-        cache.put(url, response.clone()).then(function() {
-            end = performance.now();
-            var time = end-start;
-            cache.delete(url).then(function(res) {
-                resolve(time);
-            });
-        });
-    });
-};
-\end{lstlisting}
-
-The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
-
-The script collects numerous measurements by calling the \texttt{putDelete()} function multiple times and chooses the smallest time value as it is least likely to have been altered by noise. The script is unable to determine the victim's system so we need to compare the time it takes to store the unknown file against files with known size. The application measures the time of storing two files: one of 100kB and one of 200kB, and uses the obtained values to determine the size of the hidden data. The function for determining the cross-origin resource's size can be seen in Listing \ref{SWsize}. The two variables, \texttt{time100} and \texttt{time200}, represent the time it takes to store the 100kB and 200kB files, and \texttt{time} is the time returned after calling the \texttt{putDelete()} method on the unknown file. Once it has calculated the size of the hidden file, the Service Worker sends the result to the main script in order to be displayed as it can be seen in Figure \ref{fig:swguess}.
-
-\begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
-var size = 0;
-if(time > time100) {
-    time -= time100;
-    size += 100;
-    var timeStep = time200 - time100;
-    var x = time/timeStep;
-    size = size + 100 * x;
-}
-\end{lstlisting}
-
-%-----------------------------------------------------------------------------
-
-\chapter{Critical Evaluation}
-\label{chap:evaluation}
+\subsubsection{Critical Evaluation}
 
 The first application I built in order to test the attacks discovered by Van Goethem et al. \cite{van2015clock} compares the efficiency of two methods for estimating the size of a file from a cross-origin website. The first method was proposed by Bortz et al. \cite{bortz2007exposing} and measures the time it takes to load an external resource as an Image object, which represents the total download time of the file. The second method was discovered by Van Goethem et al. \cite{van2015clock} and uses the time it takes to load a file from a cross-origin website into a \texttt{video} element to estimate the size of the hidden data. The method used by Van Goethem et al. \cite{van2015clock} measures the time it takes the browser to parse the file, which is dependent on the system on which the website is running rather than network conditions, like in the case of the method proposed by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock} claim that their method provides more accurate timing measurement. I am going to test this claim by comparing the results obtained by the two methods on different data sets.
 
@@ -1123,9 +1050,97 @@ As before, the Image method produced inconclusive results. It is impossible to d
 
 From the six resulted graphs after running the experiment three times it is obvious that the video method provides better results than the image method and it can be used by an attacker to distinguish between files of different sizes. It is easy to distinguish between two files as long as their size of the bigger file is at least 25\% greater than the size of the smaller file, in the case of the video method. 
 
-From the graphs it can be seen that the image method is generally faster than the video method; however, this is due to running the experiments on a fairly stable network with fast internet access. 
+From the graphs it can be seen that the image method is generally faster than the video method; however, this is due to running the experiments on a fairly stable network with fast internet access. It is expected that the average user will have a less stable and slower connection which will produce different graphs for the image method. The distribution for each file will have a larger standard deviation and the means will shift to the right as the speed of the connection decreases. Even if the network conditions change it is very unlikely that an attacker would be able to distinguish between files of similar sizes using the image method.
 
-% compare it to slowe network from the van paper
+After using the graph side of the application to compare the video method with the image method on different data sets, I decided to test how accurately the guess part of the web application estimates the size of a file. 
+
+I chose four files of different sizes and run the guess function five times for each file. The results obtained from running the experiment are presented in Table \ref{tab:guessVideo}. For the table it can be seen that the function for estimating a file size implemented using the video method does not work for larger files. 
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{File Size} & \textbf{Guess 1} & \textbf{Guess 2} & \textbf{Guess 3} & \textbf{Guess 4} & \textbf{Guess 5} \\
+\hline
+$200$ kB & $198$ kB & $200$ kB & $201$ kB & $196$ kB & $202$ kB \\
+$400$ kB & $360$ kB & $378$ kB & $377$ kB & $382$ kB & $379$ kB \\
+$600$ kB & $470$ kB & $480$ kB & $450$ kB & $461$ kB & $470$ kB \\
+$800$ kB & $541$ kB & $520$ kB & $634$ kB & $545$ kB & $587$ kB \\
+\hline
+\end{tabular}
+\caption{Estimation the size of a file using the video method}
+\label{tab:guessVideo}
+\end{table}
+
+\subsection{Application Cache}
+
+The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads the file before every measurement. This increases the overall run-time of the attack since it requires the collection of numerous time measurements for each file. In their paper, they propose the use of Application Cache. AppCache allows resources to be stored locally and be served from local storage when they are requested. 
+
+The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
+
+Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is not longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
+
+% website tested the attack with app cache - no significant improement + video
+
+\subsection{Service Worker}
+
+Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
+
+A Service Worker is a background script, which runs independent of the main web application. Service Workers do not have access to the main application and cannot manipulate the DOM; however, they can communicate with the main application through messages. The website consists of two scripts: a main script which deals with gathering the information from the user and displaying the results, and a Service Worker which monitors network requests and estimates the size of the hidden data.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/sw_size.png}
+\caption{Web application interface for estimating size of file using Service Workers.}
+\label{fig:swguess}
+\end{figure}
+
+The main script is responsible for monitoring the user interaction with the application front-end shown in Figure \ref{fig:swguess}. The user can type a URL in the input field and click the \texttt{GUESS SIZE} button, which will call a function the \texttt{guessSize()} method from the main script. The \texttt{guessSize()} method, shown in Listing \ref{SWimg}, takes the input from the user and tries to load it into an Image object. Once the \texttt{src} attribute on the Image object is set, the browser will send a request to download the external resource. Since the Service Worker is already registered and monitors all network requests made by the page, the request made from \texttt{guessSize()} will be detected by the Service Worker script.
+
+% where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
+
+\begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
+$scope.guessSize = function() {
+	var img = new Image();
+	img.src = $scope.sw.url;
+};
+\end{lstlisting}
+
+The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
+
+In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
+
+
+\begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
+function putDelete(url, response, cache) {
+    return new Promise(function(resolve, reject) {
+        var end;
+        var start = performance.now();
+        cache.put(url, response.clone()).then(function() {
+            end = performance.now();
+            var time = end-start;
+            cache.delete(url).then(function(res) {
+                resolve(time);
+            });
+        });
+    });
+};
+\end{lstlisting}
+
+The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
+
+The script collects numerous measurements by calling the \texttt{putDelete()} function multiple times and chooses the smallest time value as it is least likely to have been altered by noise. The script is unable to determine the victim's system so we need to compare the time it takes to store the unknown file against files with known size. The application measures the time of storing two files: one of 100kB and one of 200kB, and uses the obtained values to determine the size of the hidden data. The function for determining the cross-origin resource's size can be seen in Listing \ref{SWsize}. The two variables, \texttt{time100} and \texttt{time200}, represent the time it takes to store the 100kB and 200kB files, and \texttt{time} is the time returned after calling the \texttt{putDelete()} method on the unknown file. Once it has calculated the size of the hidden file, the Service Worker sends the result to the main script in order to be displayed as it can be seen in Figure \ref{fig:swguess}.
+
+\begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
+var size = 0;
+if(time > time100) {
+    time -= time100;
+    size += 100;
+    var timeStep = time200 - time100;
+    var x = time/timeStep;
+    size = size + 100 * x;
+}
+\end{lstlisting}
 
 % -----------------------------------------------------------------------------
 
