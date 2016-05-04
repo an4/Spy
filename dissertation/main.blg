@@ -3,41 +3,40 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: ieeetr.bst
 Database file #1: main.bib.bib
-Warning--I didn't find a database entry for "craiglist"
 Warning--can't use both author and editor fields in Tria2011
 Warning--can't use both author and editor fields in Koeune2011
 Warning--empty journal in canteaut2006understanding
 Warning--empty journal in world1999html
-You've used 47 entries,
+You've used 49 entries,
             1876 wiz_defined-function locations,
-            719 strings with 10268 characters,
-and the built_in function-call counts, 10682 in all, are:
-= -- 1076
-> -- 312
+            724 strings with 10395 characters,
+and the built_in function-call counts, 10906 in all, are:
+= -- 1100
+> -- 314
 < -- 0
-+ -- 128
++ -- 130
 - -- 81
-* -- 640
-:= -- 1363
-add.period$ -- 67
-call.type$ -- 47
-change.case$ -- 44
+* -- 646
+:= -- 1385
+add.period$ -- 71
+call.type$ -- 49
+change.case$ -- 46
 chr.to.int$ -- 0
-cite$ -- 51
-duplicate$ -- 549
-empty$ -- 1205
+cite$ -- 53
+duplicate$ -- 557
+empty$ -- 1241
 format.name$ -- 81
-if$ -- 2718
+if$ -- 2782
 int.to.chr$ -- 0
-int.to.str$ -- 47
+int.to.str$ -- 49
 missing$ -- 32
-newline$ -- 164
+newline$ -- 172
 num.names$ -- 30
-pop$ -- 273
+pop$ -- 289
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 369
+skip$ -- 375
 stack$ -- 0
 substring$ -- 639
 swap$ -- 191
@@ -47,6 +46,6 @@ top$ -- 0
 type$ -- 0
 warning$ -- 4
 while$ -- 94
-width$ -- 49
-write$ -- 427
-(There were 5 warnings)
+width$ -- 51
+write$ -- 443
+(There were 4 warnings)
