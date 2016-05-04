@@ -726,13 +726,13 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 
 In Chapter \ref{chap:realtedWork} we reviewed some of the most popular side-channel attacks targeting browser software over the past twenty years. Browsers are affected by a wide range of side-channel attacks from vulnerabilities in CSS, which can be used to reveal a user's browsing history, to JavaScript attacks, which can determine the state of the browser's cache memory, thus allowing an attacker to spy on the victim's browsing activity.
 
-Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The apparition of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the apparition of new web technologies and motivated browser vendors to add more and more features to their software. 
+Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
 
-Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but also they disappear within weeks, which gives adversary a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rarely that vulnerabilities in the browser software and web development technologies to not get fixed within a year.
+Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but also they disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
 
 I decided to test if two of the attacks discovered in the past year are still possible by trying to recreate them. The first attack I choose is a JavaScript cache attack, which was discovered by Oren et al. \cite{oren2015spy}. Their attack is trying to derive information about the victim's browsing activity by analysing the browser's cache state. Oren et al. \cite{oren2015spy} claim to have been able to determine what websites the victim is accessing. Their attack is possible due to some recently added feature in JavaScript which enables sub-millisecond time measurements.
 
-The second attack I decided to test was discovered by Van Goethem et al. \cite{van2015clock}. They use a mix of existing HTML technologies like the \textbf{script} element, and newer browser features like Service Workers, Application Cache and the newly added HTML5 \texttt{video} element, in order to obtain timing data, which can be used to disclose a user's private information.
+The second attack I decided to test was discovered by Van Goethem et al. \cite{van2015clock}. They use a mix of existing HTML technologies like the \textbf{script} element, and newer browser features like Service Workers, Application Cache and the recently added HTML5 \texttt{video} element, in order to obtain timing data, which can be used to disclose a user's private information.
 
 
 \section{JavaScript Cache Attacks}
@@ -1078,7 +1078,7 @@ The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads
 
 The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
 
-Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is not longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
+Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is no longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
 
 % website tested the attack with app cache - no significant improement + video
 
@@ -1141,6 +1141,8 @@ if(time > time100) {
     size = size + 100 * x;
 }
 \end{lstlisting}
+
+\subsubsection{Critical Evaluation}
 
 % -----------------------------------------------------------------------------
 
