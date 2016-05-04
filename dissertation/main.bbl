@@ -10,6 +10,16 @@ P.~C. Kocher, ``Timing attacks on implementations of diffie-hellman, rsa, dss,
   and other systems,'' in {\em Advances in Cryptology—CRYPTO’96},
   pp.~104--113, Springer, 1996.
 
+\bibitem{diffie1976new}
+W.~Diffie and M.~E. Hellman, ``New directions in cryptography,'' {\em
+  Information Theory, IEEE Transactions on}, vol.~22, no.~6, pp.~644--654,
+  1976.
+
+\bibitem{rivest1978method}
+R.~L. Rivest, A.~Shamir, and L.~Adleman, ``A method for obtaining digital
+  signatures and public-key cryptosystems,'' {\em Communications of the ACM},
+  vol.~21, no.~2, pp.~120--126, 1978.
+
 \bibitem{Tria2011}
 A.~Tria and H.~Choukri, {\em Encyclopedia of Cryptography and Security},
   ch.~Invasive Attacks, pp.~623--629.
@@ -23,11 +33,6 @@ F.-X. Standaert, ``Introduction to side-channel attacks,'' in {\em Secure
 F.~Koeune, {\em Encyclopedia of Cryptography and Security}, ch.~Timing Attack,
   pp.~1303--1305.
 \newblock Boston, MA: Springer US, 2011.
-
-\bibitem{rivest1978method}
-R.~L. Rivest, A.~Shamir, and L.~Adleman, ``A method for obtaining digital
-  signatures and public-key cryptosystems,'' {\em Communications of the ACM},
-  vol.~21, no.~2, pp.~120--126, 1978.
 
 \bibitem{kocc2009cryptographic}
 {\c{C}}.~K. Ko{\c{c}}, {\em About cryptographic engineering}.
