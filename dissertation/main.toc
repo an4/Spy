@@ -8,16 +8,16 @@
 \contentsline {section}{\numberline {2.2}Cache Memory}{6}
 \contentsline {subsection}{\numberline {2.2.1}Cache Organization}{7}
 \contentsline {subsection}{\numberline {2.2.2}Intel's Last-Level Cache Structure}{7}
-\contentsline {section}{\numberline {2.3}Web Browsers}{7}
+\contentsline {section}{\numberline {2.3}Web Browsers}{8}
 \contentsline {section}{\numberline {2.4}HTML}{8}
 \contentsline {subsection}{\numberline {2.4.1}Media Elements}{8}
-\contentsline {subsubsection}{Image}{8}
+\contentsline {subsubsection}{Image}{9}
 \contentsline {subsubsection}{Video and Audio}{9}
 \contentsline {section}{\numberline {2.5}JavaScript}{9}
-\contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{9}
+\contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{10}
 \contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{10}
 \contentsline {section}{\numberline {2.6}Offline Experience}{10}
-\contentsline {subsection}{\numberline {2.6.1}Application Cache}{10}
+\contentsline {subsection}{\numberline {2.6.1}Application Cache}{11}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{11}
 \contentsline {subsection}{\numberline {2.6.3}Service Workers}{11}
 \contentsline {subsection}{\numberline {2.6.4}HTTP Protocol}{12}
