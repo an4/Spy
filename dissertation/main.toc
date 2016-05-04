@@ -13,14 +13,13 @@
 \contentsline {subsection}{\numberline {2.4.1}Media Elements}{9}
 \contentsline {subsubsection}{Image}{9}
 \contentsline {subsubsection}{Video and Audio}{9}
-\contentsline {section}{\numberline {2.5}JavaScript}{9}
+\contentsline {section}{\numberline {2.5}JavaScript}{10}
 \contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{10}
 \contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{10}
-\contentsline {section}{\numberline {2.6}Offline Experience}{10}
+\contentsline {section}{\numberline {2.6}Offline Experience}{11}
 \contentsline {subsection}{\numberline {2.6.1}Application Cache}{11}
 \contentsline {subsection}{\numberline {2.6.2}Web Workers}{11}
-\contentsline {subsection}{\numberline {2.6.3}Service Workers}{11}
-\contentsline {subsection}{\numberline {2.6.4}HTTP Protocol}{12}
+\contentsline {subsection}{\numberline {2.6.3}Service Workers}{12}
 \contentsline {chapter}{\numberline {3}Research Review}{13}
 \contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{13}
 \contentsline {section}{\numberline {3.2}CSS Attack}{14}
