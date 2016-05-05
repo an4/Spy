@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  4 MAY 2016 21:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  5 MAY 2016 02:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,24 +574,24 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 559.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 560.
  [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17]
 [18] [19]
-Overfull \hbox (0.18985pt too wide) in paragraph at lines 643--644
+Overfull \hbox (0.18985pt too wide) in paragraph at lines 644--645
 []\OT1/cmr/m/n/10 The at-tack de-scribed by Oren et al. tar-gets the last-level
  cache and is mod-elled after the PRIME+PROBE
  []
 
 
-Overfull \hbox (15.0pt too wide) detected at line 672
+Overfull \hbox (15.0pt too wide) detected at line 673
 [][] 
  []
 
 [20]
-Overfull \hbox (15.0pt too wide) detected at line 697
+Overfull \hbox (15.0pt too wide) detected at line 698
 [][] 
  []
 
@@ -603,7 +603,7 @@ Chapter 4.
 File: figures/circularlinkedlist.png Graphic file (type png)
 
 <use figures/circularlinkedlist.png>
-Package pdftex.def Info: figures/circularlinkedlist.png used on input line 763.
+Package pdftex.def Info: figures/circularlinkedlist.png used on input line 764.
 
 (pdftex.def)             Requested size: 452.96826pt x 91.0472pt.
 
@@ -611,14 +611,14 @@ Package pdftex.def Info: figures/circularlinkedlist.png used on input line 763.
 File: figures/firefox39.png Graphic file (type png)
 
 <use figures/firefox39.png>
-Package pdftex.def Info: figures/firefox39.png used on input line 776.
+Package pdftex.def Info: figures/firefox39.png used on input line 777.
 (pdftex.def)             Requested size: 452.96826pt x 158.28722pt.
 
 <figures/firefox45.png, id=165, 1773.62625pt x 620.3175pt>
 File: figures/firefox45.png Graphic file (type png)
 
 <use figures/firefox45.png>
-Package pdftex.def Info: figures/firefox45.png used on input line 783.
+Package pdftex.def Info: figures/firefox45.png used on input line 784.
 (pdftex.def)             Requested size: 452.96826pt x 158.42023pt.
 
 
@@ -632,7 +632,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/interface.png Graphic file (type png)
 
 <use figures/interface.png>
-Package pdftex.def Info: figures/interface.png used on input line 905.
+Package pdftex.def Info: figures/interface.png used on input line 906.
 (pdftex.def)             Requested size: 452.96826pt x 238.9281pt.
 
 
@@ -642,28 +642,25 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/guess.png Graphic file (type png)
 
 <use figures/guess.png>
-Package pdftex.def Info: figures/guess.png used on input line 941.
+Package pdftex.def Info: figures/guess.png used on input line 942.
 (pdftex.def)             Requested size: 452.96826pt x 141.10788pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [31 <./figures/interface.png>] [32 <./figures/guess.png>]
-
-LaTeX Warning: Reference `fig:l;l50I' on page 33 undefined on input line 981.
-
 <figures/i100L50H.png, id=195, 1164.35pt x 625.33624pt>
 File: figures/i100L50H.png Graphic file (type png)
 
 <use figures/i100L50H.png>
-Package pdftex.def Info: figures/i100L50H.png used on input line 987.
+Package pdftex.def Info: figures/i100L50H.png used on input line 988.
 (pdftex.def)             Requested size: 452.95763pt x 199.16704pt.
 
 <figures/v100L50H.png, id=196, 1137.24875pt x 606.265pt>
 File: figures/v100L50H.png Graphic file (type png)
 
 <use figures/v100L50H.png>
-Package pdftex.def Info: figures/v100L50H.png used on input line 994.
+Package pdftex.def Info: figures/v100L50H.png used on input line 995.
 (pdftex.def)             Requested size: 452.96526pt x 199.17073pt.
 
 
@@ -674,14 +671,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/i100L100.png Graphic file (type png)
 
 <use figures/i100L100.png>
-Package pdftex.def Info: figures/i100L100.png used on input line 1005.
+Package pdftex.def Info: figures/i100L100.png used on input line 1006.
 (pdftex.def)             Requested size: 452.95836pt x 199.16547pt.
 
 <figures/v100L100.png, id=201, 1147.28625pt x 620.3175pt>
 File: figures/v100L100.png Graphic file (type png)
 
 <use figures/v100L100.png>
-Package pdftex.def Info: figures/v100L100.png used on input line 1012.
+Package pdftex.def Info: figures/v100L100.png used on input line 1013.
 (pdftex.def)             Requested size: 452.95427pt x 199.16823pt.
 
 
@@ -691,13 +688,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/i100E.png, id=205, 1127.21124pt x 608.2725pt>
 File: figures/i100E.png Graphic file (type png)
  <use figures/i100E.png>
-Package pdftex.def Info: figures/i100E.png used on input line 1025.
+Package pdftex.def Info: figures/i100E.png used on input line 1026.
 (pdftex.def)             Requested size: 452.97488pt x 199.16197pt.
 
 <figures/v100E.png, id=206, 1150.2975pt x 613.29124pt>
 File: figures/v100E.png Graphic file (type png)
  <use figures/v100E.png>
-Package pdftex.def Info: figures/v100E.png used on input line 1032.
+Package pdftex.def Info: figures/v100E.png used on input line 1033.
 (pdftex.def)             Requested size: 452.96715pt x 199.16756pt.
 
 
@@ -708,15 +705,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/sw_size.png Graphic file (type png)
 
 <use figures/sw_size.png>
-Package pdftex.def Info: figures/sw_size.png used on input line 1079.
+Package pdftex.def Info: figures/sw_size.png used on input line 1084.
 (pdftex.def)             Requested size: 452.96826pt x 104.16965pt.
  [37 <./figures/sw_size.png>] [38]
 Chapter 5.
-[39
 
-] [40
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-] (./main.bbl
+ [39
+
+]
+[40] (./main.bbl
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
@@ -730,6 +729,7 @@ Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no ” in font cmti10!
  [41
+
 
 ]
 Underfull \hbox (badness 2635) in paragraph at lines 147--150
@@ -778,17 +778,14 @@ illa . org / en-[]US / docs / Web / JavaScript / Reference /
 
 ) [43] (./main.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7731 strings out of 493304
- 108068 string characters out of 6139871
- 272905 words of memory out of 5000000
- 11006 multiletter control sequences out of 15000+600000
+ 7734 strings out of 493304
+ 108103 string characters out of 6139871
+ 272953 words of memory out of 5000000
+ 11009 multiletter control sequences out of 15000+600000
  11247 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,13n,72p,1316b,1668s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -806,7 +803,7 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (63 pages, 951881 bytes).
+Output written on main.pdf (63 pages, 957668 bytes).
 PDF statistics:
  287 PDF objects out of 1000 (max. 8388607)
  189 compressed objects within 2 object streams

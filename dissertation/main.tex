@@ -457,6 +457,7 @@ One solution to avoid these needless overuse of the network would be to store so
 The most basic way of storing data is in the browser's cache memory. All browsers are capable of storing web pages if told to do so; however the web developer has no control over the browser's cache. It is up to the browser to decide what pages to keep and what pages to remove from the cache when it becomes full. 
 
 \subsection{Application Cache}
+\label{applicationcachetb}
 Application Cache \cite{appcache} or AppCache is a framework which provides caching of resources in order to be later accessed offline. The AppCache API is part of HTML5 and allows web developers to specify which web pages and resources should be cached by the browser and made available offline.
 
 AppCache provides two ways to cache resources: either by specifying the path to the resource in the cache manifest or by including the cache manifest in the header of the document to be cached. The cache manifest is a text file containing the addresses of all web pages that should be stored locally. Despite being easy to use, AppCache does not allow developers to make any changes to its system. 
@@ -799,7 +800,8 @@ Although the recent changes to the JavaScript High Resolution Time API makes the
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
  
 \section{JavaScript Timing Attacks}
-Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar timing attacks, such as \cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. In their paper, van Goethem et al. \cite{van2015clock}, also investigate how information leaked from newer technologies such as Application Cache and Service Workers can be used to track users' activity.
+\label{vanpe}
+Van Goethem et al. \cite{van2015clock} present various methods for estimating the size of an external resource and claim that their techniques are faster and more accurate than previously used algorithms in similar timing attacks, such as the method presented by Bortz et al.\cite{bortz2007exposing}. In their paper, Van Goethem et al. \cite{van2015clock} propose the use of Video elements for loading an external resource as it provides more accurate time measurements than the Image method discovered by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock}, also investigate how information leaked from newer technologies such as Application Cache and Service Workers can be used to track the users' browsing activity.
 
 The attacks presented by Van Goethem et al. in \cite{van2015clock} are based on the assumption that an adversary can distinguish between files of different sizes only having access to the files' load times. I decided to test if several of the methods proposed in their paper are still possible and how accurately they can estimate the size of a cross-origin file. I built two web applications: one which compares the Video method proposed by Van Goethem et al. \cite{van2015clock} with the Image method presented by Bortz et al. \cite{bortz2007exposing} and tries to estimate the size of an external resource by loading it into a Video element, and a second application which estimates the size of a remote file using Service Workers.
 
@@ -878,9 +880,9 @@ function measureTimeVideo(url) {
 };
 \end{lstlisting}
 
-After the needed events are registered on the Video object, the function declares a couple of variables, \texttt{timeSuspend} and \texttt{timeError}, which will be used to store the number of microseconds elapsed since the page has started loading. Then, it sets the value of the \texttt{src} attribute to the url where the external resource resides. Once the \texttt{src} attribute is set the browser starts downloading the cross-origin resource and triggers the \texttt{progress} event. The \texttt{progress} event does not need to be watched since it does not provide any information which can help estimate the size of the external resource. 
+After the needed events are registered on the Video object, the function declares a couple of variables, \texttt{timeSuspend} and \texttt{timeError}, which will be used to store the time when the downloading process has started and when it ended. Then, it sets the value of the \texttt{src} attribute to the url where the external resource resides. Once the \texttt{src} attribute is set the browser starts downloading the cross-origin resource and triggers the \texttt{progress} event. The \texttt{progress} event does not need to be watched since it does not provide any information which can help estimate the size of the external resource. 
 
-The \texttt{suspend} event will fire once the browser has finished downloading the file. This event is being triggered after the file has finished downloading, but before the browser has started the parsing process. In Listing \ref{vanvideo}, when the \texttt{suspend} event fires, the \texttt{performance.now()} method is called in order to obtain the current time stamp and the values is stored in \texttt{timeSuspend}. Then the browser starts the parsing process, which depending on the browser version can be interrupted by the \texttt{error} event as soon as the browser starts parsing in Firefox or when the browser has finished parsing the contents of the file in Chrome. 
+The \texttt{suspend} event will fire once the browser has finished downloading the file. This event is being triggered after the file has finished downloading, but before the browser has started the parsing process. In Listing \ref{vanvideo}, when the \texttt{suspend} event fires, the \texttt{performance.now()} method is called in order to obtain the current time stamp and the values is stored in \texttt{timeSuspend}. Then the browser starts the parsing process, which depending on the browser version can be interrupted by the \texttt{error} event as soon as the browser starts parsing in Firefox, or when the browser has finished parsing the contents of the file in Chrome. 
 
 I used Chrome as the default browser for testing the attacks described by Van Goethem et al. \cite{van2015clock} so I am going to focus on the behaviour of the \texttt{error} event in this browser. Once the browser has finished parsing the recently downloaded file it tries to display it. The \texttt{error} event will fire if the resource is not a valid video file. When the event fires, a call will be made to the \texttt{performance.now()} method in order to obtain the time since the page has started loading. Again, we store the time measurement in a variable, \texttt{timeError}.
 
@@ -896,7 +898,6 @@ The second method alternates the requests such that no consecutive request have 
 
 Apart from providing methods for collecting data, the back-end script also deals with creating the graphs. The application uses the Google Charts API to draw the graphs. An example of a graph can be seen in Figure \ref{fig:videointerface}.
 
-% what each graph repsresent, probability density funciton, fitted line shit
 
 \subsubsection{Graph}
 
@@ -978,7 +979,7 @@ I created three different data sets in order to test the two methods:
 \item Data Set 3: contains 7 files with sizes: 16kB, 32kB, 64kB, 128kB, 256kB, 512kB, 1024kB.
 \end{itemize}
 
-I used the web application described in Section \ref{vvsi} to generate six graphs, which are going to help compare the efficiency of the two methods. Figure \ref{fig:l50V} and Figure \ref{fig:l;l50I} were obtained by timing the load time of the files from the first data set. The first graph is using the Image method proposed by Bortz et al. \cite{bortz2007exposing}, while the second image, Figure \ref{fig:l50V} uses the Video methods discovered by Van Goethem et al. \cite{van2015clock}.
+I used the web application described in Section \ref{vvsi} to generate six graphs, which are going to help compare the efficiency of the two methods. Figure \ref{fig:l50V} and Figure \ref{fig:l50I} were obtained by timing the load time of the files from the first data set. The first graph is using the Image method proposed by Bortz et al. \cite{bortz2007exposing}, while the second image, Figure \ref{fig:l50V} uses the Video methods discovered by Van Goethem et al. \cite{van2015clock}.
 
 As it can be seen from the two figures, Figure \ref{fig:l50V} and Figure \ref{fig:l50I}, the video methods performs better as the time measurements of the different files are easily distinguishable. In Figure \ref{fig:l50I} the data contains values which are very close, making it almost impossible to distinguish between files of different sizes. The Video method performs slightly better, especially for the four smallest files (50kB, 100kB, 150kB and 200kB); however, as the size of the files gets bigger is becoming very hard to distinguish between them.
 
@@ -1049,8 +1050,11 @@ I chose four files of different sizes and run the guess function five times for 
 \textbf{File Size} & \textbf{Guess 1} & \textbf{Guess 2} & \textbf{Guess 3} & \textbf{Guess 4} & \textbf{Guess 5} \\
 \hline
 $200$ kB & $198$ kB & $200$ kB & $201$ kB & $196$ kB & $202$ kB \\
+\hline
 $400$ kB & $360$ kB & $378$ kB & $377$ kB & $382$ kB & $379$ kB \\
+\hline
 $600$ kB & $470$ kB & $480$ kB & $450$ kB & $461$ kB & $470$ kB \\
+\hline
 $800$ kB & $541$ kB & $520$ kB & $634$ kB & $545$ kB & $587$ kB \\
 \hline
 \end{tabular}
@@ -1069,6 +1073,7 @@ Although, using AppCache improves the speed of the attack and increases the chan
 % website tested the attack with app cache - no significant improement + video
 
 \subsection{Service Worker}
+\label{webSW}
 
 Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
 
@@ -1094,9 +1099,6 @@ $scope.guessSize = function() {
 
 The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
 
-In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
-
-
 \begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
 function putDelete(url, response, cache) {
     return new Promise(function(resolve, reject) {
@@ -1112,6 +1114,8 @@ function putDelete(url, response, cache) {
     });
 };
 \end{lstlisting}
+
+In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
 
 The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
 
@@ -1130,10 +1134,64 @@ if(time > time100) {
 
 \subsubsection{Critical Evaluation}
 
+I decided to test the performance of the website described in Section \ref{webSW} by estimating the size of ten files of different sizes ranging from 100kB to 1000kB. The results of the experiment can be seen in Table \ref{tab:guessSW}. There were five measurements collected for each file. As it can be seen from the table, the size of the files estimated by the web application is very close to the actual size of the files.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{File Size} & \textbf{Guess 1} & \textbf{Guess 2} & \textbf{Guess 3} & \textbf{Guess 4} & \textbf{Guess 5} \\
+\hline
+$100$ kB & $100$ kB & $126$ kB & $141$ kB & $100$ kB & $125$ kB \\
+\hline
+$200$ kB & $165$ kB & $199$ kB & $173$ kB & $207$ kB & $195$ kB \\
+\hline
+$300$ kB & $258$ kB & $307$ kB & $275$ kB & $246$ kB & $362$ kB \\
+\hline
+$400$ kB & $541$ kB & $520$ kB & $634$ kB & $545$ kB & $587$ kB \\
+\hline
+$500$ kB & $558$ kB & $521$ kB & $454$ kB & $488$ kB & $459$ kB \\
+\hline
+$600$ kB & $705$ kB & $567$ kB & $533$ kB & $654$ kB & $603$ kB \\
+\hline
+$700$ kB & $646$ kB & $776$ kB & $721$ kB & $731$ kB & $696$ kB \\
+\hline
+$800$ kB & $700$ kB & $912$ kB & $795$ kB & $844$ kB & $724$ kB \\
+\hline
+$900$ kB & $750$ kB & $860$ kB & $821$ kB & $998$ kB & $1009$ kB \\
+\hline
+$1000$ kB & $855$ kB & $1105$ kB & $1067$ kB & $971$ kB & $1114$ kB \\
+\hline
+\end{tabular}
+\caption{Estimation the size of a file using Service Workers}
+\label{tab:guessSW}
+\end{table}
+
 % -----------------------------------------------------------------------------
 
 \chapter{Conclusion}
 \label{chap:conclusion}
+
+The aim of this dissertation was to review some of the most important side-channel attacks, which affect browser software, discovered over the past twenty years. Throughout the course of this dissertation I present some of the attacks, check if they can still be performed today or how efficient the given countermeasures are in preventing the attacks. Additionally, I analysed the performance of two recent side-channel attacks, one using the browser's cache memory to disclose a user's browsing activity, the other one using timing information in order to estimate the size of hidden data.
+
+One of the oldest side-channel attacks, targeting browser software, was discovered by Felten and Schneider \cite{felten2000timing} in 2000. Their attack, uses timing information on order to determine if a resource resides in the victim's browser cache. This information enabled them to determine what web pages the user has visited, therefore revealing a user's browsing history. Although, there have been various countermeasures proposed, the attack is still possible. Researchers believe that the best defence against the attack is the use of the same-origin policy on the browser's cache memory; however, browser vendors are against implementing this feature since it might slow down the browser software. 
+
+Another attack which discloses the user's browsing history was discovered by Clover \cite{cssvisited} around the same time. This attack uses the fact that the majority of browsers change the style of a visited link such that users can keep track of what websites they visited. Clover discovered that an attacker can request the computed style of the page using JavaScript. This technique has been used for over a decade by high profile websites in order to obtain the users' browsing history. The attack was fixed by changing the implementation of the JavaScript function which returns the web page's computed style. 
+
+Jia et al. \cite{jia2015know} showed that it is possible to determine a user's country, city and even neighbourhood by simply checking the state of their browser's cache memory. Their paper uses the technique presented by Felten and Schneider \cite{felten2000timing} together with the fact that some websites offer location specific web pages in order to improve the user's experience. There are no known countermeasures against this type of attack. Jia et al. suggest that websites should only offer geo-specific services if they have the user's explicit permission.
+
+Targeting static HTML pages is not the only way to obtain private information about a user. Bortz et al. \cite{bortz2007exposing} were the first to show that it is possible to estimate the amount of data a user has access to. They introduced two new categories of browser attacks: \textit{direct timing} attacks and \textit{cross-site timing} attacks. In direct timing attacks, the attacker has direct access to the website and uses the web server's response time in order to disclose private information about the website. The second category, cross-site timing attacks, the attacker tries to gain access to the victim's view of another website. Bortz et al. \cite{bortz2007exposing} present a new method for estimating the size of a cross-origin file; however, their technique is dependent on the network speed and stability. The researchers discovered that by loading a file as an image it is possible to measure the total download time, which is dependent on the size of the file. Therefore, they were able to estimate the size of hidden data by simply measuring how long it takes to load an external resource into an \texttt{<img>} element.
+
+Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bortz2007exposing} and present four new techniques for estimating the size of a cross-origin resource: loading the data into a \texttt{<video>} element, loading the data into a \texttt{<script>} element, using Service Workers to measure the time it takes to write the data to local storage and measuring the time it takes to load the file from cache after being stored locally using Application Cache. 
+
+Van Goethem et al. \cite{van2015clock} claim that their methods are more efficient than the measuring technique discovered by Bortz et al. \cite{bortz2007exposing}. In Section \ref{vanpe} I analyse the efficiency of the four methods and compare the video method to the image method presented in \cite{bortz2007exposing}.
+
+I tested the two methods, video and image, on three different data sets, and in all three of the cases the video method proposed by Van Goethem et al. \cite{van2015clock} performed better. Therefore, the claim made by Van Goethem et al. \cite{van2015clock} is true. The video method measures the time it takes the browser to parse the file, whereas the image method measures the download time of the resource, which is influenced by the network connection. I discovered that the attack which estimates the size of an external resource by loading it into a \texttt{<video>} element only works in Chrome.
+
+The second measurement method proposed by Van Goethem et al. \cite{van2015clock} was the use of Application Cache. AppCache described in Section \ref{applicationcachetb}, allows the developer to cache some of the resources in order to be served later from local storage. The researches use the AppCache together with the video method in order to speed up the overall runtime of the attack by avoiding re-downloading the resource before every measurement and loading it from local storage instead. Apart, from reducing the overall runtime of the attack the use of Application Cache provides no additional benefit. Additionally, the mainstream browsers starting removing support for AppCache, as there are better technologies available, such as Service Workers, which offer similar functionality.
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
