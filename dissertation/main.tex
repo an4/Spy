@@ -156,7 +156,7 @@
 
 \tableofcontents
 \listoffigures
-%\listoftables
+\listoftables
 \listofalgorithms
 \lstlistoflistings
 
@@ -167,10 +167,10 @@
 
 \chapter*{Executive Summary}
 
-In general, side-channel attacks record the power consumption, electromagnetic emission, heat dissipation,   execution time or the state of the cache memory while the device is performing an interesting operation and use it to determine the device's internal state which is related to the secret parameters involved in the computation.  This dissertation is about side-channel attacks in the browser, a very powerful category of side-channel attacks which affect browser software and whose aim is to disclose private data about the user through either using timing information (\textit{Timing Attacks}) or the state of the browser's cache memory (\textit{Cache Attacks}). 
+This dissertation is about side-channel attacks in the browser, a very powerful category of side-channel attacks which affect browser software and whose aim is to disclose private data about the user through either using timing information (\textit{Timing Attacks}) or the state of the browser's cache memory (\textit{Cache Attacks}). 
 \\\\
 \noindent
-The world of browser attacks is rapidly changing, with new vulnerabilities appearing and disappearing within weeks. In general, adversaries have a limited time frame in which they can exploit the vulnerability; however, some side-channel attacks in the browser have been around for decades. This is due to the fact that fixing the vulnerability will bring severe performance penalties to the browser software. 
+The world of browser attacks is rapidly changing, with new vulnerabilities appearing and disappearing within weeks. In general, adversaries have a limited time frame in which they can exploit the vulnerability; however, some side-channel attacks in the browser have been around for decades. This is due to the fact that fixing the vulnerability will bring severe performance penalties to the browser software. The relatively short life span of these types of attacks, motivated me to investigate if some of the attacks released over the past year are still possible.  
 \\\\
 \noindent
 Throughout this paper we look at two types of browser side-channel attacks: \textit{cache attacks}, which analyse the state of the browser's cache memory in order to disclose private information about users, such as their browsing activity, and \textit{timing attacks}, which use timing information to reveal a user's browsing history or gain access to their view of a cross-origin website.
@@ -194,13 +194,8 @@ Throughout this paper we look at two types of browser side-channel attacks: \tex
 \item HTML
 \item CSS
 \item JavaScript
-\item AngularJS 1
-\item Bootstrap
-\item jQuery
+\item AngularJS
 \item Google Chart Angular
-\item mathjs
-\item NodeJS
-\item Magic ...
 \end{itemize}
 \end{quote}
 
@@ -277,6 +272,15 @@ SRAM					&:	   & Static Random Access Memory								 \\
 \chapter{Contextual Background}
 \label{chap:context}
 
+Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
+
+The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
+\begin{enumerate}
+\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat dissipation \cite{standaert2010introduction}.
+\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
+\end{enumerate}
+
+Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
 
 % -----------------------------------------------------------------------------
 
@@ -287,21 +291,11 @@ SRAM					&:	   & Static Random Access Memory								 \\
 %%%%%%%%%%%%%%%%% Vampires %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Side-Channel Attacks}
-
-Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
+%mapping
 
 The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman \cite{diffie1976new} exponents, find the private key in Rivest-Shamir-Adleman (RSA) \cite{rivest1978method} cryptosystem and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device, which is related to the secret parameters involved in the computation. 
 
-The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
-\begin{enumerate}
-\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat dissipation \cite{standaert2010introduction}.
-\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
-\end{enumerate}
-
-Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
-
-\subsection{Timing Attacks}
+\section{Timing Attacks}
 
 Timing attacks are one of the oldest categories of side channel attacks, where time measurements are used to recover the secret information. The basic idea behind timing attacks is to learn the secret key based on how long it takes to perform certain operations. In older systems, the time varied depending on the data and the cryptographic key, which would allow an attacker to easily learn the secret information \cite{Koeune2011}.
 
@@ -333,7 +327,7 @@ In the years that followed, there have been a series of vulnerabilities discover
 
 In 2003, Brumley et al. \cite{brumley2005remote} were the first to show that web servers are vulnerable to timing attacks by successfully attacking OpenSSL \cite{openssl}. They were also able to recover the secret exponent in implementations of RSA using the Chinese Remainder Theorem (CRT), which was previously believed to be secure. 
 
-\subsection{Cache Attacks}
+\section{Cache Attacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the state of the cache memory. Cache attacks are ``not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing" as Oren et al. describe them in \cite{oren2015spy}. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
 
 If timing attacks exploit vulnerabilities in the cryptographic algorithm's implementation, which could lead to the discovery of the secret key, cache attacks target the actual device and make use of the fact that memory access is not always performed in constant time \cite{canteaut2006understanding}.
@@ -346,24 +340,7 @@ In 2006, Osvik et al. \cite{osvik2006cache} presented a cache attack against AES
 
 Oren et al.  \cite{oren2015spy} built on the work by Liu et al. \cite{liu2015last} and developed a cache attack written in JavaScript, which runs entirely in the browser. Compared to previous cache attacks, where the goal is to recover the secret information, the attack described by Oren et al. \cite{oren2015spy} tracks user behaviour. Their attack uses the state of the cache memory as a side channel to determine a user's browsing activity.
 
-
-\subsection{Browser Attacks}
-Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and Structured Query Language (SQL) injection. Over the last few years, however, there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
-
-One of the oldest and most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gain access to the victim's browser history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history
-\cite{jang2010empirical}.
-
-Analysing the style of a web page is not the only way to expose a user's browsing history. A similar attack, discovered by Felten et al. \cite{felten2000timing}, uses timing information to determine if a web page has been previously visited by the victim. This attack assumes that recently accessed resources will be cached by the browser in order to provide faster loading times during future visits. By comparing the loading time of different web pages an attacker can determine if a file is in the user’s cache, and hence whether or not the user has accessed that website before.
-
-Websites customize their services according to the users’ locations. For example, a user accessing Google from within the United Kingdom will be redirected to www.google.co.uk. Jia et al. \cite{jia2015know} have shown that is possible to derive a user's location by simply checking what local version of the website is stored in their browser's cache memory.
-
-Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}. If previous attacks were targeting static resources, which can be cached, their attack is aimed at dynamically generated web pages. Bortz et al. \cite{bortz2007exposing} present two types of attacks: \textit{direct timing} attacks, where an adversary has direct access to a website and is able to obtain information about the website's state by simply measuring the server's response time, and \textit{cross-site timing} attacks, where an adversary tries to obtain information about the victim's view of a cross-origin website.
-
-The measurements techniques used by Bortz et al. \cite{bortz2007exposing} are dependent on network conditions and could provide erroneous results. Van Goethem et al.\cite{van2015clock} extended the work of Bortz et al. \cite{bortz2007exposing} and presented new timing methods, which are independent of the victim's network condition, thus provide more accurate timing information. 
-
-Oren et al. \cite{oren2015spy} identified a new category of side-channel attack which run in the browser. The work described in \cite{oren2015spy} uses the state of the browser's cache memory to determine what web site the victim is currently visiting.
-
-\section{Cache Memory}
+\subsection{Cache Memory}
 \label{cachememorytb}
 
 Cache memory is a small high-speed memory, usually Static Random Access Memory (SRAM), located inside the Central Processing Unit (CPU) chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to frequently used resources. Cache memory acts as a buffer between the high speed CPU and the slower main memory or Dynamic Random Access Memory (DRAM).
@@ -385,7 +362,7 @@ Multi-level caches split into two categories: inclusive and exclusive cache. Inc
 
 When the CPU needs to access physical memory it will first look for the respective address in the cache. If the resource does not reside in the cache memory, it will have to be retrieved from the main memory. This is known as a \textit{cache miss}. A \textit{cache hit} occurs when the address the CPU is looking for is found in any of the cache memory levels \cite{oren2015spy}.
 
-\subsection{Cache Organization}
+\subsubsection{Cache Organization}
 Since cache memory is generally smaller than main memory, various techniques are used to map main memory to cache. Main memory is split into \textit{cache pages}, a \textit{cache page} is a block of main memory which size is dependent on the cache memory. Each \textit{cache page} is further divided into \textit{cache lines}. Based on the mapping mode caches can be split into: direct mapped, n-way set associative and fully associative cache.
 \begin{itemize}
 \item Direct Mapped: Direct Mapped Cache is also known as 1-way set associative cache. In direct mapped mode, the main memory is divided into \textit{cache pages} equal to the size of the cache. Each \textit{cache line} can only reside in one position in the cache memory. 
@@ -393,7 +370,7 @@ Since cache memory is generally smaller than main memory, various techniques are
 \item N-way Set Associative Cache: A Set Associative Cache scheme is a combination of the previous two schemes and the most common technique to map CPU caches. The cache memory is split into n equal blocks known as \textit{cache ways}. The main memory is split into \textit{cache pages} of size equal to the \textit{cache way}. Each \textit{cache way} acts like a small direct mapped cache. Each \textit{cache line} can now be stored in n positions in the cache memory. This decreased the need to overwrite the data in the cache memory.
 \end{itemize}
 
-\subsection{Intel's Last-Level Cache Structure}
+\subsubsection{Intel's Last-Level Cache Structure}
 Intel's cache architecture is inclusive, so the last level cache contains all the elements stored in the cache memory. The LLC is divided into slices one for each core of the CPU. Each core is directly connected to a \textit{cache slice}, but it also has access to all the other slices \cite{oren2015spy}.
 
 The size of the LLC varies between processor models and ranges between 3MiB to over 20MiB. Due to its relatively large size it is not efficient to iterate through the whole cache when looking for a specific address. The LLC is further divided into \textit{cache sets}, each block of main memory maps to a specific set in the cache memory. Each \textit{cache set} contains several \textit{cache lines} \cite{oren2015spy}. 
@@ -401,6 +378,22 @@ The size of the LLC varies between processor models and ranges between 3MiB to o
 The Intel Core i7-4960HQ processor is multi-core 4th generation Intel Core processor. The cache memory for this processor has a Smart Cache architecture. Smart Cache is an architecture developed by Intel that allows multi-core processors to share the same last level cache memory instead of having dedicated per-core cache. The processor has 8192 ($2^{13}$) cache sets, each set being 12-way associative. Every cache set can hold 12 lines of  64 ($2^6$) bytes each. The total cache size of the Intel Core i7-4960HQ processor is 8192x12x64=6MB \cite{oren2015spy}.
 
 In a 12-way associative cache each cache line can only be stored in 12 positions in the cache memory. The algorithm that determines the mapping between a physical address and an index in cache memory is not public and has changed between processor generations \cite{oren2015spy}. Hund et el. \cite{hund2013practical} were able to reverse engineer the mapping in the case of Sandy Bridge processors.
+
+\subsection{Browser Attacks}
+Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and Structured Query Language (SQL) injection. Over the last few years, however, there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
+
+One of the oldest and most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gain access to the victim's browser history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history
+\cite{jang2010empirical}.
+
+Analysing the style of a web page is not the only way to expose a user's browsing history. A similar attack, discovered by Felten et al. \cite{felten2000timing}, uses timing information to determine if a web page has been previously visited by the victim. This attack assumes that recently accessed resources will be cached by the browser in order to provide faster loading times during future visits. By comparing the loading time of different web pages an attacker can determine if a file is in the user’s cache, and hence whether or not the user has accessed that website before.
+
+Websites customize their services according to the users’ locations. For example, a user accessing Google from within the United Kingdom will be redirected to www.google.co.uk. Jia et al. \cite{jia2015know} have shown that is possible to derive a user's location by simply checking what local version of the website is stored in their browser's cache memory.
+
+Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}. If previous attacks were targeting static resources, which can be cached, their attack is aimed at dynamically generated web pages. Bortz et al. \cite{bortz2007exposing} present two types of attacks: \textit{direct timing} attacks, where an adversary has direct access to a website and is able to obtain information about the website's state by simply measuring the server's response time, and \textit{cross-site timing} attacks, where an adversary tries to obtain information about the victim's view of a cross-origin website.
+
+The measurements techniques used by Bortz et al. \cite{bortz2007exposing} are dependent on network conditions and could provide erroneous results. Van Goethem et al.\cite{van2015clock} extended the work of Bortz et al. \cite{bortz2007exposing} and presented new timing methods, which are independent of the victim's network condition, thus provide more accurate timing information. 
+
+Oren et al. \cite{oren2015spy} identified a new category of side-channel attack which run in the browser. The work described in \cite{oren2015spy} uses the state of the browser's cache memory to determine what web site the victim is currently visiting.
 
 \section{Web Browsers}
 
@@ -504,7 +497,7 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Research Review}
+\chapter{A Preliminary Analysis of Published Attack Vectors}
 \label{chap:realtedWork}
 
 \section{Felten and Schneider - Timing Attacks on Web Privacy}
@@ -544,7 +537,9 @@ The majority of browsers change the color of a visited link such that a user can
 
 Clover proposed three possible solutions and analysed their likelihood of solving this issues. His first suggestion is to send the visited style regardless of the state of the link, visited or not. Although, this would stop attackers from distinguishing between the two types of links when requesting the computed style, some browsers offer additional software that would still make the attack possible. He also recommended that users be advised to turn off scripting when visiting untrusted pages. His last suggestion is the use of domain tagging, introduced by Felten and Schneider in \cite{felten2000timing} and explained in Section \ref{feltenschneider}.
 
-Clover believes that none of the proposed solutions is a valid countermeasure. He also thinks that the attack is possible due to a CSS implementation issue rather than being a browser related problem \cite{cssvisited}. The attack discovered by Clover is no longer possible. Browser vendors updated their software such that when an adversary requests the computed style, the browser lies and send back all links as unvisited.
+Clover stated that none of the proposed solutions is a valid countermeasure. He also thinks that the attack is possible due to a CSS implementation issue rather than being a browser related problem \cite{cssvisited}. It is unclear if the attack discovered by Clover is still possible. 
+
+In 2010, Baron, a developer from Mozilla Corporation, presented a method which he claims can stop Clover's attack and announced that Mozilla was planning to include the countermeasure in the new release of the Firefox browser \cite{fixedcssprivacy}. Baron's solution is to change the browser's implementation of the function which requests the computed style such that it sees all URLs as unvisited. When an adversary asks for the computed style, they will be unable to distinguish visited URLs from unvisited ones. Additionally, Baron suggests allowing users to opt out of using the feature which changes the colour of visited links. He agrees, however, that this would not completely stop the attack, since developers can use other techniques to differentiate between visited and unvisited URLs, such as adding a background image to visited links or increasing the font size of visited URLs.
 
 \section{Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}
 
@@ -552,7 +547,7 @@ Traditionally a user's location could by determined by checking their IP address
 
 Geo-location information is treasured by websites which provide location-specific services as it enables a more personalized experience for users. For example, a user accessing Google from within the United Kingdom will be redirected to \textit{www.google.co.uk}. One the other hand, attackers are also interested in obtaining a user's location for various reasons from social engineering attacks to targeted advertisements. Jia et al. \cite{jia2015know} show how it is possible to infer a user's location using side channel information from the browser's cache. They analyse the efficiency of several methods for obtaining a user's geo-location and present different countermeasures and their likelihood of defending against this attack in their paper \cite{jia2015know}.
 
-The attack is based on the assumption that users generally visit location-oriented websites for the locations that they currently live in or plan to visit. Additionally, a large number of websites provide information for local residents, thus, the majority of people who access those web pages live in the area. 
+Jia et al.'s \cite{jia2015know} attack is based on the assumption that users generally visit location-oriented websites for the locations that they currently live in or plan to visit. Additionally, a large number of websites provide information for local residents, thus, the majority of people who access those web pages live in the area. 
 
 The requirements for running the attack are minimal. An attacker needs to have access to a server and a website running JavaScript that has to be accessed by the victim. Once the victim navigates to the attacker-controlled web page, the background script starts the process of determining a user's geo-location. The attack model assumes that an attacker is able to distinguish between a cache hit and a cache miss and that recently accessed resources are cached, hence the victim does not regularly clean their browser's cache memory.
 
@@ -569,7 +564,7 @@ The attack presented by Jia et al. \cite{jia2015know} was discovered over a year
 \section{Bortz et al. - Exposing Private Information by Timing Web Application}
 \label{bortz}
 
-Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}, where they use the time servers take to respond to HTTP request as a side channel. The paper presents two types of attacks: \textit{direct timing}, where the attacker has direct access to a website, and \textit{cross-site timing}, where the adversary uses the victim's view of the website to obtain private information. The researchers tested their attacks on two real world scenarios: obtaining the value of some boolean condition and estimating the size of hidden data \cite{bortz2007exposing}.
+Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}, where they use the time that servers take to respond to HTTP request as a side channel. The paper presents two types of attacks: \textit{direct timing}, where the attacker has direct access to a website, and \textit{cross-site timing}, where the adversary uses the victim's view of the website to obtain private information. The researchers tested their attacks on two real world scenarios: obtaining the value of some boolean condition and estimating the size of hidden data \cite{bortz2007exposing}.
 
 In \textit{direct timing} attacks, the adversary has to access a website and use the timing information obtained to infer certain properties about the secret data. The easiest attack would be a boolean test, where the adversary tests if some condition on the server's hidden data holds or not. For example, the majority of web sites, which require a username and password for log in, have a forgot my password page. The adversary could use that page to obtain a list of valid email addresses as the victim websites usually display an error if the email address is not in their data base. There are known countermeasures against this type of attack such as: limiting the number of tries or requesting additional information; however, there are still websites vulnerable to this simple attack \cite{bortz2007exposing}. 
 
@@ -743,6 +738,8 @@ The second attack I decided to test was discovered by Van Goethem et al. \cite{v
 
 The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
 
+\subsection{Implementation}
+
 The web application has a script running in the background, which measures the time it takes to fetch variables from RAM and from the cache memory. After gathering data from 100 variables, the script plots the values as a line using the Google Charts API \cite{googlecharts} as it can be seen in Figure \ref{firefox39} and Figure \ref{firefox45}. If the two lines do not intersect and there is a significant gap between them like in Figure \ref{firefox39}, it means that the two distributions are distinguishable, therefore an attacker would be able to differentiate between a cache miss and a cache hit with high probability and the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. 
 
 \begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest},  xleftmargin=0.7cm]
@@ -815,6 +812,8 @@ The change in the JavaScript timing API made the attack impossible in JavaScript
 Although the recent changes to the JavaScript High Resolution Time API makes the attack impossible in newer versions of the browser, there are still ways in which the attack can be implemented. Oren et al. decided to use JavaScript because it is the most popular client side language, therefore finding a vulnerability in JavaScript will affect a large number of user; however, there are other client side technologies which might still be affected by a similar attack. 
 
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
+
+\subsection{Critical Reflection}
  
 \section{JavaScript Timing Attacks}
 \label{vanpe}
@@ -836,7 +835,6 @@ The web application can be split into two parts:
 
 The two web pages communicate with a background script which provides the time measuring methods and generates all the data needed for plotting the graph. The script is written entirely in JavaScript. The front-end was built using AngularJS, whose two way data binding simplifies the process of sending data between the background script and the front end parts of the application.
 
-% backend
 \subsubsection{Back-end}
 
 The back-end script contains various functions for measuring the time of loading an external resource into an Image element or a Video element. The algorithm for measuring the loading time of an external resource as a video is presented in Listing \ref{vanvideo}. The JavaScript code for measuring the time it take to load a file as an Image is presented in Listing \ref{vanimage}.
