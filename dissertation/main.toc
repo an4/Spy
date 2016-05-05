@@ -6,11 +6,11 @@
 \contentsline {subsection}{\numberline {2.2.1}Cache Memory}{5}
 \contentsline {subsubsection}{Cache Organization}{6}
 \contentsline {subsubsection}{Intel's Last-Level Cache Structure}{6}
-\contentsline {subsection}{\numberline {2.2.2}Browser Attacks}{6}
-\contentsline {section}{\numberline {2.3}Web Browsers}{7}
+\contentsline {subsection}{\numberline {2.2.2}Browser Attacks}{7}
+\contentsline {section}{\numberline {2.3}Web Browsers}{8}
 \contentsline {section}{\numberline {2.4}HTML}{8}
 \contentsline {subsection}{\numberline {2.4.1}Media Elements}{8}
-\contentsline {subsubsection}{Image}{8}
+\contentsline {subsubsection}{Image}{9}
 \contentsline {subsubsection}{Video and Audio}{9}
 \contentsline {section}{\numberline {2.5}JavaScript}{9}
 \contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{10}

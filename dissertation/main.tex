@@ -291,9 +291,9 @@ Side-Channel Attacks are an important class of cryptanalytic techniques. In gene
 %%%%%%%%%%%%%%%%% Vampires %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%mapping
-
 The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman \cite{diffie1976new} exponents, find the private key in Rivest-Shamir-Adleman (RSA) \cite{rivest1978method} cryptosystem and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device, which is related to the secret parameters involved in the computation. 
+
+
 
 \section{Timing Attacks}
 
@@ -337,6 +337,14 @@ The idea of using cache memory as a side-channel was first proposed by Hu in \ci
 Despite cache vulnerabilities being known for some time, actual cache attack have not been developed until the early 2000s. The idea proposed by Kelsey et al. \cite{kelsey1998side} was later expanded by Page in \cite{page2002theoretical}, who described a theoretical attack against the Data Encryption Standard (DES) \cite{standard1977federal}. A year later, Tsunoo et al. \cite{tsunoo2003cryptanalysis} demonstrated a cache attack against DES and proposed a similar attack against the Advanced Encryption Standard (AES) \cite{pub2001197} .
 
 In 2006, Osvik et al. \cite{osvik2006cache} presented a cache attack against AES based on inter-process leakage. Their paper also describes the PRIME+PROBE algorithm in the context of the first level cache, L1, which was later extended to last level cache (LLC) by Liu et al. \cite{liu2015last}.
+
+In general, the PRIME+PROBE algorithm consists of four steps:
+\begin{enumerate}
+\item In the first stage the attacker creates a buffer with known data.
+\item During the second step the attacker accesses the buffer such that its contents are now in the cache memory, thus bringing the cache into a known state.
+\item In the third step the attacker waits for the victim to perform an operation that might alter the contents of the cache.
+\item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
+\end{enumerate}
 
 Oren et al.  \cite{oren2015spy} built on the work by Liu et al. \cite{liu2015last} and developed a cache attack written in JavaScript, which runs entirely in the browser. Compared to previous cache attacks, where the goal is to recover the secret information, the attack described by Oren et al. \cite{oren2015spy} tracks user behaviour. Their attack uses the state of the cache memory as a side channel to determine a user's browsing activity.
 
