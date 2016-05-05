@@ -1238,7 +1238,17 @@ Browser use a wide range of technologies in order to display richer, more intera
 
 Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bortz2007exposing} and present four new techniques for estimating the size of a cross-origin resource: loading the data into a \texttt{<video>} element, loading the data into a \texttt{<script>} element, using Service Workers to measure the time it takes to write the data to local storage and measuring the time it takes to load the file from cache after being stored locally using Application Cache. Van Goethem et al. \cite{van2015clock} claim that their methods are more efficient than the measuring technique discovered by Bortz et al. \cite{bortz2007exposing}. 
 
-Oren et al.\cite{oren2015spy} present an attack written in JavaScript, which runs entirely in the browser. Their attack uses the PRIME+PROBE algorithm, which was previously used to recover the secret parameters in AES\cite{pub2001197}, in order to disclose the state of the victim's cache memory. The attack described by Oren et al.\cite{oren2015spy} tracks the user's behaviour.
+
+% Oren part
+Oren et al.\cite{oren2015spy} propose e browser cache timing attack which analyses the state of the browser's cache memory in order to disclose a user's browsing activity. Their attack uses the PRIME+PROBE algorithm, which was first used to recover the secret parameters in AES\cite{pub2001197}, in to determine the state of the victim's cache memory. Compared to other cache timing attacks, Oren et al.'s \cite{oren2015spy} attack traks the user's behaviour rather than the disclosure of private data. The attack is written in JavaScript and runs entirely in the browser. The choice of programming language for implementing the attack, allowed the researchers to target a wider range of people since the requirement for running the attack are limited. 
+
+The attack proposed by Oren et al.\cite{oren2015spy} is possible due to a faulty implementation of the JavaScript High Resolution Time API\cite{jshighresolutiontimeapi}. The JavaScript High Resolution Time API is a fairly recent feature of JavaScript which provides sub millisecond time measurements. The motivation behind the API is to allow developers to better analyse the performance of their applications, which was not possible using previous time measuring methods like \texttt{Date.now()}\cite{datenow}. Oren et al.\cite{oren2015spy} discovered that the measurements provided by the API are precise enough to distinguish a cache miss from a cache hit which led to the previously mentioned attack which discloses a user's browsing activity.
+
+%why no longer possible and how it can still happen
+
+% future work, investigate new APIs
+% use van to disclose a user's network
+
 
 
 
