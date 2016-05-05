@@ -167,6 +167,12 @@
 
 \chapter*{Executive Summary}
 
+\begin{itemize}
+\item Reviewed some of the most important Side-Channel attacks targeting browser software.
+\item Tested if the attack discovered bt Oren et al. \cite{oren2015spy} is still possible.
+\item Implemented the attacks proposed by Van Goethem et al. \cite{van2015clock} and analyse their performance against previous attacks.
+\end{itemize}
+
 % -----------------------------------------------------------------------------
 
 \chapter*{Supporting Technologies}
@@ -1189,6 +1195,10 @@ Van Goethem et al. \cite{van2015clock} claim that their methods are more efficie
 I tested the two methods, video and image, on three different data sets, and in all three of the cases the video method proposed by Van Goethem et al. \cite{van2015clock} performed better. Therefore, the claim made by Van Goethem et al. \cite{van2015clock} is true. The video method measures the time it takes the browser to parse the file, whereas the image method measures the download time of the resource, which is influenced by the network connection. I discovered that the attack which estimates the size of an external resource by loading it into a \texttt{<video>} element only works in Chrome.
 
 The second measurement method proposed by Van Goethem et al. \cite{van2015clock} was the use of Application Cache. AppCache described in Section \ref{applicationcachetb}, allows the developer to cache some of the resources in order to be served later from local storage. The researches use the AppCache together with the video method in order to speed up the overall runtime of the attack by avoiding re-downloading the resource before every measurement and loading it from local storage instead. Apart, from reducing the overall runtime of the attack the use of Application Cache provides no additional benefit. Additionally, the mainstream browsers starting removing support for AppCache, as there are better technologies available, such as Service Workers, which offer similar functionality.
+
+Another measurement technique used by Van Goethem et al. \cite{van2015clock} to determine the size of a cross-origin resource is measuring the time it takes to write a file to local storage using Service Workers and the Cache API. Out of all the methods in their paper \cite{van2015clock} this one provides the best results when estimating the size of an external resource. Additionally, is the only one who is supported by all mainstream browsers, therefore an attack using Service Workers will affect more users.
+
+The last measurement method presented in the paper uses measures the time it takes to load the resource as a script. Although Van Goethem et al. \cite{van2015clock} claim that this technique has been around for a long time I have been unable to recreate their attack using the \texttt{<script>} element. It seems that the browser checks if the file is valid before it starts the download process, therefore the timing information does not disclose anything about the file's size.
 
 
 

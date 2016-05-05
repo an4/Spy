@@ -5,6 +5,17 @@ A.~Bortz and D.~Boneh, ``Exposing private information by timing web
   applications,'' in {\em Proceedings of the 16th international conference on
   World Wide Web}, pp.~621--628, ACM, 2007.
 
+\bibitem{oren2015spy}
+Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
+  the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
+  arXiv:1502.07373}, 2015.
+
+\bibitem{van2015clock}
+T.~Van~Goethem, W.~Joosen, and N.~Nikiforakis, ``The clock is still ticking:
+  Timing attacks in the modern web,'' in {\em Proceedings of the 22nd ACM
+  SIGSAC Conference on Computer and Communications Security}, pp.~1382--1393,
+  ACM, 2015.
+
 \bibitem{kocher1996timing}
 P.~C. Kocher, ``Timing attacks on implementations of diffie-hellman, rsa, dss,
   and other systems,'' in {\em Advances in Cryptology—CRYPTO’96},
@@ -55,11 +66,6 @@ D.~Brumley and D.~Boneh, ``Remote timing attacks are practical,'' {\em Computer
 \bibitem{openssl}
 ``Openssl.'' \url{https://www.openssl.org/}.
 \newblock [Accessed: 2016-04-29].
-
-\bibitem{oren2015spy}
-Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
-  the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
-  arXiv:1502.07373}, 2015.
 
 \bibitem{canteaut2006understanding}
 A.~Canteaut, C.~Lauradoux, and A.~Seznec, ``Understanding cache attacks,''
@@ -121,12 +127,6 @@ E.~W. Felten and M.~A. Schneider, ``Timing attacks on web privacy,'' in {\em
 Y.~Jia, X.~Dong, Z.~Liang, and P.~Saxena, ``I know where you've been:
   Geo-inference attacks via the browser cache,'' {\em Internet Computing,
   IEEE}, vol.~19, no.~1, pp.~44--53, 2015.
-
-\bibitem{van2015clock}
-T.~Van~Goethem, W.~Joosen, and N.~Nikiforakis, ``The clock is still ticking:
-  Timing attacks in the modern web,'' in {\em Proceedings of the 22nd ACM
-  SIGSAC Conference on Computer and Communications Security}, pp.~1382--1393,
-  ACM, 2015.
 
 \bibitem{hund2013practical}
 R.~Hund, C.~Willems, and T.~Holz, ``Practical timing side channel attacks
