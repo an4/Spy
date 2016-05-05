@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{cachehierarchyimg}
+``Module: Cache hierarchy.''
+  \url{http://users.ece.gatech.edu/~sudha/academic/class/ece4100-6100/Lectures/Module8-CacheHierarchy/module.caches.pdf}.
+\newblock [Accessed: 2016-05-05].
+
 \bibitem{menezes1996handbook}
 A.~J. Menezes, P.~C. Van~Oorschot, and S.~A. Vanstone, {\em Handbook of applied
   cryptography}.
@@ -114,11 +119,6 @@ F.~Liu, Y.~Yarom, Q.~Ge, G.~Heiser, and R.~B. Lee, ``Last-level cache
   side-channel attacks are practical,'' in {\em IEEE Symposium on Security and
   Privacy}, pp.~605--622, 2015.
 
-\bibitem{cachehierarchyimg}
-``Module: Cache hierarchy.''
-  \url{http://users.ece.gatech.edu/~sudha/academic/class/ece4100-6100/Lectures/Module8-CacheHierarchy/module.caches.pdf}.
-\newblock [Accessed: 2016-05-05].
-
 \bibitem{hund2013practical}
 R.~Hund, C.~Willems, and T.~Holz, ``Practical timing side channel attacks
   against kernel space aslr,'' in {\em Security and Privacy (SP), 2013 IEEE
@@ -213,6 +213,10 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 \bibitem{craiglist}
 ``Craiglist.'' \url{https://www.craigslist.org/about/sites}.
 \newblock [Accessed: 2016-05-03.
+
+\bibitem{gallery}
+``Gallery.'' \url{http://galleryproject.org/}.
+\newblock [Accessed: 2016-05-05].
 
 \bibitem{googlecharts}
 ``Google charts.'' \url{https://developers.google.com/chart/}.

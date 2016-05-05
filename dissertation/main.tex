@@ -401,7 +401,7 @@ In a 12-way associative cache each cache line can only be stored in 12 positions
 \label{tb:browserattacks}
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and Structured Query Language (SQL) injection. Over the last few years, however, there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
 
-\subsection{Overview of Browser Attacks}
+\subsection{Attack Vectors}
 One of the oldest and most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gain access to the victim's browser history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history
 \cite{jang2010empirical}.
 
@@ -579,11 +579,12 @@ Jia et al. \cite{jia2015know} were able to determine a user's city and neighbour
 
 The paper also presents the advantages of disadvantages of potential countermeasures. Jia et el. \cite{jia2015know} justify that private browsing, the use of anonymization software or randomizing timing measurements do not affect the attack. They suggest that websites should provide a non-geo-targeting version of their website which users can opt to use. The last solution they propose is browser cache segregation, this prevents cross-origin websites from accessing resources cached by the original web site. Although, similar solutions have been proposed before to solve various side channel attack which affect browsers, none of the browser vendors have implemented this solution as it is believed to bring significant performance overhead. They conclude by saying that the same-origin policy on the browser cache is the best available solution and argue that the performance overhead can be reduced \cite{jia2015know}.
 
-The attack presented by Jia et al. \cite{jia2015know} was discovered over a year ago; however, the researchers are exploiting vulnerabilities which have been around for over a decade. The first such attack, discovered by Felten and Schneider \cite{felten2000timing}, is described in Section \ref{feltenschneider}. By far, the most common countermeasure proposed in all the papers, which exploit similar vulnerabilities, is the use of the same-origin policy on the browser's cache memory. Jia et al. \cite{jia2015know} even implemented this feature on an open source browser. It is unclear why browser vendors refuse to add this feature to their software. Previous attacks assumed that introducing the same-origin policy on the browser's cache memory will reduce the performance of the browser software. although Jia et al. \cite{jia2015know} think that the performance overhead can be reduced, there is no implementation which can prove their claim. 
+The attack presented by Jia et al. \cite{jia2015know} was discovered over a year ago; however, the researchers are exploiting vulnerabilities which have been around for over a decade. The first such attack, discovered by Felten and Schneider \cite{felten2000timing}, is described in Section \ref{feltenschneider}. By far, the most common countermeasure proposed in all the papers, which exploit similar vulnerabilities, is the use of the same-origin policy on the browser's cache memory. Jia et al. \cite{jia2015know} even implemented this feature on an open source browser. It is unclear why browser vendors refuse to add this feature to their software. 
+
+Despite the same-origin policy on the browser's cache memory being proposed as a countermeasure against browser cache timing attacks by numerous researchers, it is yet to be implemented in modern browser software. I believe one of the main reasons why browser vendors refuse to add this feature to their software is because it might reduce the browser's performance. Jia et al.\cite{jia2015know} claim that the performance overhead can be reduced; however, they do not provide any physical evidence.
 
 \section{Bortz et al. - Exposing Private Information by Timing Web Application}
 \label{bortz}
-
 Another class of browser attacks was identified by Bortz et al. in \cite{bortz2007exposing}, where they use the time that servers take to respond to HTTP request as a side channel. The paper presents two types of attacks: \textit{direct timing}, where the attacker has direct access to a website, and \textit{cross-site timing}, where the adversary uses the victim's view of the website to obtain private information. The researchers tested their attacks on two real world scenarios: obtaining the value of some boolean condition and estimating the size of hidden data \cite{bortz2007exposing}.
 
 In \textit{direct timing} attacks, the adversary has to access a website and use the timing information obtained to infer certain properties about the secret data. The easiest attack would be a boolean test, where the adversary tests if some condition on the server's hidden data holds or not. For example, the majority of web sites, which require a username and password for log in, have a forgot my password page. The adversary could use that page to obtain a list of valid email addresses as the victim websites usually display an error if the email address is not in their data base. There are known countermeasures against this type of attack such as: limiting the number of tries or requesting additional information; however, there are still websites vulnerable to this simple attack \cite{bortz2007exposing}. 
@@ -602,7 +603,7 @@ In \textit{direct timing} attacks, the adversary has to access a website and use
 </body></html>
 \end{lstlisting}
 
-Direct timing attacks can also be used to estimate the size of hidden data. The paper gives several examples of web applications vulnerable to this type of attack, such as Gallery a photo album organizer. The application allowed users to upload photos and choose if they want to make them public or private. Public means that everyone has access to the photos, while private photos are only accessible by the album's owner. An attacker accessing the album would only see the public photos; however, they could determine the total number of photos in the album, public and private, using timing information. The attack was possible because the server would request all the photos in the album, and then display only the ones the requester had access to Bortz et al. \cite{bortz2007exposing} discovered that the size of the hidden data was strongly correlated to the time it takes to satisfy the request, therefore they were able to accurately determine the size of the hidden data only having access to time measurements. 
+Direct timing attacks can also be used to estimate the size of hidden data. The paper gives several examples of web applications vulnerable to this type of attack, such as Gallery\cite{gallery} a photo album organizer. The application allowed users to upload photos and choose if they want to make them public or private. Public means that everyone has access to the photos, while private photos are only accessible by the album's owner. An attacker accessing the album would only see the public photos; however, they could determine the total number of photos in the album, public and private, using timing information. The attack was possible because the server would request all the photos in the album, and then display only the ones the requester had access to Bortz et al. \cite{bortz2007exposing} discovered that the size of the hidden data was strongly correlated to the time it takes to satisfy the request, therefore they were able to accurately determine the size of the hidden data only having access to time measurements. 
 
 The other kind of attacks presented by Bortz et al. \cite{bortz2007exposing} in their paper are \textit{cross-site timing} attacks. In this type of attacks the adversary gains access to the victim's view of a website. For example, the attacker, Eve, wants to see Alice's view of Bob's Facebook profile page. Eve builds a website, www.eve.com, which when accessed sends a request to Bob's Facebook profile, www.facebook.com/bob. Bob's profile page is private and only visible to Bob's friends. Bob's friends are able to see his photos and wall posts, someone who is not a friend of Bob's will see an empty page. There is a difference in the amount of data received by a user who is friends with Bob and a user who is not. A web application which is able to differentiate between two files of different sizes will also be able to make an assumption about whether or not Alice and Bob are friends. When Alice accesses Eve's malicious application, the website receives Bob's profile information seen from Alice's perspective, approximates the size of the received data based on the time measurements and sends the result to Eve. If the size is less than some threshold (say, 500kB), Eve concludes that Alice and Bob are friends; otherwise, she concludes that the two do no know each other.
 
@@ -627,46 +628,51 @@ The attack model requires a user to access a website containing attacker- contro
 
 In order to evaluate the performance of their attacks, the researchers compared their timing measurement to existing techniques, particularly the method using an \texttt{<img>} element discovered by Bortz et al. and described in \ref{bortz}. They also set up a remote server that would serve four files, each of different size: 50kB, 60kB, 150kB and 250kB. The success of their attack was measured in how easily an attacker can distinguish between the four files \cite{van2015clock}.
 
-\subsection{Video parsing}
+\subsection{Novel Measurement Methods}
+\subsubsection{Video parsing}
 HTML5 introduced two new elements: audio and video which make including audio and video content into web pages as easy as adding an image. Similarly to the Image element, the browser is unable to tell if the resource loaded into the video element is a valid video file until it has finished downloading and parsing it. Video files require additional preprocessing before they can be displayed in order to obtain information such as width, length, type, etc.. If the resource is not a valid video file, the browser will trigger the \texttt{error} event on the Video element once it has finished examining the entire file. The parsing process starts as soon as the file has finished downloading. The new video element, has additional events attached such as \texttt{progress}, which is periodically fired while the file is being downloaded, and \texttt{suspend}, which is triggered once the file has finished downloading. An attacker can obtain the time required to parse a resource by measuring the time elapsed between the \texttt{suspend} and the \texttt{error} events.
 
 Van Goethem et al. discovered that the time needed to parse the file is dependent on the size of the file and could be exploited by an attacker. They were able to successfully distinguish between the three larger files, but the results obtained were not good enough to differentiate between the 50kB and 60kB file. Additionally, in Firefox and IE the \texttt{error} is fired immediately after the resource has finished downloading if it is not a valid fire, therefore the attack is not possible using those browsers \cite{van2015clock}.
 
-\subsection{Application Cache}
+\subsubsection{Application Cache}
 Even though the measurements are not dependent on the network conditions, the total runtime of the attack still is, since every time a file is requested it needs to be downloaded. One way to avoid re-downloading the resource every time is to store it locally. Application Cache is a mechanism used by web developers to allow their applications to run in offline mode. Application Cache has a list of resources which need to be cached and provided from local storage when they are requested. 
 
 Once a resource is cached it will always be fetched from local storage. The researchers discovered that the time it takes to load a file from cache is correlated to the size of the file and used this side channel information to distinguish between the four files. Application Cache gives better results than using the Video element to estimate a file's size.
 
 Van Goethem et al. also tried to combine Application Cache with the Video timing method. This reduced the overall run time of the Video attack since the files only needed to be downloaded once and then they were served from cache \cite{van2015clock}.
 
-\subsection{Service Workers}
+\subsubsection{Service Workers}
 Browser software providers moved from Application Cache to Service Workers, a software that provides similar functionality but is compatible with a larger range of web applications. Service Workers do no interact directly with the main application, they are event driven scripts which are able to overwrite default network behaviour. 
 
 Service Worker are independent of the main application and the process might still be running in the background, even though the tab containing the main application has been closed. This deamon-like property of the Service Workers is very useful for an attacker as it allows a larger time frame for gathering all the timing measurements \cite{van2015clock}.
 
 Service Workers use the Cache API to store resources and later serve them from cache memory. Van Goethem et al. exploited this feature and measured the time it takes to place a file in cache memory. The measurement is entirely dependent on the victim's machine. Out of all the attacks outlined by Van Goethem et al. this one performed the best in distinguishing between the four given files \cite{van2015clock}.
 
-\subsection{Script Parsing}
+\subsubsection{Script Parsing}
 The three methods: video parsing, Application Cache and Service Worker are based on relatively new HTML and JavaScript features. Their paper also shows a method of approximating the size of a file using technologies that have been incorporated into browsers for a long time, the \texttt{<script>} element. Although the measurements obtained using this attack are similar to the previous methods, running the attack requires more work from the adversary.
 
 \subsection{Real-world attacks}
 The aforementioned techniques work on a wide range of browsers, operating systems and devices. On slower devices the attacks provide more accurate measurements and tend to require fewer data \cite{van2015clock}. After identifying new methods of obtaining side-channel information, their paper  presents several real-world scenarios where these attacks can be used to extract personal information from users. 
 
+\subsubsection{Facebook}
 Facebook is the leading global social network with over 1.5 billion monthly active users. Apart from user profiles, Facebook also allows companies and brands to have pages. Pages have the same functionality as a user's profile. Additionally, pages are allowed to limit their status updates to a particular audience, for example users from a specific location, or users between the age of 20 and 25. When a user who is not part of the target audience tries to access the link to the status update, they are presented with a static page which states that the content is not available. Since the size of the static page is smaller than the size of the page containing the status update, this exposes side-channel information allowing an attacker to determine if a user belongs to a specific audience \cite{van2015clock}.
 
+\subsubsection{LinkedIn}
 LinkedIn is a business oriented social network connecting users with recruiters and sales professionals. LinkedIn users can create bi-directional relations with others, known as connections. It is believed that users connect with colleagues, business partners, or friends in the same geographical location. This means that if an attacker is able to determine if two users are connected, they might also find a user's location, employer or other private information \cite{van2015clock}. For example, if a user has over 100 connections working at Google in Mountain View, it is likely that the user also works at Google in Mountain View.
 
+\subsubsection{Twitter}
 Twitter is an online social network that allows uni-directional relations between users and followers. Twitter supports both public accounts, where everybody can see the updates, and private account, where only followers can view the tweets. By checking if a user has access to a tweet from a private account, an attacker can determine if the victim is following the private account or not \cite{van2015clock}.
 
+\subsubsection{Google and Amazon}
 The attacks identified by Van Goethem et. al are not only applicable to social networks, web sites like Google and Amazon are also vulnerable. They discovered that an attacker can estimate the number of results returned for a specific query when the victim is using Google's search engine \cite{van2015clock}. 
+
+\subsection{Countermeasures}
 
 Existing defence mechanisms, adding a random delay or having a fixed response time for all server responses, only protect against attacks that are dependent on network conditions. The attacks proposed by Van Goethem et al. require countermeasures on the client side in order to be prevented.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CACHE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 \section{Oren et al. - Practical Cache Attacks in JavaScript}
 \label{orenetal}
@@ -675,15 +681,7 @@ Another category of Side-Channel Attacks that affect browsers has been identifie
 
 The attack described by Oren et al. targets the last-level cache and is modelled after the PRIME+PROBE method \cite{oren2015spy}. The PRIME+PROBE algorithm was first described by Osvik et al. in the context of the first level cache, L1, in \cite{osvik2006cache}. Liu et al. later extended the attack to last-level caches and systems with support for large pages in \cite{liu2015last}. The work by Oren et al. builds on the findings of Liu et al., but the new attack is written entirely in JavaScript and can be run in the browser, thus is applicable to a wider range of systems. They also show how the attack can be applied in real word scenarios such as spying on the user's browsing activity \cite{oren2015spy}.
 
-In general, the PRIME+PROBE algorithm consists of four steps:
-\begin{enumerate}
-\item In the first stage the attacker creates a buffer with known data.
-\item During the second step the attacker accesses the buffer such that its contents are now in the cache memory, thus bringing the cache into a known state.
-\item In the third step the attacker waits for the victim to perform an operation that might alter the contents of the cache.
-\item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
-\end{enumerate}
-
-Oren et al. use a modified version of the PRIME+PROBE algorithm where instead of monitoring the entire cache memory, they choose an \textit{eviction set}, which is a sequence of addresses that are mapped by the CPU in the same cache set \cite{oren2015spy}. The method for creating an eviction set is presented in Algorithm \ref{evictionsetalg}.
+Oren et al. use a modified version of the PRIME+PROBE algorithm, described in Algorithm \ref{alg:primeprobe}, where instead of monitoring the entire cache memory, they choose an \textit{eviction set}, which is a sequence of addresses that are mapped by the CPU in the same cache set \cite{oren2015spy}. The method for creating an eviction set is presented in Algorithm \ref{evictionsetalg}.
 
 \begin{algorithm}
 Let $S$ be the set of currently unmapped page-aligned addresses, and address $x$ be an arbitrary page-aligned address in memory.
