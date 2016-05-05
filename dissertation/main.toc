@@ -40,16 +40,17 @@
 \contentsline {subsection}{\numberline {3.5.3}Countermeasures}{22}
 \contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{22}
 \contentsline {chapter}{\numberline {4}Project Execution}{25}
-\contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{25}
-\contentsline {subsection}{\numberline {4.1.1}Implementation}{26}
-\contentsline {subsection}{\numberline {4.1.2}Critical Reflection}{29}
-\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{29}
-\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{29}
+\contentsline {section}{\numberline {4.1}JavaScript Cache Timing Attacks}{25}
+\contentsline {subsection}{\numberline {4.1.1}Implementation}{25}
+\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{28}
+\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{28}
 \contentsline {subsubsection}{Back-end}{29}
 \contentsline {subsubsection}{Graph}{32}
 \contentsline {subsubsection}{Guess}{33}
-\contentsline {subsubsection}{Critical Evaluation}{34}
-\contentsline {subsection}{\numberline {4.2.2}Application Cache}{38}
-\contentsline {subsection}{\numberline {4.2.3}Service Worker}{39}
-\contentsline {subsubsection}{Critical Evaluation}{40}
-\contentsline {chapter}{\numberline {5}Conclusion}{43}
+\contentsline {subsection}{\numberline {4.2.2}Application Cache}{34}
+\contentsline {subsection}{\numberline {4.2.3}Service Worker}{34}
+\contentsline {subsection}{\numberline {4.2.4}Critical Evaluation}{36}
+\contentsline {subsubsection}{Video vs. Image}{36}
+\contentsline {subsubsection}{Application Cache}{39}
+\contentsline {subsubsection}{Service Worker}{40}
+\contentsline {chapter}{\numberline {5}Conclusion}{41}

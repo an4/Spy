@@ -274,6 +274,10 @@ SRAM					&:	   & Static Random Access Memory								 \\
 
 Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
 
+Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
+
+Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but they also disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
+
 % -----------------------------------------------------------------------------
 
 \chapter{Technical Background}
@@ -741,18 +745,14 @@ The attack presented by Oren et al. is written entirely in JavaScript. This mean
 %%%%%%%%%%%%%%%%% START HERE %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In Chapter \ref{chap:realtedWork} we reviewed some of the most popular side-channel attacks targeting browser software over the past twenty years. Browsers are affected by a wide range of side-channel attacks from vulnerabilities in CSS, which can be used to reveal a user's browsing history, to JavaScript attacks, which can determine the state of the browser's cache memory, thus allowing an attacker to spy on the victim's browsing activity.
+In Chapter \ref{chap:realtedWork} I reviewed some of the most popular side-channel attacks targeting browser software over the past twenty years. Browsers are affected by a wide range of side-channel attacks from vulnerabilities in CSS, which can be used to reveal a user's browsing history, to JavaScript attacks, which can determine the state of the browser's cache memory, thus allowing an attacker to spy on the victim's browsing activity.
 
-Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
-
-Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but they also disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
-
-I decided to test if two of the attacks discovered in the past year are still possible by trying to recreate them. The first attack I choose is a JavaScript cache attack, which was discovered by Oren et al. \cite{oren2015spy}. Their attack is trying to derive information about the victim's browsing activity by analysing the browser's cache state. Oren et al. \cite{oren2015spy} claim to have been able to determine what websites the victim is accessing. Their attack is possible due to some recently added feature in JavaScript which enables sub-millisecond time measurements.
+In the practical part of my research, I selected two recent attacks for evaluation: my aim was to analyse their practical feasibility in state-of-the-art web browsers. The first attack I choose is a JavaScript cache attack, which was discovered by Oren et al. \cite{oren2015spy}. Their attack is trying to derive information about the victim's browsing activity by analysing the browser's cache state. Oren et al. \cite{oren2015spy} claim to have been able to determine what websites the victim is accessing. Their attack is possible due to some recently added feature in JavaScript which enables sub-millisecond time measurements.
 
 The second attack I decided to test was discovered by Van Goethem et al. \cite{van2015clock}. They use a mix of existing HTML technologies like the \texttt{script} element, and newer browser features like Service Workers, Application Cache and the recently added HTML5 \texttt{video} element, in order to obtain timing data, which can be used to disclose a user's private information.
 
 
-\section{JavaScript Cache Attacks}
+\section{JavaScript Cache Timing Attacks}
 
 The attack described by Oren et al. in \cite{oren2015spy} and explained earlier in Section \ref{orenetal} is possible under the assumption that an adversary can distinguish between a cache miss and a cache hit with probability better than half. I decided to test if the attack is feasible by building a website which checks if the underlying assumption still holds. 
 
@@ -785,7 +785,7 @@ The script allocates an 8MB buffer using the JavaScript Array Buffer object. The
 
 The basic idea behind the algorithm is to measure the time it takes to retrieve a variable from cache and compare it to the time it takes to fetch a variable from RAM. If retrieving the variable from RAM takes significantly longer, an attacker will be able to distinguish a cache miss from a cache hit and therefore the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. The code for measuring the time for one variable is presented in Listing \ref{orentest}.
 
-Cache memory, described in Section \ref{cachememorytb}, is a small high-speed memory, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to recently used resources. The cache memory uses an algorithm to determine which element should be removed from the cache when it becomes full. CPU manufacturers do not make public what algorithms they use and the algorithms are known to change between processor generations. An element accessed from RAM, which is not in the cache memory, will automatically be added to cache for faster future access times. 
+%Cache memory, described in Section \ref{cachememorytb}, is a small high-speed memory, located inside the CPU chip. The main role of the cache memory is to speed up the overall runtime of the system by providing fast access to recently used resources. The cache memory uses an algorithm to determine which element should be removed from the cache when it becomes full. CPU manufacturers do not make public what algorithms they use and the algorithms are known to change between processor generations. An element accessed from RAM, which is not in the cache memory, will automatically be added to cache for faster future access times. 
 
 Generally, in order to bring the contents of the buffer into cache memory, all the elements need to be accesses. The Array Buffer mentioned earlier would have to be accessed byte by byte. Oren et al. \cite{oren2015spy} discovered that if the buffer is accessed in offsets of 1 per every 64 bytes, the slowdown effect when accessing another unrelated variable persists. Therefore, the contents of the buffer are in the cache memory. I use their suggestion in order to speed up the process of moving the contents of the buffer into the cache memory.
 
@@ -823,15 +823,13 @@ I discovered that the JavaScript High Resolution Time API has been updated in re
 Figure \ref{firefox39} shows the two distributions, each represented as a line. As it can be seen, there is a clear difference in time between a variable accessed from RAM and one accessed from the cache memory. The timing data for Figure \ref{firefox39} was collected using Firefox 39. Figure \ref{firefox45} shows the same attack on the newest version of Firefox, Firefox 45, which contains the recent changes made to the JavaScript High Resolution Time API. The two distributions are indistinguishable, due to the loss in precision of the timing API, the two values are the same in most of the cases.
 
 % rewrite nicer
-I have noticed that in the newest versions of Chrome and Firefox, the JavaScript High Resolution Time API provides time measurements accurate to 5 microseconds (5000 nanoseconds). Due to the small time difference between a cache hit and a cache miss (less than 100 nanoseconds) most of the time the two measurements map to the same value. Therefore the two lines overlap as it can be seen in Figure \ref{firefox45}.
+%I have noticed that in the newest versions of Chrome and Firefox, the JavaScript High Resolution Time API provides time measurements accurate to 5 microseconds (5000 nanoseconds). Due to the small time difference between a cache hit and a cache miss (less than 100 nanoseconds) most of the time the two measurements map to the same value. Therefore the two lines overlap as it can be seen in Figure \ref{firefox45}.
  
-The change in the JavaScript timing API made the attack impossible in JavaScript as there are no known JavaScript APIs which provide the needed functionality. Also, browser vendors are aware of this attack and will not longer provide support for APIs which offer time measurements accurate to less than a microsecond. 
-
-Although the recent changes to the JavaScript High Resolution Time API makes the attack impossible in newer versions of the browser, there are still ways in which the attack can be implemented. Oren et al. decided to use JavaScript because it is the most popular client side language, therefore finding a vulnerability in JavaScript will affect a large number of user; however, there are other client side technologies which might still be affected by a similar attack. 
+%The change in the JavaScript timing API made the attack impossible in JavaScript as there are no known JavaScript APIs which provide the needed functionality. Also, browser vendors are aware of this attack and will not longer provide support for APIs which offer time measurements accurate to less than a microsecond. 
+%
+%Although the recent changes to the JavaScript High Resolution Time API makes the attack impossible in newer versions of the browser, there are still ways in which the attack can be implemented. Oren et al. decided to use JavaScript because it is the most popular client side language, therefore finding a vulnerability in JavaScript will affect a large number of user; however, there are other client side technologies which might still be affected by a similar attack. 
 
 The attack was possible due to a feature of the JavaScript High Resolution Time API. Although, web applications do not require sub millisecond time measurements, the developers decided to include this feature in the API and browser vendors included the API in their products. Oren et al. were the first who thought about exploiting this feature and discovered that the an attacker could make use of the high precision time measurements provided by the API in order to obtain information about the state of the cache memory. They used this side channel information to compromise users' privacy by disclosing their browsing activity.
-
-\subsection{Critical Reflection}
  
 \section{JavaScript Timing Attacks}
 \label{vanpe}
@@ -851,7 +849,7 @@ The web application can be split into two parts:
 \item And a second web page which tries to estimate the size of a given file by using the Video method proposed by Van Goethem et al. in \cite{van2015clock}. The web page can be seen in Figure \ref{fig:videoguess}.
 \end{itemize}
 
-The two web pages communicate with a background script which provides the time measuring methods and generates all the data needed for plotting the graph. The script is written entirely in JavaScript. The front-end was built using AngularJS, whose two way data binding simplifies the process of sending data between the background script and the front end parts of the application.
+The two web pages communicate with a background script which provides the time measuring methods and generates all the data needed for plotting the graph. The script is written entirely in JavaScript. The front-end was built using AngularJS\cite{angularjs} , whose two way data binding simplifies the process of sending data between the background script and the front end parts of the application.
 
 \subsubsection{Back-end}
 
@@ -999,7 +997,75 @@ Subtracting the time it takes to parse the 100kB file  from the time it takes to
 
 The function receives the time it takes to parse the unknown file, the times it takes to parse the 100kB and 200kB files. The function is only able to guess the size of files whose actual size is greater than 100kB; however, the parameter's of the function can easily be changed such that it supports files of different sizes. If the time it takes to load the unknown file is less than the time it takes to parse the 100kB file, we return zero. Otherwise we calculate the size of the file as it can be seen in Listing \ref{filesizevideo} and return the resulted value. The result is going to be displayed on the web page in the box located at the bottom of Figure \ref{fig:videoguess}.
 
-\subsubsection{Critical Evaluation}
+\subsection{Application Cache}
+
+The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads the file before every measurement. This increases the overall run-time of the attack since it requires the collection of numerous time measurements for each file. In their paper, they propose the use of Application Cache. AppCache allows resources to be stored locally and be served from local storage when they are requested. 
+
+The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
+
+\subsection{Service Worker}
+\label{webSW}
+
+Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
+
+A Service Worker is a background script, which runs independent of the main web application. Service Workers do not have access to the main application and cannot manipulate the DOM; however, they can communicate with the main application through messages. The website consists of two scripts: a main script which deals with gathering the information from the user and displaying the results, and a Service Worker which monitors network requests and estimates the size of the hidden data.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/sw_size.png}
+\caption{Web application interface for estimating size of file using Service Workers.}
+\label{fig:swguess}
+\end{figure}
+
+The main script is responsible for monitoring the user interaction with the application front-end shown in Figure \ref{fig:swguess}. The user can type a URL in the input field and click the \texttt{GUESS SIZE} button, which will call a function the \texttt{guessSize()} method from the main script. The \texttt{guessSize()} method, shown in Listing \ref{SWimg}, takes the input from the user and tries to load it into an Image object. Once the \texttt{src} attribute on the Image object is set, the browser will send a request to download the external resource. Since the Service Worker is already registered and monitors all network requests made by the page, the request made from \texttt{guessSize()} will be detected by the Service Worker script.
+
+% where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
+
+\begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
+$scope.guessSize = function() {
+	var img = new Image();
+	img.src = $scope.sw.url;
+};
+\end{lstlisting}
+
+The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
+
+\begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
+function putDelete(url, response, cache) {
+    return new Promise(function(resolve, reject) {
+        var end;
+        var start = performance.now();
+        cache.put(url, response.clone()).then(function() {
+            end = performance.now();
+            var time = end-start;
+            cache.delete(url).then(function(res) {
+                resolve(time);
+            });
+        });
+    });
+};
+\end{lstlisting}
+
+In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
+
+The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
+
+The script collects numerous measurements by calling the \texttt{putDelete()} function multiple times and chooses the smallest time value as it is least likely to have been altered by noise. The script is unable to determine the victim's system so we need to compare the time it takes to store the unknown file against files with known size. The application measures the time of storing two files: one of 100kB and one of 200kB, and uses the obtained values to determine the size of the hidden data. The function for determining the cross-origin resource's size can be seen in Listing \ref{SWsize}. The two variables, \texttt{time100} and \texttt{time200}, represent the time it takes to store the 100kB and 200kB files, and \texttt{time} is the time returned after calling the \texttt{putDelete()} method on the unknown file. Once it has calculated the size of the hidden file, the Service Worker sends the result to the main script in order to be displayed as it can be seen in Figure \ref{fig:swguess}.
+
+\begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
+var size = 0;
+if(time > time100) {
+    time -= time100;
+    size += 100;
+    var timeStep = time200 - time100;
+    var x = time/timeStep;
+    size = size + 100 * x;
+}
+\end{lstlisting}
+
+\subsection{Critical Evaluation}
+
+\subsubsection{Video vs. Image}
 
 The first application I built in order to test the attacks discovered by Van Goethem et al. \cite{van2015clock} compares the efficiency of two methods for estimating the size of a file from a cross-origin website. The first method was proposed by Bortz et al. \cite{bortz2007exposing} and measures the time it takes to load an external resource as an Image object, which represents the total download time of the file. The second method was discovered by Van Goethem et al. \cite{van2015clock} and uses the time it takes to load a file from a cross-origin website into a \texttt{video} element to estimate the size of the hidden data. The method used by Van Goethem et al. \cite{van2015clock} measures the time it takes the browser to parse the file, which is dependent on the system on which the website is running rather than network conditions, like in the case of the method proposed by Bortz et al. \cite{bortz2007exposing}. Van Goethem et al. \cite{van2015clock} claim that their method provides more accurate timing measurement. I am going to test this claim by comparing the results obtained by the two methods on different data sets.
 
@@ -1095,77 +1161,10 @@ $800$ kB & $541$ kB & $520$ kB & $634$ kB & $545$ kB & $587$ kB \\
 \label{tab:guessVideo}
 \end{table}
 
-\subsection{Application Cache}
-
-The Video method proposed by Van Goethem et al. \cite{van2015clock} re-downloads the file before every measurement. This increases the overall run-time of the attack since it requires the collection of numerous time measurements for each file. In their paper, they propose the use of Application Cache. AppCache allows resources to be stored locally and be served from local storage when they are requested. 
-
-The files to be cached need to be specified in a manifest file and included in the header of the main HTML file. The first time the web application is opened, the browser will download the resources and store them in the browser's cache for an unlimited time. Van Goethem et al. \cite{van2015clock} observed an overall speed up of the attack when using the AppCache mechanism to store the files locally and then fetch them from local storage before each measurement.
-
+\subsubsection{Application Cache}
 Although, using AppCache improves the speed of the attack and increases the chances of success if the attacker has a short time frame to gather all the needed information, the Application Cache framework is no longer supported by mainstream browsers. AppCache has numerous disadvantages which determined developers to start using a similar technology, Service Workers.
 
-% website tested the attack with app cache - no significant improement + video
-
-\subsection{Service Worker}
-\label{webSW}
-
-Measuring the load time of an external resource when loading it as a Video only works in Chrome. Van Goethem et al. \cite{van2015clock} also used Service Workers in order to determine the size of a cross-origin file. Service Workers are event driven Web Worker which are able to overwrite default network behaviour. They are supported in all mainstream browsers (Chrome, Firefox, Safari). I build another web application, which estimates the size of a given file using Service Workers. The web site can be seen in Figure \ref{fig:swguess}.
-
-A Service Worker is a background script, which runs independent of the main web application. Service Workers do not have access to the main application and cannot manipulate the DOM; however, they can communicate with the main application through messages. The website consists of two scripts: a main script which deals with gathering the information from the user and displaying the results, and a Service Worker which monitors network requests and estimates the size of the hidden data.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/sw_size.png}
-\caption{Web application interface for estimating size of file using Service Workers.}
-\label{fig:swguess}
-\end{figure}
-
-The main script is responsible for monitoring the user interaction with the application front-end shown in Figure \ref{fig:swguess}. The user can type a URL in the input field and click the \texttt{GUESS SIZE} button, which will call a function the \texttt{guessSize()} method from the main script. The \texttt{guessSize()} method, shown in Listing \ref{SWimg}, takes the input from the user and tries to load it into an Image object. Once the \texttt{src} attribute on the Image object is set, the browser will send a request to download the external resource. Since the Service Worker is already registered and monitors all network requests made by the page, the request made from \texttt{guessSize()} will be detected by the Service Worker script.
-
-% where are SW used, introduce Cache Api, cant see the hidden request but we can measure the time it takes to write to cache, again dependent on the system rather than the network
-
-\begin{lstlisting}[caption={Loading file as an Image},label={SWimg}]
-$scope.guessSize = function() {
-	var img = new Image();
-	img.src = $scope.sw.url;
-};
-\end{lstlisting}
-
-The Service Worker script will catch the fetch request and start the process of estimating the file size. Although, Service Workers are generally used to provide an offline version of web applications, they do not automatically store every request the detect in order to serve it from local memory later. Service Workers use the Cache API \cite{cacheAPI} to store all the resources they might need when there is no network connection.
-
-\begin{lstlisting}[caption={JavaScript code for measuring the time it takes to write to cache.},label={putdelete}]
-function putDelete(url, response, cache) {
-    return new Promise(function(resolve, reject) {
-        var end;
-        var start = performance.now();
-        cache.put(url, response.clone()).then(function() {
-            end = performance.now();
-            var time = end-start;
-            cache.delete(url).then(function(res) {
-                resolve(time);
-            });
-        });
-    });
-};
-\end{lstlisting}
-
-In their paper Van Goethem et al. \cite{van2015clock} use the time it takes to write the response to the cache memory as a side channel in order to estimate the size of the hidden data. The Cache API stores (key, value) pairs, where the key is the URL provided by the user, and the value is the response object returned by the Fetch API. The JavaScript function for measuring the time it takes to add the response to cache is presented in Listing \ref{putdelete}. 
-
-The \texttt{putDelete()} method add a key, value pair to cache, measures the time it takes to store the data into the cache object and then removes it from cache. The function uses the JavaScript High Resolution Time API presented in Section \ref{javascript} to measure the time it takes to store the response into the cache object. The Cache API provides methods for adding an object to cache, \texttt{put}, and removing an element from the cache, \texttt{delete}. Both these methods return a promise, which can either be resolved when the operations is successful or rejected an error occurs during the add or remove operations.  
-
-The script collects numerous measurements by calling the \texttt{putDelete()} function multiple times and chooses the smallest time value as it is least likely to have been altered by noise. The script is unable to determine the victim's system so we need to compare the time it takes to store the unknown file against files with known size. The application measures the time of storing two files: one of 100kB and one of 200kB, and uses the obtained values to determine the size of the hidden data. The function for determining the cross-origin resource's size can be seen in Listing \ref{SWsize}. The two variables, \texttt{time100} and \texttt{time200}, represent the time it takes to store the 100kB and 200kB files, and \texttt{time} is the time returned after calling the \texttt{putDelete()} method on the unknown file. Once it has calculated the size of the hidden file, the Service Worker sends the result to the main script in order to be displayed as it can be seen in Figure \ref{fig:swguess}.
-
-\begin{lstlisting}[caption={JavaScript code for estimating the size of a file.},label={SWsize}]
-var size = 0;
-if(time > time100) {
-    time -= time100;
-    size += 100;
-    var timeStep = time200 - time100;
-    var x = time/timeStep;
-    size = size + 100 * x;
-}
-\end{lstlisting}
-
-\subsubsection{Critical Evaluation}
+\subsubsection{Service Worker}
 
 I decided to test the performance of the website described in Section \ref{webSW} by estimating the size of ten files of different sizes ranging from 100kB to 1000kB. The results of the experiment can be seen in Table \ref{tab:guessSW}. There were five measurements collected for each file. As it can be seen from the table, the size of the files estimated by the web application is very close to the actual size of the files.
 
