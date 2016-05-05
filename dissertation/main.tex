@@ -170,14 +170,18 @@
 In general, side-channel attacks record the power consumption, electromagnetic emission, heat dissipation,   execution time or the state of the cache memory while the device is performing an interesting operation and use it to determine the device's internal state which is related to the secret parameters involved in the computation.  This dissertation is about side-channel attacks in the browser, a very powerful category of side-channel attacks which affect browser software and whose aim is to disclose private data about the user through either using timing information (\textit{Timing Attacks}) or the state of the browser's cache memory (\textit{Cache Attacks}). 
 \\\\
 \noindent
-The world of browser attacks is rapidly changing, with new vulnerabilities appearing and disappearing within weeks. 
+The world of browser attacks is rapidly changing, with new vulnerabilities appearing and disappearing within weeks. In general, adversaries have a limited time frame in which they can exploit the vulnerability; however, some side-channel attacks in the browser have been around for decades. This is due to the fact that fixing the vulnerability will bring severe performance penalties to the browser software. 
 \\\\
 \noindent
+Throughout this paper we look at two types of browser side-channel attacks: \textit{cache attacks}, which analyse the state of the browser's cache memory in order to disclose private information about users, such as their browsing activity, and \textit{timing attacks}, which use timing information to reveal a user's browsing history or gain access to their view of a cross-origin website.
+
+\section*{Main Achievements}
 
 \begin{itemize}
-\item Reviewed some of the most important Side-Channel attacks targeting browser software.
-\item Tested if the attack discovered bt Oren et al. \cite{oren2015spy} is still possible.
-\item Implemented the attacks proposed by Van Goethem et al. \cite{van2015clock} and analyse their performance against previous attacks.
+\item I analysed the effectiveness of some of the most popular browser side-channel attacks over the past twenty years. The results are presented in Chapter \ref{chap:realtedWork}.
+\item I implemented a recently released cache attack in the browser and tested if it is still possible.
+\item I evaluated the measuring techniques proposed by Van Goethem et al. \cite{van2015clock} and tested their performance against previous methods. 
+\item I built several web applications which assess the efficiency of the measuring methods presented by Van Goethem et al. \cite{van2015clock}.
 \end{itemize}
 
 % -----------------------------------------------------------------------------
