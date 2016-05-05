@@ -272,11 +272,39 @@ SRAM					&:	   & Static Random Access Memory								 \\
 \chapter{Contextual Background}
 \label{chap:context}
 
-Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
+\section{Topic Background}
 
+The focus of this project are Side-Channel attacks in the browser. Browser attacks are a category of side-channel attacks which target vulnerabilities in the browser software. The aim of this particular kind of attacks is to disclose private data about users by analysing unintentional information leakage.
+
+\subsection{Side-Channel Attacks}
+Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm.
+
+Side-Channel Attacks can be split into two categories based on the goal of the attacker:
+\begin{itemize}
+\item Side-Channel Attacks which target faults in the implementation of cryptographic algorithm in order to recover the secret parameters used in the computation. 
+\item And Side-Channel Attacks whose aim it to disclose the private information about the user, such as browsing activity or history.
+\end{itemize}
+In this dissertation I am going to focus on the second category and present several side-channel attacks which lead to the disclosure of a user's private data.
+
+\subsection{Browser Attacks}
 Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
 
 Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but they also disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
+
+\section{Motivation}
+
+
+
+\section{Aims and Objectives}
+
+The overall goal of this project is to evaluate different browser attacks. Browser attacks are an interesting category of side-channel attack, where new vulnerabilities appear and disappear within weeks. This means that attackers have a limited time frame in which they can exploit potential side channels in the browser software. This motivated me to evaluate the efficiency of several browser attacks released during the past year. The concrete objectives of this project are:
+\begin{enumerate}
+\item To review some of the most popular browser attacks and see if they are still possible.
+\item Implement the JavaScript Cache Timing Attack discovered by Oren et al. \cite{oren2015spy}.
+\item To implement the novel measuring techniques proposed by Van Goethem et al. \cite{van2015clock}.
+\item To compare the measuring techniques described by Van Goethem et al. \cite{van2015clock} with previous work.
+\item To build a web application which uses the methods proposed by Van Goethem et al. \cite{van2015clock} in order to estimate the size of hidden data.
+\end{enumerate}
 
 % -----------------------------------------------------------------------------
 
@@ -1209,6 +1237,8 @@ The aim of this dissertation is to review some of the most important side-channe
 Browser use a wide range of technologies in order to display richer, more interactive and responsive web applications. These technologies leak side channel information which can be disclose private information about users. Felten et al. \cite{felten2000timing} showed that it is possible to determine what resources are in a user's cache. Jia et al.\cite{jia2015know} use a similar technique to derive a user's location. More recently, Bortz et al.\cite{bortz2007exposing} proved that they can estimate the size of a hidden file. The browser's cache memory is not the only source of leakage, Clover\cite{cssvisited} demonstrated that he can disclose what pages a user has visited by requesting the computed style.
 
 Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bortz2007exposing} and present four new techniques for estimating the size of a cross-origin resource: loading the data into a \texttt{<video>} element, loading the data into a \texttt{<script>} element, using Service Workers to measure the time it takes to write the data to local storage and measuring the time it takes to load the file from cache after being stored locally using Application Cache. Van Goethem et al. \cite{van2015clock} claim that their methods are more efficient than the measuring technique discovered by Bortz et al. \cite{bortz2007exposing}. 
+
+Oren et al.\cite{oren2015spy} present an attack written in JavaScript, which runs entirely in the browser. Their attack uses the PRIME+PROBE algorithm, which was previously used to recover the secret parameters in AES\cite{pub2001197}, in order to disclose the state of the victim's cache memory. The attack described by Oren et al.\cite{oren2015spy} tracks the user's behaviour.
 
 
 

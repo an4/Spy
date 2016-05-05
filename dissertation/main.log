@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  5 MAY 2016 21:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.27)  5 MAY 2016 22:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -541,12 +541,12 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 Chapter 1.
 [1
 
-] [2
-
-]
+] [2]
 Chapter 2.
-[3] [4]
-Overfull \hbox (15.0pt too wide) detected at line 361
+[3
+
+] [4]
+Overfull \hbox (15.0pt too wide) detected at line 389
 [][] 
  []
 
@@ -557,7 +557,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <figures/cache.png, id=103, 2160.07pt x 1331.97626pt>
 File: figures/cache.png Graphic file (type png)
  <use figures/cache.png>
-Package pdftex.def Info: figures/cache.png used on input line 374.
+Package pdftex.def Info: figures/cache.png used on input line 402.
 (pdftex.def)             Requested size: 207.61485pt x 128.0374pt.
 
 [6 <./figures/cache.png>] [7]
@@ -592,21 +592,21 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 597.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 625.
  [18] [19]
 [20] [21] [22]
-Overfull \hbox (0.18985pt too wide) in paragraph at lines 686--687
+Overfull \hbox (0.18985pt too wide) in paragraph at lines 714--715
 []\OT1/cmr/m/n/10 The at-tack de-scribed by Oren et al. tar-gets the last-level
  cache and is mod-elled after the PRIME+PROBE
  []
 
 
-Overfull \hbox (15.0pt too wide) detected at line 707
+Overfull \hbox (15.0pt too wide) detected at line 735
 [][] 
  []
 
 
-Overfull \hbox (15.0pt too wide) detected at line 732
+Overfull \hbox (15.0pt too wide) detected at line 760
 [][] 
  []
 
@@ -618,7 +618,7 @@ Chapter 4.
 File: figures/circularlinkedlist.png Graphic file (type png)
 
 <use figures/circularlinkedlist.png>
-Package pdftex.def Info: figures/circularlinkedlist.png used on input line 796.
+Package pdftex.def Info: figures/circularlinkedlist.png used on input line 824.
 
 (pdftex.def)             Requested size: 452.96826pt x 91.0472pt.
 
@@ -629,14 +629,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/firefox39.png Graphic file (type png)
 
 <use figures/firefox39.png>
-Package pdftex.def Info: figures/firefox39.png used on input line 809.
+Package pdftex.def Info: figures/firefox39.png used on input line 837.
 (pdftex.def)             Requested size: 452.96826pt x 158.28722pt.
 
 <figures/firefox45.png, id=177, 1773.62625pt x 620.3175pt>
 File: figures/firefox45.png Graphic file (type png)
 
 <use figures/firefox45.png>
-Package pdftex.def Info: figures/firefox45.png used on input line 816.
+Package pdftex.def Info: figures/firefox45.png used on input line 844.
 (pdftex.def)             Requested size: 452.96826pt x 158.42023pt.
 
 
@@ -654,13 +654,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/interface.png Graphic file (type png)
 
 <use figures/interface.png>
-Package pdftex.def Info: figures/interface.png used on input line 937.
+Package pdftex.def Info: figures/interface.png used on input line 965.
 (pdftex.def)             Requested size: 452.96826pt x 238.9281pt.
  [32 <./figures/interface.png>]
 <figures/guess.png, id=200, 1855.93375pt x 578.16pt>
 File: figures/guess.png Graphic file (type png)
  <use figures/guess.png>
-Package pdftex.def Info: figures/guess.png used on input line 973.
+Package pdftex.def Info: figures/guess.png used on input line 1001.
 (pdftex.def)             Requested size: 452.96826pt x 141.10788pt.
 
 [33 <./figures/guess.png>]
@@ -668,7 +668,7 @@ Package pdftex.def Info: figures/guess.png used on input line 973.
 File: figures/sw_size.png Graphic file (type png)
 
 <use figures/sw_size.png>
-Package pdftex.def Info: figures/sw_size.png used on input line 1015.
+Package pdftex.def Info: figures/sw_size.png used on input line 1043.
 (pdftex.def)             Requested size: 452.96826pt x 104.16965pt.
 
 
@@ -679,7 +679,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/i100L50H.png Graphic file (type png)
 
 <use figures/i100L50H.png>
-Package pdftex.def Info: figures/i100L50H.png used on input line 1087.
+Package pdftex.def Info: figures/i100L50H.png used on input line 1115.
 (pdftex.def)             Requested size: 452.95763pt x 199.16704pt.
 
 
@@ -689,7 +689,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L50H.png Graphic file (type png)
 
 <use figures/v100L50H.png>
-Package pdftex.def Info: figures/v100L50H.png used on input line 1094.
+Package pdftex.def Info: figures/v100L50H.png used on input line 1122.
 (pdftex.def)             Requested size: 452.96526pt x 199.17073pt.
 
 
@@ -699,7 +699,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/i100L100.png Graphic file (type png)
 
 <use figures/i100L100.png>
-Package pdftex.def Info: figures/i100L100.png used on input line 1105.
+Package pdftex.def Info: figures/i100L100.png used on input line 1133.
 (pdftex.def)             Requested size: 452.95836pt x 199.16547pt.
 
 
@@ -709,7 +709,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: figures/v100L100.png Graphic file (type png)
 
 <use figures/v100L100.png>
-Package pdftex.def Info: figures/v100L100.png used on input line 1112.
+Package pdftex.def Info: figures/v100L100.png used on input line 1140.
 (pdftex.def)             Requested size: 452.95427pt x 199.16823pt.
 
 
@@ -719,7 +719,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/i100E.png, id=222, 1127.21124pt x 608.2725pt>
 File: figures/i100E.png Graphic file (type png)
  <use figures/i100E.png>
-Package pdftex.def Info: figures/i100E.png used on input line 1125.
+Package pdftex.def Info: figures/i100E.png used on input line 1153.
 (pdftex.def)             Requested size: 452.97488pt x 199.16197pt.
 
 
@@ -728,7 +728,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <figures/v100E.png, id=223, 1150.2975pt x 613.29124pt>
 File: figures/v100E.png Graphic file (type png)
  <use figures/v100E.png>
-Package pdftex.def Info: figures/v100E.png used on input line 1132.
+Package pdftex.def Info: figures/v100E.png used on input line 1160.
 (pdftex.def)             Requested size: 452.96715pt x 199.16756pt.
 
 
@@ -842,7 +842,7 @@ m/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (67 pages, 961853 bytes).
+Output written on main.pdf (67 pages, 963962 bytes).
 PDF statistics:
  300 PDF objects out of 1000 (max. 8388607)
  198 compressed objects within 2 object streams
