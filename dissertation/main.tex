@@ -274,14 +274,6 @@ SRAM					&:	   & Static Random Access Memory								 \\
 
 Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm. 
 
-The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
-\begin{enumerate}
-\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat dissipation \cite{standaert2010introduction}.
-\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
-\end{enumerate}
-
-Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
-
 % -----------------------------------------------------------------------------
 
 \chapter{Technical Background}
@@ -291,11 +283,24 @@ Side-Channel Attacks are an important class of cryptanalytic techniques. In gene
 %%%%%%%%%%%%%%%%% Vampires %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman \cite{diffie1976new} exponents, find the private key in Rivest-Shamir-Adleman (RSA) \cite{rivest1978method} cryptosystem and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device, which is related to the secret parameters involved in the computation. 
+The chapter covers the technical background for the attacks on browsers that I will investigate in Chapter \ref{chap:realtedWork} and Chapter \ref{chap:execution}. These attacks utilise side channel information related to timing and cache behaviour, which I am going to explain throughout the rest of Chapter \ref{chap:technical}. 
 
+Section \ref{tb:timingattacks} presents some of the most important timing attacks and explains one of the first timing attacks discovered by Kocher\cite{kocher1996timing} against an implementation of the Rivest-Shamir-Adleman (RSA) \cite{rivest1978method} cryptosystem, which was using the \textit{Square and Multiply}\cite{menezes1996handbook} method to compute the modular exponentiation. In Section \ref{tb:cacheAttacks} I describe some of the earlies cache attacks and describe the PRIME+PROBE\cite{osvik2006cache}, which is used in numerous cache attacks \cite{osvik2006cache} and \cite{oren2015spy}. Additionally, I describe how the cache memory works in order to better understand how the attack presented by Oren et al.\cite{oren2015spy} works. The last section of this chapter, Section \ref{tb:browserattacks}, describes some of the most important browser attacks and presents how various browser technologies, such as HTML and JavaScript, are implemented and how they can be used to obtain side channel information.
 
+\paragraph{Side-Channel Attacks}
+
+Side-Channel Attacks are an important class of cryptanalytic techniques. In general, cryptanalysis focuses on studying systems in order to uncover weaknesses that might lead to finding the secret information. Side-Channel Attacks target a specific implementation rather than an abstract algorithm, making them less generic but more powerful \cite{standaert2010introduction}.
+
+The literature classifies physical attacks by either the level of intrusion (invasive or non-invasive attacks) or the degree of interaction between the adversary and the victim (passive or active attacks).
+\begin{enumerate}
+\item Invasive \textit{vs.} non-invasive: Invasive attacks refer to techniques where the device under attack is permanently modified in order to capture information stored in memory areas or data flowing through the data bus, registers, etc.\cite{Tria2011}. Non-invasive attacks only use externally available information such as running time, power consumption, electromagnetic emission or heat dissipation \cite{standaert2010introduction}.
+\item Active \textit{vs.} passive: Active attacks require the adversary to tamper with the device by either causing the algorithm to execute incorrectly (\textit{Fault Injection}) or modifying any part of the physical implementation. In contrast, a Passive Attack or Side-Channel Analysis will monitor the device's behaviour and record variations of the execution time (\textit{Timing Attack}), the power consumption (\textit{Power Analysis}), the electromagnetic emission (\textit{Electro-magnetic analysis - EMA}) or the state of the cache memory (\textit{Cache Attacks}).
+\end{enumerate}
+
+The idea of using Side-Channel information to attack cryptographic schemes was introduced by Kocher in his 1996 paper \cite{kocher1996timing}. Kocher proved that it is possible to find fixed Diffie-Hellman \cite{diffie1976new} exponents, find the private key in RSA \cite{rivest1978method} and break other cryptosystems by analysing the time it takes to perform certain operations. Side-Channel Attacks try to find the correlation between the side channel information and the internal state of the processing device, which is related to the secret parameters involved in the computation. 
 
 \section{Timing Attacks}
+\label{tb:timingattacks}
 
 Timing attacks are one of the oldest categories of side channel attacks, where time measurements are used to recover the secret information. The basic idea behind timing attacks is to learn the secret key based on how long it takes to perform certain operations. In older systems, the time varied depending on the data and the cryptographic key, which would allow an attacker to easily learn the secret information \cite{Koeune2011}.
 
@@ -306,7 +311,7 @@ One of the cryptosystems vulnerable to the timing attack discovered by Kocher \c
 The \textit{Square and Multiply} method computes $c^d \, mod \, N$. The algorithm iterates through every bit of $d$, starting from the most significant bit, $d_w$, down to the least significant bit, $d_0$. The algorithm starts by setting the value of the $result$ variable to 1. For every step of the iteration in the \textit{Square and Multiply} method, the value of $result$ is being squared. If the value of the current bit of $d$, $d_i$ is set to 1, the algorithm makes one additional step and multiplies the $result$ by $c$. At the end of the $for$ loop the algorithm returns the value of $result$, where $result = c^d \, mod \, N$.
 
 \begin{algorithm}
-\caption{Square and Multiply}
+\caption{Square and Multiply \cite{menezes1996handbook}}
 \label{alg:squareandmultiply}
 $d = \{d_w, d_{w-1}, ..., d_1, d_0\}$\\
 $result = 1$\\
@@ -328,6 +333,7 @@ In the years that followed, there have been a series of vulnerabilities discover
 In 2003, Brumley et al. \cite{brumley2005remote} were the first to show that web servers are vulnerable to timing attacks by successfully attacking OpenSSL \cite{openssl}. They were also able to recover the secret exponent in implementations of RSA using the Chinese Remainder Theorem (CRT), which was previously believed to be secure. 
 
 \section{Cache Attacks}
+\label{tb:cacheAttacks}
 Cache attacks are a particular kind of Side-Channel Attacks, which monitor how processes currently running on the device alter the state of the cache memory. Cache attacks are ``not affected by higher-level security mechanisms, like protection rings, virtual memory, hypervisors and sandboxing" as Oren et al. describe them in \cite{oren2015spy}. Cache attack are easy to run as they do not require special equipment or excessive computational power. The only requirement is that the attacker is able to run a spy program which shares the cache memory with the victim \cite{oren2015spy}.
 
 If timing attacks exploit vulnerabilities in the cryptographic algorithm's implementation, which could lead to the discovery of the secret key, cache attacks target the actual device and make use of the fact that memory access is not always performed in constant time \cite{canteaut2006understanding}.
@@ -336,8 +342,11 @@ The idea of using cache memory as a side-channel was first proposed by Hu in \ci
 
 Despite cache vulnerabilities being known for some time, actual cache attack have not been developed until the early 2000s. The idea proposed by Kelsey et al. \cite{kelsey1998side} was later expanded by Page in \cite{page2002theoretical}, who described a theoretical attack against the Data Encryption Standard (DES) \cite{standard1977federal}. A year later, Tsunoo et al. \cite{tsunoo2003cryptanalysis} demonstrated a cache attack against DES and proposed a similar attack against the Advanced Encryption Standard (AES) \cite{pub2001197} .
 
-In 2006, Osvik et al. \cite{osvik2006cache} presented a cache attack against AES based on inter-process leakage. Their paper also describes the PRIME+PROBE algorithm in the context of the first level cache, L1, which was later extended to last level cache (LLC) by Liu et al. \cite{liu2015last}.
+In 2006, Osvik et al.\cite{osvik2006cache} presented a cache attack against AES based on inter-process leakage. Their paper used the PRIME+PROBE algorithm in the context of the first level cache, L1, which was later extended to last level cache (LLC) by Liu et al. \cite{liu2015last}. The PRIME+PROBE algorithm, first described by Osvik et al. \cite{osvik2006cache}, is presented in Algorithm \ref{alg:primeprobe}.
 
+\begin{algorithm}
+\caption{PRIME+PROBE described by Osvik et al.\cite{osvik2006cache} }
+\label{alg:primeprobe}
 In general, the PRIME+PROBE algorithm consists of four steps:
 \begin{enumerate}
 \item In the first stage the attacker creates a buffer with known data.
@@ -345,8 +354,9 @@ In general, the PRIME+PROBE algorithm consists of four steps:
 \item In the third step the attacker waits for the victim to perform an operation that might alter the contents of the cache.
 \item In the final step, the attacker probes the cache by accessing the data stored in the buffer. A probe step with higher latency suggests that the victim's operation evicted some of the buffer's elements from the cache and they now had to be retrieved from the main memory. The attacker learns something about the victim's internal state.
 \end{enumerate}
+\end{algorithm}
 
-Oren et al.  \cite{oren2015spy} built on the work by Liu et al. \cite{liu2015last} and developed a cache attack written in JavaScript, which runs entirely in the browser. Compared to previous cache attacks, where the goal is to recover the secret information, the attack described by Oren et al. \cite{oren2015spy} tracks user behaviour. Their attack uses the state of the cache memory as a side channel to determine a user's browsing activity.
+Oren et al.\cite{oren2015spy} built on the work by Liu et al. \cite{liu2015last} and developed a cache attack written in JavaScript, which runs entirely in the browser. Compared to previous cache attacks, where the goal is to recover the secret information, the attack described by Oren et al. \cite{oren2015spy} tracks user behaviour. Their attack uses the state of the cache memory as a side channel to determine a user's browsing activity.
 
 \subsection{Cache Memory}
 \label{cachememorytb}
@@ -358,7 +368,7 @@ A system can only be as fast as its slowest component. Early computers had extre
 \begin{figure}[h]
 \centering
 \includegraphics[height=4.5cm]{figures/cache.png}
-\caption{Cache Structure}
+\caption{Cache Structure\cite{cachehierarchyimg}}
 \label{fig:cache}
 \end{figure}
 
@@ -387,9 +397,11 @@ The Intel Core i7-4960HQ processor is multi-core 4th generation Intel Core proce
 
 In a 12-way associative cache each cache line can only be stored in 12 positions in the cache memory. The algorithm that determines the mapping between a physical address and an index in cache memory is not public and has changed between processor generations \cite{oren2015spy}. Hund et el. \cite{hund2013practical} were able to reverse engineer the mapping in the case of Sandy Bridge processors.
 
-\subsection{Browser Attacks}
+\section{Browser Attacks}
+\label{tb:browserattacks}
 Traditionally, web browsers were software applications which allow users to view and interact with content on a web page. The expansion of the Internet determined browser vendors to add new features to their software. The transition from static to dynamic web pages, not only brought richer, more interactive and responsive web applications but also opened the way for a new series of attacks, known as browser attacks. The most popular attacks amongst web applications are by far cross-site scripting (XSS) and Structured Query Language (SQL) injection. Over the last few years, however, there has been an increase in attacks of web applications targeting side channel information such as the time it takes to load an external resource.
 
+\subsection{Overview of Browser Attacks}
 One of the oldest and most popular browser attacks is the disclosure of pages the user has previously visited. The majority of browsers change the color of a link if the user has visited it before. The change can easily be done using the CSS:visited pseudo-class. An attacker can request the computed style using JavaScript and therefore gain access to the victim's browser history \cite{cssvisited}. Researchers discovered that this techniques was being used by numerous high-profile websites to obtain a user's browsing history
 \cite{jang2010empirical}.
 
@@ -403,7 +415,7 @@ The measurements techniques used by Bortz et al. \cite{bortz2007exposing} are de
 
 Oren et al. \cite{oren2015spy} identified a new category of side-channel attack which run in the browser. The work described in \cite{oren2015spy} uses the state of the browser's cache memory to determine what web site the victim is currently visiting.
 
-\section{Web Browsers}
+\subsection{Web Browsers}
 
 A web browser is a software used for interacting with web applications. The main functions of web browsers are retrieving the requested resource and displaying it in the browser window. In order to display the web document, browsers use rendering engines. There are multiple rendering engines available and different browsers use different engines. According to \cite{statcounter} the top 3 most popular browsers among desktop and tablet users are Chrome (56\%), Firefox(14\%) and Internet Explorer(12\%). They all use different rendering engines, Chrome uses Blink, Firefox uses Gecko while IE uses Trident\cite{howbrowserswork}.
 
@@ -411,7 +423,7 @@ Rendering engines parse the HTML documents and create an output tree made out of
 
 The DOM is a programming interface which allows a more versatile way of accessing the HTML document. It can be easily manipulated by scripting or programming languages in order to change the structure, style or content of the original document\cite{dom}.
 
-\section{HTML}
+\subsection{HTML}
 HyperText Markup Language, known as HTML, is a markup language used to create web pages. Initially designed as a language for semantically describing scientific documents, HTML became the standard markup language for building web documents. HTML is used to describe the structure and semantic content of a web page, but not its functionality\cite{world1999html}.
 
 HTML consists of a set of elements, which define the structure of web pages. Most HTML elements are composed of a start tag, \texttt{<element>}, and an end tag, \texttt{</element>} ,with the content nested in between the two tags. The end tag is optional and all browsers will display documents which do not contain a matching closing tag for each opened tag; however, this technique can produce unexpected results and it is not recommended. Furthermore, strict HTML document validators require that elements have both a start and an end tag\cite{world1999html}.
@@ -422,10 +434,10 @@ HTML elements can have attributes. Attributes are (key, value) pairs which deter
 
 HTML5 is the 5th and current version of the HTML standard. It was released in 2014 by the World Wide Web Consortium (W3C). The current version of HTML introduced a number of new features aimed at simplifying the incorporation of multimedia and graphical content into web based applications\cite{berjon2014html} such as the Audio and Video elements.
 
-\subsection{Media Elements}
+\subsubsection{Media Elements}
 HTML elements are the basic building blocks of web pages. Apart from providing the overall structure of the web page, some HTML elements are used to embed media into a web page. HTML has always provided support for embedding media into web pages and newer versions of the language further simplify the process by introducing elements aimed exactly at this. The \texttt{<img>} element, available sine HTML 4.1, allows the insertion of images while the \texttt{<audio>} and \texttt{<video>} elements introduced in HTML5 enable audio and video content incorporation into web applications.
 
-\subsubsection{Image}
+\paragraph{Image}
 The \texttt{<img>} tag is used to represent an image in a HTML document. The address to the resource to be displayed is stored in the \texttt{src} attribute. In order to successfully embed an image in a web page, the \texttt{src} attribute has to be present and it must contain a valid non-empty URL\cite{berjon2014html}.
 
 The browser starts by downloading the external resource from the address provided in the \texttt{src} attribute or an alternative address if this is not available. The \texttt{<image>} element has a series of events associated with it, which fire at various times. One such event is the \texttt{load} event, which announces that the browser has finished downloading the resource and is ready to display it. 
@@ -433,14 +445,14 @@ Occasionally, the browser is unable to display the file as an image, due to the 
 
 The browser is unable to identify if the URL stored in the \texttt{src} attribute is a valid image file until it has downloaded the resource. The \texttt{error} event will fire once the file has been downloaded. The total download time of the file is dependent on the resource's size and the speed and stability of the network connection. The time elapsed since the \texttt{src} attribute was set until the \texttt{error} event is triggered on the element grows with the size of the external resource.
 
-\subsubsection{Video and Audio}
+\paragraph{Video and Audio}
 The \texttt{<video>} and \texttt{<audio>} elements were introduced in HTML5 and enable web developers to easily embed audio and video content into their applications. The most recent version of HTML makes the insertion of a video into a web application as easy as adding an image \cite{berjon2014html}.
 
 Similarly to the \texttt{<img>} element, files loaded as a \texttt{Video} or \texttt{Audio} element need to be downloaded before the browser can decide if they are valid video or audio files. Additionally, in some browsers, such as Chrome, the browser needs to parse the contents of the file before it can determine if the resource can be played. This is not the case of Firefox, where the \texttt{error} event will fire as soon as the resource has finished downloading and the browser tries to read its contents. The \texttt{video} and \texttt{audio} elements have additional events associated with them. Apart from the usual, \texttt{error} and \texttt{load} events, the browser is able to tell if the resource loaded as a video is still downloading by firing the \texttt{progress} event or if the resource has finished downloading by triggering the \texttt{suspend} event. 
 
 In order to display a media file, the browser will start by downloading the external resource. While the file is being downloaded the \texttt{progress} event is being triggered. When the file has been fetched or if the downloading process has been paused the \texttt{suspend} event is fired. The browser proceeds by parsing the contents of the file in order to obtain information such as the length, width, height or extension, etc. of the file. If the media resource is not a valid file the browser will not be able to display it and the \texttt{error} event will be triggered on the media element. The time elapsed between the \texttt{suspend} and the \texttt{error} events is depended on the size of the file. The \texttt{error} event fires on the media element when the browser has finished parsing the file in contrast to the \texttt{Image} element, where the event is triggered when the browser learns that the file is not valid, usually as soon as it starts parsing it\cite{berjon2014html}.
 
-\section{JavaScript}
+\subsection{JavaScript}
 \label{javascript}
 JavaScript is an interpreted scripting language generally used on the client side of web applications. Developed independently by both Netscape and Microsoft, it has been standardized by ECMA International under the name ECMAScript. The most recent version is ECMAScript 2017. ECMAScript, and thus JavaScript is supported in all modern browsers. JavaScript is the most widely used client side language \cite{javascriptstats, javascriptabout}.
 
@@ -450,7 +462,7 @@ To add JavaScript to an HTML document the special \texttt{<script>} HTML element
 
 For security reasons, JavaScript has severely restricted access to the system. JavaScript needs the user's explicit permission in order to access system files, even for reading. JavaScript has no notion of pointers and does not support direct memory access. Despite these drawback, there are numerous Application Program Interfaces (APIs) available which provide additional features.
 
-\subsection{Typed Arrays}
+\subsubsection{Typed Arrays}
 \label{typedarray}
 
 JavaScript supports Array, which are used to store multiple elements into a single variable. JavaScript Arrays are dynamically resizeable and can hold anything from objects to another array. One disadvantage of native JavaScript Arrays is that the containing elements do no necessary reside in sequential blocks of memory. This can bring severe performance penalties when sending data to external APIs, such as WebGL \cite{webgl}.
@@ -459,13 +471,13 @@ JavaScript Typed Arrays \cite{typedarrays} are a relatively new API born from th
 
 Compared to the C programming language, JavaScript does not support the declaration of fixed sized arrays. For example, it is impossible to declare an array of 4MB in JavaScript. The Typed Arrays API can be use to solve this issue.
 
-\subsection{High Resolution Time API}
+\subsubsection{High Resolution Time API}
 
 User experience in modern web applications is greatly influenced by the application's performance. As web applications get more and more complex, analysing its performance becomes a key issue. Existing timing APIs provide millisecond time measurements; however, this lacks the precision needed for good understanding of the underlying problem. The JavaScript High Resolution Time API contains one method, \texttt{performance.now}, which returns the number of microseconds elapsed since the page has started loading. 
 
 The JavaScript High Resolution Time API \cite{jshighresolutiontimeapi} provides time measurements accurate to a microsecond. Previous versions of the API used to provide submicrosecond time measurements. Due to security issues, the API had to be changed and it no longer provides such accurate time measurements. Recent versions of Firefox and Chrome restrict the time measurement even further by classifying as 0 all time measurements less than 5 microseconds.
 
-\section{Offline Experience}
+\subsection{Offline Experience}
 Web applications are dependent on network availability and cannot function if there is no network connection or in most cases even if the network connection is unstable or not strong enough. Web applications fall into two categories: those that provide access to data: YouTube, Wikipedia or Twitter and those that let users do stuff: Google Keep, Google Docs or CSS Lint.
 
 The first category has access to large amounts of data, but users only use a small portion of it at a given time. One of the ways such applications can be improved is by retrieving the data faster, which relies mostly on the network provider and not the application developer. The second category of applications handles a small amount of data and most of the computation happens on the client's device. 	The application data rarely changes and it would be a waste of network resources to retrieve the data every time it is used. 
@@ -474,7 +486,7 @@ One solution to avoid these needless overuse of the network would be to store so
 
 The most basic way of storing data is in the browser's cache memory. All browsers are capable of storing web pages if told to do so; however the web developer has no control over the browser's cache. It is up to the browser to decide what pages to keep and what pages to remove from the cache when it becomes full. 
 
-\subsection{Application Cache}
+\subsubsection{Application Cache}
 \label{applicationcachetb}
 Application Cache \cite{appcache} or AppCache is a framework which provides caching of resources in order to be later accessed offline. The AppCache API is part of HTML5 and allows web developers to specify which web pages and resources should be cached by the browser and made available offline.
 
@@ -484,10 +496,10 @@ Although it solves one of the main issues faced by web application developers, o
 
 All this drawbacks determined developers to move away from AppCache and work towards developing new software for improving users' offline experience. Despite major browsers providing software for interacting with the Application Cache mechanism, they are currently removing support for this framework.
 
-\subsection{Web Workers}
+\subsubsection{Web Workers}
 JavaScript is a single-threaded scripting language. Web applications developed using JavaScript have a main UI thread responsible for DOM access and sequentially running the scripts loaded in the HTML documents. If multiple scripts are loaded on the same page, JavaScript will wait for the previous scripts to finish before starting the next one. Long JavaScript tasks would make the application unresponsive so this created a need for multi-threading in JavaScript. One way to achieve multi-threaded behaviour in JavaScript is through web workers. Web workers are background JavaScript scripts that run in parallel to the main application. Web workers do not have DOM access; however, they can communicate with each other and the main UI thread.
 
-\subsection{Service Workers}
+\subsubsection{Service Workers}
 Application Cache was one of the first frameworks whose main role was to provide offline experience in web based applications. Web application developers have to tailor their product to meet the needs of the AppCache mechanism instead of make changes to AppCache to fit the needs of the product. This problem was fixed by Service Workers which allow developers more freedom when determining the offline behaviour of their application.
 
 Service Workers are event driven web workers which sit between the network layer and the application layer. Service Workers were inspired by AppCache, their main purpose is still proving users with the offline experience. What makes Service Workers different is that they give developers complete control over what the offline experience will be. 

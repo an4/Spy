@@ -1,47 +1,49 @@
 \select@language {british}
 \contentsline {chapter}{\numberline {1}Contextual Background}{1}
 \contentsline {chapter}{\numberline {2}Technical Background}{3}
-\contentsline {section}{\numberline {2.1}Timing Attacks}{3}
-\contentsline {section}{\numberline {2.2}Cache Attacks}{4}
-\contentsline {subsection}{\numberline {2.2.1}Cache Memory}{5}
+\contentsline {paragraph}{Side-Channel Attacks}{3}
+\contentsline {section}{\numberline {2.1}Timing Attacks}{4}
+\contentsline {section}{\numberline {2.2}Cache Attacks}{5}
+\contentsline {subsection}{\numberline {2.2.1}Cache Memory}{6}
 \contentsline {subsubsection}{Cache Organization}{6}
-\contentsline {subsubsection}{Intel's Last-Level Cache Structure}{6}
-\contentsline {subsection}{\numberline {2.2.2}Browser Attacks}{7}
-\contentsline {section}{\numberline {2.3}Web Browsers}{8}
-\contentsline {section}{\numberline {2.4}HTML}{8}
-\contentsline {subsection}{\numberline {2.4.1}Media Elements}{8}
-\contentsline {subsubsection}{Image}{9}
-\contentsline {subsubsection}{Video and Audio}{9}
-\contentsline {section}{\numberline {2.5}JavaScript}{9}
-\contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{10}
-\contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{10}
-\contentsline {section}{\numberline {2.6}Offline Experience}{10}
-\contentsline {subsection}{\numberline {2.6.1}Application Cache}{11}
-\contentsline {subsection}{\numberline {2.6.2}Web Workers}{11}
-\contentsline {subsection}{\numberline {2.6.3}Service Workers}{11}
-\contentsline {chapter}{\numberline {3}A Preliminary Analysis of Published Attack Vectors}{13}
-\contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{13}
-\contentsline {section}{\numberline {3.2}CSS Attack}{14}
-\contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{15}
-\contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{16}
-\contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{18}
-\contentsline {subsection}{\numberline {3.5.1}Video parsing}{18}
-\contentsline {subsection}{\numberline {3.5.2}Application Cache}{19}
-\contentsline {subsection}{\numberline {3.5.3}Service Workers}{19}
-\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{19}
-\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{19}
-\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{20}
-\contentsline {chapter}{\numberline {4}Project Execution}{23}
-\contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{23}
-\contentsline {subsection}{\numberline {4.1.1}Implementation}{24}
-\contentsline {subsection}{\numberline {4.1.2}Critical Reflection}{27}
-\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{27}
-\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}
-\contentsline {subsubsection}{Back-end}{27}
-\contentsline {subsubsection}{Graph}{30}
-\contentsline {subsubsection}{Guess}{31}
-\contentsline {subsubsection}{Critical Evaluation}{32}
-\contentsline {subsection}{\numberline {4.2.2}Application Cache}{36}
-\contentsline {subsection}{\numberline {4.2.3}Service Worker}{37}
-\contentsline {subsubsection}{Critical Evaluation}{38}
-\contentsline {chapter}{\numberline {5}Conclusion}{41}
+\contentsline {subsubsection}{Intel's Last-Level Cache Structure}{7}
+\contentsline {section}{\numberline {2.3}Browser Attacks}{7}
+\contentsline {subsection}{\numberline {2.3.1}Overview of Browser Attacks}{8}
+\contentsline {subsection}{\numberline {2.3.2}Web Browsers}{8}
+\contentsline {subsection}{\numberline {2.3.3}HTML}{9}
+\contentsline {subsubsection}{Media Elements}{9}
+\contentsline {paragraph}{Image}{9}
+\contentsline {paragraph}{Video and Audio}{9}
+\contentsline {subsection}{\numberline {2.3.4}JavaScript}{10}
+\contentsline {subsubsection}{Typed Arrays}{10}
+\contentsline {subsubsection}{High Resolution Time API}{11}
+\contentsline {subsection}{\numberline {2.3.5}Offline Experience}{11}
+\contentsline {subsubsection}{Application Cache}{11}
+\contentsline {subsubsection}{Web Workers}{12}
+\contentsline {subsubsection}{Service Workers}{12}
+\contentsline {chapter}{\numberline {3}A Preliminary Analysis of Published Attack Vectors}{15}
+\contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{15}
+\contentsline {section}{\numberline {3.2}CSS Attack}{16}
+\contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{17}
+\contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{18}
+\contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{20}
+\contentsline {subsection}{\numberline {3.5.1}Video parsing}{20}
+\contentsline {subsection}{\numberline {3.5.2}Application Cache}{21}
+\contentsline {subsection}{\numberline {3.5.3}Service Workers}{21}
+\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{21}
+\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{21}
+\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{22}
+\contentsline {chapter}{\numberline {4}Project Execution}{25}
+\contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{25}
+\contentsline {subsection}{\numberline {4.1.1}Implementation}{26}
+\contentsline {subsection}{\numberline {4.1.2}Critical Reflection}{29}
+\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{29}
+\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{29}
+\contentsline {subsubsection}{Back-end}{29}
+\contentsline {subsubsection}{Graph}{32}
+\contentsline {subsubsection}{Guess}{33}
+\contentsline {subsubsection}{Critical Evaluation}{34}
+\contentsline {subsection}{\numberline {4.2.2}Application Cache}{38}
+\contentsline {subsection}{\numberline {4.2.3}Service Worker}{39}
+\contentsline {subsubsection}{Critical Evaluation}{40}
+\contentsline {chapter}{\numberline {5}Conclusion}{43}

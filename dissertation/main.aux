@@ -5,40 +5,55 @@
 \@writefile{toc}{\select@language{british}}
 \@writefile{lof}{\select@language{british}}
 \@writefile{lot}{\select@language{british}}
+\citation{cachehierarchyimg}
+\citation{menezes1996handbook}
+\citation{osvik2006cache}
 \citation{bortz2007exposing}
 \citation{van2015clock}
 \citation{van2015clock}
-\citation{Tria2011}
-\citation{standaert2010introduction}
-\citation{standaert2010introduction}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Contextual Background}{1}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
 \newlabel{chap:context}{{1}{1}}
 \citation{kocher1996timing}
+\citation{rivest1978method}
+\citation{menezes1996handbook}
+\citation{osvik2006cache}
+\citation{osvik2006cache}
+\citation{oren2015spy}
+\citation{oren2015spy}
+\citation{standaert2010introduction}
+\citation{Tria2011}
+\citation{standaert2010introduction}
+\citation{kocher1996timing}
 \citation{diffie1976new}
 \citation{rivest1978method}
 \citation{Koeune2011}
-\citation{kocher1996timing}
-\citation{rivest1978method}
-\citation{diffie1976new}
-\citation{kocher1996timing}
-\citation{rivest1978method}
-\citation{kocher1996timing}
-\citation{kocc2009cryptographic}
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Technical Background}{3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
 \newlabel{chap:technical}{{2}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Timing Attacks}{3}}
+\@writefile{toc}{\contentsline {paragraph}{Side-Channel Attacks}{3}}
+\citation{kocher1996timing}
+\citation{rivest1978method}
+\citation{diffie1976new}
+\citation{kocher1996timing}
+\citation{rivest1978method}
+\citation{kocher1996timing}
+\citation{menezes1996handbook}
+\citation{kocc2009cryptographic}
 \citation{kocher1996timing}
 \citation{dhem1998practical}
 \citation{schindler2000timing}
 \citation{brumley2005remote}
 \citation{brumley2005remote}
 \citation{openssl}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Timing Attacks}{4}}
+\newlabel{tb:timingattacks}{{2.1}{4}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2.1}{\ignorespaces Square and Multiply \cite  {menezes1996handbook}}}{4}}
+\newlabel{alg:squareandmultiply}{{2.1}{4}}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{canteaut2006understanding}
@@ -51,29 +66,35 @@
 \citation{pub2001197}
 \citation{osvik2006cache}
 \citation{liu2015last}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2.1}{\ignorespaces Square and Multiply}}{4}}
-\newlabel{alg:squareandmultiply}{{2.1}{4}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Cache Attacks}{4}}
+\citation{osvik2006cache}
+\citation{osvik2006cache}
 \citation{oren2015spy}
 \citation{liu2015last}
 \citation{oren2015spy}
-\citation{oren2015spy}
-\citation{oren2015spy}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Cache Memory}{5}}
-\newlabel{cachememorytb}{{2.2.1}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Cache Structure}}{5}}
-\newlabel{fig:cache}{{2.1}{5}}
-\citation{oren2015spy}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Cache Attacks}{5}}
+\newlabel{tb:cacheAttacks}{{2.2}{5}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2.2}{\ignorespaces PRIME+PROBE described by Osvik et al.\cite  {osvik2006cache} }}{5}}
+\newlabel{alg:primeprobe}{{2.2}{5}}
+\citation{cachehierarchyimg}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Cache Memory}{6}}
+\newlabel{cachememorytb}{{2.2.1}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Cache Structure\cite  {cachehierarchyimg}}}{6}}
+\newlabel{fig:cache}{{2.1}{6}}
 \@writefile{toc}{\contentsline {subsubsection}{Cache Organization}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{Intel's Last-Level Cache Structure}{6}}
+\citation{oren2015spy}
+\citation{oren2015spy}
+\citation{oren2015spy}
 \citation{oren2015spy}
 \citation{hund2013practical}
 \citation{cssvisited}
 \citation{jang2010empirical}
+\@writefile{toc}{\contentsline {subsubsection}{Intel's Last-Level Cache Structure}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Browser Attacks}{7}}
+\newlabel{tb:browserattacks}{{2.3}{7}}
 \citation{felten2000timing}
 \citation{jia2015know}
 \citation{bortz2007exposing}
@@ -85,49 +106,49 @@
 \citation{oren2015spy}
 \citation{statcounter}
 \citation{howbrowserswork}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Browser Attacks}{7}}
 \citation{howbrowserswork}
 \citation{dom}
 \citation{world1999html}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Overview of Browser Attacks}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Web Browsers}{8}}
 \citation{world1999html}
 \citation{world1999html}
 \citation{world1999html}
 \citation{berjon2014html}
 \citation{berjon2014html}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Web Browsers}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}HTML}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Media Elements}{8}}
 \citation{berjon2014html}
 \citation{berjon2014html}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}HTML}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{Media Elements}{9}}
+\@writefile{toc}{\contentsline {paragraph}{Image}{9}}
+\@writefile{toc}{\contentsline {paragraph}{Video and Audio}{9}}
 \citation{berjon2014html}
 \citation{javascriptstats}
 \citation{javascriptabout}
-\@writefile{toc}{\contentsline {subsubsection}{Image}{9}}
-\@writefile{toc}{\contentsline {subsubsection}{Video and Audio}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}JavaScript}{9}}
-\newlabel{javascript}{{2.5}{9}}
 \citation{webgl}
 \citation{typedarrays}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}JavaScript}{10}}
+\newlabel{javascript}{{2.3.4}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{Typed Arrays}{10}}
+\newlabel{typedarray}{{2.3.4}{10}}
 \citation{jshighresolutiontimeapi}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Typed Arrays}{10}}
-\newlabel{typedarray}{{2.5.1}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}High Resolution Time API}{10}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Offline Experience}{10}}
 \citation{appcache}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Application Cache}{11}}
-\newlabel{applicationcachetb}{{2.6.1}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Web Workers}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.3}Service Workers}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{High Resolution Time API}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}Offline Experience}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{Application Cache}{11}}
+\newlabel{applicationcachetb}{{2.3.5}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{Web Workers}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{Service Workers}{12}}
 \citation{felten2000timing}
 \citation{felten2000timing}
 \citation{felten2000timing}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}A Preliminary Analysis of Published Attack Vectors}{13}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}A Preliminary Analysis of Published Attack Vectors}{15}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{chap:realtedWork}{{3}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{13}}
-\newlabel{feltenschneider}{{3.1}{13}}
+\newlabel{chap:realtedWork}{{3}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{15}}
+\newlabel{feltenschneider}{{3.1}{15}}
 \citation{felten2000timing}
 \citation{felten2000timing}
 \citation{felten2000timing}
@@ -138,7 +159,7 @@
 \citation{cssvisited}
 \citation{felten2000timing}
 \citation{cssvisited}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}CSS Attack}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}CSS Attack}{16}}
 \citation{fixedcssprivacy}
 \citation{tor}
 \citation{jia2015know}
@@ -152,7 +173,7 @@
 \citation{craiglist}
 \citation{jia2015know}
 \citation{jia2015know}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{17}}
 \citation{jia2015know}
 \citation{jia2015know}
 \citation{jia2015know}
@@ -163,10 +184,10 @@
 \citation{bortz2007exposing}
 \citation{bortz2007exposing}
 \citation{bortz2007exposing}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{16}}
-\newlabel{bortz}{{3.4}{16}}
-\newlabel{bortz}{{3.1}{16}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.1}Example JavaScript timing code as shown in \cite  {bortz2007exposing}}{16}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{18}}
+\newlabel{bortz}{{3.4}{18}}
+\newlabel{bortz}{{3.1}{18}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.1}Example JavaScript timing code as shown in \cite  {bortz2007exposing}}{18}}
 \citation{bortz2007exposing}
 \citation{bortz2007exposing}
 \citation{bortz2007exposing}
@@ -182,17 +203,17 @@
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{18}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Video parsing}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Video parsing}{20}}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Application Cache}{19}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Service Workers}{19}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{19}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Application Cache}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Service Workers}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}Script Parsing}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.5}Real-world attacks}{21}}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
@@ -201,28 +222,28 @@
 \citation{osvik2006cache}
 \citation{liu2015last}
 \citation{oren2015spy}
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{20}}
-\newlabel{orenetal}{{3.6}{20}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{22}}
+\newlabel{orenetal}{{3.6}{22}}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.1}{\ignorespaces Oren et al. Algortihm for Creating an Eviction Se.t}}{21}}
-\newlabel{evictionsetalg}{{3.1}{21}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.2}{\ignorespaces Oren et al. Algorithm for Identifying Interesting Cache Regions.}}{22}}
-\newlabel{interestingcacheregions}{{3.2}{22}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.1}{\ignorespaces Oren et al. Algortihm for Creating an Eviction Se.t}}{23}}
+\newlabel{evictionsetalg}{{3.1}{23}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.2}{\ignorespaces Oren et al. Algorithm for Identifying Interesting Cache Regions.}}{24}}
+\newlabel{interestingcacheregions}{{3.2}{24}}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{van2015clock}
 \citation{oren2015spy}
 \citation{googlecharts}
 \citation{oren2015spy}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Project Execution}{23}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Project Execution}{25}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{chap:execution}{{4}{23}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{23}}
+\newlabel{chap:execution}{{4}{25}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}JavaScript Cache Attacks}{25}}
 \citation{oren2015spy}
 \citation{jshighresolutiontimeapi}
 \citation{typedarrays}
@@ -230,25 +251,25 @@
 \citation{dataview}
 \citation{oren2015spy}
 \citation{oren2015spy}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Implementation}{24}}
-\newlabel{orentest}{{4.1}{24}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}Code for comparing access times from RAM vs Cache}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Implementation}{26}}
+\newlabel{orentest}{{4.1}{26}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}Code for comparing access times from RAM vs Cache}{26}}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
 \citation{oren2015spy}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Circular Linked List.}}{25}}
-\newlabel{circularlinkedlist}{{4.1}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Circular Linked List.}}{27}}
+\newlabel{circularlinkedlist}{{4.1}{27}}
 \citation{van2015clock}
 \citation{bortz2007exposing}
 \citation{van2015clock}
 \citation{bortz2007exposing}
 \citation{van2015clock}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable access times in Firefox 39.}}{26}}
-\newlabel{firefox39}{{4.2}{26}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Variable access times in Firefox 45.}}{26}}
-\newlabel{firefox45}{{4.3}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable access times in Firefox 39.}}{28}}
+\newlabel{firefox39}{{4.2}{28}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Variable access times in Firefox 45.}}{28}}
+\newlabel{firefox45}{{4.3}{28}}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{bortz2007exposing}
@@ -257,74 +278,74 @@
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{bortz2007exposing}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Critical Reflection}{27}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{27}}
-\newlabel{vanpe}{{4.2}{27}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{27}}
-\newlabel{vvsi}{{4.2.1}{27}}
-\@writefile{toc}{\contentsline {subsubsection}{Back-end}{27}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Critical Reflection}{29}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}JavaScript Timing Attacks}{29}}
+\newlabel{vanpe}{{4.2}{29}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Video vs. Image}{29}}
+\newlabel{vvsi}{{4.2.1}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{Back-end}{29}}
 \citation{bortz2007exposing}
 \citation{datenow}
 \citation{van2015clock}
-\newlabel{vanimage}{{4.2}{28}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}Measuring the load time of an external resource as an Image}{28}}
+\newlabel{vanimage}{{4.2}{30}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}Measuring the load time of an external resource as an Image}{30}}
 \citation{statcounter}
 \citation{van2015clock}
-\newlabel{vanvideo}{{4.3}{29}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}Measuring the load time of an external resource as a Video}{29}}
-\@writefile{toc}{\contentsline {subsubsection}{Graph}{30}}
+\newlabel{vanvideo}{{4.3}{31}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}Measuring the load time of an external resource as a Video}{31}}
+\@writefile{toc}{\contentsline {subsubsection}{Graph}{32}}
 \citation{fisher1949statistical}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Web application interface for creating graphs.}}{31}}
-\newlabel{fig:videointerface}{{4.4}{31}}
-\newlabel{fisheryates}{{4.4}{31}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}JavaScript implementation of the Fisher-Yates algorithm}{31}}
-\@writefile{toc}{\contentsline {subsubsection}{Guess}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Web application interface for creating graphs.}}{33}}
+\newlabel{fig:videointerface}{{4.4}{33}}
+\newlabel{fisheryates}{{4.4}{33}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}JavaScript implementation of the Fisher-Yates algorithm}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{Guess}{33}}
 \citation{van2015clock}
 \citation{bortz2007exposing}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{bortz2007exposing}
 \citation{van2015clock}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Web application interface for estimating size of file.}}{32}}
-\newlabel{fig:videoguess}{{4.5}{32}}
-\newlabel{filesizevideo}{{4.5}{32}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}JavaScript code for estimating the size of a cross-origin file.}{32}}
-\@writefile{toc}{\contentsline {subsubsection}{Critical Evaluation}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Web application interface for estimating size of file.}}{34}}
+\newlabel{fig:videoguess}{{4.5}{34}}
+\newlabel{filesizevideo}{{4.5}{34}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}JavaScript code for estimating the size of a cross-origin file.}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{Critical Evaluation}{34}}
 \citation{bortz2007exposing}
 \citation{van2015clock}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Data Set 1 - Image}}{33}}
-\newlabel{fig:l50V}{{4.6}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Data Set 1 - Video}}{34}}
-\newlabel{fig:l50I}{{4.7}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Data Set 2 - Image}}{34}}
-\newlabel{fig:l100V}{{4.8}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Data Set 2 - Video}}{35}}
-\newlabel{fig:l100I}{{4.9}{35}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Data Set 3 - Image}}{35}}
-\newlabel{fig:eV}{{4.10}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Data Set 1 - Image}}{35}}
+\newlabel{fig:l50V}{{4.6}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Data Set 1 - Video}}{36}}
+\newlabel{fig:l50I}{{4.7}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Data Set 2 - Image}}{36}}
+\newlabel{fig:l100V}{{4.8}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Data Set 2 - Video}}{37}}
+\newlabel{fig:l100I}{{4.9}{37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Data Set 3 - Image}}{37}}
+\newlabel{fig:eV}{{4.10}{37}}
 \citation{van2015clock}
 \citation{van2015clock}
 \citation{van2015clock}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Data Set 3 - Video}}{36}}
-\newlabel{fig:eI}{{4.11}{36}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Estimation the size of a file using the video method}}{36}}
-\newlabel{tab:guessVideo}{{4.1}{36}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Application Cache}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Data Set 3 - Video}}{38}}
+\newlabel{fig:eI}{{4.11}{38}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Estimation the size of a file using the video method}}{38}}
+\newlabel{tab:guessVideo}{{4.1}{38}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Application Cache}{38}}
 \citation{cacheAPI}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Service Worker}{37}}
-\newlabel{webSW}{{4.2.3}{37}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Web application interface for estimating size of file using Service Workers.}}{37}}
-\newlabel{fig:swguess}{{4.12}{37}}
-\newlabel{SWimg}{{4.6}{37}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}Loading file as an Image}{37}}
-\newlabel{putdelete}{{4.7}{37}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}JavaScript code for measuring the time it takes to write to cache.}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Service Worker}{39}}
+\newlabel{webSW}{{4.2.3}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Web application interface for estimating size of file using Service Workers.}}{39}}
+\newlabel{fig:swguess}{{4.12}{39}}
+\newlabel{SWimg}{{4.6}{39}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}Loading file as an Image}{39}}
+\newlabel{putdelete}{{4.7}{39}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}JavaScript code for measuring the time it takes to write to cache.}{39}}
 \citation{van2015clock}
-\newlabel{SWsize}{{4.8}{38}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}JavaScript code for estimating the size of a file.}{38}}
-\@writefile{toc}{\contentsline {subsubsection}{Critical Evaluation}{38}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Estimation the size of a file using Service Workers}}{39}}
-\newlabel{tab:guessSW}{{4.2}{39}}
+\newlabel{SWsize}{{4.8}{40}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}JavaScript code for estimating the size of a file.}{40}}
+\@writefile{toc}{\contentsline {subsubsection}{Critical Evaluation}{40}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Estimation the size of a file using Service Workers}}{41}}
+\newlabel{tab:guessSW}{{4.2}{41}}
 \citation{felten2000timing}
 \citation{cssvisited}
 \citation{jia2015know}
@@ -333,11 +354,11 @@
 \citation{bortz2007exposing}
 \citation{van2015clock}
 \citation{bortz2007exposing}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{41}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{43}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{5}{41}}
+\newlabel{chap:conclusion}{{5}{43}}
 \citation{van2015clock}
 \citation{bortz2007exposing}
 \citation{bortz2007exposing}
@@ -349,53 +370,55 @@
 \citation{van2015clock}
 \bibstyle{ieeetr}
 \bibdata{main.bib}
-\bibcite{bortz2007exposing}{1}
-\bibcite{van2015clock}{2}
-\bibcite{Tria2011}{3}
-\bibcite{standaert2010introduction}{4}
+\bibcite{menezes1996handbook}{1}
+\bibcite{osvik2006cache}{2}
+\bibcite{bortz2007exposing}{3}
+\bibcite{van2015clock}{4}
 \bibcite{kocher1996timing}{5}
-\bibcite{diffie1976new}{6}
-\bibcite{rivest1978method}{7}
-\bibcite{Koeune2011}{8}
-\bibcite{kocc2009cryptographic}{9}
-\bibcite{dhem1998practical}{10}
-\bibcite{schindler2000timing}{11}
-\bibcite{brumley2005remote}{12}
-\bibcite{openssl}{13}
-\bibcite{oren2015spy}{14}
-\bibcite{canteaut2006understanding}{15}
-\bibcite{hu1992lattice}{16}
-\bibcite{kelsey1998side}{17}
-\bibcite{page2002theoretical}{18}
-\bibcite{standard1977federal}{19}
-\bibcite{tsunoo2003cryptanalysis}{20}
-\bibcite{pub2001197}{21}
-\bibcite{osvik2006cache}{22}
-\bibcite{liu2015last}{23}
-\bibcite{hund2013practical}{24}
-\bibcite{cssvisited}{25}
-\bibcite{jang2010empirical}{26}
-\bibcite{felten2000timing}{27}
-\bibcite{jia2015know}{28}
-\bibcite{statcounter}{29}
-\bibcite{howbrowserswork}{30}
-\bibcite{dom}{31}
-\bibcite{world1999html}{32}
-\bibcite{berjon2014html}{33}
-\bibcite{javascriptstats}{34}
-\bibcite{javascriptabout}{35}
-\bibcite{webgl}{36}
-\bibcite{typedarrays}{37}
-\bibcite{jshighresolutiontimeapi}{38}
-\bibcite{appcache}{39}
-\bibcite{princetonunifelten}{40}
-\bibcite{fixedcssprivacy}{41}
-\bibcite{tor}{42}
-\bibcite{alexa500}{43}
-\bibcite{craiglist}{44}
-\bibcite{googlecharts}{45}
-\bibcite{arraybuffer}{46}
-\bibcite{dataview}{47}
-\bibcite{datenow}{48}
-\bibcite{fisher1949statistical}{49}
-\bibcite{cacheAPI}{50}
+\bibcite{rivest1978method}{6}
+\bibcite{oren2015spy}{7}
+\bibcite{standaert2010introduction}{8}
+\bibcite{Tria2011}{9}
+\bibcite{diffie1976new}{10}
+\bibcite{Koeune2011}{11}
+\bibcite{kocc2009cryptographic}{12}
+\bibcite{dhem1998practical}{13}
+\bibcite{schindler2000timing}{14}
+\bibcite{brumley2005remote}{15}
+\bibcite{openssl}{16}
+\bibcite{canteaut2006understanding}{17}
+\bibcite{hu1992lattice}{18}
+\bibcite{kelsey1998side}{19}
+\bibcite{page2002theoretical}{20}
+\bibcite{standard1977federal}{21}
+\bibcite{tsunoo2003cryptanalysis}{22}
+\bibcite{pub2001197}{23}
+\bibcite{liu2015last}{24}
+\bibcite{cachehierarchyimg}{25}
+\bibcite{hund2013practical}{26}
+\bibcite{cssvisited}{27}
+\bibcite{jang2010empirical}{28}
+\bibcite{felten2000timing}{29}
+\bibcite{jia2015know}{30}
+\bibcite{statcounter}{31}
+\bibcite{howbrowserswork}{32}
+\bibcite{dom}{33}
+\bibcite{world1999html}{34}
+\bibcite{berjon2014html}{35}
+\bibcite{javascriptstats}{36}
+\bibcite{javascriptabout}{37}
+\bibcite{webgl}{38}
+\bibcite{typedarrays}{39}
+\bibcite{jshighresolutiontimeapi}{40}
+\bibcite{appcache}{41}
+\bibcite{princetonunifelten}{42}
+\bibcite{fixedcssprivacy}{43}
+\bibcite{tor}{44}
+\bibcite{alexa500}{45}
+\bibcite{craiglist}{46}
+\bibcite{googlecharts}{47}
+\bibcite{arraybuffer}{48}
+\bibcite{dataview}{49}
+\bibcite{datenow}{50}
+\bibcite{fisher1949statistical}{51}
+\bibcite{cacheAPI}{52}
