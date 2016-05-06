@@ -26,6 +26,31 @@ T.~Van~Goethem, W.~Joosen, and N.~Nikiforakis, ``The clock is still ticking:
   SIGSAC Conference on Computer and Communications Security}, pp.~1382--1393,
   ACM, 2015.
 
+\bibitem{berjon2014html}
+R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
+  and I.~Hickson, ``Html 5.1 specification,'' {\em W3C Working Draft}, 2014.
+
+\bibitem{cssdoc}
+``Css.'' \url{https://developer.mozilla.org/en-US/docs/Web/CSS}.
+\newblock [Accessed: 2016-05-05].
+
+\bibitem{jsdoc}
+``jsdoc.'' \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript}.
+\newblock [Accessed: 2016-05-05].
+
+\bibitem{angularjs}
+``Angularjs.'' \url{https://angularjs.org/}.
+\newblock [Accessed: 2016-05-05].
+
+\bibitem{googlechartsangular}
+``Google charts angular.''
+  \url{https://github.com/angular-google-chart/angular-google-chart}.
+\newblock [Accessed: 2016-05-05].
+
+\bibitem{googlecharts}
+``Google charts.'' \url{https://developers.google.com/chart/}.
+\newblock [Accessed: 2016-04-28].
+
 \bibitem{oren2015spy}
 Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
@@ -161,10 +186,6 @@ T.~Garsiel and P.~Irish, ``How browsers work: Behind the scenes of modern web
 \bibitem{world1999html}
 W.~W.~W. Consortium {\em et~al.}, ``Html 4.01 specification,'' 1999.
 
-\bibitem{berjon2014html}
-R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
-  and I.~Hickson, ``Html 5.1 specification,'' {\em W3C Working Draft}, 2014.
-
 \bibitem{javascriptstats}
 ``Clientside scripting languages popularity.''
   \url{http://w3techs.com/technologies/overview/client_side_language/all}.
@@ -218,10 +239,6 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 ``Gallery.'' \url{http://galleryproject.org/}.
 \newblock [Accessed: 2016-05-05].
 
-\bibitem{googlecharts}
-``Google charts.'' \url{https://developers.google.com/chart/}.
-\newblock [Accessed: 2016-04-28].
-
 \bibitem{arraybuffer}
 ``Array buffer.''
   \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer}.
@@ -231,10 +248,6 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 ``Data view.''
   \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView}.
 \newblock [Accessed: 2016-04-27].
-
-\bibitem{angularjs}
-``Angularjs.'' \url{https://angularjs.org/}.
-\newblock [Accessed: 2016-05-05].
 
 \bibitem{datenow}
 ``Date.now().''
