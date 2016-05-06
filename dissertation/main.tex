@@ -1254,8 +1254,6 @@ Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bor
 
 I investigated their claims and discovered that the methods proposed by Van Goethem et al.\cite{van2015clock} perform better and are generally faster, since they require less measurements, than previously used time measuring techniques, such as the one proposed by Bortz et al.\cite{bortz2007exposing}. Since the release of their paper, browsers have started removing support for Application Cache, due to its limited functionality, therefore the attack they present using AppCache is no longer possible. Out of the four measurement techniques presented in Van Goethem et al.'s \cite{van2015clock} paper, the only one which still affects all the mainstream browsers is the measurement technique which uses Service Workers. 
 
-The attack discovered by Van Goethem et al.\cite{van2015clock} and presented in Section \ref{van} uses relatively new technologies as source of leakage. 
-
 % Oren part
 Oren et al.\cite{oren2015spy} propose e browser cache timing attack which analyses the state of the browser's cache memory in order to disclose a user's browsing activity. Their attack uses the PRIME+PROBE algorithm, which was first used to recover the secret parameters in AES\cite{pub2001197}, in to determine the state of the victim's cache memory. Compared to other cache timing attacks, Oren et al.'s \cite{oren2015spy} attack tracks the user's behaviour rather than the disclosure of private data. The attack is written in JavaScript and runs entirely in the browser. The choice of programming language for implementing the attack, allowed the researchers to target a wider range of people since the requirement for running the attack are limited. 
 
@@ -1263,8 +1261,7 @@ The attack proposed by Oren et al.\cite{oren2015spy} is possible due to a faulty
 
 Oren et al.'s \cite{oren2015spy} is based on the assumption that an attacker can distinguish between a cache hit and a cache miss with high probability, which is possible due to the existence of the JavaScrip High Resolution Time API. The API has been recently updated such that it provides measurements up to a microsecond, which is no longer enough to distinguish between a cache hit and a cache miss. Although, the attack is no longer possible in recent version of the mainstream browser due to the change in the timing API, there might be other APIs available which provide time measurements accurate to a nanosecond.
 
-
-%overall conclusion par, affects lots of people, still possible, new attack vectors
+To conclude, browser attacks are an important class of side-channel attacks which pose an imminent threat to the privacy of online users. Most of these attacks are possible due to browser software using a wide range of third-party resources in order to provide richer, more interactive and dynamic web pages. 
 
 
 
