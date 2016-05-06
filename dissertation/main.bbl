@@ -51,6 +51,20 @@ R.~Berjon, S.~Faulkner, T.~Leithead, E.~D. Navara, E.~O’Connor, S.~Pfeiffer,
 ``Google charts.'' \url{https://developers.google.com/chart/}.
 \newblock [Accessed: 2016-04-28].
 
+\bibitem{ec2}
+``Amazon elastic compute cloud.'' \url{https://aws.amazon.com/ec2/}.
+\newblock [Accessed: 2016-05-06].
+
+\bibitem{gae}
+``Google app engine.'' \url{https://cloud.google.com/appengine/docs}.
+\newblock [Accessed: 2016-05-06].
+
+\bibitem{jang2010empirical}
+D.~Jang, R.~Jhala, S.~Lerner, and H.~Shacham, ``An empirical study of
+  privacy-violating information flows in javascript web applications,'' in {\em
+  Proceedings of the 17th ACM conference on Computer and communications
+  security}, pp.~270--283, ACM, 2010.
+
 \bibitem{oren2015spy}
 Y.~Oren, V.~P. Kemerlis, S.~Sethumadhavan, and A.~D. Keromytis, ``The spy in
   the sandbox--practical cache attacks in javascript,'' {\em arXiv preprint
@@ -152,12 +166,6 @@ R.~Hund, C.~Willems, and T.~Holz, ``Practical timing side channel attacks
 \bibitem{cssvisited}
 ``Css visited pages disclosure,'' 2002.
 
-\bibitem{jang2010empirical}
-D.~Jang, R.~Jhala, S.~Lerner, and H.~Shacham, ``An empirical study of
-  privacy-violating information flows in javascript web applications,'' in {\em
-  Proceedings of the 17th ACM conference on Computer and communications
-  security}, pp.~270--283, ACM, 2010.
-
 \bibitem{felten2000timing}
 E.~W. Felten and M.~A. Schneider, ``Timing attacks on web privacy,'' in {\em
   Proceedings of the 7th ACM conference on Computer and communications
@@ -229,11 +237,11 @@ W.~W.~W. Consortium {\em et~al.}, ``Html 4.01 specification,'' 1999.
 
 \bibitem{alexa500}
 ``Alexa top 500.'' \url{http://www.alexa.com/topsites}.
-\newblock [Accessed: 2016-05-03.
+\newblock [Accessed: 2016-05-03].
 
 \bibitem{craiglist}
 ``Craiglist.'' \url{https://www.craigslist.org/about/sites}.
-\newblock [Accessed: 2016-05-03.
+\newblock [Accessed: 2016-05-03].
 
 \bibitem{gallery}
 ``Gallery.'' \url{http://galleryproject.org/}.

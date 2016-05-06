@@ -253,7 +253,7 @@ Firstly, I would like to thank my supervisor, Dr. Elisabeth Oswald, for her valu
 
 I would like to thank my family for their love and support. Additionally, thanks are owed to my friends for making numerous trips to the Clifton Suspension Bridge.
 
-Finally, to thank the people in MVB 2.09 ("The Back Lab") for providing great advice and making the past 96 days somewhat more bearable. Special thanks must go to Richard Grafton for getting us a sofa.
+Finally, I would like to thank the people in MVB 2.09 ("The Back Lab") for providing great advice and making the past 96 days somewhat more bearable. Special thanks must go to Richard Grafton for getting us a sofa.
 
 
 
@@ -282,7 +282,7 @@ The focus of this project are Side-Channel attacks in the browser. Browser attac
 \subsection{Side-Channel Attacks}
 Timing information, power consumption, electromagnetic emission or heat dissipation measured while the device performs an interesting operation can reveal sensitive information. These leaks, based on physical characteristics are known as \textit{Side Channels}. Side-Channel Attacks (SCA) are a powerful set of attacks which rely on recovering secret data by analysing the device rather than exploiting vulnerabilities in the underlying algorithm.
 
-Side-Channel Attacks can be split into two categories based on the goal of the attacker:
+Side-Channel Attacks can be split in two categories based on the goal of the attacker:
 \begin{itemize}
 \item Side-Channel Attacks which target faults in the implementation of cryptographic algorithm in order to recover the secret parameters used in the computation. 
 \item And Side-Channel Attacks whose aim it to disclose the private information about the user, such as browsing activity or history.
@@ -290,7 +290,7 @@ Side-Channel Attacks can be split into two categories based on the goal of the a
 In this dissertation I am going to focus on the second category and present several side-channel attacks which lead to the disclosure of a user's private data.
 
 \subsection{Browser Attacks}
-Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2) and the Google App Engine (GAE), made the process of running and maintaining web based applications a lot easier. This not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
+Since the invention of the Internet, over twenty years ago, there has been an increase in the number of web based applications. The creation of the Infrastructure as a Service (IaaS) platforms, such as Amazon Elastic Compute Cloud (EC2)\cite{ec2} and the Google App Engine (GAE)\cite{gae}, made the process of running and maintaining web based applications a lot easier. This, not only determined companies to move their business online, but also influenced the development of new web technologies and motivated browser vendors to add more and more features to their software. 
 
 Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but they also disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
 
@@ -302,7 +302,7 @@ Browser attacks are an important category of side channel attacks which affect a
 
 The goal of an attacker in browser side-channel attacks is to disclose private data about the user. This information can be anything from the user's location to what pages they visited and even what pages they are currently browsing.
 
-One might think that browser attack can be avoided by staying away from untrusted websites; however, researchers proven that even high-profile websites use browser side-channel attacks in order to obtain private data about their visitors. Various companies will use the knowledge in different ways. For example, an online store platform might want to display some targeted advertisements in order to increase the visit to purchase ratio on their website, or health insurance providers might want to gain access to what health related web pages their users have previously visited. No matter what the reason behind these attack is, they pose a serious threat to user's privacy.
+One might think that browser attack can be avoided by staying away from untrusted websites; however, researchers \cite{jang2010empirical} proven that even high-profile websites use browser side-channel attacks in order to obtain private data about their visitors. Various companies will use the knowledge in different ways. For example, an online store platform might want to display some targeted advertisements in order to increase the visit to purchase ratio on their website, or health insurance providers might want to gain access to what health related web pages their users have previously visited. No matter what the reason behind these attack is, they pose a serious threat to user's privacy.
 
 \section{Aims and Objectives}
 The overall goal of this project is to evaluate different browser attacks. Browser attacks are an interesting category of side-channel attack, where new vulnerabilities appear and disappear within weeks. This means that attackers have a limited time frame in which they can exploit potential side channels in the browser software. This motivated me to evaluate the efficiency of several browser attacks released during the past year. The concrete objectives of this project are:
@@ -1248,11 +1248,13 @@ $1000$ kB & $855$ kB & $1105$ kB & $1067$ kB & $971$ kB & $1114$ kB \\
 
 The aim of this dissertation is to review some of the most important side-channel attacks, which affect browser software, discovered over the past twenty years. Throughout the course of this dissertation I present some of the attacks, check if they can still be performed today or how efficient the given countermeasures are in preventing the attacks. Additionally, I analyse the performance of two recent side-channel attacks, one using the browser's cache memory to disclose a user's browsing activity, the other one using timing information in order to estimate the size of hidden data.
 
-Browser use a wide range of technologies in order to display richer, more interactive and responsive web applications. These technologies leak side channel information which can be disclose private information about users. Felten et al. \cite{felten2000timing} showed that it is possible to determine what resources are in a user's cache. Jia et al.\cite{jia2015know} use a similar technique to derive a user's location. More recently, Bortz et al.\cite{bortz2007exposing} proved that they can estimate the size of a hidden file. The browser's cache memory is not the only source of leakage, Clover\cite{cssvisited} demonstrated that he can disclose what pages a user has visited by requesting the computed style.
+Browser use a wide range of technologies in order to display richer, more interactive and responsive web applications. These technologies leak side channel information which can be used to disclose private data about users. Felten et al. \cite{felten2000timing} showed that it is possible to determine what resources are in a user's cache. Jia et al.\cite{jia2015know} use a similar technique to derive a user's location. More recently, Bortz et al.\cite{bortz2007exposing} proved that they can estimate the size of a hidden file by simply checking how long it takes to download the resource. The browser's cache memory is not the only source of leakage, Clover\cite{cssvisited} demonstrated that he can determine what pages a user has visited by requesting the computed style.
 
 Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bortz2007exposing} and present four new techniques for estimating the size of a cross-origin resource: loading the data into a \texttt{<video>} element, loading the data into a \texttt{<script>} element, using Service Workers to measure the time it takes to write the data to local storage and measuring the time it takes to load the file from cache after being stored locally using Application Cache. Van Goethem et al. \cite{van2015clock} claim that their methods are more efficient than the measuring technique discovered by Bortz et al. \cite{bortz2007exposing}. 
 
-I discovered that the methods proposed by Van Goethem et al.\cite{van2015clock} perform better and are generally faster, since they require less measurements, than previously used time measuring techniques, such as the one proposed by Bortz et al.\cite{bortz2007exposing}. Since the release of their paper, browser has started removing support for Application Cache, due to its limited functionality, therefore the attack they present using AppCache is no longer possible. Out of the four measurement techniques presented in Van Goethem et al.'s \cite{van2015clock} paper, the only one which still affects all the mainstream browsers is technique which uses Service Workers. 
+I investigated their claims and discovered that the methods proposed by Van Goethem et al.\cite{van2015clock} perform better and are generally faster, since they require less measurements, than previously used time measuring techniques, such as the one proposed by Bortz et al.\cite{bortz2007exposing}. Since the release of their paper, browsers have started removing support for Application Cache, due to its limited functionality, therefore the attack they present using AppCache is no longer possible. Out of the four measurement techniques presented in Van Goethem et al.'s \cite{van2015clock} paper, the only one which still affects all the mainstream browsers is the measurement technique which uses Service Workers. 
+
+The attack discovered by Van Goethem et al.\cite{van2015clock} and presented in Section \ref{van} uses relatively new technologies as source of leakage. 
 
 % Oren part
 Oren et al.\cite{oren2015spy} propose e browser cache timing attack which analyses the state of the browser's cache memory in order to disclose a user's browsing activity. Their attack uses the PRIME+PROBE algorithm, which was first used to recover the secret parameters in AES\cite{pub2001197}, in to determine the state of the victim's cache memory. Compared to other cache timing attacks, Oren et al.'s \cite{oren2015spy} attack tracks the user's behaviour rather than the disclosure of private data. The attack is written in JavaScript and runs entirely in the browser. The choice of programming language for implementing the attack, allowed the researchers to target a wider range of people since the requirement for running the attack are limited. 
@@ -1262,7 +1264,7 @@ The attack proposed by Oren et al.\cite{oren2015spy} is possible due to a faulty
 Oren et al.'s \cite{oren2015spy} is based on the assumption that an attacker can distinguish between a cache hit and a cache miss with high probability, which is possible due to the existence of the JavaScrip High Resolution Time API. The API has been recently updated such that it provides measurements up to a microsecond, which is no longer enough to distinguish between a cache hit and a cache miss. Although, the attack is no longer possible in recent version of the mainstream browser due to the change in the timing API, there might be other APIs available which provide time measurements accurate to a nanosecond.
 
 
-
+%overall conclusion par, affects lots of people, still possible, new attack vectors
 
 
 

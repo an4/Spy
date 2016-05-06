@@ -7,36 +7,36 @@ Warning--can't use both author and editor fields in Tria2011
 Warning--can't use both author and editor fields in Koeune2011
 Warning--empty journal in canteaut2006understanding
 Warning--empty journal in world1999html
-You've used 57 entries,
+You've used 59 entries,
             1876 wiz_defined-function locations,
-            749 strings with 11103 characters,
-and the built_in function-call counts, 11860 in all, are:
-= -- 1197
-> -- 332
+            756 strings with 11255 characters,
+and the built_in function-call counts, 12084 in all, are:
+= -- 1221
+> -- 334
 < -- 0
-+ -- 141
++ -- 143
 - -- 84
-* -- 678
-:= -- 1488
-add.period$ -- 86
-call.type$ -- 57
-change.case$ -- 53
+* -- 684
+:= -- 1510
+add.period$ -- 90
+call.type$ -- 59
+change.case$ -- 55
 chr.to.int$ -- 0
-cite$ -- 61
-duplicate$ -- 594
-empty$ -- 1387
+cite$ -- 63
+duplicate$ -- 602
+empty$ -- 1423
 format.name$ -- 84
-if$ -- 3048
+if$ -- 3112
 int.to.chr$ -- 0
-int.to.str$ -- 57
+int.to.str$ -- 59
 missing$ -- 34
-newline$ -- 203
+newline$ -- 211
 num.names$ -- 31
-pop$ -- 350
+pop$ -- 366
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 398
+skip$ -- 404
 stack$ -- 0
 substring$ -- 639
 swap$ -- 192
@@ -46,6 +46,6 @@ top$ -- 0
 type$ -- 0
 warning$ -- 4
 while$ -- 95
-width$ -- 59
-write$ -- 507
+width$ -- 61
+write$ -- 523
 (There were 4 warnings)
