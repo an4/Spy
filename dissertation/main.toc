@@ -28,22 +28,22 @@
 \contentsline {subsubsection}{Service Workers}{12}
 \contentsline {chapter}{\numberline {3}A Preliminary Analysis of Published Attack Vectors}{15}
 \contentsline {section}{\numberline {3.1}Felten and Schneider - Timing Attacks on Web Privacy}{15}
-\contentsline {section}{\numberline {3.2}CSS Attack}{16}
+\contentsline {section}{\numberline {3.2}CSS Attack}{17}
 \contentsline {section}{\numberline {3.3}Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}{17}
 \contentsline {section}{\numberline {3.4}Bortz et al. - Exposing Private Information by Timing Web Application}{18}
 \contentsline {section}{\numberline {3.5}Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}{20}
-\contentsline {subsection}{\numberline {3.5.1}Novel Measurement Methods}{20}
-\contentsline {subsubsection}{Video parsing}{20}
+\contentsline {subsection}{\numberline {3.5.1}Novel Measurement Methods}{21}
+\contentsline {subsubsection}{Video parsing}{21}
 \contentsline {subsubsection}{Application Cache}{21}
 \contentsline {subsubsection}{Service Workers}{21}
-\contentsline {subsubsection}{Script Parsing}{21}
-\contentsline {subsection}{\numberline {3.5.2}Real-world attacks}{21}
+\contentsline {subsubsection}{Script Parsing}{22}
+\contentsline {subsection}{\numberline {3.5.2}Real-world attacks}{22}
 \contentsline {subsubsection}{Facebook}{22}
 \contentsline {subsubsection}{LinkedIn}{22}
 \contentsline {subsubsection}{Twitter}{22}
-\contentsline {subsubsection}{Google and Amazon}{22}
-\contentsline {subsection}{\numberline {3.5.3}Countermeasures}{22}
-\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{22}
+\contentsline {subsubsection}{Google and Amazon}{23}
+\contentsline {subsection}{\numberline {3.5.3}Countermeasures}{23}
+\contentsline {section}{\numberline {3.6}Oren et al. - Practical Cache Attacks in JavaScript}{23}
 \contentsline {chapter}{\numberline {4}Project Execution}{25}
 \contentsline {section}{\numberline {4.1}JavaScript Cache Timing Attacks}{25}
 \contentsline {subsection}{\numberline {4.1.1}Implementation}{25}

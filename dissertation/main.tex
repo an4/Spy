@@ -291,12 +291,15 @@ Since the invention of the Internet, over twenty years ago, there has been an in
 
 Newer web technologies and updated browsers not only improved the overall user experience and eased the development process, but also opened the way for a new series of attacks, known as browser attacks. One interesting fact about browser attacks is that new vulnerabilities emerge every day, but they also disappear within weeks, which gives adversaries a limited time frame in which they can exploit potential vulnerabilities in web software. It is very rare that vulnerabilities in browser software and web development technologies last more than a year.
 
+Browser attacks fell into two categories: traditional timing attacks, which measure the server's response time in order to derive meaningful information about the state of the website, and cache timing attacks, which investigate the state of the browser's cache memory through measuring the access time of various resources in order to determine if they have been cached or not.
+
 \section{Motivation}
 
+Browser attacks are an important category of side channel attacks which affect a large number of people. In general, these type of attacks require the user to navigate to an untrusted web page, which contains attacker-controlled content. The website runs a script in the background, that collect side channel information which will later be used to disclose private data about the user. 
 
+The goal of an attacker in browser side-channel attacks is to disclose private data about the user. This information can be anything from the user's location to what pages they visited and even what pages they are currently browsing.
 
 \section{Aims and Objectives}
-
 The overall goal of this project is to evaluate different browser attacks. Browser attacks are an interesting category of side-channel attack, where new vulnerabilities appear and disappear within weeks. This means that attackers have a limited time frame in which they can exploit potential side channels in the browser software. This motivated me to evaluate the efficiency of several browser attacks released during the past year. The concrete objectives of this project are:
 \begin{enumerate}
 \item To review some of the most popular browser attacks and see if they are still possible.
@@ -552,6 +555,10 @@ At the moment Service Workers are fully supported in Chrome and Firefox for both
 \chapter{A Preliminary Analysis of Published Attack Vectors}
 \label{chap:realtedWork}
 
+In this chapter I am going to review some of the most important browser attacks, analyse their effectiveness and determine if they are still possible. Section \ref{feltenschneider} describes on of the oldest browser attack, which reveals if a given resource is being fetched over the network or from the browser's cache memory. Another type of browser attacks, outlined in Section \ref{cssatt}, targets a vulnerability in the browser software which grants an attacker access to what links a user's has visited. The attack presented in Section \ref{location} allows the disclosure of a user's location. Bortz et al.\cite{bortz2007exposing} were the first to attack dynamically generated HTML pages and disclose the amount of hidden data a user has access to, the results of their attack are presented in Section \ref{bortz}. In Section \ref{van} I describe a series of novel measuring techniques proposed by Van Goethem et al.\cite{van2015clock}, which can be used to determine the size of a cross-origin file. Section \ref{orenetal} presents a browser cache timing attack, which reveals the user's browsing activity.
+
+I chose the six attack because they target the disclosure of different private information about users: from location to what websites they are currently browsing and the amount of data they have access to on various social media websites. In the rest of this chapter I am going to look at why are these attacks possible and if the proposed countermeasures were efficient in stopping the attacks.
+
 \section{Felten and Schneider - Timing Attacks on Web Privacy}
 \label{feltenschneider}
 Felten and Schneider were the first to identify a vulnerability in the browser's cache mechanism which lets an adversary spy on a user's browsing history. The attack, which uses timing information to determine if a web page has been previously visited by the victim, is described in their 2000 paper \cite{felten2000timing}.
@@ -582,6 +589,7 @@ Felten and Schneider also discuss the possibility of changing the browser's cach
 Although the attack was discovered over 15 years ago, no one has been able to come up with a solution that will both maintain a browser's caching capabilities and protect the user's privacy. 
 
 \section{CSS Attack}
+\label{cssatt}
 
 In 2002, Clover discovered a feature in CSS that would leak what pages a victim has previously visited \cite{cssvisited}. The attack achieves similar results as the the one proposed by Felten and Schneider in \cite{felten2000timing}; however, the feature identified in CSS ``is simpler, more accurate, and more easily abused" as Clover describes it in \cite{cssvisited}.
 
@@ -594,7 +602,7 @@ Clover stated that none of the proposed solutions is a valid countermeasure. He 
 In 2010, Baron, a developer from Mozilla Corporation, presented a method which he claims can stop Clover's attack and announced that Mozilla was planning to include the countermeasure in the new release of the Firefox browser \cite{fixedcssprivacy}. Baron's solution is to change the browser's implementation of the function which requests the computed style such that it sees all URLs as unvisited. When an adversary asks for the computed style, they will be unable to distinguish visited URLs from unvisited ones. Additionally, Baron suggests allowing users to opt out of using the feature which changes the colour of visited links. He agrees, however, that this would not completely stop the attack, since developers can use other techniques to differentiate between visited and unvisited URLs, such as adding a background image to visited links or increasing the font size of visited URLs.
 
 \section{Jia et al. - I Know Where You've Been: Geo-Inference Attacks via the Browser Cache}
-
+\label{location}
 Traditionally a user's location could by determined by checking their IP address; however, multiple studies showed that this can give imprecise results. Users can use anonymization services such as VPNs and the Tor \cite{tor} browser in order to hide their real IP addresses, making the IP address useless when determining their real location. The recent increase in popularity of mobile devices brought new methods of detecting a user's location such as GPS sensors. By default, access to GPS data is turned off and requires a user's explicit permission. 
 
 Geo-location information is treasured by websites which provide location-specific services as it enables a more personalized experience for users. For example, a user accessing Google from within the United Kingdom will be redirected to \textit{www.google.co.uk}. One the other hand, attackers are also interested in obtaining a user's location for various reasons from social engineering attacks to targeted advertisements. Jia et al. \cite{jia2015know} show how it is possible to infer a user's location using side channel information from the browser's cache. They analyse the efficiency of several methods for obtaining a user's geo-location and present different countermeasures and their likelihood of defending against this attack in their paper \cite{jia2015know}.
@@ -651,6 +659,7 @@ Bortz et al. also analysed the efficiency of various countermeasures. The agree 
 The attack presented by Bortz et al. \cite{bortz2007exposing} is vulnerable to changing network conditions. Van Goethem et al. \cite{van2015clock} expand this attack and focus on detecting vulnerabilities in HTML and JavaScript that give more accurate timing measurements by removing the dependency on a victim's network  conditions. The browser timing attack described by Bortz et al. \cite{bortz2007exposing} is still possible; however, in recent years, similar attack but with better performance have been discovered. 
 
 \section{Van Goethem et al. - The Clock is Still Ticking: Timing Attacks in the Modern Web}
+\label{van}
 
 Web-based timing attacks have been around for over a decade; however, it is very rarely that an attacker is able to obtain meaningful information on the state of the user in a cross-origin website since running the attack requires special network conditions. The increase in popularity of mobile devices means that more and more users connect to the Internet over wireless or mobile networks. These types of connections are often unstable and do not meet the necessary requirements to perform a cross-site timing attack. Van Goethem et al. claim to have found new methods to obtain measurements in a cross-site timing attacks which are not dependent on network conditions \cite{van2015clock}.
 
@@ -788,6 +797,8 @@ The attack described by Oren et al. in \cite{oren2015spy} and explained earlier 
 
 The web application has a script running in the background, which measures the time it takes to fetch variables from RAM and from the cache memory. After gathering data from 100 variables, the script plots the values as a line using the Google Charts API \cite{googlecharts} as it can be seen in Figure \ref{firefox39} and Figure \ref{firefox45}. If the two lines do not intersect and there is a significant gap between them like in Figure \ref{firefox39}, it means that the two distributions are distinguishable, therefore an attacker would be able to differentiate between a cache miss and a cache hit with high probability and the system is vulnerable to the attack described by Oren et al.\cite{oren2015spy}. 
 
+The attack by Oren et al. \cite{oren2015spy} is written in JavaScript and runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system, has no notion of pointers and does not support direct memory access.
+
 \begin{lstlisting}[caption={Code for comparing access times from RAM vs Cache},label={orentest},  xleftmargin=0.7cm]
 var variable = 0;
 var startAddress = 0;
@@ -804,8 +815,6 @@ var startTimeCache = window.performance.now();
 current = variable;
 var endTimeCache = window.performance.now();
 \end{lstlisting}
-
-The attack by Oren et al. \cite{oren2015spy} is written in JavaScript and runs entirely in the browser. JavaScript is the most popular client side language and it is supported by all the major browsers, such as Chrome, Firefox, Opera and IE. Despite the attack targeting a wide range of systems due to JavaScript's popularity and support, the choice of programming language increases the difficulty of implementing the attack since JavaScript has severely restricted access to the system, has no notion of pointers and does not support direct memory access.
 
 Even though vanilla JavaScript does not provide all functionality needed for implementing the attack, there are numerous JavaScript APIs available which provide additional features. For the test website I use the JavaScript High Resolution Time API \cite{jshighresolutiontimeapi}, which provides sub millisecond time measurement needed for measuring the time it takes to access the variables. Another requirement for running the attack is the ability to declare buffers of certain size, Oren et al. suggest the use of Typed Arrays, described in Section \ref{typedarray}, which allows the allocation of contiguous blocks of memory of fixed size \cite{typedarrays}. I use Array Buffer \cite{arraybuffer} to declare a fixed size buffer and the Data View \cite{dataview} interface in order to easily manipulate the contents of the Array Buffer buffer. 
 
@@ -917,8 +926,6 @@ Similarly to the Image object, the Video object has an \texttt{error} event asso
 
 The \texttt{error} event associated with the Video element has a slightly different behaviour than the one from the Image element. Additionally, it is known to act differently between browser versions. In Chrome, the \texttt{error} event will fire once the browser has finished parsing the contents of the file and it realizes the resource is not a valid video file. Therefore, the time between the \texttt{suspend} event and the \texttt{error} event is dependent on the size of the file. Firefox, however, does not wait until it has finished parsing the contents of the file and will trigger the \texttt{error} event as soon as the resource has finished downloading, if the file is not valid. Despite the video method only working in Chrome, it is still worth mentioning since, according to \cite{statcounter}, over half of the world's desktop and tablet users use Chrome.
 
-The function described in Listing \ref{vanvideo} returns a promise which resolves to the time measurement once the browser has finished parsing the resource. The function starts  by creating a new Video object which will contain the contents of the cross-origin resource. Again, the events we are monitoring need to be registered before we set the value of the \texttt{src} attribute. Compared to the Image object, where only one event was being watched, for the Video object we are going to use two events, \texttt{error} and \texttt{suspend}.
-
 \begin{lstlisting}[caption={Measuring the load time of an external resource as a Video},label={vanvideo}]
 function measureTimeVideo(url) {
 	return new Promise(function(resolve, reject) {
@@ -938,6 +945,8 @@ function measureTimeVideo(url) {
 	});
 };
 \end{lstlisting}
+
+The function described in Listing \ref{vanvideo} returns a promise which resolves to the time measurement once the browser has finished parsing the resource. The function starts  by creating a new Video object which will contain the contents of the cross-origin resource. Again, the events we are monitoring need to be registered before we set the value of the \texttt{src} attribute. Compared to the Image object, where only one event was being watched, for the Video object we are going to use two events, \texttt{error} and \texttt{suspend}.
 
 After the needed events are registered on the Video object, the function declares a couple of variables, \texttt{timeSuspend} and \texttt{timeError}, which will be used to store the time when the downloading process has started and when it ended. Then, it sets the value of the \texttt{src} attribute to the url where the external resource resides. Once the \texttt{src} attribute is set the browser starts downloading the cross-origin resource and triggers the \texttt{progress} event. The \texttt{progress} event does not need to be watched since it does not provide any information which can help estimate the size of the external resource. 
 
@@ -976,8 +985,6 @@ The Graph generating part provides a user friendly interface as it can be seen i
 
 The application provides two method for measuring the load time the files: video described in Listing \ref{vanvideo}, and audio described in Listing \ref{vanimage}. Users can also change the number of measurements to be recorder for each file, by default the application gathers 50 time measurements for each of the files in the data set. There is also an option for selecting the bin size for the plot.
 
-After setting all the parameters, a user has to click the \texttt{RUN} button in order to generate the graph shown on the right side in Figure \ref{fig:videointerface}. The button calls a JavaScript function, which collects all the user provided information such as what data set to use, how many measurements to collect, what method to use for measuring the loading time and the bin size. The function constructs an object with all the needed information and sends it to the function responsible for collecting the time measurements.
-
 \begin{lstlisting}[caption={JavaScript implementation of the Fisher-Yates algorithm},label={fisheryates}]
 function shuffle(array) {
 	for(var counter=array.length-1; counter > 0; counter--) {
@@ -989,6 +996,8 @@ function shuffle(array) {
 	return array;
 };
 \end{lstlisting}
+
+After setting all the parameters, a user has to click the \texttt{RUN} button in order to generate the graph shown on the right side in Figure \ref{fig:videointerface}. The button calls a JavaScript function, which collects all the user provided information such as what data set to use, how many measurements to collect, what method to use for measuring the loading time and the bin size. The function constructs an object with all the needed information and sends it to the function responsible for collecting the time measurements.
 
 The function receives a list of files for which it has to collect multiple time measurement using the shuffling technique described in the previous section. The function shuffles the files, measures the time it takes to load each of the files one and repeats the process until enough data has been collected. The list of files is shuffled using the Fisher-Yates algorithm \cite{fisher1949statistical} defined in Listing \ref{fisheryates}. After all the necessary data has been collected, the script calls the graph drawing function. The set of measurements for each file is presented as a histogram.  
 
@@ -1238,16 +1247,15 @@ Browser use a wide range of technologies in order to display richer, more intera
 
 Van Goethem et al. \cite{van2015clock} extend the work of Bortz et al. \cite{bortz2007exposing} and present four new techniques for estimating the size of a cross-origin resource: loading the data into a \texttt{<video>} element, loading the data into a \texttt{<script>} element, using Service Workers to measure the time it takes to write the data to local storage and measuring the time it takes to load the file from cache after being stored locally using Application Cache. Van Goethem et al. \cite{van2015clock} claim that their methods are more efficient than the measuring technique discovered by Bortz et al. \cite{bortz2007exposing}. 
 
+I discovered that the methods proposed by Van Goethem et al.\cite{van2015clock} perform better and are generally faster, since they require less measurements, than previously used time measuring techniques, such as the one proposed by Bortz et al.\cite{bortz2007exposing}. Since the release of their paper, browser has started removing support for Application Cache, due to its limited functionality, therefore the attack they present using AppCache is no longer possible. Out of the four measurement techniques presented in Van Goethem et al.'s \cite{van2015clock} paper, the only one which still affects all the mainstream browsers is technique which uses Service Workers. 
 
 % Oren part
-Oren et al.\cite{oren2015spy} propose e browser cache timing attack which analyses the state of the browser's cache memory in order to disclose a user's browsing activity. Their attack uses the PRIME+PROBE algorithm, which was first used to recover the secret parameters in AES\cite{pub2001197}, in to determine the state of the victim's cache memory. Compared to other cache timing attacks, Oren et al.'s \cite{oren2015spy} attack traks the user's behaviour rather than the disclosure of private data. The attack is written in JavaScript and runs entirely in the browser. The choice of programming language for implementing the attack, allowed the researchers to target a wider range of people since the requirement for running the attack are limited. 
+Oren et al.\cite{oren2015spy} propose e browser cache timing attack which analyses the state of the browser's cache memory in order to disclose a user's browsing activity. Their attack uses the PRIME+PROBE algorithm, which was first used to recover the secret parameters in AES\cite{pub2001197}, in to determine the state of the victim's cache memory. Compared to other cache timing attacks, Oren et al.'s \cite{oren2015spy} attack tracks the user's behaviour rather than the disclosure of private data. The attack is written in JavaScript and runs entirely in the browser. The choice of programming language for implementing the attack, allowed the researchers to target a wider range of people since the requirement for running the attack are limited. 
 
 The attack proposed by Oren et al.\cite{oren2015spy} is possible due to a faulty implementation of the JavaScript High Resolution Time API\cite{jshighresolutiontimeapi}. The JavaScript High Resolution Time API is a fairly recent feature of JavaScript which provides sub millisecond time measurements. The motivation behind the API is to allow developers to better analyse the performance of their applications, which was not possible using previous time measuring methods like \texttt{Date.now()}\cite{datenow}. Oren et al.\cite{oren2015spy} discovered that the measurements provided by the API are precise enough to distinguish a cache miss from a cache hit which led to the previously mentioned attack which discloses a user's browsing activity.
 
-%why no longer possible and how it can still happen
+Oren et al.'s \cite{oren2015spy} is based on the assumption that an attacker can distinguish between a cache hit and a cache miss with high probability, which is possible due to the existence of the JavaScrip High Resolution Time API. The API has been recently updated such that it provides measurements up to a microsecond, which is no longer enough to distinguish between a cache hit and a cache miss. Although, the attack is no longer possible in recent version of the mainstream browser due to the change in the timing API, there might be other APIs available which provide time measurements accurate to a nanosecond.
 
-% future work, investigate new APIs
-% use van to disclose a user's network
 
 
 

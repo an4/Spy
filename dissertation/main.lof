@@ -6,10 +6,10 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Circular Linked List.}}{27}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Variable access times in Firefox 39.}}{27}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Variable access times in Firefox 45.}}{28}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Variable access times in Firefox 45.}}{27}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Web application interface for creating graphs.}}{32}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Web application interface for estimating size of file.}}{33}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Web application interface for estimating size of file using Service Workers.}}{35}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Web application interface for estimating size of file using Service Workers.}}{34}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Data Set 1 - Image}}{37}
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Data Set 1 - Video}}{37}
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Data Set 2 - Image}}{38}
