@@ -249,7 +249,13 @@ SRAM					&:	   & Static Random Access Memory								 \\
 \chapter*{Acknowledgements}
 
 \noindent
-%I would like to thank Clifton Suspension Bridge, Sergey Brin and gin.
+Firstly, I would like to thank my supervisor, Dr. Elisabeth Oswald, for her valuable feedback, help and guidance throughout this project. This project would not had been possible without her support and advice. 
+
+I would like to thank my family for their love and support. Additionally, thanks are owed to my friends for making numerous trips to the Clifton Suspension Bridge.
+
+Finally, to thank the people in MVB 2.09 ("The Back Lab") for providing great advice and making the past 96 days somewhat more bearable. Special thanks must go to Richard Grafton for getting us a sofa.
+
+
 
 
 %========================================================================================================
@@ -292,9 +298,11 @@ Browser attacks fell into two categories: traditional timing attacks, which meas
 
 \section{Motivation}
 
-Browser attacks are an important category of side channel attacks which affect a large number of people. In general, these type of attacks require the user to navigate to an untrusted web page, which contains attacker-controlled content. The website runs a script in the background, that collect side channel information which will later be used to disclose private data about the user. 
+Browser attacks are an important category of side channel attacks which affect a large number of people. In general, these type of attacks require minimal set up. A user simply has to navigate to an untrusted web page, which contains attacker-controlled content. The website runs a script in the background, that collect side channel information which will later be used to disclose private data about the user. Most of the time the user is unaware of what is happening in the background.
 
 The goal of an attacker in browser side-channel attacks is to disclose private data about the user. This information can be anything from the user's location to what pages they visited and even what pages they are currently browsing.
+
+One might think that browser attack can be avoided by staying away from untrusted websites; however, researchers proven that even high-profile websites use browser side-channel attacks in order to obtain private data about their visitors. Various companies will use the knowledge in different ways. For example, an online store platform might want to display some targeted advertisements in order to increase the visit to purchase ratio on their website, or health insurance providers might want to gain access to what health related web pages their users have previously visited. No matter what the reason behind these attack is, they pose a serious threat to user's privacy.
 
 \section{Aims and Objectives}
 The overall goal of this project is to evaluate different browser attacks. Browser attacks are an interesting category of side-channel attack, where new vulnerabilities appear and disappear within weeks. This means that attackers have a limited time frame in which they can exploit potential side channels in the browser software. This motivated me to evaluate the efficiency of several browser attacks released during the past year. The concrete objectives of this project are:
